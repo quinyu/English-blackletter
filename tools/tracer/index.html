@@ -4,11 +4,11 @@
 <title>Ductus Tracer</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=Noto+Naskh+Arabic:wght@400;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=Noto+Naskh+Arabic:wght@400;600&display=swap">
 <style>
 /* Layout: a light-box workbench. The manuscript fills a neutral well on the left;
-   the tracing steps, instances and numbers sit in one narrow column on the right.
-   Stacks to one column on phones. */
+   the tracing steps, the reading, the traced letters and their numbers sit in one
+   narrow column on the right. Stacks to one column on phones. */
 :root {
   --bg: #eef0f3;
   --panel: #ffffff;
@@ -19,50 +19,53 @@
   --accent: #2c51ad;          /* lapis */
   --accent-fg: #ffffff;
   --accent-soft: #e4eafa;
+  --done: #1d7a55;
+  --done-soft: #ddf1e7;
   --warn: #9a5b00;
   --danger: #b3261e;
-  /* stroke slots: drawn over the manuscript, which looks the same in both themes */
+  /* drawn over the manuscript, which looks the same in both themes */
   --s-alif: #2a78d6;
   --s-lam1: #eb6834;
   --s-lam2: #129b6b;
   --s-ha: #d55181;
   --s-base: #6b5bd2;
-  --s-free: #2a78d6;
+  --g-base: #2a78d6;
+  --g-x: #eb6834;
   --font-ui: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
   --font-num: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
   --font-ar: "Noto Naskh Arabic", "Amiri", "Geeza Pro", "Times New Roman", serif;
+  --font-lat: "EB Garamond", Garamond, "Iowan Old Style", "Palatino Linotype", Georgia, serif;
   --r: 6px;
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
     --bg: #111317; --panel: #191c22; --fg: #e7e9ee; --muted: #9ba2ae; --line: #2b3039;
     --well: #0b0c0f; --accent: #7c9cf0; --accent-fg: #0d1222; --accent-soft: #1f2840;
-    --warn: #e2a64a; --danger: #f0857d; color-scheme: dark;
+    --done: #5fd0a0; --done-soft: #16301f; --warn: #e2a64a; --danger: #f0857d; color-scheme: dark;
   }
 }
 :root[data-theme="dark"] {
   --bg: #111317; --panel: #191c22; --fg: #e7e9ee; --muted: #9ba2ae; --line: #2b3039;
   --well: #0b0c0f; --accent: #7c9cf0; --accent-fg: #0d1222; --accent-soft: #1f2840;
-  --warn: #e2a64a; --danger: #f0857d; color-scheme: dark;
+  --done: #5fd0a0; --done-soft: #16301f; --warn: #e2a64a; --danger: #f0857d; color-scheme: dark;
 }
 * { box-sizing: border-box; }
+[hidden] { display: none !important; }
 html, body { height: 100%; }
-body {
-  margin: 0; background: var(--bg); color: var(--fg);
-  font: 14px/1.45 var(--font-ui);
-}
+body { margin: 0; background: var(--bg); color: var(--fg); font: 14px/1.45 var(--font-ui); }
 button, input, select, textarea { font: inherit; color: inherit; }
-.app {
-  height: 100%; display: grid; grid-template-rows: auto 1fr; grid-template-columns: minmax(0, 1fr);
-}
+.app { height: 100%; display: grid; grid-template-rows: auto 1fr; grid-template-columns: minmax(0, 1fr); }
 header.bar {
   display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px;
   padding-block: 10px; padding-inline: 16px;
   background: var(--panel); border-bottom: 1px solid var(--line);
 }
 .brand { display: flex; align-items: baseline; gap: 10px; min-width: 0; }
-.brand h1 { margin: 0; font-size: 17px; font-weight: 600; letter-spacing: 0.01em; }
-.brand .src { color: var(--muted); font-size: 12.5px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 46ch; }
+.brand h1 { margin: 0; font-size: 17px; font-weight: 600; letter-spacing: 0.01em; white-space: nowrap; }
+.brand select {
+  height: 32px; padding: 0 8px; border-radius: var(--r); border: 1px solid var(--line); background: var(--bg);
+  max-width: 100%; min-width: 0;
+}
 .tools { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-left: auto; }
 .btn {
   display: inline-flex; align-items: center; gap: 6px; height: 32px; padding: 0 12px;
@@ -70,7 +73,7 @@ header.bar {
   cursor: pointer; white-space: nowrap;
 }
 .btn:hover { border-color: var(--accent); }
-.btn:focus-visible, input:focus-visible, textarea:focus-visible, .inst:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+.btn:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-visible, .inst:focus-visible, .ch:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
 .btn.primary { background: var(--accent); color: var(--accent-fg); border-color: var(--accent); }
 .btn.on { background: var(--accent-soft); border-color: var(--accent); }
 .btn.small { height: 26px; padding: 0 9px; font-size: 12.5px; }
@@ -81,9 +84,7 @@ header.bar {
 .thr { display: inline-flex; align-items: center; gap: 6px; color: var(--muted); font-size: 12.5px; }
 .thr input { width: 90px; accent-color: var(--accent); }
 .zoom { display: inline-flex; gap: 4px; }
-main.work {
-  min-height: 0; display: grid; grid-template-columns: minmax(0, 1fr) 360px;
-}
+main.work { min-height: 0; display: grid; grid-template-columns: minmax(0, 1fr) 380px; }
 .stage { position: relative; min-width: 0; min-height: 0; background: var(--well); overflow: hidden; touch-action: none; }
 .stage canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
 .stage.pan { cursor: grab; }
@@ -95,49 +96,68 @@ main.work {
 }
 .notice {
   position: absolute; left: 12px; right: 12px; top: 12px; max-width: 60ch; padding: 10px 12px;
-  border-radius: var(--r); background: var(--panel); color: var(--fg); border: 1px solid var(--line);
-  font-size: 13px;
+  border-radius: var(--r); background: var(--panel); color: var(--fg); border: 1px solid var(--line); font-size: 13px;
+}
+.toast {
+  position: absolute; right: 12px; top: 12px; padding: 6px 10px; border-radius: var(--r);
+  background: var(--panel); border: 1px solid var(--line); font-size: 12.5px; max-width: 70%;
 }
 aside.side {
   min-height: 0; overflow-y: auto; background: var(--panel); border-left: 1px solid var(--line);
   display: flex; flex-direction: column; gap: 18px; padding-block: 16px; padding-inline: 16px;
 }
-section h2 {
-  margin: 0 0 8px; font-size: 11.5px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--muted);
-}
-.step {
-  border: 1px solid var(--line); border-radius: var(--r); padding: 12px; display: grid; gap: 10px;
-}
+section h2 { margin: 0 0 8px; font-size: 11.5px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+.step { border: 1px solid var(--line); border-radius: var(--r); padding: 12px; display: grid; gap: 10px; }
 .step .prompt { display: flex; align-items: center; gap: 10px; font-size: 15px; font-weight: 500; text-wrap: balance; }
 .chip { width: 12px; height: 12px; border-radius: 3px; flex: none; }
 .step .sub { color: var(--muted); font-size: 12.5px; }
 .row { display: flex; flex-wrap: wrap; gap: 6px; }
-.list { display: grid; gap: 4px; }
+.list { display: grid; gap: 4px; max-height: 260px; overflow-y: auto; }
 .inst {
-  display: grid; grid-template-columns: 34px minmax(0, 1fr) auto; align-items: center; gap: 8px;
+  display: grid; grid-template-columns: 48px minmax(0, 1fr) auto; align-items: center; gap: 8px;
   padding: 6px 8px; border-radius: var(--r); border: 1px solid transparent; cursor: pointer; background: none; text-align: left; width: 100%;
 }
 .inst:hover { border-color: var(--line); }
 .inst.sel { border-color: var(--accent); background: var(--accent-soft); }
 .inst .id { font: 500 13px var(--font-num); }
-.inst .ctx { font-family: var(--font-ar); font-size: 15px; direction: rtl; text-align: right; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; min-width: 0; }
+.inst .ctx { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; min-width: 0; }
+.inst .ctx.ar { font-family: var(--font-ar); font-size: 15px; direction: rtl; text-align: right; }
+.inst .ctx.lat { font-family: var(--font-lat); font-size: 16px; }
 .inst .meta { color: var(--muted); font: 12px var(--font-num); font-variant-numeric: tabular-nums; }
 .inst .meta.todo { color: var(--warn); }
+.reading { position: relative; display: grid; gap: 2px; max-height: 340px; overflow-y: auto; border: 1px solid var(--line); border-radius: var(--r); padding: 6px; }
+.rline { display: grid; grid-template-columns: 28px minmax(0, 1fr); gap: 6px; align-items: baseline; padding: 2px 4px; border-radius: 4px; }
+.rline.cur { background: var(--accent-soft); }
+.rline .num { font: 11.5px var(--font-num); color: var(--muted); cursor: pointer; text-align: right; }
+.rline .txt { font: 17px/1.5 var(--font-lat); min-width: 0; overflow-wrap: anywhere; }
+.rline .txt.title { letter-spacing: .04em; font-size: 15px; }
+.ch { cursor: pointer; border-radius: 3px; padding: 0 0.5px; border: 0; background: none; font: inherit; color: inherit; }
+.ch:hover { background: var(--accent-soft); }
+.ch.traced { color: var(--done); background: var(--done-soft); }
+.ch.armed { background: var(--accent); color: var(--accent-fg); }
+.ch.selected { outline: 2px solid var(--accent); }
 .fields { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 8px 10px; align-items: center; }
 .fields label { color: var(--muted); font-size: 12.5px; }
 .fields input[type=text], .fields input[type=number] {
   height: 30px; padding: 0 8px; border-radius: var(--r); border: 1px solid var(--line); background: var(--bg); min-width: 0; width: 100%;
 }
 .fields input.ar { font-family: var(--font-ar); font-size: 16px; }
+.fields input.lat { font-family: var(--font-lat); font-size: 17px; }
 .flags { display: flex; flex-wrap: wrap; gap: 4px 12px; font-size: 12.5px; }
 .flags label { display: inline-flex; gap: 5px; align-items: center; color: var(--fg); }
 .flags input { accent-color: var(--accent); }
+.strokes { display: grid; gap: 4px; font-size: 12.5px; }
+.strokes .s { display: flex; align-items: center; gap: 8px; }
+.strokes .s .nm { flex: 1; min-width: 0; }
+.strokes .s .pts { color: var(--muted); font: 12px var(--font-num); }
 table.nums { width: 100%; border-collapse: collapse; font-size: 12.5px; }
 table.nums th, table.nums td { padding: 4px 4px; border-bottom: 1px solid var(--line); text-align: right; font-variant-numeric: tabular-nums; }
 table.nums th:first-child, table.nums td:first-child { text-align: left; }
 table.nums th { color: var(--muted); font-weight: 500; }
 table.nums td { font-family: var(--font-num); }
 table.nums td:first-child { font-family: var(--font-ui); }
+table.nums td.lat { font-family: var(--font-lat); font-size: 16px; }
+.selnums { font: 12.5px var(--font-num); color: var(--fg); margin: 0 0 8px; }
 .fine { color: var(--muted); font-size: 12px; margin: 6px 0 0; }
 textarea.json {
   width: 100%; height: 140px; resize: vertical; border: 1px solid var(--line); border-radius: var(--r);
@@ -146,10 +166,6 @@ textarea.json {
 .confirm { display: flex; gap: 6px; align-items: center; font-size: 12.5px; color: var(--danger); }
 kbd { font: 11.5px var(--font-num); border: 1px solid var(--line); border-bottom-width: 2px; border-radius: 4px; padding: 0 4px; }
 .keys { display: grid; grid-template-columns: auto 1fr; gap: 4px 10px; font-size: 12.5px; color: var(--muted); }
-.toast {
-  position: absolute; right: 12px; top: 12px; padding: 6px 10px; border-radius: var(--r);
-  background: var(--panel); border: 1px solid var(--line); font-size: 12.5px;
-}
 @media (max-width: 820px) {
   html, body { height: auto; }
   .app { height: auto; }
@@ -158,10 +174,9 @@ kbd { font: 11.5px var(--font-num); border: 1px solid var(--line); border-bottom
   aside.side { border-left: 0; border-top: 1px solid var(--line); overflow: visible; }
   .tools { margin-left: 0; }
   .brand { flex-wrap: wrap; }
-  .brand .src { white-space: normal; max-width: 100%; }
 }
 @media (prefers-reduced-motion: no-preference) {
-  .inst, .btn { transition: border-color .12s ease, background-color .12s ease; }
+  .inst, .btn, .ch { transition: border-color .12s ease, background-color .12s ease; }
 }
 </style>
 
@@ -169,10 +184,11 @@ kbd { font: 11.5px var(--font-num); border: 1px solid var(--line); border-bottom
   <header class="bar">
     <div class="brand">
       <h1>Ductus Tracer</h1>
-      <span class="src" id="srcName">loading sample…</span>
+      <label for="sampleSel" class="sr" hidden>Manuscript</label>
+      <select id="sampleSel" aria-label="Manuscript"></select>
     </div>
     <div class="tools">
-      <label class="btn file" title="Open a manuscript image">Open image…
+      <label class="btn file" title="Open your own scan in the current mode">Open image…
         <input id="fileImage" type="file" accept="image/*">
       </label>
       <label class="btn file" title="Load a traces .json file">Import traces…
@@ -180,7 +196,7 @@ kbd { font: 11.5px var(--font-num); border: 1px solid var(--line); border-bottom
       </label>
       <button class="btn on" id="btnInk" type="button" aria-pressed="true" title="Show the ink found on the page">Ink overlay</button>
       <span class="thr"><label for="thr">contrast</label><input id="thr" type="range" min="6" max="30" step="1" value="14"><span id="thrVal">14</span></span>
-      <button class="btn on" id="btnSnap" type="button" aria-pressed="true" title="Move each traced shaft onto the nearest stroke of ink">Snap to ink</button>
+      <button class="btn on" id="btnSnap" type="button" aria-pressed="true" title="Keep traced strokes on the ink: shafts snap onto the stroke, and paths between clicks follow the centre of the ink">Follow ink</button>
       <span class="zoom">
         <button class="btn" id="btnOut" type="button" aria-label="Zoom out">−</button>
         <button class="btn" id="btnFit" type="button">Fit</button>
@@ -204,36 +220,49 @@ kbd { font: 11.5px var(--font-num); border: 1px solid var(--line); border-bottom
         <div class="step">
           <div class="prompt"><span class="chip" id="stepChip"></span><span id="stepText">—</span></div>
           <div class="sub" id="stepSub"></div>
-          <div class="row">
+          <div class="row" id="stepBtns">
             <button class="btn small" id="btnSkip" type="button" title="Skip this stroke (S)">Skip stroke</button>
+            <button class="btn small" id="btnFinish" type="button" title="Finish this stroke (Enter)">Finish stroke</button>
+            <button class="btn small" id="btnAddStroke" type="button" title="Trace one more stroke for this letter">Add stroke</button>
             <button class="btn small" id="btnUndo" type="button" title="Remove the last point (Backspace)">Undo point</button>
             <button class="btn small primary" id="btnNew" type="button" title="Start tracing another word (N)">New word</button>
           </div>
         </div>
       </section>
 
+      <section id="readingSec" hidden>
+        <h2>Reading</h2>
+        <div class="reading" id="reading"></div>
+        <p class="fine">Click a letter, then trace it on the page. Letters already traced are green. Where the scribe abbreviates, use <b>Other letter</b> to trace a sign that is not in the reading.</p>
+        <div class="row" style="margin-top:6px">
+          <button class="btn small" id="btnOther" type="button">Other letter…</button>
+          <span id="otherBox" hidden class="row"><input id="otherChar" type="text" maxlength="4" aria-label="Letter or sign" style="width:70px;height:26px;padding:0 6px;border:1px solid var(--line);border-radius:6px;background:var(--bg)"><button class="btn small primary" id="btnOtherGo" type="button">Trace</button></span>
+        </div>
+      </section>
+
       <section>
-        <h2>Traced words <span id="count"></span></h2>
+        <h2 id="listTitle">Traced words <span id="count"></span></h2>
         <div class="list" id="list"></div>
       </section>
 
       <section id="editor">
-        <h2>Selected word</h2>
+        <h2 id="editorTitle">Selected word</h2>
         <div class="fields">
           <label for="fId">Label</label><input id="fId" type="text" autocomplete="off">
-          <label for="fLine">Line</label><input id="fLine" type="number" min="1" step="1">
-          <label for="fCtx">Context</label><input id="fCtx" class="ar" type="text" dir="auto" autocomplete="off" placeholder="e.g. عند الله">
+          <label for="fChar" id="fCharLbl">Letter</label><input id="fChar" class="lat" type="text" autocomplete="off" maxlength="4">
+          <label for="fLine">Line</label><input id="fLine" type="text" autocomplete="off">
+          <label for="fCtx">Context</label><input id="fCtx" type="text" dir="auto" autocomplete="off" placeholder="the word it belongs to">
         </div>
+        <div class="strokes" id="strokeList" style="margin-top:10px"></div>
         <div class="flags" id="flags" style="margin-top:10px"></div>
-        <div class="row" style="margin-top:10px" id="delRow">
-          <button class="btn small danger" id="btnDel" type="button">Delete word</button>
-        </div>
+        <div class="row" style="margin-top:10px" id="delRow"></div>
       </section>
 
       <section>
         <h2>Quick measurements</h2>
+        <p class="selnums" id="selNums" hidden></p>
         <table class="nums" id="nums"></table>
-        <p class="fine">Straight from your clicks, in scan pixels. Shafts are extended to the baseline to find their feet. The refined, ink-fitted values come from <code>viability/measure.py</code>.</p>
+        <p class="fine" id="numsNote"></p>
       </section>
 
       <section>
@@ -244,19 +273,12 @@ kbd { font: 11.5px var(--font-num); border: 1px solid var(--line); border-bottom
           <button class="btn small" id="btnReset" type="button">Reload sample traces</button>
         </div>
         <textarea class="json" id="json" readonly spellcheck="false" aria-label="Traces JSON" style="margin-top:8px"></textarea>
-        <p class="fine">Same format as <code>viability/data/traces_allah.json</code>. Your work is also kept in this browser between visits.</p>
+        <p class="fine" id="exportNote"></p>
       </section>
 
       <section>
         <h2>Keys</h2>
-        <div class="keys">
-          <span><kbd>click</kbd></span><span>place the next point · drag a point to move it</span>
-          <span><kbd>wheel</kbd> / pinch</span><span>zoom</span>
-          <span><kbd>Space</kbd>+drag</span><span>move the page</span>
-          <span><kbd>S</kbd></span><span>skip this stroke (e.g. no alif)</span>
-          <span><kbd>⌫</kbd></span><span>undo the last point</span>
-          <span><kbd>N</kbd></span><span>new word</span>
-        </div>
+        <div class="keys" id="keys"></div>
       </section>
     </aside>
   </main>
@@ -266,10 +288,28 @@ kbd { font: 11.5px var(--font-num); border: 1px solid var(--line); border-bottom
 (() => {
   "use strict";
 
-  // ---------------------------------------------------------------- template
-  // One word = a fixed sequence of strokes, written right to left.
-  const TEMPLATE = {
-    name: "allah",
+  // ---------------------------------------------------------------- samples
+  const SAMPLES = [
+    {
+      key: "arabe328", label: "BnF Arabe 328 — الله (Hijazi)", script: "arabic", template: "allah",
+      image: ["sample/bnf-arabe328-baqarah-282-286.jpg", "../../viability/data/bnf-arabe328-baqarah-282-286.jpg"],
+      traces: ["sample/traces_allah.json", "../../viability/data/traces_allah.json"],
+      title: "BnF Arabe 328 · Sūrat al-Baqarah 2:282–286",
+      source: "Bibliothèque nationale de France, Arabe 328 (gallica.bnf.fr)",
+    },
+    {
+      key: "lucretius", label: "Lucretius, De rerum natura I (humanist cursive)", script: "latin", template: "letters",
+      image: ["sample/lucretius-drn-1r.jpg", "../../viability/data/lucretius-drn-1r.jpg"],
+      traces: ["sample/traces_lucretius.json", "../../viability/data/traces_lucretius.json"],
+      lines: ["sample/lucretius_lines.json", "../../viability/data/lucretius_lines.json"],
+      title: "Lucretius, De rerum natura I.1–25, f. 1r",
+      source: "Lucretius, De rerum natura, 15th-century humanist manuscript, f. 1r",
+    },
+  ];
+
+  // ---------------------------------------------------------------- templates
+  // Arabic: one word = a fixed sequence of strokes, written right to left.
+  const ALLAH = {
     slots: [
       { key: "alif", n: 2, color: "--s-alif", label: "alif", prompts: ["Click the top of the alif", "Click the foot of the alif"] },
       { key: "lam1", n: 2, color: "--s-lam1", label: "first lām", prompts: ["Click the top of the first lām", "Click where it meets the baseline"] },
@@ -279,23 +319,38 @@ kbd { font: 11.5px var(--font-num); border: 1px solid var(--line); border-bottom
     ],
   };
   const SHAFTS = ["alif", "lam1", "lam2"];
-  const FLAGS = [
+  const ALLAH_FLAGS = [
     ["no_alif", "no alif"], ["alif_joined", "alif joined to previous letter"],
     ["split_word", "word split across lines"], ["line_end", "end of line"],
     ["touches_line_above", "touches line above"], ["ha_touches_next", "hā' touches next letter"],
   ];
-  const SAMPLE_IMAGE = ["sample/bnf-arabe328-baqarah-282-286.jpg", "../../viability/data/bnf-arabe328-baqarah-282-286.jpg"];
-  const SAMPLE_TRACES = ["sample/traces_allah.json", "../../viability/data/traces_allah.json"];
-  const STORE_KEY = "ductus-tracer-v1";
+  // Latin: suggested strokes per letter (the usual ductus of a humanist minuscule).
+  // Only a guide: add or skip strokes as the scribe actually wrote them.
+  const DUCTUS = {
+    a: ["bowl", "stem"], b: ["ascender", "bowl"], c: ["curve", "top"], d: ["bowl", "ascender"],
+    e: ["eye", "lower curve"], f: ["stem", "head", "cross-stroke"], g: ["upper bowl", "tail"],
+    h: ["ascender", "arch and minim"], i: ["minim", "dot"], j: ["descender", "dot"], k: ["ascender", "arm", "leg"],
+    l: ["ascender"], m: ["minim", "arch and minim", "arch and minim"], n: ["minim", "arch and minim"],
+    o: ["left side", "right side"], p: ["descender", "bowl"], q: ["bowl", "descender"], r: ["minim", "shoulder"],
+    s: ["spine"], "ſ": ["descender", "head"], t: ["stem", "cross-stroke"], u: ["minim", "minim"], v: ["minim", "minim"],
+    x: ["first diagonal", "second diagonal"], y: ["first arm", "second arm and tail"], z: ["top", "diagonal and foot"],
+    "ꝑ": ["descender", "bowl", "bar"], "ꝗ": ["bowl", "descender", "bar"], "&": ["stroke 1", "stroke 2"],
+  };
+  const LATIN_FLAGS = [
+    ["ligature", "joined to a neighbour"], ["abbreviation", "abbreviation sign"],
+    ["capital", "capital"], ["unclear", "unclear"],
+  ];
+  const STROKE_COLORS = ["#2a78d6", "#eb6834", "#129b6b", "#d55181", "#6b5bd2", "#b07a00"];
+  const STORE = (key) => `ductus-tracer-v2:${key}`;
 
   // ---------------------------------------------------------------- state
   const S = {
-    img: null, imgName: "", source: "", note: "",
-    words: [], sel: -1,
+    sample: SAMPLES[0], img: null, imgName: "", source: "",
+    words: [], sel: -1, lines: [], armed: null, open: false,
     view: { s: 1, tx: 0, ty: 0 },
-    ink: null,            // { w, h, k (image px per ink px), dark: Float32Array }
-    inkCanvas: null, showInk: true, thr: 14, snap: true, hand: false,
+    ink: null, inkCanvas: null, showInk: true, thr: 14, snap: true, hand: false,
   };
+  const latin = () => S.sample.template === "letters";
   const $ = (id) => document.getElementById(id);
   const cv = $("cv"), ctx = cv.getContext("2d"), stage = $("stage");
   const css = (name) => getComputedStyle(document.documentElement).getPropertyValue(name).trim();
@@ -306,7 +361,12 @@ kbd { font: 11.5px var(--font-num); border: 1px solid var(--line); border-bottom
   const deg = (rad) => rad * 180 / Math.PI;
   const mean = (a) => a.reduce((s, v) => s + v, 0) / a.length;
   const sd = (a) => { if (a.length < 2) return NaN; const m = mean(a); return Math.sqrt(a.reduce((s, v) => s + (v - m) ** 2, 0) / (a.length - 1)); };
-  function nextId() {
+  function toast(msg) {
+    const t = $("toast"); t.textContent = msg; t.hidden = false;
+    clearTimeout(toast._t); toast._t = setTimeout(() => (t.hidden = true), 2400);
+  }
+  function notice(msg) { const n = $("notice"); n.textContent = msg || ""; n.hidden = !msg; }
+  function nextAllahId() {
     const used = new Set(S.words.map((w) => w.id));
     for (let i = 0; i < 702; i++) {
       const id = i < 26 ? String.fromCharCode(65 + i) : String.fromCharCode(64 + Math.floor(i / 26)) + String.fromCharCode(65 + (i % 26));
@@ -314,86 +374,148 @@ kbd { font: 11.5px var(--font-num); border: 1px solid var(--line); border-bottom
     }
     return "W" + Date.now();
   }
-  function blankWord() {
-    return { id: nextId(), line: null, context: "", flags: [], skipped: [], strokes: {}, baseline: null };
+
+  // ---------------------------------------------------------------- line guides (Latin)
+  function lineOf(n) { return S.lines.find((l) => String(l.n) === String(n)) || null; }
+  function guideAt(l, x) {
+    const [[x0, b0], [x1, b1]] = l.baseline, [[, t0], [, t1]] = l.xline;
+    const f = (x - x0) / ((x1 - x0) || 1);
+    const yb = b0 + f * (b1 - b0), yx = t0 + f * (t1 - t0);
+    return { yb, yx, xh: yb - yx };
+  }
+  function lineAtPoint(p) {
+    let best = null, bd = Infinity;
+    for (const l of S.lines) {
+      const g = guideAt(l, p[0]);
+      const mid = (g.yb + g.yx) / 2, d = Math.abs(p[1] - mid);
+      if (d < bd) { bd = d; best = l; }
+    }
+    return best;
+  }
+  function lineText(l) { return (l.diplomatic && l.diplomatic.trim()) ? l.diplomatic : (l.edition || ""); }
+  function wordAround(text, i) {
+    let a = i, b = i;
+    while (a > 0 && /[\p{L}\p{M}]/u.test(text[a - 1])) a--;
+    while (b < text.length - 1 && /[\p{L}\p{M}]/u.test(text[b + 1])) b++;
+    return text.slice(a, b + 1);
+  }
+
+  // ---------------------------------------------------------------- word / letter model
+  function blankAllah() { return { id: nextAllahId(), kind: "allah", line: null, context: "", flags: [], skipped: [], strokes: {}, baseline: null }; }
+  function planFor(ch) {
+    if (DUCTUS[ch]) return DUCTUS[ch].slice();
+    const lo = ch.toLowerCase();
+    if (DUCTUS[lo]) return ch !== lo ? ["stroke 1", "stroke 2"] : DUCTUS[lo].slice();
+    return ["stroke 1"];
+  }
+  function newLetter(ch, line, index, context) {
+    const id = line != null && index != null ? `${line}.${index}` : `x${Date.now().toString(36).slice(-5)}`;
+    const flags = ch !== ch.toLowerCase() ? ["capital"] : [];
+    return { id, kind: "letter", char: ch, line, index, context: context || "", flags, plan: planFor(ch), strokes: [] };
   }
   function slotDone(w, slot) {
     if (w.skipped.includes(slot.key)) return true;
     if (slot.key === "baseline") return w.baseline != null;
     return (w.strokes[slot.key] || []).length >= slot.n;
   }
-  function currentSlot(w) {
-    if (!w) return null;
-    return TEMPLATE.slots.find((s) => !slotDone(w, s)) || null;
-  }
+  function currentSlot(w) { return w && w.kind === "allah" ? (ALLAH.slots.find((s) => !slotDone(w, s)) || null) : null; }
+  function letterDone(w) { return w && w.kind === "letter" && !S.open && w.strokes.length >= w.plan.length; }
   function pointCount(w) {
+    if (w.kind === "letter") return [w.strokes.length, Math.max(w.plan.length, w.strokes.length)];
     let n = 0, total = 0;
-    for (const s of TEMPLATE.slots) {
+    for (const s of ALLAH.slots) {
       if (w.skipped.includes(s.key)) continue;
       total += s.n;
       n += s.key === "baseline" ? (w.baseline != null ? 1 : 0) : Math.min((w.strokes[s.key] || []).length, s.n);
     }
     return [n, total];
   }
-  function toast(msg) {
-    const t = $("toast"); t.textContent = msg; t.hidden = false;
-    clearTimeout(toast._t); toast._t = setTimeout(() => (t.hidden = true), 2200);
+  // all drawable strokes of a word: [{name, points, clicks, color}]
+  function strokesOf(w) {
+    if (w.kind === "letter") return w.strokes.map((s, i) => ({ ...s, color: STROKE_COLORS[i % STROKE_COLORS.length] }));
+    return ALLAH.slots.filter((s) => s.key !== "baseline" && w.strokes[s.key])
+      .map((s) => ({ name: s.key, points: w.strokes[s.key], clicks: w.strokes[s.key], color: css(s.color) }));
   }
-  function notice(msg) { const n = $("notice"); n.textContent = msg || ""; n.hidden = !msg; }
+  function bboxOf(w) {
+    const pts = strokesOf(w).flatMap((s) => s.points);
+    if (!pts.length) return null;
+    const xs = pts.map((p) => p[0]), ys = pts.map((p) => p[1]);
+    const pad = w.kind === "letter" ? 3 : 6;
+    let y1 = Math.max(...ys) + pad;
+    if (w.kind === "allah" && w.baseline != null) y1 = Math.max(y1, w.baseline + 8);
+    return [Math.floor(Math.min(...xs) - pad), Math.floor(Math.min(...ys) - pad), Math.ceil(Math.max(...xs) + pad), Math.ceil(y1)];
+  }
 
   // ---------------------------------------------------------------- persistence
   function save() {
-    try { localStorage.setItem(STORE_KEY, JSON.stringify({ imgName: S.imgName, source: S.source, words: S.words, sel: S.sel })); } catch (e) { /* storage unavailable */ }
+    try {
+      localStorage.setItem(STORE(S.sample.key), JSON.stringify({ imgName: S.imgName, source: S.source, words: S.words, sel: S.sel, lines: S.lines }));
+    } catch (e) { /* storage unavailable */ }
   }
   function restore() {
     try {
-      const raw = localStorage.getItem(STORE_KEY);
+      let raw = localStorage.getItem(STORE(S.sample.key));
+      if (!raw && S.sample.key === "arabe328") raw = localStorage.getItem("ductus-tracer-v1");
       if (!raw) return false;
       const d = JSON.parse(raw);
       if (d.imgName !== S.imgName || !Array.isArray(d.words)) return false;
-      S.words = d.words; S.sel = Math.min(d.sel ?? 0, S.words.length - 1); S.source = d.source || S.source;
+      S.words = d.words.map((w) => w.kind ? w : { ...w, kind: "allah" });
+      S.sel = Math.min(d.sel ?? 0, S.words.length - 1); S.source = d.source || S.source;
+      if (Array.isArray(d.lines) && d.lines.length && !S.lines.length) S.lines = d.lines;
       return true;
     } catch (e) { return false; }
   }
 
   // ---------------------------------------------------------------- import / export
   function fromTraces(d) {
-    S.source = d.source || ""; S.note = d.note || "";
-    S.words = (d.instances || []).map((i) => {
-      const flags = [...(i.flags || [])];
-      const skipped = [];
-      for (const s of TEMPLATE.slots) if (s.key !== "baseline" && !(i.strokes || {})[s.key]) skipped.push(s.key);
-      return { id: String(i.id), line: i.line ?? null, context: i.context || "", flags, skipped,
-               strokes: JSON.parse(JSON.stringify(i.strokes || {})), baseline: i.baseline ?? null };
-    });
-    S.sel = S.words.length ? 0 : -1;
-  }
-  function bboxOf(w) {
-    const pts = Object.values(w.strokes).flat();
-    if (!pts.length) return null;
-    const xs = pts.map((p) => p[0]), ys = pts.map((p) => p[1]);
-    let y1 = Math.max(...ys) + 6;
-    if (w.baseline != null) y1 = Math.max(y1, w.baseline + 8);
-    return [Math.floor(Math.min(...xs) - 6), Math.floor(Math.min(...ys) - 6), Math.ceil(Math.max(...xs) + 6), Math.ceil(y1)];
+    S.source = d.source || S.source;
+    const inst = d.instances || [];
+    if (d.format === "ductus-traces/2" || (inst[0] && inst[0].kind === "letter")) {
+      S.words = inst.map((i) => ({
+        id: String(i.id), kind: "letter", char: i.char || "?", line: i.line ?? null, index: i.index ?? null,
+        context: i.context || "", flags: [...(i.flags || [])], plan: i.plan || planFor(i.char || "?"),
+        strokes: (i.strokes || []).map((s) => ({ name: s.name, clicks: s.clicks || [s.points[0], s.points[s.points.length - 1]], points: s.points })),
+      }));
+      if (Array.isArray(d.lines) && d.lines.length && !S.lines.length) S.lines = d.lines;
+    } else {
+      S.words = inst.map((i) => {
+        const skipped = [];
+        for (const s of ALLAH.slots) if (s.key !== "baseline" && !(i.strokes || {})[s.key]) skipped.push(s.key);
+        return { id: String(i.id), kind: "allah", line: i.line ?? null, context: i.context || "", flags: [...(i.flags || [])], skipped,
+                 strokes: JSON.parse(JSON.stringify(i.strokes || {})), baseline: i.baseline ?? null };
+      });
+    }
+    S.sel = S.words.length ? 0 : -1; S.open = false;
   }
   function toTraces() {
-    const instances = S.words.map((w) => {
-      const flags = new Set(w.flags);
-      if (w.skipped.includes("alif")) flags.add("no_alif");
-      const strokes = {};
-      for (const s of TEMPLATE.slots) {
-        if (s.key === "baseline" || !w.strokes[s.key]) continue;
-        strokes[s.key] = w.strokes[s.key].map((p) => [r1(p[0]), r1(p[1])]);
-      }
-      const o = { id: w.id, line: w.line, context: w.context, bbox: bboxOf(w), baseline: w.baseline == null ? null : r1(w.baseline) };
-      if (flags.size) o.flags = [...flags];
-      o.strokes = strokes;
-      return o;
-    });
+    if (!latin()) {
+      const instances = S.words.filter((w) => w.kind === "allah").map((w) => {
+        const flags = new Set(w.flags);
+        if (w.skipped.includes("alif")) flags.add("no_alif");
+        const strokes = {};
+        for (const s of ALLAH.slots) {
+          if (s.key === "baseline" || !w.strokes[s.key]) continue;
+          strokes[s.key] = w.strokes[s.key].map((p) => [r1(p[0]), r1(p[1])]);
+        }
+        const o = { id: w.id, line: w.line, context: w.context, bbox: bboxOf(w), baseline: w.baseline == null ? null : r1(w.baseline) };
+        if (flags.size) o.flags = [...flags];
+        o.strokes = strokes;
+        return o;
+      });
+      return { image: S.imgName, source: S.source,
+        note: "Traced with Ductus Tracer (page pixel coordinates). Shafts are [top, foot]; hā' is [right, left] along the baseline.",
+        template: "allah", instances };
+    }
+    const instances = S.words.filter((w) => w.kind === "letter").map((w) => ({
+      id: w.id, kind: "letter", char: w.char, line: w.line, index: w.index, context: w.context,
+      flags: w.flags, bbox: bboxOf(w),
+      strokes: w.strokes.map((s) => ({ name: s.name, clicks: s.clicks.map((p) => [r1(p[0]), r1(p[1])]), points: s.points.map((p) => [r1(p[0]), r1(p[1])]) })),
+    }));
     return {
-      image: S.imgName, source: S.source,
-      note: "Traced with Ductus Tracer (page pixel coordinates). Shafts are [top, foot]; hā' is [right, left] along the baseline.",
-      template: TEMPLATE.name, instances,
+      format: "ductus-traces/2", image: S.imgName, source: S.source, script: S.sample.script,
+      note: "Traced with Ductus Tracer (page pixel coordinates). Each stroke is in writing order; 'clicks' are the tracer's clicks, 'points' the centre-line between them.",
+      lines: S.lines.map((l) => ({ n: l.n, baseline: l.baseline, xline: l.xline })),
+      instances,
     };
   }
   function refreshJson() { $("json").value = JSON.stringify(toTraces(), null, 1); }
@@ -414,7 +536,7 @@ kbd { font: 11.5px var(--font-num); border: 1px solid var(--line); border-bottom
     let data;
     try { data = g.getImageData(0, 0, w, h).data; }
     catch (e) {
-      notice("This browser blocks pixel access to the sample when the page is opened as a local file, so the ink overlay and snapping are off. Use “Open image…” to load the scan, or serve the folder (python3 -m http.server).");
+      notice("This browser blocks pixel access to the sample when the page is opened as a local file, so the ink overlay and ink-following are off. Use “Open image…” to load the scan, or serve the folder (python3 -m http.server).");
       return;
     }
     const lin = new Float32Array(256);
@@ -426,7 +548,6 @@ kbd { font: 11.5px var(--font-num); border: 1px solid var(--line); border-bottom
     }
     const R = Math.max(8, Math.round(20 / k));
     const boxMean = (vals, wts) => {
-      // integral images of vals*wts and wts, then a (2R+1)^2 window mean
       const W1 = w + 1;
       const sv = new Float64Array(W1 * (h + 1)), sw = new Float64Array(W1 * (h + 1));
       for (let y = 0; y < h; y++) {
@@ -469,7 +590,6 @@ kbd { font: 11.5px var(--font-num); border: 1px solid var(--line); border-bottom
     }
     g.putImageData(id, 0, 0); S.inkCanvas = c;
   }
-  // 0..1 "inkiness" at an image point (bilinear)
   function inkAt(x, y) {
     const I = S.ink; if (!I) return 0;
     const fx = x / I.k, fy = y / I.k;
@@ -479,8 +599,8 @@ kbd { font: 11.5px var(--font-num); border: 1px solid var(--line); border-bottom
     const v = (1 - ax) * (1 - ay) * d[i] + ax * (1 - ay) * d[i + 1] + (1 - ax) * ay * d[i + I.w] + ax * ay * d[i + I.w + 1];
     return Math.min(1, Math.max(0, (v - 0.6 * S.thr) / (0.8 * S.thr)));
   }
-  // Same idea as measure.snap_segment: slide and turn the traced segment a little and
-  // keep the placement that runs through the most ink.
+  // Arabic shafts (same idea as measure.snap_segment): slide and turn the segment a
+  // little and keep the placement that runs through the most ink.
   function snapSegment(p0, p1) {
     if (!S.ink) return null;
     const mid = [p0[0] + 0.6 * (p1[0] - p0[0]), p0[1] + 0.6 * (p1[1] - p0[1])];
@@ -494,7 +614,7 @@ kbd { font: 11.5px var(--font-num); border: 1px solid var(--line); border-bottom
       for (let off = -6; off <= 6; off += 0.5) {
         let sum = 0, n = 0;
         for (let i = 0; i <= 30; i++) {
-          const f = i / 30 * 0.85;  // upper 85 %: keep the baseline join out of it
+          const f = i / 30 * 0.85;
           sum += inkAt(q0[0] + f * (q1[0] - q0[0]) + nx * off, q0[1] + f * (q1[1] - q0[1]) + ny * off); n++;
         }
         const score = sum / n - 0.002 * (Math.abs(off) + Math.abs(turn));
@@ -502,6 +622,86 @@ kbd { font: 11.5px var(--font-num); border: 1px solid var(--line); border-bottom
       }
     }
     return best.score > 0.15 ? best : null;
+  }
+
+  // ---------------------------------------------------------------- ink-following (Latin)
+  // Same cost as viability/inkpath.py: dark ink is cheap, parchment expensive, so the
+  // cheapest path between two clicks runs along the middle of the stroke.
+  function snapPoint(p, r = 1.5) {
+    const I = S.ink; if (!I || !S.snap) return p;
+    let best = p, bv = -1;
+    for (let dy = -Math.ceil(r); dy <= Math.ceil(r); dy++) for (let dx = -Math.ceil(r); dx <= Math.ceil(r); dx++) {
+      if (dx * dx + dy * dy > r * r) continue;
+      const x = Math.round(p[0] / I.k) + dx, y = Math.round(p[1] / I.k) + dy;
+      if (x < 0 || y < 0 || x >= I.w || y >= I.h) continue;
+      const v = I.dark[y * I.w + x];
+      if (v > bv) { bv = v; best = [x * I.k, y * I.k]; }
+    }
+    return bv > 0.5 * S.thr ? best : p;
+  }
+  function rdp(P, eps) {
+    if (P.length < 3) return P.slice();
+    const [a, b] = [P[0], P[P.length - 1]];
+    const L = Math.hypot(b[0] - a[0], b[1] - a[1]);
+    let k = 0, dm = -1;
+    for (let i = 1; i < P.length - 1; i++) {
+      const d = L < 1e-9 ? Math.hypot(P[i][0] - a[0], P[i][1] - a[1])
+        : Math.abs((b[0] - a[0]) * (P[i][1] - a[1]) - (b[1] - a[1]) * (P[i][0] - a[0])) / L;
+      if (d > dm) { dm = d; k = i; }
+    }
+    if (dm > eps) return rdp(P.slice(0, k + 1), eps).slice(0, -1).concat(rdp(P.slice(k), eps));
+    return [a, b];
+  }
+  function inkPath(a, b) {
+    const I = S.ink;
+    if (!I || !S.snap) return [a, b];
+    const k = I.k, ax = a[0] / k, ay = a[1] / k, bx = b[0] / k, by = b[1] / k;
+    const d = Math.hypot(bx - ax, by - ay), m = Math.max(6, Math.ceil(0.35 * d) + 4);
+    const x0 = Math.max(0, Math.floor(Math.min(ax, bx) - m)), x1 = Math.min(I.w - 1, Math.ceil(Math.max(ax, bx) + m));
+    const y0 = Math.max(0, Math.floor(Math.min(ay, by) - m)), y1 = Math.min(I.h - 1, Math.ceil(Math.max(ay, by) + m));
+    const W = x1 - x0 + 1, H = y1 - y0 + 1, N = W * H;
+    if (N > 300000 || N < 4) return [a, b];
+    const cost = new Float32Array(N);
+    for (let y = 0; y < H; y++) for (let x = 0; x < W; x++) {
+      const v = I.dark[(y + y0) * I.w + x + x0];
+      const s = Math.min(1, Math.max(0, (v - 0.5 * S.thr) / S.thr));
+      cost[y * W + x] = 0.6 + 1 / (0.25 + s * s);
+    }
+    const idx = (x, y) => (y - y0) * W + (x - x0);
+    const sx = Math.min(x1, Math.max(x0, Math.round(ax))), sy = Math.min(y1, Math.max(y0, Math.round(ay)));
+    const ex = Math.min(x1, Math.max(x0, Math.round(bx))), ey = Math.min(y1, Math.max(y0, Math.round(by)));
+    const dist = new Float64Array(N).fill(Infinity), prev = new Int32Array(N).fill(-1);
+    const heap = [];  // binary min-heap of [d, i]
+    const push = (d2, i) => { heap.push([d2, i]); let c = heap.length - 1; while (c > 0) { const p = (c - 1) >> 1; if (heap[p][0] <= heap[c][0]) break; [heap[p], heap[c]] = [heap[c], heap[p]]; c = p; } };
+    const pop = () => { const top = heap[0], last = heap.pop(); if (heap.length) { heap[0] = last; let c = 0; for (;;) { const l = 2 * c + 1, r = l + 1; let m2 = c; if (l < heap.length && heap[l][0] < heap[m2][0]) m2 = l; if (r < heap.length && heap[r][0] < heap[m2][0]) m2 = r; if (m2 === c) break; [heap[m2], heap[c]] = [heap[c], heap[m2]]; c = m2; } } return top; };
+    const s0 = idx(sx, sy), e0 = idx(ex, ey);
+    dist[s0] = 0; push(0, s0);
+    const NB = [[1, 0, 1], [-1, 0, 1], [0, 1, 1], [0, -1, 1], [1, 1, Math.SQRT2], [1, -1, Math.SQRT2], [-1, 1, Math.SQRT2], [-1, -1, Math.SQRT2]];
+    while (heap.length) {
+      const [dd, i] = pop();
+      if (dd > dist[i]) continue;
+      if (i === e0) break;
+      const x = (i % W), y = (i / W) | 0;
+      for (const [dx, dy, len] of NB) {
+        const nx = x + dx, ny = y + dy;
+        if (nx < 0 || ny < 0 || nx >= W || ny >= H) continue;
+        const j = ny * W + nx;
+        const nd = dd + len * 0.5 * (cost[i] + cost[j]);
+        if (nd < dist[j]) { dist[j] = nd; prev[j] = i; push(nd, j); }
+      }
+    }
+    if (prev[e0] < 0 && e0 !== s0) return [a, b];
+    const path = [];
+    for (let i = e0; i >= 0; i = prev[i]) { path.push([((i % W) + x0) * k, (((i / W) | 0) + y0) * k]); if (i === s0) break; }
+    path.reverse();
+    path[0] = a; path[path.length - 1] = b;
+    return rdp(path, 0.5 * k);
+  }
+  function recompute(stroke) {
+    const c = stroke.clicks;
+    const pts = [c[0]];
+    for (let i = 1; i < c.length; i++) pts.push(...inkPath(c[i - 1], c[i]).slice(1));
+    stroke.points = pts;
   }
 
   // ---------------------------------------------------------------- view
@@ -517,12 +717,29 @@ kbd { font: 11.5px var(--font-num); border: 1px solid var(--line); border-bottom
     S.view = { s, tx: (r.width - S.img.naturalWidth * s) / 2, ty: (r.height - S.img.naturalHeight * s) / 2 };
     draw();
   }
-  function focusWord(w) {
-    const b = w && bboxOf(w); if (!b) return;
+  function focusBox(b, maxS = 9) {
+    if (!b) return;
     const r = stage.getBoundingClientRect();
-    const s = Math.min(r.width / (b[2] - b[0] + 60), r.height / (b[3] - b[1] + 60), 9);
+    const s = Math.min(r.width / (b[2] - b[0] + 60), r.height / (b[3] - b[1] + 60), maxS);
     S.view = { s, tx: r.width / 2 - ((b[0] + b[2]) / 2) * s, ty: r.height / 2 - ((b[1] + b[3]) / 2) * s };
     draw();
+  }
+  function focusWord(w) {
+    const b = w && bboxOf(w);
+    if (b) return focusBox(w.kind === "letter" ? [b[0] - 40, b[1] - 30, b[2] + 40, b[3] + 30] : b);
+    if (w && w.kind === "letter" && w.line != null) focusLine(lineOf(w.line), w.index);
+  }
+  function focusLine(l, index) {
+    if (!l) return;
+    const [[x0], [x1]] = l.baseline;
+    const g0 = guideAt(l, x0), g1 = guideAt(l, x1);
+    const top = Math.min(g0.yx, g1.yx) - 1.2 * g0.xh, bot = Math.max(g0.yb, g1.yb) + 1.2 * g0.xh;
+    if (index != null) {
+      const text = lineText(l); const f = (index + 0.5) / Math.max(1, text.length);
+      const cx = x0 + f * (x1 - x0), half = 6 * g0.xh;
+      return focusBox([cx - half, top, cx + half, bot], 12);
+    }
+    focusBox([x0, top, x1, bot], 12);
   }
   const toScreen = (p) => [p[0] * S.view.s + S.view.tx, p[1] * S.view.s + S.view.ty];
   const toImage = (x, y) => [(x - S.view.tx) / S.view.s, (y - S.view.ty) / S.view.s];
@@ -540,48 +757,97 @@ kbd { font: 11.5px var(--font-num); border: 1px solid var(--line); border-bottom
     ctx.imageSmoothingEnabled = S.view.s < 3;
     ctx.drawImage(S.img, 0, 0);
     if (S.showInk && S.inkCanvas) {
-      ctx.globalAlpha = 0.55;
+      ctx.globalAlpha = 0.5;
       ctx.drawImage(S.inkCanvas, 0, 0, S.img.naturalWidth, S.img.naturalHeight);
       ctx.globalAlpha = 1;
     }
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    S.words.forEach((w, i) => drawWord(w, i === S.sel));
+    if (latin()) drawGuides();
+    S.words.forEach((w, i) => (w.kind === "letter" ? drawLetter(w, i === S.sel) : drawAllah(w, i === S.sel)));
   }
-  function drawWord(w, selected) {
+  function drawGuides() {
+    const cur = S.words[S.sel];
+    const armedLine = S.armed ? S.armed.line : cur && cur.kind === "letter" ? cur.line : null;
+    for (const l of S.lines) {
+      const on = String(l.n) === String(armedLine);
+      ctx.globalAlpha = on ? 0.9 : 0.35; ctx.lineWidth = on ? 1.2 : 0.8;
+      for (const [key, col] of [["baseline", css("--g-base")], ["xline", css("--g-x")]]) {
+        const [a, b] = l[key].map(toScreen);
+        ctx.strokeStyle = col; ctx.beginPath(); ctx.moveTo(a[0], a[1]); ctx.lineTo(b[0], b[1]); ctx.stroke();
+      }
+    }
+    ctx.globalAlpha = 1;
+  }
+  function drawAllah(w, selected) {
     const b = bboxOf(w);
-    const alpha = selected ? 1 : 0.55;
-    ctx.save(); ctx.globalAlpha = alpha; ctx.lineCap = "round";
+    ctx.save(); ctx.globalAlpha = selected ? 1 : 0.55; ctx.lineCap = "round";
     if (b) {
       const [x0, y0] = toScreen([b[0], b[1]]), [x1, y1] = toScreen([b[2], b[3]]);
       ctx.strokeStyle = selected ? css("--accent") : "rgba(30,30,30,.55)";
       ctx.lineWidth = selected ? 1.5 : 1; ctx.setLineDash([]);
       ctx.strokeRect(x0, y0, x1 - x0, y1 - y0);
-      ctx.font = `600 ${selected ? 13 : 11}px ${css("--font-num")}`;
-      const label = w.id; const tw = ctx.measureText(label).width + 8;
-      ctx.fillStyle = selected ? css("--accent") : "rgba(30,30,30,.7)";
-      ctx.fillRect(x0, y0 - 17, tw, 17);
-      ctx.fillStyle = "#fff"; ctx.fillText(label, x0 + 4, y0 - 4);
+      label(w.id, x0, y0, selected);
       if (w.baseline != null) {
         const [, by] = toScreen([0, w.baseline]);
         ctx.strokeStyle = css("--s-base"); ctx.setLineDash([5, 4]); ctx.lineWidth = 1.2;
         ctx.beginPath(); ctx.moveTo(x0, by); ctx.lineTo(x1, by); ctx.stroke(); ctx.setLineDash([]);
       }
     }
-    for (const s of TEMPLATE.slots) {
-      const pts = w.strokes[s.key]; if (!pts || !pts.length) continue;
-      const col = css(s.color);
-      ctx.strokeStyle = col; ctx.fillStyle = col; ctx.lineWidth = selected ? 2.2 : 1.6;
-      ctx.beginPath();
-      pts.forEach((p, i) => { const [x, y] = toScreen(p); i ? ctx.lineTo(x, y) : ctx.moveTo(x, y); });
-      ctx.stroke();
-      pts.forEach((p, i) => {
-        const [x, y] = toScreen(p);
-        ctx.beginPath(); ctx.arc(x, y, selected ? 4.5 : 3, 0, Math.PI * 2);
-        ctx.fillStyle = i === 0 ? col : "#fff"; ctx.fill();
-        ctx.strokeStyle = col; ctx.lineWidth = 1.5; ctx.stroke();
-      });
+    for (const s of strokesOf(w)) {
+      ctx.strokeStyle = s.color; ctx.lineWidth = selected ? 2.2 : 1.6;
+      polyline(s.points);
+      s.points.forEach((p, i) => dot(p, s.color, i === 0, selected ? 4.5 : 3));
     }
     ctx.restore();
+  }
+  function drawLetter(w, selected) {
+    const b = bboxOf(w);
+    ctx.save(); ctx.globalAlpha = selected ? 1 : 0.6; ctx.lineCap = "round"; ctx.lineJoin = "round";
+    if (b && selected) {
+      const [x0, y0] = toScreen([b[0], b[1]]), [x1, y1] = toScreen([b[2], b[3]]);
+      ctx.strokeStyle = css("--accent"); ctx.lineWidth = 1; ctx.setLineDash([4, 3]);
+      ctx.strokeRect(x0, y0, x1 - x0, y1 - y0); ctx.setLineDash([]);
+      label(w.char, x0, y0, true);
+    } else if (b) {
+      const [x0, y0] = toScreen([b[0], b[1]]);
+      if (S.view.s > 2.5) label(w.char, x0, y0, false);
+    }
+    for (const s of strokesOf(w)) {
+      if (!s.points.length) continue;
+      ctx.strokeStyle = s.color; ctx.lineWidth = selected ? 2 : 1.4;
+      polyline(s.points);
+      if (s.points.length > 1) arrow(s.points, s.color);
+      if (selected) s.clicks.forEach((p, i) => dot(p, s.color, i === 0, 3.6));
+      else dot(s.points[0], s.color, true, 2.4);
+    }
+    ctx.restore();
+  }
+  function polyline(pts) {
+    ctx.beginPath();
+    pts.forEach((p, i) => { const [x, y] = toScreen(p); i ? ctx.lineTo(x, y) : ctx.moveTo(x, y); });
+    ctx.stroke();
+  }
+  function dot(p, col, filled, r) {
+    const [x, y] = toScreen(p);
+    ctx.beginPath(); ctx.arc(x, y, r, 0, Math.PI * 2);
+    ctx.fillStyle = filled ? col : "#fff"; ctx.fill();
+    ctx.strokeStyle = col; ctx.lineWidth = 1.4; ctx.stroke();
+  }
+  function arrow(pts, col) {
+    const [x1, y1] = toScreen(pts[pts.length - 1]);
+    let j = pts.length - 2, x0, y0;
+    do { [x0, y0] = toScreen(pts[j]); j--; } while (j >= 0 && Math.hypot(x1 - x0, y1 - y0) < 6);
+    const a = Math.atan2(y1 - y0, x1 - x0), L = 7;
+    ctx.fillStyle = col; ctx.beginPath(); ctx.moveTo(x1, y1);
+    ctx.lineTo(x1 - L * Math.cos(a - 0.45), y1 - L * Math.sin(a - 0.45));
+    ctx.lineTo(x1 - L * Math.cos(a + 0.45), y1 - L * Math.sin(a + 0.45)); ctx.closePath(); ctx.fill();
+  }
+  function label(text, x0, y0, selected) {
+    ctx.font = `600 ${selected ? 13 : 11}px ${css("--font-num")}`;
+    const tw = ctx.measureText(text).width + 8;
+    ctx.fillStyle = selected ? css("--accent") : "rgba(30,30,30,.7)";
+    ctx.fillRect(x0, y0 - 17, tw, 17);
+    ctx.fillStyle = "#fff"; ctx.fillText(text, x0 + 4, y0 - 4);
   }
 
   // ---------------------------------------------------------------- measurements
@@ -590,7 +856,7 @@ kbd { font: 11.5px var(--font-num); border: 1px solid var(--line); border-bottom
     if (Math.abs(dy) < 1e-6) return b[0];
     return t[0] + (base - t[1]) / dy * (b[0] - t[0]);
   }
-  function features(w) {
+  function allahFeatures(w) {
     const f = {}, st = w.strokes, base = w.baseline;
     if (base == null) return f;
     const ok = (k) => st[k] && st[k].length >= 2 && !w.skipped.includes(k);
@@ -605,46 +871,179 @@ kbd { font: 11.5px var(--font-num); border: 1px solid var(--line); border-bottom
     if (ok("lam2") && ok("ha")) f.tail_length = footX(st.lam2, base) - st.ha[1][0];
     return f;
   }
-  const FEATURE_ROWS = [
+  // Latin letters, in x-heights of their own line: width, rise above the baseline,
+  // drop below it, and the slant of the longest stroke.
+  function letterFeatures(w) {
+    const pts = w.strokes.flatMap((s) => s.points);
+    if (!pts.length) return null;
+    const l = lineOf(w.line) || lineAtPoint(pts[0]);
+    const xs = pts.map((p) => p[0]), ys = pts.map((p) => p[1]);
+    const cx = (Math.min(...xs) + Math.max(...xs)) / 2;
+    const g = l ? guideAt(l, cx) : null;
+    const xh = g ? g.xh : NaN;
+    // slant: length-weighted mean angle of the near-upright parts of all strokes
+    let sw = 0, sa = 0;
+    for (const s of w.strokes) for (let i = 1; i < s.points.length; i++) {
+      const a = s.points[i - 1], b = s.points[i];
+      const [t, u] = a[1] < b[1] ? [a, b] : [b, a];
+      const L = Math.hypot(u[0] - t[0], u[1] - t[1]); if (L < 2) continue;
+      const ang = deg(Math.atan2(t[0] - u[0], u[1] - t[1]));
+      if (Math.abs(ang) <= 40) { sw += L; sa += L * ang; }
+    }
+    const slant = sw > 0 ? sa / sw : NaN;
+    return {
+      width: (Math.max(...xs) - Math.min(...xs)) / xh,
+      rise: g ? (g.yb - Math.min(...ys)) / xh : NaN,
+      drop: g ? (Math.max(...ys) - g.yb) / xh : NaN,
+      slant, strokes: w.strokes.length,
+    };
+  }
+  const ALLAH_ROWS = [
     ["h_alif", "alif height", "px"], ["h_lam1", "lām¹ height", "px"], ["h_lam2", "lām² height", "px"],
     ["slant_alif", "alif slant", "°"], ["slant_lam1", "lām¹ slant", "°"], ["slant_lam2", "lām² slant", "°"],
     ["alif_gap", "alif → lām¹", "px"], ["lam_spacing", "lām¹ → lām²", "px"], ["tail_length", "lām² → end of hā'", "px"],
   ];
+  const fmt = (v, u = "") => (v == null || !isFinite(v) ? "—" : v.toFixed(u === "°" ? 1 : 2) + (u === "°" ? "°" : ""));
+  const ms = (vals, u) => vals.length ? fmt(mean(vals), u) + (vals.length > 1 ? " ± " + fmt(sd(vals), u).replace("°", "") : "") : "—";
   function renderNums() {
-    const all = S.words.filter((w) => !w.flags.includes("touches_line_above")).map(features);
-    const cur = S.sel >= 0 ? features(S.words[S.sel]) : {};
-    const head = `<tr><th>feature</th><th>${S.sel >= 0 ? esc(S.words[S.sel].id) : "—"}</th><th>mean ± sd</th><th>n</th></tr>`;
-    const rows = FEATURE_ROWS.map(([k, label, u]) => {
-      const vals = all.map((f) => f[k]).filter((v) => v != null && isFinite(v));
-      const m = vals.length ? mean(vals) : NaN, s = sd(vals);
-      const fmt = (v) => (v == null || !isFinite(v) ? "—" : v.toFixed(1) + (u === "°" ? "°" : ""));
-      return `<tr><td>${label}</td><td>${fmt(cur[k])}</td><td>${isFinite(m) ? fmt(m) + (isFinite(s) ? " ± " + s.toFixed(1) : "") : "—"}</td><td>${vals.length}</td></tr>`;
-    }).join("");
-    $("nums").innerHTML = head + rows;
+    const sel = S.words[S.sel];
+    if (!latin()) {
+      $("selNums").hidden = true;
+      const all = S.words.filter((w) => w.kind === "allah" && !w.flags.includes("touches_line_above")).map(allahFeatures);
+      const cur = sel && sel.kind === "allah" ? allahFeatures(sel) : {};
+      const head = `<tr><th>feature</th><th>${sel ? esc(sel.id) : "—"}</th><th>mean ± sd</th><th>n</th></tr>`;
+      const rows = ALLAH_ROWS.map(([k, label, u]) => {
+        const vals = all.map((f) => f[k]).filter((v) => v != null && isFinite(v));
+        const f1 = (v) => (v == null || !isFinite(v) ? "—" : v.toFixed(1) + (u === "°" ? "°" : ""));
+        const m = vals.length ? mean(vals) : NaN, s = sd(vals);
+        return `<tr><td>${label}</td><td>${f1(cur[k])}</td><td>${isFinite(m) ? f1(m) + (isFinite(s) ? " ± " + s.toFixed(1) : "") : "—"}</td><td>${vals.length}</td></tr>`;
+      }).join("");
+      $("nums").innerHTML = head + rows;
+      $("numsNote").innerHTML = "Straight from your clicks, in scan pixels. Shafts are extended to the baseline to find their feet. The refined, ink-fitted values come from <code>viability/measure.py</code>.";
+      return;
+    }
+    const f = sel && sel.kind === "letter" ? letterFeatures(sel) : null;
+    const sn = $("selNums");
+    sn.hidden = !f;
+    if (f) sn.textContent = `“${sel.char}” ${sel.id}: width ${fmt(f.width)} · rise ${fmt(f.rise)} · drop ${fmt(f.drop)} x-heights · slant ${fmt(f.slant, "°")} · ${f.strokes} stroke${f.strokes === 1 ? "" : "s"}`;
+    const by = {};
+    for (const w of S.words) {
+      if (w.kind !== "letter" || !w.strokes.length) continue;
+      const g = letterFeatures(w); if (!g) continue;
+      (by[w.char] = by[w.char] || []).push(g);
+    }
+    const chars = Object.keys(by).sort((a, b) => by[b].length - by[a].length || a.localeCompare(b));
+    const pick = (arr, k) => arr.map((g) => g[k]).filter((v) => isFinite(v));
+    $("nums").innerHTML = `<tr><th>letter</th><th>n</th><th>width</th><th>rise</th><th>slant</th></tr>` +
+      (chars.length ? chars.map((c) => `<tr><td class="lat">${esc(c)}</td><td>${by[c].length}</td><td>${ms(pick(by[c], "width"))}</td><td>${ms(pick(by[c], "rise"))}</td><td>${ms(pick(by[c], "slant"), "°")}</td></tr>`).join("")
+        : `<tr><td colspan="5">No letters traced yet.</td></tr>`);
+    $("numsNote").textContent = "Widths and heights are in x-heights of the letter's own line (rise = top of the letter above the baseline). Slant is the average angle of the near-upright parts of the strokes, from vertical.";
   }
 
   // ---------------------------------------------------------------- side panel
   function renderStep() {
-    const w = S.words[S.sel];
-    const slot = currentSlot(w);
-    const chip = $("stepChip");
-    if (!w) {
-      $("stepText").textContent = "Press “New word” to start tracing";
-      $("stepSub").textContent = "Each word is traced as alif, two lāms, the final hā' and the baseline.";
-      chip.style.background = css("--line");
-    } else if (!slot) {
-      $("stepText").textContent = `Word ${w.id} is complete`;
-      $("stepSub").textContent = "Drag any point to adjust it, or start the next word.";
-      chip.style.background = css("--s-lam2");
-    } else {
-      const have = slot.key === "baseline" ? 0 : (w.strokes[slot.key] || []).length;
-      $("stepText").textContent = slot.prompts[have];
-      $("stepSub").textContent = `Word ${w.id} · ${slot.label}` + (slot.key === "alif" ? " · press S if this word has no alif" : "");
-      chip.style.background = css(slot.color);
+    const w = S.words[S.sel], chip = $("stepChip");
+    const show = (id, on) => ($(id).hidden = !on);
+    if (!latin()) {
+      show("btnSkip", true); show("btnFinish", false); show("btnAddStroke", false); show("btnNew", true);
+      const slot = currentSlot(w);
+      if (!w) {
+        $("stepText").textContent = "Press “New word” to start tracing";
+        $("stepSub").textContent = "Each word is traced as alif, two lāms, the final hā' and the baseline.";
+        chip.style.background = css("--line");
+      } else if (!slot) {
+        $("stepText").textContent = `Word ${w.id} is complete`;
+        $("stepSub").textContent = "Drag any point to adjust it, or start the next word.";
+        chip.style.background = css("--s-lam2");
+      } else {
+        const have = slot.key === "baseline" ? 0 : (w.strokes[slot.key] || []).length;
+        $("stepText").textContent = slot.prompts[have];
+        $("stepSub").textContent = `Word ${w.id} · ${slot.label}` + (slot.key === "alif" ? " · press S if this word has no alif" : "");
+        chip.style.background = css(slot.color);
+      }
+      $("btnSkip").disabled = !slot; $("btnUndo").disabled = !w;
+      return;
     }
-    $("btnSkip").disabled = !slot; $("btnUndo").disabled = !w;
+    show("btnSkip", false); show("btnNew", false); show("btnFinish", true); show("btnAddStroke", true);
+    const letter = w && w.kind === "letter" ? w : null;
+    if (S.armed && (!letter || letterDone(letter))) {
+      const a = S.armed;
+      $("stepText").textContent = `Trace “${a.char}”: click where its first stroke starts`;
+      $("stepSub").textContent = `${planFor(a.char)[0]} · ${a.context ? "in “" + a.context + "”, " : ""}line ${a.line}. Then click where the stroke turns and where it ends; press Enter to finish it.`;
+      chip.style.background = STROKE_COLORS[0];
+    } else if (!letter) {
+      $("stepText").textContent = "Pick a letter in the reading";
+      $("stepSub").textContent = "Then trace each of its strokes in the order the scribe wrote them.";
+      chip.style.background = css("--line");
+    } else if (S.open) {
+      const k = letter.strokes.length - 1, st = letter.strokes[k];
+      $("stepText").textContent = st.clicks.length < 2 ? `Click where the ${st.name} ends (or turns)` : `Keep clicking along the ${st.name}, or press Enter`;
+      $("stepSub").textContent = `“${letter.char}” · stroke ${k + 1} of ${Math.max(letter.plan.length, letter.strokes.length)}. The path between clicks follows the ink.`;
+      chip.style.background = STROKE_COLORS[k % STROKE_COLORS.length];
+    } else if (!letterDone(letter)) {
+      const k = letter.strokes.length;
+      $("stepText").textContent = `Click where the ${letter.plan[k] || "next stroke"} of “${letter.char}” starts`;
+      $("stepSub").textContent = `Stroke ${k + 1} of ${letter.plan.length}. If the scribe made it in one movement with the last stroke, choose Skip in the strokes list.`;
+      chip.style.background = STROKE_COLORS[k % STROKE_COLORS.length];
+    } else {
+      $("stepText").textContent = `“${letter.char}” is traced`;
+      $("stepSub").textContent = "Pick the next letter in the reading, drag a point to adjust, or add a stroke.";
+      chip.style.background = css("--done");
+    }
+    $("btnFinish").disabled = !S.open; $("btnAddStroke").disabled = !letter || S.open; $("btnUndo").disabled = !letter;
+  }
+  function renderReading() {
+    $("readingSec").hidden = !latin() || !S.lines.length;
+    if ($("readingSec").hidden) return;
+    const traced = new Set(S.words.filter((w) => w.kind === "letter" && w.strokes.length).map((w) => `${w.line}:${w.index}`));
+    const sel = S.words[S.sel];
+    const box = $("reading"); box.innerHTML = "";
+    for (const l of S.lines) {
+      const row = document.createElement("div");
+      const isCur = (S.armed && String(S.armed.line) === String(l.n)) || (sel && sel.kind === "letter" && String(sel.line) === String(l.n));
+      row.className = "rline" + (isCur ? " cur" : "");
+      const num = document.createElement("span"); num.className = "num"; num.textContent = l.n; num.title = "Show this line";
+      num.addEventListener("click", () => focusLine(l));
+      const txt = document.createElement("span"); txt.className = "txt" + (l.kind === "title" ? " title" : "");
+      const text = lineText(l);
+      [...text].forEach((ch, i) => {
+        if (/\s/.test(ch)) { txt.appendChild(document.createTextNode(ch)); return; }
+        const b = document.createElement("button"); b.type = "button"; b.className = "ch"; b.textContent = ch;
+        b.dataset.line = l.n; b.dataset.index = i;
+        const key = `${l.n}:${i}`;
+        if (traced.has(key)) b.classList.add("traced");
+        if (S.armed && String(S.armed.line) === String(l.n) && S.armed.index === i) b.classList.add("armed");
+        if (sel && sel.kind === "letter" && String(sel.line) === String(l.n) && sel.index === i) b.classList.add("selected");
+        txt.appendChild(b);
+      });
+      row.append(num, txt); box.appendChild(row);
+    }
+    const cur = box.querySelector(".rline.cur");
+    if (cur && (cur.offsetTop < box.scrollTop || cur.offsetTop > box.scrollTop + box.clientHeight - 30)) box.scrollTop = cur.offsetTop - 40;
+  }
+  $("reading").addEventListener("click", (e) => {
+    const b = e.target.closest(".ch"); if (!b) return;
+    const l = lineOf(b.dataset.line), i = +b.dataset.index;
+    const text = lineText(l), ch = text[i];
+    finishOpen();
+    const existing = S.words.findIndex((w) => w.kind === "letter" && String(w.line) === String(l.n) && w.index === i);
+    if (existing >= 0) { S.sel = existing; S.armed = null; renderAll(); focusWord(S.words[existing]); return; }
+    S.armed = { char: ch, line: l.n, index: i, context: wordAround(text, i) };
+    renderAll(); focusLine(l, i);
+  });
+  function armNext(w) {
+    const l = lineOf(w.line); if (!l || w.index == null) { S.armed = null; return; }
+    const text = lineText(l);
+    for (let i = w.index + 1; i < text.length; i++) {
+      if (/\s/.test(text[i]) || /[.,;:!?·]/.test(text[i])) continue;
+      if (S.words.some((x) => x.kind === "letter" && String(x.line) === String(l.n) && x.index === i)) continue;
+      S.armed = { char: text[i], line: l.n, index: i, context: wordAround(text, i) };
+      return;
+    }
+    S.armed = null;
   }
   function renderList() {
+    $("listTitle").firstChild.textContent = latin() ? "Traced letters " : "Traced words ";
     $("count").textContent = S.words.length ? `(${S.words.length})` : "";
     const list = $("list"); list.innerHTML = "";
     S.words.forEach((w, i) => {
@@ -652,12 +1051,18 @@ kbd { font: 11.5px var(--font-num); border: 1px solid var(--line); border-bottom
       const b = document.createElement("button");
       b.type = "button"; b.className = "inst" + (i === S.sel ? " sel" : "");
       b.innerHTML = `<span class="id"></span><span class="ctx"></span><span class="meta"></span>`;
-      b.querySelector(".id").textContent = w.id;
-      b.querySelector(".ctx").textContent = w.context || "—";
-      const meta = b.querySelector(".meta");
-      meta.textContent = (w.line ? `l.${w.line} · ` : "") + `${n}/${total}`;
-      if (n < total) meta.classList.add("todo");
-      b.addEventListener("click", () => { S.sel = i; renderAll(); focusWord(w); });
+      const ctxEl = b.querySelector(".ctx");
+      if (w.kind === "letter") {
+        b.querySelector(".id").textContent = w.char;
+        ctxEl.className = "ctx lat"; ctxEl.textContent = w.context || "—";
+        b.querySelector(".meta").textContent = `${w.line != null ? "l." + w.line + " · " : ""}${n}/${total}`;
+      } else {
+        b.querySelector(".id").textContent = w.id;
+        ctxEl.className = "ctx ar"; ctxEl.textContent = w.context || "—";
+        b.querySelector(".meta").textContent = (w.line ? `l.${w.line} · ` : "") + `${n}/${total}`;
+      }
+      if (n < total) b.querySelector(".meta").classList.add("todo");
+      b.addEventListener("click", () => { finishOpen(); S.sel = i; S.armed = null; renderAll(); focusWord(w); });
       list.appendChild(b);
     });
   }
@@ -665,13 +1070,38 @@ kbd { font: 11.5px var(--font-num); border: 1px solid var(--line); border-bottom
     const w = S.words[S.sel];
     $("editor").hidden = !w;
     if (!w) return;
+    const isL = w.kind === "letter";
+    $("editorTitle").textContent = isL ? "Selected letter" : "Selected word";
     $("fId").value = w.id; $("fLine").value = w.line ?? ""; $("fCtx").value = w.context;
+    $("fChar").hidden = !isL; $("fCharLbl").hidden = !isL;
+    if (isL) $("fChar").value = w.char;
+    $("fCtx").className = isL ? "lat" : "ar";
+    // strokes
+    const sl = $("strokeList"); sl.innerHTML = "";
+    if (isL) {
+      const n = Math.max(w.plan.length, w.strokes.length);
+      for (let k = 0; k < n; k++) {
+        const st = w.strokes[k];
+        const row = document.createElement("div"); row.className = "s";
+        const chip = document.createElement("span"); chip.className = "chip"; chip.style.background = STROKE_COLORS[k % STROKE_COLORS.length];
+        const nm = document.createElement("span"); nm.className = "nm"; nm.textContent = `${k + 1}. ${st ? st.name : w.plan[k]}`;
+        const pts = document.createElement("span"); pts.className = "pts"; pts.textContent = st ? `${st.clicks.length} clicks` : "not traced";
+        row.append(chip, nm, pts);
+        if (!st && k === w.strokes.length && !S.open) {
+          const skip = document.createElement("button"); skip.type = "button"; skip.className = "btn small"; skip.textContent = "Skip";
+          skip.title = "The scribe wrote this together with the previous stroke";
+          skip.addEventListener("click", () => { w.plan.splice(k, 1); changed(); });
+          row.appendChild(skip);
+        }
+        sl.appendChild(row);
+      }
+    }
     const box = $("flags"); box.innerHTML = "";
-    FLAGS.forEach(([key, label]) => {
+    (isL ? LATIN_FLAGS : ALLAH_FLAGS).forEach(([key, label]) => {
       const id = "flag_" + key;
       const l = document.createElement("label"); l.htmlFor = id;
       const c = document.createElement("input"); c.type = "checkbox"; c.id = id;
-      c.checked = w.flags.includes(key) || (key === "no_alif" && w.skipped.includes("alif"));
+      c.checked = w.flags.includes(key) || (key === "no_alif" && w.skipped && w.skipped.includes("alif"));
       c.addEventListener("change", () => {
         w.flags = w.flags.filter((f) => f !== key); if (c.checked) w.flags.push(key);
         if (key === "no_alif") {
@@ -686,29 +1116,59 @@ kbd { font: 11.5px var(--font-num); border: 1px solid var(--line); border-bottom
   }
   function renderDelete(confirming) {
     const row = $("delRow"); row.innerHTML = "";
+    const w = S.words[S.sel]; if (!w) return;
+    const what = w.kind === "letter" ? "letter" : "word";
     if (!confirming) {
-      const b = document.createElement("button"); b.type = "button"; b.className = "btn small danger"; b.textContent = "Delete word";
+      const b = document.createElement("button"); b.type = "button"; b.className = "btn small danger"; b.textContent = `Delete ${what}`;
       b.addEventListener("click", () => renderDelete(true)); row.appendChild(b);
     } else {
-      const span = document.createElement("span"); span.className = "confirm"; span.textContent = `Delete word ${S.words[S.sel].id}?`;
+      const span = document.createElement("span"); span.className = "confirm"; span.textContent = `Delete ${what} ${w.kind === "letter" ? "“" + w.char + "”" : w.id}?`;
       const yes = document.createElement("button"); yes.type = "button"; yes.className = "btn small danger"; yes.textContent = "Delete";
       const no = document.createElement("button"); no.type = "button"; no.className = "btn small"; no.textContent = "Keep";
-      yes.addEventListener("click", () => { S.words.splice(S.sel, 1); S.sel = Math.min(S.sel, S.words.length - 1); changed(); });
+      yes.addEventListener("click", () => { S.words.splice(S.sel, 1); S.sel = Math.min(S.sel, S.words.length - 1); S.open = false; changed(); });
       no.addEventListener("click", () => renderDelete(false));
       span.append(yes, no); row.appendChild(span);
     }
   }
-  function renderAll() { renderStep(); renderList(); renderEditor(); renderNums(); refreshJson(); draw(); }
+  function renderKeys() {
+    const rows = latin()
+      ? [["click", "next point of the stroke · drag a point to move it"], ["Enter", "finish the stroke"], ["⌫", "undo the last point"],
+         ["wheel / pinch", "zoom"], ["Space+drag", "move the page"], ["Esc", "stop tracing this letter"]]
+      : [["click", "place the next point · drag a point to move it"], ["wheel / pinch", "zoom"], ["Space+drag", "move the page"],
+         ["S", "skip this stroke (e.g. no alif)"], ["⌫", "undo the last point"], ["N", "new word"]];
+    $("keys").innerHTML = rows.map(([k, v]) => `<span><kbd>${esc(k)}</kbd></span><span>${esc(v)}</span>`).join("");
+    $("exportNote").textContent = latin()
+      ? "Format ductus-traces/2: every stroke in writing order, with your clicks and the centre-line between them. Your work is also kept in this browser between visits."
+      : "Same format as viability/data/traces_allah.json. Your work is also kept in this browser between visits.";
+  }
+  function renderAll() { renderStep(); renderReading(); renderList(); renderEditor(); renderNums(); renderKeys(); refreshJson(); draw(); }
   function changed() { save(); renderAll(); }
 
   $("fId").addEventListener("change", (e) => { const w = S.words[S.sel]; if (w && e.target.value.trim()) { w.id = e.target.value.trim(); changed(); } });
-  $("fLine").addEventListener("change", (e) => { const w = S.words[S.sel]; if (w) { const v = parseInt(e.target.value, 10); w.line = isFinite(v) ? v : null; changed(); } });
+  $("fChar").addEventListener("change", (e) => {
+    const w = S.words[S.sel]; const v = e.target.value.trim();
+    if (w && w.kind === "letter" && v) { w.char = v; if (!w.strokes.length) w.plan = planFor(v); changed(); }
+  });
+  $("fLine").addEventListener("change", (e) => {
+    const w = S.words[S.sel]; if (!w) return;
+    const v = e.target.value.trim(); w.line = v === "" ? null : (/^\d+$/.test(v) ? +v : v); changed();
+  });
   $("fCtx").addEventListener("input", (e) => { const w = S.words[S.sel]; if (w) { w.context = e.target.value; save(); renderList(); refreshJson(); } });
+  $("btnOther").addEventListener("click", () => { $("otherBox").hidden = !$("otherBox").hidden; if (!$("otherBox").hidden) $("otherChar").focus(); });
+  $("btnOtherGo").addEventListener("click", () => {
+    const ch = $("otherChar").value.trim(); if (!ch) return;
+    const w = S.words[S.sel];
+    finishOpen();
+    const line = S.armed ? S.armed.line : w && w.kind === "letter" ? w.line : null;
+    S.armed = { char: ch, line, index: null, context: "" };
+    $("otherBox").hidden = true; $("otherChar").value = ""; renderAll();
+  });
 
   // ---------------------------------------------------------------- editing
   function addPoint(p) {
+    if (latin()) return addLetterPoint(p);
     let w = S.words[S.sel];
-    if (!w || !currentSlot(w)) { w = blankWord(); S.words.push(w); S.sel = S.words.length - 1; }
+    if (!w || w.kind !== "allah" || !currentSlot(w)) { w = blankAllah(); S.words.push(w); S.sel = S.words.length - 1; }
     const slot = currentSlot(w);
     if (slot.key === "baseline") { w.baseline = p[1]; changed(); return; }
     const pts = (w.strokes[slot.key] = w.strokes[slot.key] || []);
@@ -724,11 +1184,59 @@ kbd { font: 11.5px var(--font-num); border: 1px solid var(--line); border-bottom
     if (slot.key === "ha" && pts.length === 2 && w.baseline == null) w.baseline = (pts[0][1] + pts[1][1]) / 2;
     changed();
   }
+  function addLetterPoint(p) {
+    let w = S.words[S.sel];
+    const active = w && w.kind === "letter" && (S.open || !letterDone(w));
+    if (!active) {
+      if (!S.armed) { toast("Pick a letter in the reading first"); return; }
+      const a = S.armed;
+      const line = a.line != null ? a.line : (lineAtPoint(p) || {}).n ?? null;
+      w = newLetter(a.char, line, a.index, a.context);
+      S.words.push(w); S.sel = S.words.length - 1; S.armed = null;
+    }
+    const q = snapPoint(p);
+    if (S.open) {
+      const last = w.strokes[w.strokes.length - 1].clicks.slice(-1)[0];
+      if (last && Math.hypot(q[0] - last[0], q[1] - last[1]) < 1.5) return;  // second click of a double-click
+    }
+    if (!S.open) {
+      w.strokes.push({ name: w.plan[w.strokes.length] || `stroke ${w.strokes.length + 1}`, clicks: [q], points: [q] });
+      S.open = true;
+    } else {
+      const st = w.strokes[w.strokes.length - 1];
+      st.clicks.push(q); recompute(st);
+    }
+    changed();
+  }
+  function finishOpen() {
+    if (!S.open) return;
+    const w = S.words[S.sel];
+    if (w && w.kind === "letter") {
+      const st = w.strokes[w.strokes.length - 1];
+      if (st && st.clicks.length < 2) w.strokes.pop();
+    }
+    S.open = false;
+  }
+  function finishStroke() {
+    if (!latin() || !S.open) return;
+    finishOpen();
+    const w = S.words[S.sel];
+    if (w && letterDone(w)) armNext(w);
+    changed();
+  }
   function undo() {
     const w = S.words[S.sel]; if (!w) return;
-    if (w.baseline != null && slotDone(w, TEMPLATE.slots[3]) && !currentSlot(w)) { w.baseline = null; return changed(); }
-    for (let i = TEMPLATE.slots.length - 1; i >= 0; i--) {
-      const s = TEMPLATE.slots[i];
+    if (w.kind === "letter") {
+      const st = w.strokes[w.strokes.length - 1];
+      if (!st) return;
+      st.clicks.pop();
+      if (!st.clicks.length) { w.strokes.pop(); S.open = false; }
+      else { recompute(st); S.open = true; }
+      return changed();
+    }
+    if (w.baseline != null && !currentSlot(w)) { w.baseline = null; return changed(); }
+    for (let i = ALLAH.slots.length - 1; i >= 0; i--) {
+      const s = ALLAH.slots[i];
       if (s.key === "baseline") continue;
       if (w.strokes[s.key] && w.strokes[s.key].length) {
         w.strokes[s.key].pop(); if (!w.strokes[s.key].length) delete w.strokes[s.key];
@@ -738,24 +1246,39 @@ kbd { font: 11.5px var(--font-num); border: 1px solid var(--line); border-bottom
     }
   }
   function skip() {
-    const w = S.words[S.sel]; const slot = currentSlot(w); if (!slot) return;
-    if (slot.key === "baseline") return;
+    if (latin()) return;
+    const w = S.words[S.sel]; const slot = currentSlot(w); if (!slot || slot.key === "baseline") return;
     w.skipped.push(slot.key); delete w.strokes[slot.key];
     if (slot.key === "alif" && !w.flags.includes("no_alif")) w.flags.push("no_alif");
     changed();
   }
-  function newWord() { const w = blankWord(); S.words.push(w); S.sel = S.words.length - 1; changed(); }
+  function newWord() { if (latin()) return; const w = blankAllah(); S.words.push(w); S.sel = S.words.length - 1; changed(); }
+  function addStroke() {
+    const w = S.words[S.sel]; if (!w || w.kind !== "letter" || S.open) return;
+    w.plan.push(`stroke ${w.plan.length + 1}`); S.armed = null; changed();
+  }
   function hitPoint(sx, sy) {
     const w = S.words[S.sel]; if (!w) return null;
     let best = null, bd = 10;
+    if (w.kind === "letter") {
+      w.strokes.forEach((st, si) => st.clicks.forEach((p, i) => {
+        const [x, y] = toScreen(p); const d = Math.hypot(x - sx, y - sy); if (d < bd) { bd = d; best = { stroke: si, i }; }
+      }));
+      return best;
+    }
     for (const [key, pts] of Object.entries(w.strokes)) {
       pts.forEach((p, i) => { const [x, y] = toScreen(p); const d = Math.hypot(x - sx, y - sy); if (d < bd) { bd = d; best = { key, i }; } });
     }
-    if (w.baseline != null) {
+    if (w.baseline != null && !best) {
       const b = bboxOf(w);
-      if (b) { const [x0, by] = toScreen([b[0], w.baseline]); const [x1] = toScreen([b[2], 0]); if (sx >= x0 && sx <= x1 && Math.abs(sy - by) < 5 && !best) best = { key: "baseline" }; }
+      if (b) { const [x0, by] = toScreen([b[0], w.baseline]); const [x1] = toScreen([b[2], 0]); if (sx >= x0 && sx <= x1 && Math.abs(sy - by) < 5) best = { key: "baseline" }; }
     }
     return best;
+  }
+  function moveHit(hit, p) {
+    const w = S.words[S.sel];
+    if (w.kind === "letter") { const st = w.strokes[hit.stroke]; st.clicks[hit.i] = p; recompute(st); return; }
+    if (hit.key === "baseline") w.baseline = p[1]; else w.strokes[hit.key][hit.i] = p;
   }
 
   // ---------------------------------------------------------------- pointer
@@ -789,9 +1312,7 @@ kbd { font: 11.5px var(--font-num); border: 1px solid var(--line); border-bottom
     if (drag.pan || (!drag.hit && drag.moved && e.pointerType === "touch")) {
       S.view.tx += x - drag.x; S.view.ty += y - drag.y; draw();
     } else if (drag.hit && drag.moved) {
-      const w = S.words[S.sel], p = toImage(x, y);
-      if (drag.hit.key === "baseline") w.baseline = p[1]; else w.strokes[drag.hit.key][drag.hit.i] = p;
-      draw();
+      moveHit(drag.hit, toImage(x, y)); draw();
     }
     drag.x = x; drag.y = y;
   });
@@ -805,11 +1326,14 @@ kbd { font: 11.5px var(--font-num); border: 1px solid var(--line); border-bottom
   }
   stage.addEventListener("pointerup", endPointer);
   stage.addEventListener("pointercancel", endPointer);
+  stage.addEventListener("dblclick", (e) => { if (latin()) { e.preventDefault(); finishStroke(); } });
   stage.addEventListener("contextmenu", (e) => e.preventDefault());
   stage.addEventListener("wheel", (e) => { e.preventDefault(); const [x, y] = local(e); zoomAt(Math.exp(-e.deltaY * 0.0015), x, y); }, { passive: false });
   window.addEventListener("keydown", (e) => {
-    if (e.target.closest("input, textarea")) return;
+    if (e.target.closest && e.target.closest("input, textarea, select")) return;
     if (e.code === "Space") { spaceDown = true; stage.classList.add("pan"); e.preventDefault(); }
+    else if (e.key === "Enter") { e.preventDefault(); finishStroke(); }
+    else if (e.key === "Escape") { finishOpen(); S.armed = null; changed(); }
     else if (e.key === "s" || e.key === "S") skip();
     else if (e.key === "Backspace") { e.preventDefault(); undo(); }
     else if (e.key === "n" || e.key === "N") newWord();
@@ -828,6 +1352,8 @@ kbd { font: 11.5px var(--font-num); border: 1px solid var(--line); border-bottom
   $("btnIn").addEventListener("click", () => { const r = stage.getBoundingClientRect(); zoomAt(1.25, r.width / 2, r.height / 2); });
   $("btnOut").addEventListener("click", () => { const r = stage.getBoundingClientRect(); zoomAt(0.8, r.width / 2, r.height / 2); });
   $("btnSkip").addEventListener("click", skip);
+  $("btnFinish").addEventListener("click", finishStroke);
+  $("btnAddStroke").addEventListener("click", addStroke);
   $("btnUndo").addEventListener("click", undo);
   $("btnNew").addEventListener("click", newWord);
   $("btnCopy").addEventListener("click", () => {
@@ -846,15 +1372,19 @@ kbd { font: 11.5px var(--font-num); border: 1px solid var(--line); border-bottom
     });
   }
   $("btnReset").addEventListener("click", async () => {
-    const d = await fetchFirst(SAMPLE_TRACES, "json");
+    const d = await fetchFirst(S.sample.traces, "json");
     if (!d) return toast("The sample traces are not available here");
-    fromTraces(d); changed(); toast("Sample traces reloaded");
+    fromTraces(d); S.armed = null; changed(); toast("Sample traces reloaded");
   });
-
   $("fileImage").addEventListener("change", (e) => {
     const f = e.target.files[0]; if (!f) return;
     const rd = new FileReader();
-    rd.onload = () => loadImage(rd.result, f.name, true);
+    rd.onload = async () => {
+      await loadImage(rd.result, f.name);
+      S.words = []; S.sel = -1; S.lines = []; S.armed = null; S.open = false; S.source = "";
+      restore(); renderAll();
+      if (latin()) notice("Your own image has no line guides yet, so the reading is hidden and letters are measured in pixels. Import traces that include lines to bring them in.");
+    };
     rd.readAsDataURL(f); e.target.value = "";
   });
   $("fileTraces").addEventListener("change", (e) => {
@@ -863,9 +1393,11 @@ kbd { font: 11.5px var(--font-num); border: 1px solid var(--line); border-bottom
     rd.onload = () => {
       try {
         const d = JSON.parse(rd.result);
+        const isLetters = d.format === "ductus-traces/2" || ((d.instances || [])[0] || {}).kind === "letter";
+        if (isLetters !== latin()) toast(`These are ${isLetters ? "letter" : "word"} traces; switch manuscript to see them in the right mode`);
         fromTraces(d);
         if (d.image && d.image !== S.imgName) toast(`Traces were made on “${d.image}”`);
-        changed(); focusWord(S.words[S.sel]);
+        S.armed = null; changed(); focusWord(S.words[S.sel]);
       } catch (err) { toast("That file is not valid traces JSON"); }
     };
     rd.readAsText(f); e.target.value = "";
@@ -873,40 +1405,58 @@ kbd { font: 11.5px var(--font-num); border: 1px solid var(--line); border-bottom
 
   // ---------------------------------------------------------------- loading
   async function fetchFirst(urls, kind) {
-    for (const u of urls) {
+    for (const u of urls || []) {
       try { const r = await fetch(u); if (r.ok) return kind === "json" ? await r.json() : u; } catch (e) { /* try next */ }
     }
     return null;
   }
-  function loadImage(src, name, fresh) {
+  function loadImage(src, name) {
     return new Promise((resolve) => {
       const img = new Image();
-      img.onload = () => {
-        S.img = img; S.imgName = name; notice("");
-        $("srcName").textContent = name + ` · ${img.naturalWidth}×${img.naturalHeight}`;
-        if (fresh) { S.words = []; S.sel = -1; S.source = ""; restore(); }
-        buildInk(); fit(); renderAll(); resolve(true);
-      };
+      img.onload = () => { S.img = img; S.imgName = name; notice(""); buildInk(); fit(); resolve(true); };
       img.onerror = () => resolve(false);
       img.src = src;
     });
+  }
+  async function loadSample(sample) {
+    finishOpen();
+    S.sample = sample; S.words = []; S.sel = -1; S.lines = []; S.armed = null; S.open = false; S.source = sample.source;
+    S.img = null; S.ink = null; S.inkCanvas = null; draw(); renderAll();
+    let ok = false;
+    for (const u of sample.image) { ok = await loadImage(u, u.split("/").pop()); if (ok) break; }
+    if (!ok) { notice("Open a manuscript image to start tracing."); return; }
+    if (sample.lines) {
+      const d = await fetchFirst(sample.lines, "json");
+      if (d) S.lines = d.lines.map((l) => ({ n: l.n, kind: l.kind, edition: l.edition, diplomatic: l.diplomatic, baseline: l.baseline, xline: l.xline }));
+    }
+    if (!restore()) {
+      const d = await fetchFirst(sample.traces, "json");
+      if (d) fromTraces(d);
+      else if (location.protocol === "file:") notice("Couldn't load the sample traces (browsers block this when the page is opened as a local file). Use “Import traces…” with the file from viability/data/.");
+    }
+    S.source = S.source || sample.source;
+    renderAll();
+  }
+  function setupSamples() {
+    const sel = $("sampleSel");
+    SAMPLES.forEach((s, i) => { const o = document.createElement("option"); o.value = i; o.textContent = s.label; sel.appendChild(o); });
+    let start = 0;
+    try { const k = localStorage.getItem("ductus-tracer-v2:sample"); const i = SAMPLES.findIndex((s) => s.key === k); if (i >= 0) start = i; } catch (e) { /* none */ }
+    const hash = location.hash.replace("#", ""); const hi = SAMPLES.findIndex((s) => s.key === hash); if (hi >= 0) start = hi;
+    sel.value = start;
+    sel.addEventListener("change", () => {
+      const s = SAMPLES[+sel.value];
+      try { localStorage.setItem("ductus-tracer-v2:sample", s.key); } catch (e) { /* none */ }
+      loadSample(s);
+    });
+    return SAMPLES[start];
   }
   async function start() {
     new ResizeObserver(resize).observe(stage);
     try { matchMedia("(prefers-color-scheme: dark)").addEventListener("change", () => { renderStep(); draw(); }); } catch (e) { /* older browsers */ }
     new MutationObserver(() => { renderStep(); draw(); }).observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
-    resize(); renderAll();
-    let ok = false;
-    for (const u of SAMPLE_IMAGE) { ok = await loadImage(u, u.split("/").pop(), false); if (ok) break; }
-    if (!ok) { notice("Open a manuscript image to start tracing."); $("srcName").textContent = "no image"; return; }
-    if (!restore()) {
-      const d = await fetchFirst(SAMPLE_TRACES, "json");
-      if (d) fromTraces(d);
-      else notice("Couldn't load the sample traces (browsers block this when the page is opened as a local file). Use “Import traces…” with viability/data/traces_allah.json.");
-    }
-    S.source = S.source || "Bibliothèque nationale de France, Arabe 328 (gallica.bnf.fr)";
-    $("srcName").textContent = `BnF Arabe 328 · Sūrat al-Baqarah 2:282–286 · ${S.img.naturalWidth}×${S.img.naturalHeight}`;
-    renderAll();
+    resize();
+    await loadSample(setupSamples());
   }
   start();
 })();

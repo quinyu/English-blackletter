@@ -1,0 +1,1110 @@
+{
+ "image": "lucretius-drn-1r.jpg",
+ "lines": [
+  {
+   "x0": 140,
+   "x1": 748,
+   "baseline": [
+    [
+     140,
+     235.15384615384605
+    ],
+    [
+     748,
+     240.49890109890097
+    ]
+   ],
+   "xline": [
+    [
+     140,
+     222.04395604395606
+    ],
+    [
+     748,
+     227.38901098901098
+    ]
+   ],
+   "x_height": 13.109890109889989,
+   "slope_deg": 0.5036861849672797,
+   "slant_deg": 3.862047436257147,
+   "slant_samples": 150,
+   "ascender_xh": null,
+   "descender_xh": 0.715926236378891,
+   "n_ascenders": 1,
+   "n_descenders": 8,
+   "n": "t1",
+   "kind": "title",
+   "edition": "T. LVCRETII CARI EQ. RO.",
+   "diplomatic": "T· LVCRETII: CARI: EQ: RO:"
+  },
+  {
+   "x0": 295,
+   "x1": 716,
+   "baseline": [
+    [
+     295,
+     276.8333333333333
+    ],
+    [
+     716,
+     290.24296296296296
+    ]
+   ],
+   "xline": [
+    [
+     295,
+     267.26666666666665
+    ],
+    [
+     716,
+     280.6762962962963
+    ]
+   ],
+   "x_height": 9.566666666666663,
+   "slope_deg": 1.8243598853043126,
+   "slant_deg": 9.186932962736966,
+   "slant_samples": 83,
+   "ascender_xh": 2.6352303523035228,
+   "descender_xh": 1.316337591947348,
+   "n_ascenders": 3,
+   "n_descenders": 8,
+   "n": "t2",
+   "kind": "title",
+   "edition": "POETAE τῶν περὶ τῆς",
+   "diplomatic": ""
+  },
+  {
+   "x0": 314,
+   "x1": 797,
+   "baseline": [
+    [
+     314,
+     371.9333333333334
+    ],
+    [
+     797,
+     374.21010101010097
+    ]
+   ],
+   "xline": [
+    [
+     314,
+     357.19696969696975
+    ],
+    [
+     797,
+     359.4737373737373
+    ]
+   ],
+   "x_height": 14.736363636363649,
+   "slope_deg": 0.2700791151798031,
+   "slant_deg": 14.696400122984086,
+   "slant_samples": 112,
+   "ascender_xh": null,
+   "descender_xh": null,
+   "n_ascenders": 0,
+   "n_descenders": 1,
+   "n": "t4",
+   "kind": "title",
+   "edition": "AENEADVM GENETRIX",
+   "diplomatic": "ENEADVM: GENETRIX:"
+  },
+  {
+   "x0": 315,
+   "x1": 865,
+   "baseline": [
+    [
+     315,
+     426.27272727272697
+    ],
+    [
+     865,
+     423.4094794094793
+    ]
+   ],
+   "xline": [
+    [
+     315,
+     408.7569930069929
+    ],
+    [
+     865,
+     405.8937451437452
+    ]
+   ],
+   "x_height": 17.515734265734068,
+   "slope_deg": -0.29827370231316286,
+   "slant_deg": 6.422717634756274,
+   "slant_samples": 167,
+   "ascender_xh": null,
+   "descender_xh": null,
+   "n_ascenders": 1,
+   "n_descenders": 0,
+   "n": "t5",
+   "kind": "title",
+   "edition": "HOMINVM DIVVMQVE VOLVPTAS",
+   "diplomatic": "HOMINVM: DIVVQ: VOLVPTAS:"
+  },
+  {
+   "x0": 317,
+   "x1": 855,
+   "baseline": [
+    [
+     317,
+     473.5454545454545
+    ],
+    [
+     855,
+     469.1979797979799
+    ]
+   ],
+   "xline": [
+    [
+     317,
+     459.9090909090908
+    ],
+    [
+     855,
+     455.5616161616162
+    ]
+   ],
+   "x_height": 13.636363636363683,
+   "slope_deg": -0.4629861206798722,
+   "slant_deg": 12.840967927757571,
+   "slant_samples": 234,
+   "ascender_xh": 2.2281481481481373,
+   "descender_xh": 1.157185185185182,
+   "n_ascenders": 10,
+   "n_descenders": 5,
+   "n": 1,
+   "kind": "text",
+   "edition": "Alma Venus, cœli subter labentia signa",
+   "diplomatic": ""
+  },
+  {
+   "x0": 162,
+   "x1": 806,
+   "baseline": [
+    [
+     162,
+     514.3186813186815
+    ],
+    [
+     806,
+     513.8468864468864
+    ]
+   ],
+   "xline": [
+    [
+     162,
+     500.74725274725284
+    ],
+    [
+     806,
+     500.27545787545773
+    ]
+   ],
+   "x_height": 13.571428571428669,
+   "slope_deg": -0.04197492253686773,
+   "slant_deg": 14.383824669421896,
+   "slant_samples": 133,
+   "ascender_xh": 1.694035087719288,
+   "descender_xh": 1.3883940620782556,
+   "n_ascenders": 5,
+   "n_descenders": 5,
+   "n": 2,
+   "kind": "text",
+   "edition": "Quæ mare navigerum, quæ terras frugiferenteis",
+   "diplomatic": ""
+  },
+  {
+   "x0": 171,
+   "x1": 830,
+   "baseline": [
+    [
+     171,
+     561.3406593406592
+    ],
+    [
+     830,
+     560.9544322344324
+    ]
+   ],
+   "xline": [
+    [
+     171,
+     548.2769230769228
+    ],
+    [
+     830,
+     547.890695970696
+    ]
+   ],
+   "x_height": 13.06373626373636,
+   "slope_deg": -0.03357994019213994,
+   "slant_deg": 16.80867859245959,
+   "slant_samples": 126,
+   "ascender_xh": 1.8429452669358366,
+   "descender_xh": 1.593046209062355,
+   "n_ascenders": 5,
+   "n_descenders": 3,
+   "n": 3,
+   "kind": "text",
+   "edition": "Concelebras; per te quoniam genus omne animantum",
+   "diplomatic": ""
+  },
+  {
+   "x0": 172,
+   "x1": 763,
+   "baseline": [
+    [
+     172,
+     609.6923076923078
+    ],
+    [
+     763,
+     605.7956043956045
+    ]
+   ],
+   "xline": [
+    [
+     172,
+     596.1868131868132
+    ],
+    [
+     763,
+     592.2901098901099
+    ]
+   ],
+   "x_height": 13.505494505494653,
+   "slope_deg": -0.3777688962289925,
+   "slant_deg": 10.051932312525862,
+   "slant_samples": 153,
+   "ascender_xh": 1.8764849471114617,
+   "descender_xh": 1.2963384865744283,
+   "n_ascenders": 6,
+   "n_descenders": 6,
+   "n": 4,
+   "kind": "text",
+   "edition": "Concipitur, visitque exortum lumina solis:",
+   "diplomatic": ""
+  },
+  {
+   "x0": 175,
+   "x1": 776,
+   "baseline": [
+    [
+     175,
+     657.2307692307692
+    ],
+    [
+     776,
+     653.7084249084248
+    ]
+   ],
+   "xline": [
+    [
+     175,
+     643.6373626373627
+    ],
+    [
+     776,
+     640.1150183150183
+    ]
+   ],
+   "x_height": 13.593406593406485,
+   "slope_deg": -0.33579559565221484,
+   "slant_deg": 14.587691544463059,
+   "slant_samples": 205,
+   "ascender_xh": 2.1345189975747867,
+   "descender_xh": 1.4071409323632609,
+   "n_ascenders": 7,
+   "n_descenders": 2,
+   "n": 5,
+   "kind": "text",
+   "edition": "Te, dea, te fugiunt venti, te nubila cœli,",
+   "diplomatic": ""
+  },
+  {
+   "x0": 169,
+   "x1": 801,
+   "baseline": [
+    [
+     169,
+     702.3076923076917
+    ],
+    [
+     801,
+     701.5977533577528
+    ]
+   ],
+   "xline": [
+    [
+     169,
+     689.5560439560438
+    ],
+    [
+     801,
+     688.846105006105
+    ]
+   ],
+   "x_height": 12.751648351647873,
+   "slope_deg": -0.06436153233265983,
+   "slant_deg": 18.46110246326775,
+   "slant_samples": 160,
+   "ascender_xh": 2.484365544448324,
+   "descender_xh": 0.7958481749588974,
+   "n_ascenders": 6,
+   "n_descenders": 3,
+   "n": 6,
+   "kind": "text",
+   "edition": "Adventumque tuum; tibi suaveis dædala tellus",
+   "diplomatic": ""
+  },
+  {
+   "x0": 173,
+   "x1": 777,
+   "baseline": [
+    [
+     173,
+     748.6826250672403
+    ],
+    [
+     777,
+     748.6537445460522
+    ]
+   ],
+   "xline": [
+    [
+     173,
+     734.027972027972
+    ],
+    [
+     777,
+     733.9990915067839
+    ]
+   ],
+   "x_height": 14.654653039268283,
+   "slope_deg": -0.0027396224717943893,
+   "slant_deg": 15.37652215660095,
+   "slant_samples": 130,
+   "ascender_xh": 2.229629629629647,
+   "descender_xh": 0.8074918327643953,
+   "n_ascenders": 5,
+   "n_descenders": 2,
+   "n": 7,
+   "kind": "text",
+   "edition": "Submittit flores, tibi rident æquora ponti,",
+   "diplomatic": ""
+  },
+  {
+   "x0": 163,
+   "x1": 801,
+   "baseline": [
+    [
+     163,
+     792.098901098901
+    ],
+    [
+     801,
+     793.1271794871797
+    ]
+   ],
+   "xline": [
+    [
+     163,
+     779.3109890109888
+    ],
+    [
+     801,
+     780.3392673992674
+    ]
+   ],
+   "x_height": 12.787912087912218,
+   "slope_deg": 0.09234476614205873,
+   "slant_deg": 13.445393344716718,
+   "slant_samples": 155,
+   "ascender_xh": 1.6354845177737647,
+   "descender_xh": 2.306974878977945,
+   "n_ascenders": 5,
+   "n_descenders": 2,
+   "n": 8,
+   "kind": "text",
+   "edition": "Placatumque nitet diffuso lumine cœlum.",
+   "diplomatic": ""
+  },
+  {
+   "x0": 174,
+   "x1": 846,
+   "baseline": [
+    [
+     174,
+     842.120879120879
+    ],
+    [
+     846,
+     842.0224175824175
+    ]
+   ],
+   "xline": [
+    [
+     174,
+     828.0824175824176
+    ],
+    [
+     846,
+     827.9839560439561
+    ]
+   ],
+   "x_height": 14.03846153846132,
+   "slope_deg": -0.008394985949165677,
+   "slant_deg": 13.318522350054035,
+   "slant_samples": 252,
+   "ascender_xh": 1.9636477495107831,
+   "descender_xh": 2.271582517938732,
+   "n_ascenders": 6,
+   "n_descenders": 5,
+   "n": 9,
+   "kind": "text",
+   "edition": "Nam simul ac species patefacta est verna diei,",
+   "diplomatic": ""
+  },
+  {
+   "x0": 168,
+   "x1": 778,
+   "baseline": [
+    [
+     168,
+     889.6923076923074
+    ],
+    [
+     778,
+     889.3943833943831
+    ]
+   ],
+   "xline": [
+    [
+     168,
+     876.0659340659341
+    ],
+    [
+     778,
+     875.7680097680098
+    ]
+   ],
+   "x_height": 13.626373626373265,
+   "slope_deg": -0.027983284472471736,
+   "slant_deg": 14.481374971953624,
+   "slant_samples": 170,
+   "ascender_xh": 1.8012724014337167,
+   "descender_xh": 1.4669265232975501,
+   "n_ascenders": 2,
+   "n_descenders": 4,
+   "n": 10,
+   "kind": "text",
+   "edition": "Et reserata viget genitabilis aura Favoni,",
+   "diplomatic": ""
+  },
+  {
+   "x0": 172,
+   "x1": 758,
+   "baseline": [
+    [
+     172,
+     930.6923076923082
+    ],
+    [
+     758,
+     935.9870573870577
+    ]
+   ],
+   "xline": [
+    [
+     172,
+     916.9340659340661
+    ],
+    [
+     758,
+     922.2288156288156
+    ]
+   ],
+   "x_height": 13.758241758242093,
+   "slope_deg": 0.517676716739651,
+   "slant_deg": 16.618656165605273,
+   "slant_samples": 106,
+   "ascender_xh": 2.101757188498382,
+   "descender_xh": null,
+   "n_ascenders": 4,
+   "n_descenders": 0,
+   "n": 11,
+   "kind": "text",
+   "edition": "Aëriæ primum volucres te, diva, tuumque",
+   "diplomatic": ""
+  },
+  {
+   "x0": 177,
+   "x1": 769,
+   "baseline": [
+    [
+     177,
+     980.1153846153845
+    ],
+    [
+     769,
+     981.7778998778997
+    ]
+   ],
+   "xline": [
+    [
+     177,
+     966.989010989011
+    ],
+    [
+     769,
+     968.6515262515262
+    ]
+   ],
+   "x_height": 13.126373626373493,
+   "slope_deg": 0.16090347551947692,
+   "slant_deg": 18.16293339728534,
+   "slant_samples": 144,
+   "ascender_xh": 1.876535975070938,
+   "descender_xh": 1.7393423561695034,
+   "n_ascenders": 5,
+   "n_descenders": 3,
+   "n": 12,
+   "kind": "text",
+   "edition": "Significant initum perculsæ corda tua vi:",
+   "diplomatic": ""
+  },
+  {
+   "x0": 176,
+   "x1": 797,
+   "baseline": [
+    [
+     176,
+     1030.3582571274876
+    ],
+    [
+     797,
+     1027.2107584722964
+    ]
+   ],
+   "xline": [
+    [
+     176,
+     1016.0527165142552
+    ],
+    [
+     797,
+     1012.905217859064
+    ]
+   ],
+   "x_height": 14.305540613232438,
+   "slope_deg": -0.29039749557040023,
+   "slant_deg": 12.406654031847296,
+   "slant_samples": 259,
+   "ascender_xh": 2.41641222330857,
+   "descender_xh": 1.9339587876965503,
+   "n_ascenders": 8,
+   "n_descenders": 4,
+   "n": 13,
+   "kind": "text",
+   "edition": "Inde feræ pecudes persultant pabula læta,",
+   "diplomatic": ""
+  },
+  {
+   "x0": 170,
+   "x1": 815,
+   "baseline": [
+    [
+     170,
+     1078.087912087912
+    ],
+    [
+     815,
+     1074.3706959706965
+    ]
+   ],
+   "xline": [
+    [
+     170,
+     1064.518681318681
+    ],
+    [
+     815,
+     1060.8014652014656
+    ]
+   ],
+   "x_height": 13.569230769230899,
+   "slope_deg": -0.33019912735991214,
+   "slant_deg": 13.568586306434405,
+   "slant_samples": 227,
+   "ascender_xh": 1.7969639707734901,
+   "descender_xh": 1.264919195191267,
+   "n_ascenders": 4,
+   "n_descenders": 4,
+   "n": 14,
+   "kind": "text",
+   "edition": "Et rapidos tranant amneis; ita capta lepore,",
+   "diplomatic": ""
+  },
+  {
+   "x0": 186,
+   "x1": 846,
+   "baseline": [
+    [
+     186,
+     1122.7472527472523
+    ],
+    [
+     846,
+     1123.9399267399267
+    ]
+   ],
+   "xline": [
+    [
+     186,
+     1108.4714285714285
+    ],
+    [
+     846,
+     1109.664102564103
+    ]
+   ],
+   "x_height": 14.2758241758238,
+   "slope_deg": 0.10353804807808449,
+   "slant_deg": 14.441310865505256,
+   "slant_samples": 247,
+   "ascender_xh": 1.8600124872775468,
+   "descender_xh": null,
+   "n_ascenders": 5,
+   "n_descenders": 1,
+   "n": 15,
+   "kind": "text",
+   "edition": "Te sequitur cupide, quo quamque inducere pergis:",
+   "diplomatic": ""
+  },
+  {
+   "x0": 177,
+   "x1": 856,
+   "baseline": [
+    [
+     177,
+     1169.0380952380951
+    ],
+    [
+     856,
+     1168.3375396825397
+    ]
+   ],
+   "xline": [
+    [
+     177,
+     1155.3714285714284
+    ],
+    [
+     856,
+     1154.670873015873
+    ]
+   ],
+   "x_height": 13.666666666666742,
+   "slope_deg": -0.05911467217255401,
+   "slant_deg": 13.465122979653387,
+   "slant_samples": 186,
+   "ascender_xh": 1.6432781649244919,
+   "descender_xh": 1.3209291521486575,
+   "n_ascenders": 2,
+   "n_descenders": 5,
+   "n": 16,
+   "kind": "text",
+   "edition": "Denique per maria, ac monteis, fluviosque rapaceis,",
+   "diplomatic": ""
+  },
+  {
+   "x0": 165,
+   "x1": 811,
+   "baseline": [
+    [
+     165,
+     1216.0549450549452
+    ],
+    [
+     811,
+     1216.906813186813
+    ]
+   ],
+   "xline": [
+    [
+     165,
+     1202.5846153846155
+    ],
+    [
+     811,
+     1203.4364835164833
+    ]
+   ],
+   "x_height": 13.470329670329647,
+   "slope_deg": 0.07555483028857153,
+   "slant_deg": 14.922330498928085,
+   "slant_samples": 207,
+   "ascender_xh": 1.922434328601722,
+   "descender_xh": 1.3070810899004817,
+   "n_ascenders": 4,
+   "n_descenders": 4,
+   "n": 17,
+   "kind": "text",
+   "edition": "Frundiferasque domos avium, camposque virenteis,",
+   "diplomatic": ""
+  },
+  {
+   "x0": 174,
+   "x1": 856,
+   "baseline": [
+    [
+     174,
+     1258.390476190476
+    ],
+    [
+     856,
+     1259.7977777777785
+    ]
+   ],
+   "xline": [
+    [
+     174,
+     1245.1642857142851
+    ],
+    [
+     856,
+     1246.5715873015877
+    ]
+   ],
+   "x_height": 13.226190476190823,
+   "slope_deg": 0.11822921849044239,
+   "slant_deg": 13.906520059402892,
+   "slant_samples": 186,
+   "ascender_xh": 2.0639663966396427,
+   "descender_xh": 0.7815661566156449,
+   "n_ascenders": 8,
+   "n_descenders": 3,
+   "n": 18,
+   "kind": "text",
+   "edition": "Omnibus incutiens blandum per pectora amorem,",
+   "diplomatic": ""
+  },
+  {
+   "x0": 175,
+   "x1": 804,
+   "baseline": [
+    [
+     175,
+     1304.2646347363332
+    ],
+    [
+     804,
+     1304.0617642315751
+    ]
+   ],
+   "xline": [
+    [
+     175,
+     1290.11611030479
+    ],
+    [
+     804,
+     1289.913239800032
+    ]
+   ],
+   "x_height": 14.148524431543137,
+   "slope_deg": -0.01847952831046516,
+   "slant_deg": 14.405396871486532,
+   "slant_samples": 247,
+   "ascender_xh": 2.1294808229327105,
+   "descender_xh": 1.6831025246481073,
+   "n_ascenders": 4,
+   "n_descenders": 3,
+   "n": 19,
+   "kind": "text",
+   "edition": "Efficis ut cupide generatim sæcla propagent.",
+   "diplomatic": ""
+  },
+  {
+   "x0": 180,
+   "x1": 826,
+   "baseline": [
+    [
+     180,
+     1349.824175824176
+    ],
+    [
+     826,
+     1349.0669597069596
+    ]
+   ],
+   "xline": [
+    [
+     180,
+     1336.2109890109891
+    ],
+    [
+     826,
+     1335.4537728937726
+    ]
+   ],
+   "x_height": 13.613186813186985,
+   "slope_deg": -0.06715985731564007,
+   "slant_deg": 14.05067696615018,
+   "slant_samples": 166,
+   "ascender_xh": 1.8271176407275567,
+   "descender_xh": 2.180486492304361,
+   "n_ascenders": 4,
+   "n_descenders": 3,
+   "n": 20,
+   "kind": "text",
+   "edition": "Quæ quoniam rerum naturam sola gubernas,",
+   "diplomatic": ""
+  },
+  {
+   "x0": 177,
+   "x1": 765,
+   "baseline": [
+    [
+     177,
+     1397.2692307692307
+    ],
+    [
+     765,
+     1396.766666666666
+    ]
+   ],
+   "xline": [
+    [
+     177,
+     1383.1923076923078
+    ],
+    [
+     765,
+     1382.689743589743
+    ]
+   ],
+   "x_height": 14.076923076922867,
+   "slope_deg": -0.04897073979605628,
+   "slant_deg": 14.922330498928085,
+   "slant_samples": 205,
+   "ascender_xh": 1.9058894960534256,
+   "descender_xh": 2.123436551305451,
+   "n_ascenders": 7,
+   "n_descenders": 4,
+   "n": 21,
+   "kind": "text",
+   "edition": "Nec sine te quicquam dias in luminis oras",
+   "diplomatic": ""
+  },
+  {
+   "x0": 178,
+   "x1": 810,
+   "baseline": [
+    [
+     178,
+     1445.5054945054935
+    ],
+    [
+     810,
+     1443.2213431013424
+    ]
+   ],
+   "xline": [
+    [
+     178,
+     1431.21978021978
+    ],
+    [
+     810,
+     1428.935628815629
+    ]
+   ],
+   "x_height": 14.285714285713539,
+   "slope_deg": -0.20707541994572753,
+   "slant_deg": 15.01177753492589,
+   "slant_samples": 185,
+   "ascender_xh": null,
+   "descender_xh": 1.342430769230891,
+   "n_ascenders": 1,
+   "n_descenders": 3,
+   "n": 22,
+   "kind": "text",
+   "edition": "Exoritur, neque fit lætum, neque amabile quicquam;",
+   "diplomatic": ""
+  },
+  {
+   "x0": 173,
+   "x1": 784,
+   "baseline": [
+    [
+     173,
+     1493.1153846153843
+    ],
+    [
+     784,
+     1487.8185592185591
+    ]
+   ],
+   "xline": [
+    [
+     173,
+     1479.1703296703297
+    ],
+    [
+     784,
+     1473.8735042735045
+    ]
+   ],
+   "x_height": 13.945054945054608,
+   "slope_deg": -0.49669089645220316,
+   "slant_deg": 13.383398022912433,
+   "slant_samples": 271,
+   "ascender_xh": 2.142421854478626,
+   "descender_xh": 1.2881752911304185,
+   "n_ascenders": 9,
+   "n_descenders": 2,
+   "n": 23,
+   "kind": "text",
+   "edition": "Te sociam studeo scribundis versibus esse,",
+   "diplomatic": ""
+  },
+  {
+   "x0": 175,
+   "x1": 849,
+   "baseline": [
+    [
+     175,
+     1535.3956043956043
+    ],
+    [
+     849,
+     1533.7496947496943
+    ]
+   ],
+   "xline": [
+    [
+     175,
+     1520.769230769231
+    ],
+    [
+     849,
+     1519.123321123321
+    ]
+   ],
+   "x_height": 14.626373626373379,
+   "slope_deg": -0.13991615536364,
+   "slant_deg": 15.481878266036759,
+   "slant_samples": 171,
+   "ascender_xh": 1.8259871441689888,
+   "descender_xh": 1.6967192587027697,
+   "n_ascenders": 4,
+   "n_descenders": 3,
+   "n": 24,
+   "kind": "text",
+   "edition": "Quos ego de rerum natura pangere conor",
+   "diplomatic": "Quos ego de rerum natura pangere conor"
+  }
+ ],
+ "pen": {
+  "a": 3.2503556576830106,
+  "b": 2.4765082436067125,
+  "theta_deg": 16.0,
+  "contrast": 1.3124752021617703,
+  "rms_px": 0.3694721972790946,
+  "bins": {
+   "centre_deg": [
+    5.0,
+    15.0,
+    25.0,
+    35.0,
+    45.0,
+    55.0,
+    65.0,
+    75.0,
+    85.0,
+    95.0,
+    105.0,
+    115.0,
+    125.0,
+    135.0,
+    145.0,
+    155.0,
+    165.0,
+    175.0
+   ],
+   "median_width": [
+    2.086600518908369,
+    2.330196440312771,
+    2.4843854971565387,
+    2.8533854176858884,
+    3.1467722960575086,
+    3.2796433512508916,
+    2.9772316881046432,
+    2.466520966763405,
+    2.3115518731425504,
+    2.9031415836707395,
+    3.3033933410461334,
+    3.5416266278356074,
+    3.672553937816378,
+    3.3891778525594436,
+    2.981625120101018,
+    2.7344444334471834,
+    2.6119216269743015,
+    2.277489698245935
+   ],
+   "n": [
+    1085,
+    1259,
+    919,
+    785,
+    831,
+    1154,
+    1385,
+    2141,
+    1375,
+    309,
+    237,
+    240,
+    142,
+    118,
+    206,
+    399,
+    499,
+    567
+   ]
+  },
+  "method": "ink mass across the stroke (relative widths)",
+  "n_samples": 13651
+ },
+ "summary": {
+  "x_height": {
+   "mean": 13.721818881207385,
+   "sd": 0.5176874269491514
+  },
+  "slant_deg": {
+   "mean": 14.520982616596788,
+   "sd": 1.7993692265392613
+  },
+  "ascender_xh": {
+   "mean": 1.9740343471192106,
+   "sd": 0.22887597948056077
+  },
+  "descender_xh": {
+   "mean": 1.5069580194656864,
+   "sd": 0.45201493054261505
+  },
+  "slope_deg": {
+   "mean": -0.0810559057310205,
+   "sd": 0.225168010664854
+  },
+  "line_pitch_px": {
+   "mean": 46.16739781957173,
+   "sd": 2.6943795598061158
+  }
+ }
+}

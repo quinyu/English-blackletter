@@ -1,0 +1,67 @@
+{
+ "nib": {
+  "a": 4.5405034430114695,
+  "b": 3.45949655698853,
+  "theta_deg": 16.0
+ },
+ "letters": [
+  {
+   "width": 0.6836964688204473,
+   "rise": 1.020869855580607,
+   "drop": -0.20043409299607015,
+   "slant": 26.33564117560287,
+   "x_height_px": 14.626373626373379,
+   "id": "24.12",
+   "char": "r",
+   "line": 24,
+   "context": "rerum",
+   "overlap": 0.4342857142857143,
+   "outline_dist_px": 1.4892479181289673,
+   "strokes": [
+    "minim",
+    "shoulder"
+   ]
+  },
+  {
+   "width": 1.025544703230671,
+   "rise": 1.01527673428501,
+   "drop": -0.12647132481842835,
+   "slant": 26.56505117707799,
+   "x_height_px": 14.626373626373379,
+   "id": "24.14",
+   "char": "r",
+   "line": 24,
+   "context": "rerum",
+   "overlap": 0.421875,
+   "outline_dist_px": 1.2423834800720215,
+   "strokes": [
+    "minim",
+    "shoulder"
+   ]
+  },
+  {
+   "width": 1.5725018782870288,
+   "rise": 0.802988563319145,
+   "drop": -0.18766174138074243,
+   "slant": 18.403928280632154,
+   "x_height_px": 14.626373626373379,
+   "id": "24.16",
+   "char": "m",
+   "line": 24,
+   "context": "rerum",
+   "overlap": 0.5506329113924051,
+   "outline_dist_px": 0.939609944820404,
+   "strokes": [
+    "minim",
+    "arch and minim",
+    "arch and minim"
+   ]
+  }
+ ],
+ "up_down": {
+  "downstroke_width_px": 4.232640287859999,
+  "upstroke_width_px": 3.646092373905125,
+  "n_down": 21,
+  "n_up": 10
+ }
+}

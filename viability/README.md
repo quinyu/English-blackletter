@@ -1,4 +1,9 @@
-# Viability check: a stroke-and-nib model of one scribe's الله
+# Viability checks: stroke-and-nib models of two scribes
+
+Two hands are tested: an early Hijazi Qur'an (BnF Arabe 328, below) and a
+15th-century Latin humanist cursive (Lucretius, [second sample](#second-sample-latin-humanist-cursive-lucretius)).
+
+## Hijazi: one scribe's الله
 
 **Question.** Can a model that *writes* letters, with a pen following stroke paths,
 reproduce a real early Qur'anic hand? Can it also vary the way the scribe varied,
@@ -158,8 +163,98 @@ shafts. Vector versions are in `out/allah_mean.svg` and `out/allah_variants.svg`
    stretched joins and line breaks. Then test whether position in the line explains
    the leftover variation.
 
-## Source
+## Second sample: Latin humanist cursive (Lucretius)
 
-The page image is from Gallica: Source gallica.bnf.fr / Bibliothèque nationale de
-France, Département des Manuscrits, Arabe 328. Gallica permits free non-commercial
-reuse with this attribution. Check the BnF terms before any commercial use.
+**Test material.** The opening page of a 15th-century humanist manuscript of Lucretius,
+*De rerum natura* I.1–25 (`data/lucretius-drn-1r.jpg`, 1443 × 2000 px). It has a title
+in epigraphic capitals with Greek, 24 lines of text, and an "Amerbachiorum" ex-libris
+at the foot.
+
+`data/lucretius_reading.json` holds the reading from the printed edition, split at the
+manuscript's own line breaks:
+
+- The manuscript **omits** the line *Illecebrisque tuis omnis natura animantum* (I.15),
+  so its line 14 runs straight on to *Te sequitur cupide…*.
+- The scribe abbreviates heavily (p with a stroke for *per/pre*, *q;* for *-que*, a
+  macron for *m/n*) and writes *u* for *v* and *e* for *ae*. So the reading shows what
+  the text *says*, and a separate "diplomatic" field records what the scribe *wrote*.
+  That field is filled in only where it was checked against the image (line 24 and
+  the title lines). The rest is left for tracing.
+
+| Step | File | What it does |
+|---|---|---|
+| Lines | `latin_lines.py` | Finds every line's baseline and x-height line from the ink, plus ascender and descender reach, slant and pen; writes `data/lucretius_lines.json`. |
+| Trace | `../tools/tracer/` (Lucretius sample) | Pick a letter in the reading, then click each stroke in writing order; the path between clicks follows the ink (`inkpath.py`). |
+| Letters | `measure_letters.py` | Measures traced letters in x-heights, re-draws them with the page's pen, and compares the result with the ink. |
+
+```sh
+python3 latin_lines.py       # guides + line figures
+python3 measure_letters.py   # traced letters (data/traces_lucretius.json)
+```
+
+### What the page shows
+
+![Line guides, metrics and pen](out/latin_lines.png)
+
+- **Guides found automatically.** All 24 text lines and 4 of the 5 title lines were
+  found. The fifth, the one-word Greek ΦΥϹΕΩϹ, is too short to register.
+- **Proportions:**
+  - x-height: 13.7 ± 0.5 px.
+  - Line spacing: 46 px (3.4 x-heights).
+  - Ascenders: about 2.0 x-heights above the baseline.
+  - Descenders: about 1.5 x-heights below.
+  - Upright strokes: 14.5° from vertical.
+  - Lines: level (−0.1° ± 0.2°).
+- **No line-to-line drift.** Each line's left half was measured separately from its
+  right half:
+  - Slant: the halves agree only weakly (r = 0.27).
+  - x-height: they don't agree at all (r = −0.07).
+
+  So the differences between lines are mostly noise. This scribe keeps size and slant
+  steady across the page, and the visible variation lives *within* lines. That is the
+  opposite of the Hijazi page, where variation was shared by whole words.
+- **Pen.** Strokes are only about 4 px wide here, too coarse to count pixels, so width
+  is measured as the amount of ink across each stroke. The same method on the Hijazi
+  page gives 1.18 at 44°, agreeing with the pixel method above.
+  - Thick/thin contrast is only about 1.3, and no single nib angle fits well.
+  - There are two thin directions: horizontal, and close to the upright slant.
+  - The likely reason is that in a cursive hand the upstrokes are written lighter than
+    the downstrokes at the same angle. A direction-only measurement can't separate the
+    two, but traced strokes can, because they record which way the pen moved.
+
+### Traced letters
+
+![Seed letters](out/latin_letters.png)
+
+Three letters of *rerum* (line 24) are traced as seeds: both r's and the m. Re-drawn
+with the page's pen, their outlines are 0.9–1.5 px from the ink.
+
+Along these strokes, downstrokes come out heavier than upstrokes (4.2 vs 3.6 px), as
+the pen analysis predicts. With 31 samples from three letters this is a hint, not a
+result. The e and u of the same word are left untraced: a descender from line 23
+crosses them, and their ductus can't be read with confidence at this resolution.
+
+### What this means
+
+- The tracing and measuring pipeline carries over from Arabic to Latin unchanged in
+  structure. Line guides replace the per-word baseline, and strokes become polylines in
+  writing order.
+- For a cursive Latin hand the pen model needs a **pressure channel**. It must know
+  whether a stroke is an upstroke or a downstroke, not only its angle. The tracer
+  already records this.
+- Size and slant can be held constant per line for this scribe. The variation model
+  belongs at word and letter level.
+- The editor's text layer needs an **abbreviation step** between the reading and the
+  letters to be drawn (*per* → ꝑ, *-que* → q;, *-um* → ū). Otherwise a rendered line
+  will spell out what the scribe abbreviated.
+- Next step: trace a few lines in full, ideally on a full-resolution scan, to get
+  10–20 instances per common letter. Then build the first stroke plans for this
+  alphabet from them.
+
+## Sources
+
+- The Arabic page image is from Gallica: Source gallica.bnf.fr / Bibliothèque nationale
+  de France, Département des Manuscrits, Arabe 328. Gallica permits free non-commercial
+  reuse with this attribution. Check the BnF terms before any commercial use.
+- The Lucretius page image was supplied with this project. Its holding library and
+  reuse terms still need to be recorded here.
