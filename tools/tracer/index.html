@@ -136,6 +136,7 @@ section h2 { margin: 0 0 8px; font-size: 11.5px; font-weight: 600; letter-spacin
 .ch.traced { color: var(--done); background: var(--done-soft); }
 .ch.armed { background: var(--accent); color: var(--accent-fg); }
 .ch.selected { outline: 2px solid var(--accent); }
+.rline .ed { color: var(--muted); }
 .fields { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 8px 10px; align-items: center; }
 .fields label { color: var(--muted); font-size: 12.5px; }
 .fields input[type=text], .fields input[type=number] {
@@ -233,7 +234,7 @@ kbd { font: 11.5px var(--font-num); border: 1px solid var(--line); border-bottom
       <section id="readingSec" hidden>
         <h2>Reading</h2>
         <div class="reading" id="reading"></div>
-        <p class="fine">Click a letter, then trace it on the page. Letters already traced are green. Where the scribe abbreviates, use <b>Other letter</b> to trace a sign that is not in the reading.</p>
+        <p class="fine">Click a letter, then trace it on the page. Letters already traced are green; grey text in [brackets] was added by the editor and is not on the page. Where the scribe abbreviates, use <b>Other letter</b> to trace a sign that is not in the reading.</p>
         <div class="row" style="margin-top:6px">
           <button class="btn small" id="btnOther" type="button">Other letter…</button>
           <span id="otherBox" hidden class="row"><input id="otherChar" type="text" maxlength="4" aria-label="Letter or sign" style="width:70px;height:26px;padding:0 6px;border:1px solid var(--line);border-radius:6px;background:var(--bg)"><button class="btn small primary" id="btnOtherGo" type="button">Trace</button></span>
@@ -304,6 +305,14 @@ kbd { font: 11.5px var(--font-num); border: 1px solid var(--line); border-bottom
       lines: ["sample/lucretius_lines.json", "../../viability/data/lucretius_lines.json"],
       title: "Lucretius, De rerum natura I.1–25, f. 1r",
       source: "Lucretius, De rerum natura, 15th-century humanist manuscript, f. 1r",
+    },
+    {
+      key: "chigi", label: "Chig. L.VIII.305 — Guinizzelli (Gothic textualis)", script: "latin", template: "letters",
+      image: ["sample/chigi-L-VIII-305-f1r.webp", "../../viability/data/chigi-L-VIII-305-f1r.webp"],
+      traces: ["sample/traces_chigi.json", "../../viability/data/traces_chigi.json"],
+      lines: ["sample/chigi_lines.json", "../../viability/data/chigi_lines.json"],
+      title: "Guinizzelli, Tegno de folle 'mpresa · Chig. L.VIII.305, f. 1r",
+      source: "Città del Vaticano, Biblioteca Apostolica Vaticana, Chig. L.VIII.305, f. 1r",
     },
   ];
 
@@ -393,6 +402,18 @@ kbd { font: 11.5px var(--font-num); border: 1px solid var(--line); border-bottom
     return best;
   }
   function lineText(l) { return (l.diplomatic && l.diplomatic.trim()) ? l.diplomatic : (l.edition || ""); }
+  // Which characters of a reading the scribe actually wrote with the pen: editorial
+  // expansions in [brackets], the ellipsis for a cropped line end, and spaces are not.
+  function writtenMask(text) {
+    const out = []; let inside = false;
+    for (const ch of text) {
+      if (ch === "[") { inside = true; out.push(false); continue; }
+      if (ch === "]") { inside = false; out.push(false); continue; }
+      out.push(!inside && !/\s/.test(ch) && ch !== "…");
+    }
+    return out;
+  }
+  const isMark = (ch) => /[.,;:!?·\/]/.test(ch);
   function wordAround(text, i) {
     let a = i, b = i;
     while (a > 0 && /[\p{L}\p{M}]/u.test(text[a - 1])) a--;
@@ -1006,8 +1027,13 @@ kbd { font: 11.5px var(--font-num); border: 1px solid var(--line); border-bottom
       num.addEventListener("click", () => focusLine(l));
       const txt = document.createElement("span"); txt.className = "txt" + (l.kind === "title" ? " title" : "");
       const text = lineText(l);
+      const written = writtenMask(text);
       [...text].forEach((ch, i) => {
-        if (/\s/.test(ch)) { txt.appendChild(document.createTextNode(ch)); return; }
+        if (!written[i]) {
+          if (/\s/.test(ch)) { txt.appendChild(document.createTextNode(ch)); return; }
+          const sp = document.createElement("span"); sp.className = "ed"; sp.textContent = ch;
+          sp.title = "Editorial: not written by the scribe"; txt.appendChild(sp); return;
+        }
         const b = document.createElement("button"); b.type = "button"; b.className = "ch"; b.textContent = ch;
         b.dataset.line = l.n; b.dataset.index = i;
         const key = `${l.n}:${i}`;
@@ -1033,9 +1059,9 @@ kbd { font: 11.5px var(--font-num); border: 1px solid var(--line); border-bottom
   });
   function armNext(w) {
     const l = lineOf(w.line); if (!l || w.index == null) { S.armed = null; return; }
-    const text = lineText(l);
+    const text = lineText(l), written = writtenMask(text);
     for (let i = w.index + 1; i < text.length; i++) {
-      if (/\s/.test(text[i]) || /[.,;:!?·]/.test(text[i])) continue;
+      if (!written[i] || isMark(text[i])) continue;
       if (S.words.some((x) => x.kind === "letter" && String(x.line) === String(l.n) && x.index === i)) continue;
       S.armed = { char: text[i], line: l.n, index: i, context: wordAround(text, i) };
       return;

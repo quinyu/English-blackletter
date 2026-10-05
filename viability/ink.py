@@ -37,3 +37,10 @@ def ink_mask(rgb, threshold=14.0, weak=9.0, min_area=12):
     keep = np.zeros(n, bool)
     keep[1:] = stats[1:, cv2.CC_STAT_AREA] >= min_area
     return keep[lab].astype(np.uint8), d
+
+
+def red_mask(rgb, mask, a_thr=15.0):
+    """Ink that is red (rubrics, paragraph marks): high a* in Lab. Brown and black
+    text ink sits near a* = 0–8, vermilion rubrication around 20–35."""
+    lab = cv2.cvtColor(rgb, cv2.COLOR_RGB2LAB).astype(np.float32)
+    return ((lab[..., 1] - 128.0) > a_thr) & (mask > 0)

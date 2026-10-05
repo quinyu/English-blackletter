@@ -1,0 +1,79 @@
+{
+ "image": "chigi-L-VIII-305-f1r.webp",
+ "work": "Guido Guinizzelli, canzone \"Tegno de folle 'mpresa, a lo ver dire\" (stanzas 1–2 and the start of 3). Città del Vaticano, Biblioteca Apostolica Vaticana, Chig. L.VIII.305, f. 1r (detail): the opening page of the Chigi canzoniere, Tuscan, mid-14th century.",
+ "note": "\"diplomatic\" is what the scribe wrote, as read from this image (word division and spelling kept; abbreviations expanded in brackets; [T] is the painted initial). The image is cropped at the right, so most lines end mid-word (…). \"edition\" is the corresponding text of Contini's edition (Poeti del Duecento), for comparison only. The verses are written continuously like prose, separated by a slash-like virgula, written here as \"/\".",
+ "lines": [
+  {
+   "n": "r",
+   "kind": "title",
+   "diplomatic": "Mess[er] Guido guinizelli dabolong…",
+   "edition": "Messer Guido Guinizzelli da Bologna"
+  },
+  {
+   "n": 1,
+   "kind": "text",
+   "diplomatic": "[T]engnol difollen presa louerdire/ ch…",
+   "edition": "Tegno de folle 'mpres', a lo ver dire, chi s'abandona inver' troppo"
+  },
+  {
+   "n": 2,
+   "kind": "text",
+   "diplomatic": "possente/ sicomo gliocchi miei chefe…",
+   "edition": "possente, sì como gli occhi miei che fér' esmire incontr' a quelli"
+  },
+  {
+   "n": 3,
+   "kind": "text",
+   "diplomatic": "dellapiu auenente Chesol p[er]lor enuinti…",
+   "edition": "de la più avenente, che sol per lor èn vinti senza ch'altre bellezze li dian"
+  },
+  {
+   "n": 4,
+   "kind": "text",
+   "diplomatic": "força/ chaccio far sonpinti/ sicome g…",
+   "edition": "forza: ché a ciò far son pinti, sì come gran baronia di segnore,"
+  },
+  {
+   "n": 5,
+   "kind": "text",
+   "diplomatic": "qua[n]do uuol far usar força/ tutta sap…",
+   "edition": "quando vuol usar forza, tutta s'apresta in donarli valore."
+  },
+  {
+   "n": 6,
+   "kind": "text",
+   "diplomatic": "Disi forte ualor locolpo uene/ chegliocchi nolritener d…",
+   "edition": "Di sì forte valor lo colpo venne che gli occhi no'l ritenner di neente, ma passò dentr' al"
+  },
+  {
+   "n": 7,
+   "kind": "text",
+   "diplomatic": "chor chelosostenne/ esentesi plagato durame[n]te. Epo…",
+   "edition": "cor, che lo sostenne e sentési plagato duramente; e poi li rendé pace, sì come troppo"
+  },
+  {
+   "n": 8,
+   "kind": "text",
+   "diplomatic": "agrauata cosa chemore inlecto egiace/ ella nomette c…",
+   "edition": "agravata cosa, che more in letto e giace: ella non mette cura di neente, ma vassen"
+  },
+  {
+   "n": 9,
+   "kind": "text",
+   "diplomatic": "disdengnosa/ chessi uede alta bella eauenente :",
+   "edition": "disdegnosa, ché si vede alta, bella e avenente."
+  },
+  {
+   "n": 10,
+   "kind": "text",
+   "diplomatic": "Bensi po tener alta quanto uole/ chelaplu bella do…",
+   "edition": "Ben si pò tener alta quanto vòle, ché la plu bella donna è che si trove"
+  },
+  {
+   "n": 11,
+   "kind": "text",
+   "diplomatic": "laltre par lucente sole/ efalle disparer atutte proue…",
+   "edition": "ed infra l'altre par lucente sole e falle disparer a tutte prove"
+  }
+ ]
+}

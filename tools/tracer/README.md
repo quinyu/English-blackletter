@@ -2,19 +2,20 @@
 
 A browser tool for tracing letters on manuscript scans, stroke by stroke. The traces
 are saved as JSON for the measurement scripts in `viability/`. The menu at the top
-switches between two manuscripts:
+switches between three manuscripts:
 
 | Manuscript | Mode | Output format |
 |---|---|---|
 | BnF Arabe 328 (Hijazi) | Word template for الله: alif, two lāms, hā', baseline | `viability/data/traces_allah.json` |
 | Lucretius, *De rerum natura* I (humanist cursive) | Any letter, any number of strokes, guided by the reading | `ductus-traces/2`, as in `viability/data/traces_lucretius.json` |
+| Chig. L.VIII.305, Guinizzelli (Gothic textualis) | Same as Lucretius | `ductus-traces/2`, as in `viability/data/traces_chigi.json` |
 
 ## Run it
 
 ```sh
 # from the repository root
 python3 -m http.server 8000
-# open http://localhost:8000/tools/tracer/            (add #lucretius to open the Latin page)
+# open http://localhost:8000/tools/tracer/            (add #lucretius or #chigi to open a Latin page)
 ```
 
 If you open `index.html` directly as a file instead, the browser blocks pixel access,
@@ -39,7 +40,8 @@ so the ink overlay and ink-following won't work. In that case:
 4. **Carry on with the next letter.** When a letter is done, the next letter of the
    reading is selected automatically. Traced letters turn green.
 5. **Trace abbreviation signs with Other letter…** Use it for signs the reading doesn't
-   contain, such as ꝑ or q;.
+   contain, such as ꝑ or q;. Grey text in [brackets] was added by the editor and isn't
+   on the page, so it can't be traced.
 
 Each stroke is stored with its clicks and its centre-line, in the order and direction
 the pen moved. That direction is what lets `measure_letters.py` tell upstrokes from

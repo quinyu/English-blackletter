@@ -1,0 +1,548 @@
+{
+ "image": "chigi-L-VIII-305-f1r.webp",
+ "lines": [
+  {
+   "x0": 287,
+   "x1": 835,
+   "baseline": [
+    [
+     287,
+     72.81818181818178
+    ],
+    [
+     835,
+     82.99471639471636
+    ]
+   ],
+   "xline": [
+    [
+     287,
+     59.73251748251748
+    ],
+    [
+     835,
+     69.90905205905206
+    ]
+   ],
+   "x_height": 13.085664335664305,
+   "slope_deg": 1.0638785943054399,
+   "slant_deg": 0.26686202302424467,
+   "slant_samples": 274,
+   "ascender_xh": 2.219660060862468,
+   "descender_xh": 0.6724322719513143,
+   "n_ascenders": 8,
+   "n_descenders": 3,
+   "n": "r",
+   "kind": "title",
+   "edition": "Messer Guido Guinizzelli da Bologna",
+   "diplomatic": "Mess[er] Guido guinizelli dabolong…"
+  },
+  {
+   "x0": 265,
+   "x1": 835,
+   "baseline": [
+    [
+     265,
+     136.37272727272727
+    ],
+    [
+     835,
+     138.330303030303
+    ]
+   ],
+   "xline": [
+    [
+     265,
+     121.91818181818184
+    ],
+    [
+     835,
+     123.87575757575756
+    ]
+   ],
+   "x_height": 14.454545454545439,
+   "slope_deg": 0.19677261056316403,
+   "slant_deg": 0.7196218807517644,
+   "slant_samples": 369,
+   "ascender_xh": 2.5816491963661794,
+   "descender_xh": 1.5523410202655494,
+   "n_ascenders": 9,
+   "n_descenders": 3,
+   "n": 1,
+   "kind": "text",
+   "edition": "Tegno de folle 'mpres', a lo ver dire, chi s'abandona inver' troppo",
+   "diplomatic": "[T]engnol difollen presa louerdire/ ch…"
+  },
+  {
+   "x0": 266,
+   "x1": 835,
+   "baseline": [
+    [
+     266,
+     190.16666666666654
+    ],
+    [
+     835,
+     193.0846153846153
+    ]
+   ],
+   "xline": [
+    [
+     266,
+     176.26923076923075
+    ],
+    [
+     835,
+     179.1871794871795
+    ]
+   ],
+   "x_height": 13.897435897435798,
+   "slope_deg": 0.2938219346507068,
+   "slant_deg": -0.21749458037203198,
+   "slant_samples": 329,
+   "ascender_xh": 2.400369003690046,
+   "descender_xh": 1.7134686346863668,
+   "n_ascenders": 4,
+   "n_descenders": 4,
+   "n": 2,
+   "kind": "text",
+   "edition": "possente, sì como gli occhi miei che fér' esmire incontr' a quelli",
+   "diplomatic": "possente/ sicomo gliocchi miei chefe…"
+  },
+  {
+   "x0": 271,
+   "x1": 835,
+   "baseline": [
+    [
+     271,
+     246.98484848484853
+    ],
+    [
+     835,
+     247.81748251748257
+    ]
+   ],
+   "xline": [
+    [
+     271,
+     233.50174825174824
+    ],
+    [
+     835,
+     234.3343822843823
+    ]
+   ],
+   "x_height": 13.483100233100288,
+   "slope_deg": 0.08458578243043333,
+   "slant_deg": -2.3793830050193456,
+   "slant_samples": 255,
+   "ascender_xh": 2.7838930428894493,
+   "descender_xh": 1.818069182118096,
+   "n_ascenders": 5,
+   "n_descenders": 3,
+   "n": 3,
+   "kind": "text",
+   "edition": "de la più avenente, che sol per lor èn vinti senza ch'altre bellezze li dian",
+   "diplomatic": "dellapiu auenente Chesol p[er]lor enuinti…"
+  },
+  {
+   "x0": 272,
+   "x1": 835,
+   "baseline": [
+    [
+     272,
+     296.1363636363637
+    ],
+    [
+     835,
+     297.3174825174826
+    ]
+   ],
+   "xline": [
+    [
+     272,
+     282.8111888111888
+    ],
+    [
+     835,
+     283.9923076923077
+    ]
+   ],
+   "x_height": 13.325174825174884,
+   "slope_deg": 0.12020075969938336,
+   "slant_deg": 1.839969919114015,
+   "slant_samples": 293,
+   "ascender_xh": 2.297271057465224,
+   "descender_xh": 1.7448963526633325,
+   "n_ascenders": 6,
+   "n_descenders": 9,
+   "n": 4,
+   "kind": "text",
+   "edition": "forza: ché a ciò far son pinti, sì come gran baronia di segnore,",
+   "diplomatic": "força/ chaccio far sonpinti/ sicome g…"
+  },
+  {
+   "x0": 268,
+   "x1": 835,
+   "baseline": [
+    [
+     268,
+     350.2878787878786
+    ],
+    [
+     835,
+     355.70675990675977
+    ]
+   ],
+   "xline": [
+    [
+     268,
+     336.1346153846154
+    ],
+    [
+     835,
+     341.5534965034966
+    ]
+   ],
+   "x_height": 14.153263403263168,
+   "slope_deg": 0.5475653711346583,
+   "slant_deg": 0.4461298282303313,
+   "slant_samples": 331,
+   "ascender_xh": 2.041042533042391,
+   "descender_xh": 1.6174908387203426,
+   "n_ascenders": 5,
+   "n_descenders": 8,
+   "n": 5,
+   "kind": "text",
+   "edition": "quando vuol usar forza, tutta s'apresta in donarli valore.",
+   "diplomatic": "qua[n]do uuol far usar força/ tutta sap…"
+  },
+  {
+   "x0": 11,
+   "x1": 835,
+   "baseline": [
+    [
+     11,
+     404.2941176470587
+    ],
+    [
+     835,
+     407.52549019607847
+    ]
+   ],
+   "xline": [
+    [
+     11,
+     389.85294117647055
+    ],
+    [
+     835,
+     393.0843137254903
+    ]
+   ],
+   "x_height": 14.441176470588175,
+   "slope_deg": 0.22468817962451218,
+   "slant_deg": 1.102704335780873,
+   "slant_samples": 460,
+   "ascender_xh": 2.557501697216576,
+   "descender_xh": 1.446571622539047,
+   "n_ascenders": 9,
+   "n_descenders": 4,
+   "n": 6,
+   "kind": "text",
+   "edition": "Di sì forte valor lo colpo venne che gli occhi no'l ritenner di neente, ma passò dentr' al",
+   "diplomatic": "Disi forte ualor locolpo uene/ chegliocchi nolritener d…"
+  },
+  {
+   "x0": 11,
+   "x1": 835,
+   "baseline": [
+    [
+     11,
+     461.9411764705882
+    ],
+    [
+     835,
+     466.87327141382895
+    ]
+   ],
+   "xline": [
+    [
+     11,
+     447.7492260061918
+    ],
+    [
+     835,
+     452.6813209494326
+    ]
+   ],
+   "x_height": 14.19195046439637,
+   "slope_deg": 0.34294277879964435,
+   "slant_deg": 0.5761709409788008,
+   "slant_samples": 499,
+   "ascender_xh": 2.3750436300174456,
+   "descender_xh": 1.389005235602078,
+   "n_ascenders": 10,
+   "n_descenders": 10,
+   "n": 7,
+   "kind": "text",
+   "edition": "cor, che lo sostenne e sentési plagato duramente; e poi li rendé pace, sì come troppo",
+   "diplomatic": "chor chelosostenne/ esentesi plagato durame[n]te. Epo…"
+  },
+  {
+   "x0": 4,
+   "x1": 835,
+   "baseline": [
+    [
+     4,
+     517.6274509803925
+    ],
+    [
+     835,
+     522.8873065015482
+    ]
+   ],
+   "xline": [
+    [
+     4,
+     504.2244582043344
+    ],
+    [
+     835,
+     509.48431372549015
+    ]
+   ],
+   "x_height": 13.402992776058056,
+   "slope_deg": 0.36265162181178956,
+   "slant_deg": -2.3514275776413482,
+   "slant_samples": 278,
+   "ascender_xh": 2.608605710619151,
+   "descender_xh": 1.5705203721526624,
+   "n_ascenders": 4,
+   "n_descenders": 5,
+   "n": 8,
+   "kind": "text",
+   "edition": "agravata cosa, che more in letto e giace: ella non mette cura di neente, ma vassen",
+   "diplomatic": "agrauata cosa chemore inlecto egiace/ ella nomette c…"
+  },
+  {
+   "x0": 0,
+   "x1": 817,
+   "baseline": [
+    [
+     0,
+     578.2222222222221
+    ],
+    [
+     817,
+     572.8074074074071
+    ]
+   ],
+   "xline": [
+    [
+     0,
+     564.8333333333334
+    ],
+    [
+     817,
+     559.4185185185185
+    ]
+   ],
+   "x_height": 13.388888888888687,
+   "slope_deg": -0.37973254983590987,
+   "slant_deg": -3.137123525245558,
+   "slant_samples": 395,
+   "ascender_xh": 2.5336245177258707,
+   "descender_xh": 1.5838538254349945,
+   "n_ascenders": 9,
+   "n_descenders": 2,
+   "n": 9,
+   "kind": "text",
+   "edition": "disdegnosa, ché si vede alta, bella e avenente.",
+   "diplomatic": "disdengnosa/ chessi uede alta bella eauenente :"
+  },
+  {
+   "x0": 0,
+   "x1": 835,
+   "baseline": [
+    [
+     0,
+     626.0343137254904
+    ],
+    [
+     835,
+     633.1745642701528
+    ]
+   ],
+   "xline": [
+    [
+     0,
+     612.2291666666666
+    ],
+    [
+     835,
+     619.369417211329
+    ]
+   ],
+   "x_height": 13.805147058823763,
+   "slope_deg": 0.48993562829025006,
+   "slant_deg": 0.03006150379994108,
+   "slant_samples": 453,
+   "ascender_xh": 2.718094392661608,
+   "descender_xh": 1.5770794496226848,
+   "n_ascenders": 9,
+   "n_descenders": 6,
+   "n": 10,
+   "kind": "text",
+   "edition": "Ben si pò tener alta quanto vòle, ché la plu bella donna è che si trove",
+   "diplomatic": "Bensi po tener alta quanto uole/ chelaplu bella do…"
+  },
+  {
+   "x0": 2,
+   "x1": 835,
+   "baseline": [
+    [
+     2,
+     686.2483660130716
+    ],
+    [
+     835,
+     687.6047012957227
+    ]
+   ],
+   "xline": [
+    [
+     2,
+     671.8039215686274
+    ],
+    [
+     835,
+     673.1602568512785
+    ]
+   ],
+   "x_height": 14.44444444444423,
+   "slope_deg": 0.09329197913986931,
+   "slant_deg": -0.22310344234641177,
+   "slant_samples": 417,
+   "ascender_xh": 2.6276557910613865,
+   "descender_xh": 1.56036357862987,
+   "n_ascenders": 7,
+   "n_descenders": 5,
+   "n": 11,
+   "kind": "text",
+   "edition": "ed infra l'altre par lucente sole e falle disparer a tutte prove",
+   "diplomatic": "laltre par lucente sole/ efalle disparer atutte proue…"
+  }
+ ],
+ "pen": {
+  "a": 4.642010071765174,
+  "b": 1.6082330720725124,
+  "theta_deg": 24.0,
+  "contrast": 2.886403813212886,
+  "rms_px": 0.3001656028288338,
+  "bins": {
+   "centre_deg": [
+    5.0,
+    15.0,
+    25.0,
+    35.0,
+    45.0,
+    55.0,
+    65.0,
+    75.0,
+    85.0,
+    95.0,
+    105.0,
+    115.0,
+    125.0,
+    135.0,
+    145.0,
+    155.0,
+    165.0,
+    175.0
+   ],
+   "median_width": [
+    1.9012249695710024,
+    1.6344412406079714,
+    1.7962986736357873,
+    1.7085806662197898,
+    1.6053881579867395,
+    2.870794227090972,
+    3.946394616832075,
+    3.9824030639049353,
+    3.628335316477289,
+    3.9693316364345015,
+    4.571600608004697,
+    4.892116123791934,
+    4.542479771322625,
+    4.380203058481017,
+    4.179743996020291,
+    3.863086809384744,
+    3.164236494002932,
+    2.5590265499135665
+   ],
+   "n": [
+    689,
+    561,
+    410,
+    199,
+    177,
+    206,
+    374,
+    401,
+    677,
+    532,
+    438,
+    411,
+    212,
+    242,
+    262,
+    517,
+    578,
+    626
+   ]
+  },
+  "method": "ink mass across the stroke (relative widths)",
+  "n_samples": 7512
+ },
+ "summary": {
+  "x_height": {
+   "mean": 13.908010901519896,
+   "sd": 0.45463916379452074
+  },
+  "slant_deg": {
+   "mean": -0.32671579290626995,
+   "sd": 1.600197899118831
+  },
+  "ascender_xh": {
+   "mean": 2.502250052068666,
+   "sd": 0.21085089288151185
+  },
+  "descender_xh": {
+   "mean": 1.59760546476682,
+   "sd": 0.12458879998435006
+  },
+  "slope_deg": {
+   "mean": 0.21606582693713647,
+   "sd": 0.2501000988021243
+  },
+  "line_pitch_px": {
+   "mean": 54.987563874034436,
+   "sd": 4.193948175442692
+  },
+  "split_half": {
+   "slant": {
+    "r_left_right": -0.022658801423198885,
+    "n_lines": 11,
+    "noise_sd_per_half": 2.381253241566254,
+    "between_line_sd": 1.6470462456009654
+   },
+   "x_height": {
+    "r_left_right": -0.17416587031389835,
+    "n_lines": 11,
+    "noise_sd_per_half": 0.8355945991538221,
+    "between_line_sd": 0.5016134524527316
+   }
+  }
+ }
+}

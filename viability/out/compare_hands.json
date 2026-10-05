@@ -1,0 +1,20 @@
+{
+ "Hijazi reed — BnF Arabe 328": {
+  "contrast": 1.177260834707859,
+  "thin_direction_deg": 44.0,
+  "fit_rms_relative": 0.079079970268892,
+  "n_samples": 14126
+ },
+ "Humanist cursive — Lucretius": {
+  "contrast": 1.3124752021617703,
+  "thin_direction_deg": 16.0,
+  "fit_rms_relative": 0.13958046940677188,
+  "n_samples": 13651
+ },
+ "Gothic textualis — Chig. L.VIII.305": {
+  "contrast": 2.8921733278836506,
+  "thin_direction_deg": 24.0,
+  "fit_rms_relative": 0.08907170874984299,
+  "n_samples": 7491
+ }
+}

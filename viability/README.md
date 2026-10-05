@@ -1,7 +1,14 @@
-# Viability checks: stroke-and-nib models of two scribes
+# Viability checks: stroke-and-nib models of three scribes
 
-Two hands are tested: an early Hijazi Qur'an (BnF Arabe 328, below) and a
-15th-century Latin humanist cursive (Lucretius, [second sample](#second-sample-latin-humanist-cursive-lucretius)).
+Three hands are tested:
+
+- an early Hijazi Qur'an (BnF Arabe 328, below),
+- a 15th-century Latin humanist cursive
+  ([Lucretius](#second-sample-latin-humanist-cursive-lucretius)), and
+- a 14th-century Italian Gothic book hand
+  ([Chig. L.VIII.305](#third-sample-italian-gothic-textualis-chig-lviii305)).
+
+The [comparison](#the-three-hands-compared) at the end puts them side by side.
 
 ## Hijazi: one scribe's الله
 
@@ -203,11 +210,11 @@ python3 measure_letters.py   # traced letters (data/traces_lucretius.json)
   - Line spacing: 46 px (3.4 x-heights).
   - Ascenders: about 2.0 x-heights above the baseline.
   - Descenders: about 1.5 x-heights below.
-  - Upright strokes: 14.5° from vertical.
+  - Upright strokes: 14.8° from vertical.
   - Lines: level (−0.1° ± 0.2°).
 - **No line-to-line drift.** Each line's left half was measured separately from its
   right half:
-  - Slant: the halves agree only weakly (r = 0.27).
+  - Slant: the halves agree only weakly (r = 0.31).
   - x-height: they don't agree at all (r = −0.07).
 
   So the differences between lines are mostly noise. This scribe keeps size and slant
@@ -251,10 +258,125 @@ crosses them, and their ductus can't be read with confidence at this resolution.
   10–20 instances per common letter. Then build the first stroke plans for this
   alphabet from them.
 
+## Third sample: Italian Gothic textualis (Chig. L.VIII.305)
+
+**What and where.** The page is **Città del Vaticano, Biblioteca Apostolica Vaticana,
+Chig. L.VIII.305, f. 1r**, the opening page of the *Chigi canzoniere*. It is a
+Florentine/Tuscan anthology of the *stilnovo* poets, usually dated to the middle of the
+14th century. The image is a detail cropped at the right (`data/chigi-L-VIII-305-f1r.webp`).
+
+The identification rests on five pieces of evidence:
+
+1. **Library.** The diagonal watermark "…Apostolica Vaticana" is the one the Vatican
+   Library puts on its digital images.
+2. **Text.** It is Guido Guinizzelli's canzone *Tegno de folle 'mpresa, a lo ver
+   dire*, stanzas 1–2 and the start of 3. It matches Contini's edition line for line
+   (`data/chigi_reading.json`). Dante cites this canzone in *De vulgari eloquentia*.
+3. **Rubric.** The red rubric reads *Mess[er] Guido guinizelli da bolong[na]*. Naming
+   the poet's city marks a compilation made *outside* Bologna.
+4. **Which Vatican manuscript.** Both Vatican songbooks that carry this canzone were
+   considered:
+   - **Vat. lat. 3793**, the other great early canzoniere, is written in mercantesca
+     and chancery hands with plain black initials, so it is excluded.
+   - **The Chigi codex** opens its Guinizzelli section on f. 1r with a large
+     decorated T of *Tegno de folle*, described in the Vatican's catalogue notes as
+     blue and red with red and violet filigree. That is exactly the initial on this
+     page.
+5. **Script and spelling.** The script is an Italian Gothic textualis: upright, with
+   rounded bowls, the uncial *d*, and the long *ſ* standing on the line. The spelling
+   is Tuscan scribal: *ç* for *z* (*força*), *ngn* for the palatal *n* (*disdengnosa*,
+   *bolongna*), and the Latinizing *inlecto*.
+
+**Readings worth noting** (from this image, before checking a facsimile):
+
+- Line 5 reads *quando uuol **far** usar força*, where the edition has *quando vuol usar
+  forza*.
+- Line 10 keeps Guinizzelli's Bolognese *plu* (*chelaplu bella*), as the edition does.
+- The verses run on like prose, separated by a slash-like virgula.
+- The stanza ends with *:* (line 9), and the next stanza opens with a larger,
+  red-touched B.
+
+### What the page shows
+
+![Line guides, metrics and pen](out/chigi_lines.png)
+
+The same `latin_lines.py` is used, with two additions:
+
+- The painted initial is masked out.
+- Red ink (rubric and paragraph strokes, a\* ≈ 25 against ≈ 4 for the brown text) is
+  separated by colour. Each line is then fitted on its own ink, so the red stroke under
+  *disdengnosa* doesn't pull line 9's guides.
+
+The results:
+
+- **Proportions.** x-height 13.9 ± 0.5 px; ascenders reach 2.5 x-heights above the
+  baseline; descenders drop 1.6 below; line spacing 55 px (4.0 x-heights). The page
+  is laid out more openly than the Lucretius (3.4 x-heights).
+- **Upright.** Slant is −0.3° ± 1.6°. As on the Lucretius page, the left and right
+  halves of each line don't agree (r ≈ 0 for slant and x-height). Line-to-line
+  differences are noise, so size and slant are constant across the page.
+- **A real broad-edged pen.** Thick/thin contrast is **2.9**:
+  - Strokes travelling up-right at about 25° are hairlines; strokes at about 115° are
+    full width.
+  - The fit is good (residual 0.30 px).
+  - The thin direction gives the pen angle: about 25°, a fairly flat pen angle, as
+    usual for the Italian rounded Gothic book hand (northern textura is written
+    steeper).
+
+### Traced letters
+
+![Seed letters](out/chigi_letters.png)
+
+Both occurrences of *alta* (lines 9 and 10) are traced: four a's, two l's and two t's.
+
+- **The pen model fits.** Re-drawn with the page's pen (6.5 × 2.3 px at 24°), every
+  outline is within 0.7–1.1 px of the ink.
+- **Up and down.** Along the traced strokes, downstrokes are 4.5 px wide and upstrokes
+  1.6 px. Here that follows from the nib angle alone; on the Lucretius page it needed
+  pressure as well.
+- **Context changes letter shape.** In *both* words, the first a is about 1.25
+  x-heights wide and the last only about 0.78. The t's cross-stroke runs straight into
+  the final a (a *ta* ligature), and that a is compressed. Two words are not
+  statistics, but the same pattern twice is what a contextual-variant rule in the
+  editor would have to reproduce.
+
+## The three hands compared
+
+![Pen behaviour of the three hands](out/compare_hands.png)
+
+`compare.py` measures the pen on all three pages with the same method (ink across the
+stroke, divided by the page's median).
+
+| | Hijazi reed (Arabe 328) | Humanist cursive (Lucretius) | Gothic textualis (Chigi) |
+|---|---|---|---|
+| Thick/thin contrast | 1.18 | 1.31 (poor single-nib fit) | **2.89** |
+| Thinnest stroke direction | 44° | 16° (unclear) | 24° |
+| Slant of uprights | 25–34°, alif ≈ 9° more than lām | 14.8° | upright (−0.3°) |
+| Where variation lives | shared by each word (size r = 0.97) | within lines, not between | within lines, not between |
+| Line spacing | — | 3.4 x-heights | 4.0 x-heights |
+| Ascender above baseline | alif ≈ 7.8 stroke widths | 2.0 x-heights | 2.5 x-heights |
+
+What this means for the editor:
+
+- **One renderer can serve all three hands.** A swept nib with three settings (size,
+  contrast, angle) produces the near-monoline reed, the light humanist pen and the
+  broad Gothic nib.
+- **Some hands need more than angle.** The cursive needs an extra up-/downstroke
+  (pressure) setting, which the traced stroke direction supplies.
+- **Each hand varies at a different level.** The Hijazi scribe varies whole words; the
+  two Latin scribes hold the page steady and vary within lines. The variation model
+  needs a level setting per style.
+- **Every style needs a text step before drawing.** Contextual letter forms (the
+  Chigi *ta*), abbreviations (the Lucretius ꝑ, q;) and early spelling (Hijazi short
+  spellings, Tuscan ç/ngn) all sit between the reading and the strokes.
+
 ## Sources
 
 - The Arabic page image is from Gallica: Source gallica.bnf.fr / Bibliothèque nationale
   de France, Département des Manuscrits, Arabe 328. Gallica permits free non-commercial
   reuse with this attribution. Check the BnF terms before any commercial use.
+- The Chigi page is a detail of Città del Vaticano, Biblioteca Apostolica Vaticana,
+  Chig. L.VIII.305, f. 1r (DigiVatLib, with the Library's watermark). Check the BAV's
+  terms before any reuse beyond study.
 - The Lucretius page image was supplied with this project. Its holding library and
   reuse terms still need to be recorded here.

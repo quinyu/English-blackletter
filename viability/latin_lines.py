@@ -6,8 +6,10 @@ For every written line this finds:
   * the slant of the upright strokes (degrees from vertical, positive = top to the right).
 It also fits the nib (width against direction) over the whole text block.
 
-Run:  python3 latin_lines.py      → data/lucretius_lines.json, out/latin_*.png
+Run:  python3 latin_lines.py [page]     (page: lucretius, chigi; default both)
+      → data/<page>_lines.json, out/<page>_lines.png
 """
+import sys
 import json
 from pathlib import Path
 
@@ -22,9 +24,21 @@ import ink
 import nib
 
 HERE = Path(__file__).resolve().parent
-IMAGE = "lucretius-drn-1r.jpg"
-# Text block of the scan (page pixels): excludes the binding, page edges and the ex-libris.
-BLOCK = dict(x0=140, x1=900, y0=200, y1=1570)
+# Per page: the text block (page pixels), regions to ignore (painted initials,
+# decoration), the region used for the pen estimate, and line spacing hints.
+PAGES = {
+    "lucretius": dict(
+        image="lucretius-drn-1r.jpg", reading="lucretius_reading.json",
+        block=dict(x0=140, x1=900, y0=200, y1=1570),   # excludes binding, page edges, ex-libris
+        exclude=[], pen_block=dict(x0=140, x1=900, y0=200, y1=1570),
+        min_gap=28, half=26, crop_x=(300, 890), out="lucretius_lines.json", fig="latin_lines.png"),
+    "chigi": dict(
+        image="chigi-L-VIII-305-f1r.webp", reading="chigi_reading.json", separate_red=True,
+        block=dict(x0=0, x1=836, y0=40, y1=711),
+        exclude=[(0, 0, 263, 362), (0, 0, 560, 44)],    # painted initial T and the border above it
+        pen_block=dict(x0=0, x1=836, y0=96, y1=711),    # brown text only (no red rubric)
+        min_gap=36, half=30, crop_x=(262, 836), out="chigi_lines.json", fig="chigi_lines.png"),
+}
 
 
 def line_bands(mask, block, min_gap=28):
@@ -144,28 +158,51 @@ def line_slant(mask, g, x0, x1, xh, radius=6):
         a = np.degrees(np.arctan2(-dx, dy))  # from vertical; top to the right is positive
         if abs(a) < 35:
             angles.append(a)
-    return (float(np.median(angles)) if angles else float("nan")), len(angles)
+    if not angles:
+        return float("nan"), 0
+    # trimmed mean: skeleton directions come in whole-pixel steps, so a median snaps to
+    # a few values (0° for an upright hand); the mean of the middle 80 % does not
+    lo, hi = np.percentile(angles, [10, 90])
+    mid = [a for a in angles if lo <= a <= hi]
+    return float(np.mean(mid)), len(angles)
 
 
-def analyse(path=HERE / "data" / IMAGE):
-    rgb = ink.load_rgb(path)
+def analyse(page):
+    P = PAGES[page]
+    BLOCK = P["block"]
+    rgb = ink.load_rgb(HERE / "data" / P["image"])
     mask, _ = ink.ink_mask(rgb)
-    peaks, _ = line_bands(mask, BLOCK)
-    lines, guides = [], []
+    for x0, y0, x1, y1 in P["exclude"]:
+        mask[y0:y1, x0:x1] = 0
+    peaks, _ = line_bands(mask, BLOCK, P["min_gap"])
+    full = mask
+    if P.get("separate_red"):
+        # Rubrication is added after the text in another ink. Each line is fitted on its
+        # own ink: a red rubric on the red, a text line on the brown only, so paragraph
+        # marks and flourishes in red don't pull the text guides.
+        red = ink.red_mask(rgb, mask)
+        brown = (mask > 0) & ~red
+    lines, guides, masks = [], [], []
     for y in peaks:
+        mask = full
+        if P.get("separate_red"):
+            rb = red[y - 10: y + 10, BLOCK["x0"]:BLOCK["x1"]].sum()
+            fb = full[y - 10: y + 10, BLOCK["x0"]:BLOCK["x1"]].sum()
+            mask = (red if rb > 0.5 * fb else brown).astype(np.uint8)
         # horizontal extent of this line's ink
         band = mask[y - 10: y + 10, BLOCK["x0"]:BLOCK["x1"]]
         cols = np.nonzero(band.sum(0) > 0)[0]
         if len(cols) < 20:
             continue
         x0, x1 = int(cols.min() + BLOCK["x0"]), int(cols.max() + BLOCK["x0"])
-        g = fit_guides(mask, y, x0, x1)
+        g = fit_guides(mask, y, x0, x1, half=P["half"])
         if g is None:
             continue
         xm = (x0 + x1) / 2
         xh = (g["baseline"][0] * xm + g["baseline"][1]) - (g["xline"][0] * xm + g["xline"][1])
         slant, n_sl = line_slant(mask, g, x0, x1, xh)
         guides.append(g)
+        masks.append(mask)
         lines.append({
             "x0": x0, "x1": x1,
             "baseline": [[x0, g["baseline"][0] * x0 + g["baseline"][1]], [x1, g["baseline"][0] * x1 + g["baseline"][1]]],
@@ -177,9 +214,39 @@ def analyse(path=HERE / "data" / IMAGE):
     for i, (l, g) in enumerate(zip(lines, guides)):
         prev_base = (lambda x, gg=guides[i - 1]: gg["baseline"][0] * x + gg["baseline"][1]) if i > 0 else None
         next_x = (lambda x, gg=guides[i + 1]: gg["xline"][0] * x + gg["xline"][1]) if i + 1 < len(guides) else None
-        up, down, nu, nd = extents(mask, g, l["x0"], l["x1"], l["x_height"], prev_base, next_x)
+        up, down, nu, nd = extents(masks[i], g, l["x0"], l["x1"], l["x_height"], prev_base, next_x)
         l.update({"ascender_xh": up, "descender_xh": down, "n_ascenders": nu, "n_descenders": nd})
-    return rgb, mask, lines
+    return rgb, full, lines
+
+
+def split_half(mask, lines, half):
+    """Do line-to-line differences hold up? Measure each line's left and right halves
+    separately and correlate them across lines. Real line-level differences show up in
+    both halves (r near 1); noise and within-line variation do not (r near 0)."""
+    sl, xh = ([], []), ([], [])
+    for l in lines:
+        if l["kind"] != "text":
+            continue
+        (x0, b0), (x1, b1) = l["baseline"]
+        (_, t0), (_, t1) = l["xline"]
+        a = (b1 - b0) / ((x1 - x0) or 1)
+        g = {"baseline": (a, b0 - a * x0), "xline": (a, t0 - a * x0)}
+        xm = int((x0 + x1) // 2)
+        y = int(round((b0 + b1) / 2 - l["x_height"] / 2))
+        for k, (a0, a1) in enumerate(((int(x0), xm), (xm, int(x1)))):
+            sl[k].append(line_slant(mask, g, a0, a1, l["x_height"])[0])
+            gh = fit_guides(mask, y, a0, a1, half=half)
+            xc = (a0 + a1) / 2
+            xh[k].append((gh["baseline"][0] * xc + gh["baseline"][1]) - (gh["xline"][0] * xc + gh["xline"][1]) if gh else np.nan)
+    out = {}
+    for name, (L, R) in (("slant", sl), ("x_height", xh)):
+        L, R = np.array(L), np.array(R)
+        ok = np.isfinite(L) & np.isfinite(R)
+        r = float(np.corrcoef(L[ok], R[ok])[0, 1])
+        out[name] = {"r_left_right": r, "n_lines": int(ok.sum()),
+                     "noise_sd_per_half": float(np.std(L[ok] - R[ok], ddof=1) / np.sqrt(2)),
+                     "between_line_sd": float(np.std((L[ok] + R[ok]) / 2, ddof=1))}
+    return out
 
 
 def attach_reading(lines, reading):
@@ -203,7 +270,7 @@ def attach_reading(lines, reading):
     return lines
 
 
-def plot_lines(rgb, lines, pen, dirs, widths, path):
+def plot_lines(rgb, lines, pen, dirs, widths, path, crop_x=(300, 890)):
     import matplotlib
     matplotlib.use("Agg")
     import matplotlib.pyplot as plt
@@ -214,8 +281,9 @@ def plot_lines(rgb, lines, pen, dirs, widths, path):
     gs = fig.add_gridspec(3, 2, height_ratios=[1.25, 1, 1], hspace=0.55, wspace=0.25)
     ax0 = fig.add_subplot(gs[0, :])
     l1, l3 = body[0], body[2]
-    y0 = int(l1["xline"][0][1] - 34); y1 = int(l3["baseline"][0][1] + 26)
-    x0, x1 = 300, 890
+    xh0 = l1["x_height"]
+    y0 = int(l1["xline"][0][1] - 2.4 * xh0); y1 = int(l3["baseline"][0][1] + 1.9 * xh0)
+    x0, x1 = crop_x
     ax0.imshow(rgb[y0:y1, x0:x1], extent=(x0, x1, y1, y0))
     for l in body[:3]:
         for key, col in (("baseline", DATA), ("xline", MODEL)):
@@ -267,14 +335,16 @@ def plot_lines(rgb, lines, pen, dirs, widths, path):
     plt.close(fig)
 
 
-def main():
-    rgb, mask, lines = analyse()
-    reading = json.loads((HERE / "data" / "lucretius_reading.json").read_text(encoding="utf-8"))
+def main(page):
+    P = PAGES[page]
+    rgb, mask, lines = analyse(page)
+    reading = json.loads((HERE / "data" / P["reading"]).read_text(encoding="utf-8"))
     lines = attach_reading(lines, reading)
     # pen from ink mass (pixel widths are too coarse at this x-height)
     _, dark = ink.ink_mask(rgb)
+    pb = P["pen_block"]
     m = mask.copy()
-    m[:BLOCK["y0"]] = 0; m[BLOCK["y1"]:] = 0; m[:, :BLOCK["x0"]] = 0; m[:, BLOCK["x1"]:] = 0
+    m[:pb["y0"]] = 0; m[pb["y1"]:] = 0; m[:, :pb["x0"]] = 0; m[:, pb["x1"]:] = 0
     dirs, widths = nib.mass_width_samples(m, dark)
     pen = nib.fit_nib(dirs, widths)
     pen["method"] = "ink mass across the stroke (relative widths)"
@@ -284,7 +354,9 @@ def main():
                for k in ("x_height", "slant_deg", "ascender_xh", "descender_xh", "slope_deg")}
     pitch = np.diff([l["baseline"][0][1] for l in body])
     summary["line_pitch_px"] = {"mean": float(pitch.mean()), "sd": float(pitch.std(ddof=1))}
-    out = {"image": IMAGE, "lines": lines, "pen": pen, "summary": summary}
+    text_mask = mask & ~ink.red_mask(rgb, mask) if P.get("separate_red") else mask
+    summary["split_half"] = split_half(text_mask.astype(np.uint8), lines, P["half"])
+    out = {"image": P["image"], "lines": lines, "pen": pen, "summary": summary}
 
     def clean(v):  # JSON has no NaN: unmeasurable values are written as null
         if isinstance(v, float) and not np.isfinite(v):
@@ -294,9 +366,10 @@ def main():
         if isinstance(v, (list, tuple)):
             return [clean(x) for x in v]
         return v
-    (HERE / "data" / "lucretius_lines.json").write_text(json.dumps(clean(out), ensure_ascii=False, indent=1), encoding="utf-8")
+    (HERE / "data" / P["out"]).write_text(json.dumps(clean(out), ensure_ascii=False, indent=1), encoding="utf-8")
     (HERE / "out").mkdir(exist_ok=True)
-    plot_lines(rgb, lines, pen, dirs, widths, HERE / "out" / "latin_lines.png")
+    plot_lines(rgb, lines, pen, dirs, widths, HERE / "out" / P["fig"], crop_x=P["crop_x"])
+    print(f"== {page}")
     for l in lines:
         print(f"{str(l['n']):>3} y={l['baseline'][0][1]:7.1f} xh={l['x_height']:5.1f} asc={l['ascender_xh']:.2f} "
               f"desc={l['descender_xh']:.2f} slant={l['slant_deg']:5.1f}  {l['edition'][:40]}")
@@ -305,4 +378,5 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    for page in (sys.argv[1:] or list(PAGES)):
+        main(page)

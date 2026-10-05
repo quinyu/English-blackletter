@@ -10,8 +10,10 @@ For every traced letter:
 It also measures stroke width against the direction the pen was travelling, which a
 traced stroke knows and the page-wide estimate does not (upstrokes vs downstrokes).
 
-Run:  python3 measure_letters.py      → out/latin_letters.png, out/latin_letters.json
+Run:  python3 measure_letters.py [page]   (page: lucretius, chigi; default both)
+      → out/<page>_letters.png, out/<page>_letters.json
 """
+import sys
 import json
 from pathlib import Path
 
@@ -31,6 +33,10 @@ OUT = HERE / "out"
 SURFACE, INK_TEXT, MUTED, DATA, MODEL = "#fcfcfb", "#0b0b0b", "#52514e", "#2a78d6", "#eb6834"
 THR = 14.0
 CORRIDOR = 3
+PAGES = {
+    "lucretius": dict(traces="traces_lucretius.json", lines="lucretius_lines.json", out="latin_letters"),
+    "chigi": dict(traces="traces_chigi.json", lines="chigi_lines.json", out="chigi_letters"),
+}
 
 
 def guide(line, x):
@@ -96,9 +102,11 @@ def directional_widths(strokes, dark, step=0.5, reach=5.0):
     return out
 
 
-def main():
-    traces = json.loads((HERE / "data" / "traces_lucretius.json").read_text(encoding="utf-8"))
-    lines_json = json.loads((HERE / "data" / "lucretius_lines.json").read_text(encoding="utf-8"))
+def main(page):
+    P = PAGES[page]
+    print(f"== {page}")
+    traces = json.loads((HERE / "data" / P["traces"]).read_text(encoding="utf-8"))
+    lines_json = json.loads((HERE / "data" / P["lines"]).read_text(encoding="utf-8"))
     lines = {str(l["n"]): l for l in lines_json["lines"]}
     rgb = ink.load_rgb(HERE / "data" / traces["image"])
     mask, dark = ink.ink_mask(rgb)
@@ -147,22 +155,26 @@ def main():
     print("pen travel:", updown)
 
     OUT.mkdir(exist_ok=True)
-    (OUT / "latin_letters.json").write_text(json.dumps({"nib": {"a": the_nib.a, "b": the_nib.b, "theta_deg": the_nib.theta},
+    (OUT / f"{P['out']}.json").write_text(json.dumps({"nib": {"a": the_nib.a, "b": the_nib.b, "theta_deg": the_nib.theta},
                                                         "letters": results, "up_down": updown}, ensure_ascii=False, indent=1),
                                             encoding="utf-8")
-    plot(rgb, panels, results, OUT / "latin_letters.png")
+    plot(rgb, panels, results, OUT / f"{P['out']}.png")
 
 
-def plot(rgb, panels, results, path):
+def plot(rgb, panels, results, path, per_row=4):
     n = len(panels)
-    fig, axes = plt.subplots(3, n, figsize=(2.6 * n, 6.4), dpi=170, facecolor=SURFACE, squeeze=False)
+    cols = min(n, per_row)
+    groups = int(np.ceil(n / cols))
+    fig, axes = plt.subplots(3 * groups, cols, figsize=(2.3 * cols, 5.6 * groups), dpi=170,
+                             facecolor=SURFACE, squeeze=False)
+    for a in axes.flat:
+        a.axis("off"); a.set_facecolor(SURFACE)
     colors = ["#2a78d6", "#eb6834", "#129b6b", "#d55181", "#6b5bd2"]
     for k, ((inst, strokes, (x0, y0, x1, y1), ink_win, own, model, geom), r) in enumerate(zip(panels, results)):
-        a0, a1, a2 = axes[0, k], axes[1, k], axes[2, k]
-        for a in (a0, a1, a2):
-            a.axis("off"); a.set_facecolor(SURFACE)
+        g, c = divmod(k, cols)
+        a0, a1, a2 = axes[3 * g, c], axes[3 * g + 1, c], axes[3 * g + 2, c]
         a0.imshow(rgb[y0:y1, x0:x1], extent=(x0, x1, y1, y0), interpolation="lanczos")
-        a0.set_title(f"“{inst['char']}” in {inst.get('context', '')} (line {inst['line']})", fontsize=8, color=INK_TEXT, loc="left")
+        a0.set_title(f"“{inst['char']}” · {inst.get('context', '')} · line {inst['line']}", fontsize=8, color=INK_TEXT, loc="left")
         a1.imshow(rgb[y0:y1, x0:x1], extent=(x0, x1, y1, y0), interpolation="lanczos", alpha=0.45)
         for i, s in enumerate(strokes):
             P = np.array(s["points"])
@@ -171,22 +183,23 @@ def plot(rgb, panels, results, path):
                         arrowprops=dict(arrowstyle="-|>", color=colors[i % len(colors)], lw=1.2))
             a1.text(P[0][0], P[0][1] - 0.6, str(i + 1), color=colors[i % len(colors)], fontsize=7, ha="center", va="bottom")
         a1.set_xlim(x0, x1); a1.set_ylim(y1, y0)
-        a1.set_title("traced strokes, in writing order", fontsize=8, color=MUTED, loc="left")
+        a1.set_title("strokes, in order", fontsize=7.5, color=MUTED, loc="left")
         vis = np.ones(ink_win.shape + (3,))
         vis[ink_win > 0] = (0.88, 0.88, 0.86)
         vis[(own > 0) & (model == 0)] = matplotlib.colors.to_rgb(DATA)
         vis[(model > 0) & (own == 0)] = matplotlib.colors.to_rgb(MODEL)
         vis[(model > 0) & (own > 0)] = (0.1, 0.1, 0.1)
         a2.imshow(vis, extent=(x0, x1, y1, y0), interpolation="nearest")
-        a2.set_title(f"re-drawn with the page's pen · off by {r['outline_dist_px']:.1f} px", fontsize=8, color=MUTED, loc="left")
+        a2.set_title(f"page's pen · off by {r['outline_dist_px']:.1f} px", fontsize=7.5, color=MUTED, loc="left")
     handles = [matplotlib.patches.Patch(color=(0.1, 0.1, 0.1), label="model and ink agree"),
                matplotlib.patches.Patch(color=DATA, label="ink the model misses"),
                matplotlib.patches.Patch(color=MODEL, label="model where there is no ink")]
     fig.legend(handles=handles, loc="lower center", ncol=3, frameon=False, fontsize=7, labelcolor=INK_TEXT)
-    fig.tight_layout(rect=(0, 0.05, 1, 1))
+    fig.tight_layout(rect=(0, 0.05 / groups, 1, 1))
     fig.savefig(path, facecolor=SURFACE)
     plt.close(fig)
 
 
 if __name__ == "__main__":
-    main()
+    for page in (sys.argv[1:] or list(PAGES)):
+        main(page)
