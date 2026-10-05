@@ -1,0 +1,913 @@
+<!doctype html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Ductus Tracer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=Noto+Naskh+Arabic:wght@400;600&display=swap">
+<style>
+/* Layout: a light-box workbench. The manuscript fills a neutral well on the left;
+   the tracing steps, instances and numbers sit in one narrow column on the right.
+   Stacks to one column on phones. */
+:root {
+  --bg: #eef0f3;
+  --panel: #ffffff;
+  --fg: #16181d;
+  --muted: #59606c;
+  --line: #d5d9e0;
+  --well: #c9ccd3;
+  --accent: #2c51ad;          /* lapis */
+  --accent-fg: #ffffff;
+  --accent-soft: #e4eafa;
+  --warn: #9a5b00;
+  --danger: #b3261e;
+  /* stroke slots: drawn over the manuscript, which looks the same in both themes */
+  --s-alif: #2a78d6;
+  --s-lam1: #eb6834;
+  --s-lam2: #129b6b;
+  --s-ha: #d55181;
+  --s-base: #6b5bd2;
+  --s-free: #2a78d6;
+  --font-ui: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+  --font-num: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  --font-ar: "Noto Naskh Arabic", "Amiri", "Geeza Pro", "Times New Roman", serif;
+  --r: 6px;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #111317; --panel: #191c22; --fg: #e7e9ee; --muted: #9ba2ae; --line: #2b3039;
+    --well: #0b0c0f; --accent: #7c9cf0; --accent-fg: #0d1222; --accent-soft: #1f2840;
+    --warn: #e2a64a; --danger: #f0857d; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #111317; --panel: #191c22; --fg: #e7e9ee; --muted: #9ba2ae; --line: #2b3039;
+  --well: #0b0c0f; --accent: #7c9cf0; --accent-fg: #0d1222; --accent-soft: #1f2840;
+  --warn: #e2a64a; --danger: #f0857d; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+body {
+  margin: 0; background: var(--bg); color: var(--fg);
+  font: 14px/1.45 var(--font-ui);
+}
+button, input, select, textarea { font: inherit; color: inherit; }
+.app {
+  height: 100%; display: grid; grid-template-rows: auto 1fr; grid-template-columns: minmax(0, 1fr);
+}
+header.bar {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px;
+  padding-block: 10px; padding-inline: 16px;
+  background: var(--panel); border-bottom: 1px solid var(--line);
+}
+.brand { display: flex; align-items: baseline; gap: 10px; min-width: 0; }
+.brand h1 { margin: 0; font-size: 17px; font-weight: 600; letter-spacing: 0.01em; }
+.brand .src { color: var(--muted); font-size: 12.5px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 46ch; }
+.tools { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-left: auto; }
+.btn {
+  display: inline-flex; align-items: center; gap: 6px; height: 32px; padding: 0 12px;
+  border-radius: var(--r); border: 1px solid var(--line); background: var(--panel);
+  cursor: pointer; white-space: nowrap;
+}
+.btn:hover { border-color: var(--accent); }
+.btn:focus-visible, input:focus-visible, textarea:focus-visible, .inst:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+.btn.primary { background: var(--accent); color: var(--accent-fg); border-color: var(--accent); }
+.btn.on { background: var(--accent-soft); border-color: var(--accent); }
+.btn.small { height: 26px; padding: 0 9px; font-size: 12.5px; }
+.btn.danger { color: var(--danger); }
+.btn[disabled] { opacity: .45; cursor: default; }
+.file { position: relative; overflow: hidden; }
+.file input { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
+.thr { display: inline-flex; align-items: center; gap: 6px; color: var(--muted); font-size: 12.5px; }
+.thr input { width: 90px; accent-color: var(--accent); }
+.zoom { display: inline-flex; gap: 4px; }
+main.work {
+  min-height: 0; display: grid; grid-template-columns: minmax(0, 1fr) 360px;
+}
+.stage { position: relative; min-width: 0; min-height: 0; background: var(--well); overflow: hidden; touch-action: none; }
+.stage canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.stage.pan { cursor: grab; }
+.stage.add { cursor: crosshair; }
+.hud {
+  position: absolute; left: 12px; bottom: 12px; padding: 4px 8px; border-radius: 4px;
+  background: rgba(10, 12, 16, .66); color: #f2f3f5; font: 12px var(--font-num);
+  pointer-events: none; font-variant-numeric: tabular-nums;
+}
+.notice {
+  position: absolute; left: 12px; right: 12px; top: 12px; max-width: 60ch; padding: 10px 12px;
+  border-radius: var(--r); background: var(--panel); color: var(--fg); border: 1px solid var(--line);
+  font-size: 13px;
+}
+aside.side {
+  min-height: 0; overflow-y: auto; background: var(--panel); border-left: 1px solid var(--line);
+  display: flex; flex-direction: column; gap: 18px; padding-block: 16px; padding-inline: 16px;
+}
+section h2 {
+  margin: 0 0 8px; font-size: 11.5px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--muted);
+}
+.step {
+  border: 1px solid var(--line); border-radius: var(--r); padding: 12px; display: grid; gap: 10px;
+}
+.step .prompt { display: flex; align-items: center; gap: 10px; font-size: 15px; font-weight: 500; text-wrap: balance; }
+.chip { width: 12px; height: 12px; border-radius: 3px; flex: none; }
+.step .sub { color: var(--muted); font-size: 12.5px; }
+.row { display: flex; flex-wrap: wrap; gap: 6px; }
+.list { display: grid; gap: 4px; }
+.inst {
+  display: grid; grid-template-columns: 34px minmax(0, 1fr) auto; align-items: center; gap: 8px;
+  padding: 6px 8px; border-radius: var(--r); border: 1px solid transparent; cursor: pointer; background: none; text-align: left; width: 100%;
+}
+.inst:hover { border-color: var(--line); }
+.inst.sel { border-color: var(--accent); background: var(--accent-soft); }
+.inst .id { font: 500 13px var(--font-num); }
+.inst .ctx { font-family: var(--font-ar); font-size: 15px; direction: rtl; text-align: right; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; min-width: 0; }
+.inst .meta { color: var(--muted); font: 12px var(--font-num); font-variant-numeric: tabular-nums; }
+.inst .meta.todo { color: var(--warn); }
+.fields { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 8px 10px; align-items: center; }
+.fields label { color: var(--muted); font-size: 12.5px; }
+.fields input[type=text], .fields input[type=number] {
+  height: 30px; padding: 0 8px; border-radius: var(--r); border: 1px solid var(--line); background: var(--bg); min-width: 0; width: 100%;
+}
+.fields input.ar { font-family: var(--font-ar); font-size: 16px; }
+.flags { display: flex; flex-wrap: wrap; gap: 4px 12px; font-size: 12.5px; }
+.flags label { display: inline-flex; gap: 5px; align-items: center; color: var(--fg); }
+.flags input { accent-color: var(--accent); }
+table.nums { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+table.nums th, table.nums td { padding: 4px 4px; border-bottom: 1px solid var(--line); text-align: right; font-variant-numeric: tabular-nums; }
+table.nums th:first-child, table.nums td:first-child { text-align: left; }
+table.nums th { color: var(--muted); font-weight: 500; }
+table.nums td { font-family: var(--font-num); }
+table.nums td:first-child { font-family: var(--font-ui); }
+.fine { color: var(--muted); font-size: 12px; margin: 6px 0 0; }
+textarea.json {
+  width: 100%; height: 140px; resize: vertical; border: 1px solid var(--line); border-radius: var(--r);
+  background: var(--bg); padding: 8px; font: 11.5px/1.4 var(--font-num);
+}
+.confirm { display: flex; gap: 6px; align-items: center; font-size: 12.5px; color: var(--danger); }
+kbd { font: 11.5px var(--font-num); border: 1px solid var(--line); border-bottom-width: 2px; border-radius: 4px; padding: 0 4px; }
+.keys { display: grid; grid-template-columns: auto 1fr; gap: 4px 10px; font-size: 12.5px; color: var(--muted); }
+.toast {
+  position: absolute; right: 12px; top: 12px; padding: 6px 10px; border-radius: var(--r);
+  background: var(--panel); border: 1px solid var(--line); font-size: 12.5px;
+}
+@media (max-width: 820px) {
+  html, body { height: auto; }
+  .app { height: auto; }
+  main.work { grid-template-columns: minmax(0, 1fr); }
+  .stage { height: 62vh; min-height: 340px; }
+  aside.side { border-left: 0; border-top: 1px solid var(--line); overflow: visible; }
+  .tools { margin-left: 0; }
+  .brand { flex-wrap: wrap; }
+  .brand .src { white-space: normal; max-width: 100%; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .inst, .btn { transition: border-color .12s ease, background-color .12s ease; }
+}
+</style>
+
+<div class="app">
+  <header class="bar">
+    <div class="brand">
+      <h1>Ductus Tracer</h1>
+      <span class="src" id="srcName">loading sample…</span>
+    </div>
+    <div class="tools">
+      <label class="btn file" title="Open a manuscript image">Open image…
+        <input id="fileImage" type="file" accept="image/*">
+      </label>
+      <label class="btn file" title="Load a traces .json file">Import traces…
+        <input id="fileTraces" type="file" accept="application/json,.json">
+      </label>
+      <button class="btn on" id="btnInk" type="button" aria-pressed="true" title="Show the ink found on the page">Ink overlay</button>
+      <span class="thr"><label for="thr">contrast</label><input id="thr" type="range" min="6" max="30" step="1" value="14"><span id="thrVal">14</span></span>
+      <button class="btn on" id="btnSnap" type="button" aria-pressed="true" title="Move each traced shaft onto the nearest stroke of ink">Snap to ink</button>
+      <span class="zoom">
+        <button class="btn" id="btnOut" type="button" aria-label="Zoom out">−</button>
+        <button class="btn" id="btnFit" type="button">Fit</button>
+        <button class="btn" id="btnIn" type="button" aria-label="Zoom in">+</button>
+        <button class="btn" id="btnHand" type="button" aria-pressed="false" title="Drag to move the page (or hold Space)">Move</button>
+      </span>
+    </div>
+  </header>
+
+  <main class="work">
+    <div class="stage add" id="stage">
+      <canvas id="cv" aria-label="Manuscript page with traced strokes"></canvas>
+      <div class="hud" id="hud">x — y —</div>
+      <div class="notice" id="notice" hidden></div>
+      <div class="toast" id="toast" hidden></div>
+    </div>
+
+    <aside class="side">
+      <section>
+        <h2>Next click</h2>
+        <div class="step">
+          <div class="prompt"><span class="chip" id="stepChip"></span><span id="stepText">—</span></div>
+          <div class="sub" id="stepSub"></div>
+          <div class="row">
+            <button class="btn small" id="btnSkip" type="button" title="Skip this stroke (S)">Skip stroke</button>
+            <button class="btn small" id="btnUndo" type="button" title="Remove the last point (Backspace)">Undo point</button>
+            <button class="btn small primary" id="btnNew" type="button" title="Start tracing another word (N)">New word</button>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h2>Traced words <span id="count"></span></h2>
+        <div class="list" id="list"></div>
+      </section>
+
+      <section id="editor">
+        <h2>Selected word</h2>
+        <div class="fields">
+          <label for="fId">Label</label><input id="fId" type="text" autocomplete="off">
+          <label for="fLine">Line</label><input id="fLine" type="number" min="1" step="1">
+          <label for="fCtx">Context</label><input id="fCtx" class="ar" type="text" dir="auto" autocomplete="off" placeholder="e.g. عند الله">
+        </div>
+        <div class="flags" id="flags" style="margin-top:10px"></div>
+        <div class="row" style="margin-top:10px" id="delRow">
+          <button class="btn small danger" id="btnDel" type="button">Delete word</button>
+        </div>
+      </section>
+
+      <section>
+        <h2>Quick measurements</h2>
+        <table class="nums" id="nums"></table>
+        <p class="fine">Straight from your clicks, in scan pixels. Shafts are extended to the baseline to find their feet. The refined, ink-fitted values come from <code>viability/measure.py</code>.</p>
+      </section>
+
+      <section>
+        <h2>Export</h2>
+        <div class="row">
+          <button class="btn small primary" id="btnCopy" type="button">Copy traces JSON</button>
+          <button class="btn small" id="btnDownload" type="button" hidden>Download .json</button>
+          <button class="btn small" id="btnReset" type="button">Reload sample traces</button>
+        </div>
+        <textarea class="json" id="json" readonly spellcheck="false" aria-label="Traces JSON" style="margin-top:8px"></textarea>
+        <p class="fine">Same format as <code>viability/data/traces_allah.json</code>. Your work is also kept in this browser between visits.</p>
+      </section>
+
+      <section>
+        <h2>Keys</h2>
+        <div class="keys">
+          <span><kbd>click</kbd></span><span>place the next point · drag a point to move it</span>
+          <span><kbd>wheel</kbd> / pinch</span><span>zoom</span>
+          <span><kbd>Space</kbd>+drag</span><span>move the page</span>
+          <span><kbd>S</kbd></span><span>skip this stroke (e.g. no alif)</span>
+          <span><kbd>⌫</kbd></span><span>undo the last point</span>
+          <span><kbd>N</kbd></span><span>new word</span>
+        </div>
+      </section>
+    </aside>
+  </main>
+</div>
+
+<script>
+(() => {
+  "use strict";
+
+  // ---------------------------------------------------------------- template
+  // One word = a fixed sequence of strokes, written right to left.
+  const TEMPLATE = {
+    name: "allah",
+    slots: [
+      { key: "alif", n: 2, color: "--s-alif", label: "alif", prompts: ["Click the top of the alif", "Click the foot of the alif"] },
+      { key: "lam1", n: 2, color: "--s-lam1", label: "first lām", prompts: ["Click the top of the first lām", "Click where it meets the baseline"] },
+      { key: "lam2", n: 2, color: "--s-lam2", label: "second lām", prompts: ["Click the top of the second lām", "Click where it meets the baseline"] },
+      { key: "ha", n: 2, color: "--s-ha", label: "final hā'", prompts: ["Click where the hā' starts, left of the second lām", "Click the left end of the hā'"] },
+      { key: "baseline", n: 1, color: "--s-base", label: "baseline", prompts: ["Click anywhere on the baseline"] },
+    ],
+  };
+  const SHAFTS = ["alif", "lam1", "lam2"];
+  const FLAGS = [
+    ["no_alif", "no alif"], ["alif_joined", "alif joined to previous letter"],
+    ["split_word", "word split across lines"], ["line_end", "end of line"],
+    ["touches_line_above", "touches line above"], ["ha_touches_next", "hā' touches next letter"],
+  ];
+  const SAMPLE_IMAGE = ["sample/bnf-arabe328-baqarah-282-286.jpg", "../../viability/data/bnf-arabe328-baqarah-282-286.jpg"];
+  const SAMPLE_TRACES = ["sample/traces_allah.json", "../../viability/data/traces_allah.json"];
+  const STORE_KEY = "ductus-tracer-v1";
+
+  // ---------------------------------------------------------------- state
+  const S = {
+    img: null, imgName: "", source: "", note: "",
+    words: [], sel: -1,
+    view: { s: 1, tx: 0, ty: 0 },
+    ink: null,            // { w, h, k (image px per ink px), dark: Float32Array }
+    inkCanvas: null, showInk: true, thr: 14, snap: true, hand: false,
+  };
+  const $ = (id) => document.getElementById(id);
+  const cv = $("cv"), ctx = cv.getContext("2d"), stage = $("stage");
+  const css = (name) => getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+
+  // ---------------------------------------------------------------- helpers
+  const r1 = (v) => Math.round(v * 10) / 10;
+  const esc = (t) => String(t).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+  const deg = (rad) => rad * 180 / Math.PI;
+  const mean = (a) => a.reduce((s, v) => s + v, 0) / a.length;
+  const sd = (a) => { if (a.length < 2) return NaN; const m = mean(a); return Math.sqrt(a.reduce((s, v) => s + (v - m) ** 2, 0) / (a.length - 1)); };
+  function nextId() {
+    const used = new Set(S.words.map((w) => w.id));
+    for (let i = 0; i < 702; i++) {
+      const id = i < 26 ? String.fromCharCode(65 + i) : String.fromCharCode(64 + Math.floor(i / 26)) + String.fromCharCode(65 + (i % 26));
+      if (!used.has(id)) return id;
+    }
+    return "W" + Date.now();
+  }
+  function blankWord() {
+    return { id: nextId(), line: null, context: "", flags: [], skipped: [], strokes: {}, baseline: null };
+  }
+  function slotDone(w, slot) {
+    if (w.skipped.includes(slot.key)) return true;
+    if (slot.key === "baseline") return w.baseline != null;
+    return (w.strokes[slot.key] || []).length >= slot.n;
+  }
+  function currentSlot(w) {
+    if (!w) return null;
+    return TEMPLATE.slots.find((s) => !slotDone(w, s)) || null;
+  }
+  function pointCount(w) {
+    let n = 0, total = 0;
+    for (const s of TEMPLATE.slots) {
+      if (w.skipped.includes(s.key)) continue;
+      total += s.n;
+      n += s.key === "baseline" ? (w.baseline != null ? 1 : 0) : Math.min((w.strokes[s.key] || []).length, s.n);
+    }
+    return [n, total];
+  }
+  function toast(msg) {
+    const t = $("toast"); t.textContent = msg; t.hidden = false;
+    clearTimeout(toast._t); toast._t = setTimeout(() => (t.hidden = true), 2200);
+  }
+  function notice(msg) { const n = $("notice"); n.textContent = msg || ""; n.hidden = !msg; }
+
+  // ---------------------------------------------------------------- persistence
+  function save() {
+    try { localStorage.setItem(STORE_KEY, JSON.stringify({ imgName: S.imgName, source: S.source, words: S.words, sel: S.sel })); } catch (e) { /* storage unavailable */ }
+  }
+  function restore() {
+    try {
+      const raw = localStorage.getItem(STORE_KEY);
+      if (!raw) return false;
+      const d = JSON.parse(raw);
+      if (d.imgName !== S.imgName || !Array.isArray(d.words)) return false;
+      S.words = d.words; S.sel = Math.min(d.sel ?? 0, S.words.length - 1); S.source = d.source || S.source;
+      return true;
+    } catch (e) { return false; }
+  }
+
+  // ---------------------------------------------------------------- import / export
+  function fromTraces(d) {
+    S.source = d.source || ""; S.note = d.note || "";
+    S.words = (d.instances || []).map((i) => {
+      const flags = [...(i.flags || [])];
+      const skipped = [];
+      for (const s of TEMPLATE.slots) if (s.key !== "baseline" && !(i.strokes || {})[s.key]) skipped.push(s.key);
+      return { id: String(i.id), line: i.line ?? null, context: i.context || "", flags, skipped,
+               strokes: JSON.parse(JSON.stringify(i.strokes || {})), baseline: i.baseline ?? null };
+    });
+    S.sel = S.words.length ? 0 : -1;
+  }
+  function bboxOf(w) {
+    const pts = Object.values(w.strokes).flat();
+    if (!pts.length) return null;
+    const xs = pts.map((p) => p[0]), ys = pts.map((p) => p[1]);
+    let y1 = Math.max(...ys) + 6;
+    if (w.baseline != null) y1 = Math.max(y1, w.baseline + 8);
+    return [Math.floor(Math.min(...xs) - 6), Math.floor(Math.min(...ys) - 6), Math.ceil(Math.max(...xs) + 6), Math.ceil(y1)];
+  }
+  function toTraces() {
+    const instances = S.words.map((w) => {
+      const flags = new Set(w.flags);
+      if (w.skipped.includes("alif")) flags.add("no_alif");
+      const strokes = {};
+      for (const s of TEMPLATE.slots) {
+        if (s.key === "baseline" || !w.strokes[s.key]) continue;
+        strokes[s.key] = w.strokes[s.key].map((p) => [r1(p[0]), r1(p[1])]);
+      }
+      const o = { id: w.id, line: w.line, context: w.context, bbox: bboxOf(w), baseline: w.baseline == null ? null : r1(w.baseline) };
+      if (flags.size) o.flags = [...flags];
+      o.strokes = strokes;
+      return o;
+    });
+    return {
+      image: S.imgName, source: S.source,
+      note: "Traced with Ductus Tracer (page pixel coordinates). Shafts are [top, foot]; hā' is [right, left] along the baseline.",
+      template: TEMPLATE.name, instances,
+    };
+  }
+  function refreshJson() { $("json").value = JSON.stringify(toTraces(), null, 1); }
+
+  // ---------------------------------------------------------------- ink map
+  // Parchment brightness varies slowly (stains, lighting), so each pixel is compared
+  // with the local parchment level: the mean lightness of the brighter pixels in a
+  // 41 px window. Darkness above the threshold counts as ink.
+  function buildInk() {
+    S.ink = null; S.inkCanvas = null;
+    const img = S.img; if (!img) return;
+    const maxPx = 4.2e6;
+    const k = Math.max(1, Math.sqrt((img.naturalWidth * img.naturalHeight) / maxPx));
+    const w = Math.round(img.naturalWidth / k), h = Math.round(img.naturalHeight / k);
+    const c = document.createElement("canvas"); c.width = w; c.height = h;
+    const g = c.getContext("2d", { willReadFrequently: true });
+    g.drawImage(img, 0, 0, w, h);
+    let data;
+    try { data = g.getImageData(0, 0, w, h).data; }
+    catch (e) {
+      notice("This browser blocks pixel access to the sample when the page is opened as a local file, so the ink overlay and snapping are off. Use “Open image…” to load the scan, or serve the folder (python3 -m http.server).");
+      return;
+    }
+    const lin = new Float32Array(256);
+    for (let i = 0; i < 256; i++) { const v = i / 255; lin[i] = v <= 0.04045 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4; }
+    const L = new Float32Array(w * h);
+    for (let i = 0, j = 0; i < L.length; i++, j += 4) {
+      const Y = 0.2126 * lin[data[j]] + 0.7152 * lin[data[j + 1]] + 0.0722 * lin[data[j + 2]];
+      L[i] = Y > 0.008856 ? 116 * Math.cbrt(Y) - 16 : 903.3 * Y;
+    }
+    const R = Math.max(8, Math.round(20 / k));
+    const boxMean = (vals, wts) => {
+      // integral images of vals*wts and wts, then a (2R+1)^2 window mean
+      const W1 = w + 1;
+      const sv = new Float64Array(W1 * (h + 1)), sw = new Float64Array(W1 * (h + 1));
+      for (let y = 0; y < h; y++) {
+        let rv = 0, rw = 0;
+        for (let x = 0; x < w; x++) {
+          const i = y * w + x, wt = wts ? wts[i] : 1;
+          rv += vals[i] * wt; rw += wt;
+          sv[(y + 1) * W1 + x + 1] = sv[y * W1 + x + 1] + rv;
+          sw[(y + 1) * W1 + x + 1] = sw[y * W1 + x + 1] + rw;
+        }
+      }
+      const out = new Float32Array(w * h);
+      for (let y = 0; y < h; y++) {
+        const y0 = Math.max(0, y - R), y1 = Math.min(h, y + R + 1);
+        for (let x = 0; x < w; x++) {
+          const x0 = Math.max(0, x - R), x1 = Math.min(w, x + R + 1);
+          const a = y1 * W1 + x1, b = y0 * W1 + x1, cc = y1 * W1 + x0, d = y0 * W1 + x0;
+          const tw = sw[a] - sw[b] - sw[cc] + sw[d];
+          out[y * w + x] = tw > 0 ? (sv[a] - sv[b] - sv[cc] + sv[d]) / tw : vals[y * w + x];
+        }
+      }
+      return out;
+    };
+    const m1 = boxMean(L, null);
+    const bright = new Float32Array(w * h);
+    for (let i = 0; i < bright.length; i++) bright[i] = L[i] > m1[i] - 4 ? 1 : 0;
+    const bg = boxMean(L, bright);
+    const dark = new Float32Array(w * h);
+    for (let i = 0; i < dark.length; i++) dark[i] = Math.max(0, bg[i] - L[i]);
+    S.ink = { w, h, k, dark };
+    paintInk();
+  }
+  function paintInk() {
+    if (!S.ink) return;
+    const { w, h, dark } = S.ink;
+    const c = document.createElement("canvas"); c.width = w; c.height = h;
+    const g = c.getContext("2d"); const id = g.createImageData(w, h); const p = id.data;
+    for (let i = 0, j = 0; i < dark.length; i++, j += 4) {
+      if (dark[i] > S.thr) { p[j] = 20; p[j + 1] = 60; p[j + 2] = 170; p[j + 3] = 150; }
+    }
+    g.putImageData(id, 0, 0); S.inkCanvas = c;
+  }
+  // 0..1 "inkiness" at an image point (bilinear)
+  function inkAt(x, y) {
+    const I = S.ink; if (!I) return 0;
+    const fx = x / I.k, fy = y / I.k;
+    const x0 = Math.floor(fx), y0 = Math.floor(fy);
+    if (x0 < 0 || y0 < 0 || x0 + 1 >= I.w || y0 + 1 >= I.h) return 0;
+    const ax = fx - x0, ay = fy - y0, d = I.dark, i = y0 * I.w + x0;
+    const v = (1 - ax) * (1 - ay) * d[i] + ax * (1 - ay) * d[i + 1] + (1 - ax) * ay * d[i + I.w] + ax * ay * d[i + I.w + 1];
+    return Math.min(1, Math.max(0, (v - 0.6 * S.thr) / (0.8 * S.thr)));
+  }
+  // Same idea as measure.snap_segment: slide and turn the traced segment a little and
+  // keep the placement that runs through the most ink.
+  function snapSegment(p0, p1) {
+    if (!S.ink) return null;
+    const mid = [p0[0] + 0.6 * (p1[0] - p0[0]), p0[1] + 0.6 * (p1[1] - p0[1])];
+    let best = { score: -1, a: p0, b: p1 };
+    for (let turn = -10; turn <= 10; turn += 1) {
+      const t = turn * Math.PI / 180, c = Math.cos(t), s = Math.sin(t);
+      const rot = (p) => [mid[0] + c * (p[0] - mid[0]) - s * (p[1] - mid[1]), mid[1] + s * (p[0] - mid[0]) + c * (p[1] - mid[1])];
+      const q0 = rot(p0), q1 = rot(p1);
+      const L = Math.hypot(q1[0] - q0[0], q1[1] - q0[1]); if (L < 4) continue;
+      const nx = -(q1[1] - q0[1]) / L, ny = (q1[0] - q0[0]) / L;
+      for (let off = -6; off <= 6; off += 0.5) {
+        let sum = 0, n = 0;
+        for (let i = 0; i <= 30; i++) {
+          const f = i / 30 * 0.85;  // upper 85 %: keep the baseline join out of it
+          sum += inkAt(q0[0] + f * (q1[0] - q0[0]) + nx * off, q0[1] + f * (q1[1] - q0[1]) + ny * off); n++;
+        }
+        const score = sum / n - 0.002 * (Math.abs(off) + Math.abs(turn));
+        if (score > best.score) best = { score, a: [q0[0] + nx * off, q0[1] + ny * off], b: [q1[0] + nx * off, q1[1] + ny * off] };
+      }
+    }
+    return best.score > 0.15 ? best : null;
+  }
+
+  // ---------------------------------------------------------------- view
+  function resize() {
+    const r = stage.getBoundingClientRect(), dpr = window.devicePixelRatio || 1;
+    cv.width = Math.max(1, Math.round(r.width * dpr)); cv.height = Math.max(1, Math.round(r.height * dpr));
+    draw();
+  }
+  function fit() {
+    if (!S.img) return;
+    const r = stage.getBoundingClientRect();
+    const s = Math.min(r.width / S.img.naturalWidth, r.height / S.img.naturalHeight) * 0.96;
+    S.view = { s, tx: (r.width - S.img.naturalWidth * s) / 2, ty: (r.height - S.img.naturalHeight * s) / 2 };
+    draw();
+  }
+  function focusWord(w) {
+    const b = w && bboxOf(w); if (!b) return;
+    const r = stage.getBoundingClientRect();
+    const s = Math.min(r.width / (b[2] - b[0] + 60), r.height / (b[3] - b[1] + 60), 9);
+    S.view = { s, tx: r.width / 2 - ((b[0] + b[2]) / 2) * s, ty: r.height / 2 - ((b[1] + b[3]) / 2) * s };
+    draw();
+  }
+  const toScreen = (p) => [p[0] * S.view.s + S.view.tx, p[1] * S.view.s + S.view.ty];
+  const toImage = (x, y) => [(x - S.view.tx) / S.view.s, (y - S.view.ty) / S.view.s];
+  function zoomAt(f, sx, sy) {
+    const s = Math.min(40, Math.max(0.05, S.view.s * f)); const k = s / S.view.s;
+    S.view.tx = sx - (sx - S.view.tx) * k; S.view.ty = sy - (sy - S.view.ty) * k; S.view.s = s; draw();
+  }
+
+  function draw() {
+    const dpr = window.devicePixelRatio || 1;
+    ctx.setTransform(1, 0, 0, 1, 0, 0);
+    ctx.fillStyle = css("--well"); ctx.fillRect(0, 0, cv.width, cv.height);
+    if (!S.img) return;
+    ctx.setTransform(dpr * S.view.s, 0, 0, dpr * S.view.s, dpr * S.view.tx, dpr * S.view.ty);
+    ctx.imageSmoothingEnabled = S.view.s < 3;
+    ctx.drawImage(S.img, 0, 0);
+    if (S.showInk && S.inkCanvas) {
+      ctx.globalAlpha = 0.55;
+      ctx.drawImage(S.inkCanvas, 0, 0, S.img.naturalWidth, S.img.naturalHeight);
+      ctx.globalAlpha = 1;
+    }
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    S.words.forEach((w, i) => drawWord(w, i === S.sel));
+  }
+  function drawWord(w, selected) {
+    const b = bboxOf(w);
+    const alpha = selected ? 1 : 0.55;
+    ctx.save(); ctx.globalAlpha = alpha; ctx.lineCap = "round";
+    if (b) {
+      const [x0, y0] = toScreen([b[0], b[1]]), [x1, y1] = toScreen([b[2], b[3]]);
+      ctx.strokeStyle = selected ? css("--accent") : "rgba(30,30,30,.55)";
+      ctx.lineWidth = selected ? 1.5 : 1; ctx.setLineDash([]);
+      ctx.strokeRect(x0, y0, x1 - x0, y1 - y0);
+      ctx.font = `600 ${selected ? 13 : 11}px ${css("--font-num")}`;
+      const label = w.id; const tw = ctx.measureText(label).width + 8;
+      ctx.fillStyle = selected ? css("--accent") : "rgba(30,30,30,.7)";
+      ctx.fillRect(x0, y0 - 17, tw, 17);
+      ctx.fillStyle = "#fff"; ctx.fillText(label, x0 + 4, y0 - 4);
+      if (w.baseline != null) {
+        const [, by] = toScreen([0, w.baseline]);
+        ctx.strokeStyle = css("--s-base"); ctx.setLineDash([5, 4]); ctx.lineWidth = 1.2;
+        ctx.beginPath(); ctx.moveTo(x0, by); ctx.lineTo(x1, by); ctx.stroke(); ctx.setLineDash([]);
+      }
+    }
+    for (const s of TEMPLATE.slots) {
+      const pts = w.strokes[s.key]; if (!pts || !pts.length) continue;
+      const col = css(s.color);
+      ctx.strokeStyle = col; ctx.fillStyle = col; ctx.lineWidth = selected ? 2.2 : 1.6;
+      ctx.beginPath();
+      pts.forEach((p, i) => { const [x, y] = toScreen(p); i ? ctx.lineTo(x, y) : ctx.moveTo(x, y); });
+      ctx.stroke();
+      pts.forEach((p, i) => {
+        const [x, y] = toScreen(p);
+        ctx.beginPath(); ctx.arc(x, y, selected ? 4.5 : 3, 0, Math.PI * 2);
+        ctx.fillStyle = i === 0 ? col : "#fff"; ctx.fill();
+        ctx.strokeStyle = col; ctx.lineWidth = 1.5; ctx.stroke();
+      });
+    }
+    ctx.restore();
+  }
+
+  // ---------------------------------------------------------------- measurements
+  function footX(seg, base) {
+    const [t, b] = seg, dy = b[1] - t[1];
+    if (Math.abs(dy) < 1e-6) return b[0];
+    return t[0] + (base - t[1]) / dy * (b[0] - t[0]);
+  }
+  function features(w) {
+    const f = {}, st = w.strokes, base = w.baseline;
+    if (base == null) return f;
+    const ok = (k) => st[k] && st[k].length >= 2 && !w.skipped.includes(k);
+    for (const k of SHAFTS) {
+      if (!ok(k)) continue;
+      const [t, b] = st[k];
+      f["h_" + k] = base - t[1];
+      f["slant_" + k] = deg(Math.atan2(t[0] - b[0], b[1] - t[1]));
+    }
+    if (ok("lam1") && ok("lam2")) f.lam_spacing = footX(st.lam1, base) - footX(st.lam2, base);
+    if (ok("alif") && ok("lam1")) f.alif_gap = footX(st.alif, base) - footX(st.lam1, base);
+    if (ok("lam2") && ok("ha")) f.tail_length = footX(st.lam2, base) - st.ha[1][0];
+    return f;
+  }
+  const FEATURE_ROWS = [
+    ["h_alif", "alif height", "px"], ["h_lam1", "lām¹ height", "px"], ["h_lam2", "lām² height", "px"],
+    ["slant_alif", "alif slant", "°"], ["slant_lam1", "lām¹ slant", "°"], ["slant_lam2", "lām² slant", "°"],
+    ["alif_gap", "alif → lām¹", "px"], ["lam_spacing", "lām¹ → lām²", "px"], ["tail_length", "lām² → end of hā'", "px"],
+  ];
+  function renderNums() {
+    const all = S.words.filter((w) => !w.flags.includes("touches_line_above")).map(features);
+    const cur = S.sel >= 0 ? features(S.words[S.sel]) : {};
+    const head = `<tr><th>feature</th><th>${S.sel >= 0 ? esc(S.words[S.sel].id) : "—"}</th><th>mean ± sd</th><th>n</th></tr>`;
+    const rows = FEATURE_ROWS.map(([k, label, u]) => {
+      const vals = all.map((f) => f[k]).filter((v) => v != null && isFinite(v));
+      const m = vals.length ? mean(vals) : NaN, s = sd(vals);
+      const fmt = (v) => (v == null || !isFinite(v) ? "—" : v.toFixed(1) + (u === "°" ? "°" : ""));
+      return `<tr><td>${label}</td><td>${fmt(cur[k])}</td><td>${isFinite(m) ? fmt(m) + (isFinite(s) ? " ± " + s.toFixed(1) : "") : "—"}</td><td>${vals.length}</td></tr>`;
+    }).join("");
+    $("nums").innerHTML = head + rows;
+  }
+
+  // ---------------------------------------------------------------- side panel
+  function renderStep() {
+    const w = S.words[S.sel];
+    const slot = currentSlot(w);
+    const chip = $("stepChip");
+    if (!w) {
+      $("stepText").textContent = "Press “New word” to start tracing";
+      $("stepSub").textContent = "Each word is traced as alif, two lāms, the final hā' and the baseline.";
+      chip.style.background = css("--line");
+    } else if (!slot) {
+      $("stepText").textContent = `Word ${w.id} is complete`;
+      $("stepSub").textContent = "Drag any point to adjust it, or start the next word.";
+      chip.style.background = css("--s-lam2");
+    } else {
+      const have = slot.key === "baseline" ? 0 : (w.strokes[slot.key] || []).length;
+      $("stepText").textContent = slot.prompts[have];
+      $("stepSub").textContent = `Word ${w.id} · ${slot.label}` + (slot.key === "alif" ? " · press S if this word has no alif" : "");
+      chip.style.background = css(slot.color);
+    }
+    $("btnSkip").disabled = !slot; $("btnUndo").disabled = !w;
+  }
+  function renderList() {
+    $("count").textContent = S.words.length ? `(${S.words.length})` : "";
+    const list = $("list"); list.innerHTML = "";
+    S.words.forEach((w, i) => {
+      const [n, total] = pointCount(w);
+      const b = document.createElement("button");
+      b.type = "button"; b.className = "inst" + (i === S.sel ? " sel" : "");
+      b.innerHTML = `<span class="id"></span><span class="ctx"></span><span class="meta"></span>`;
+      b.querySelector(".id").textContent = w.id;
+      b.querySelector(".ctx").textContent = w.context || "—";
+      const meta = b.querySelector(".meta");
+      meta.textContent = (w.line ? `l.${w.line} · ` : "") + `${n}/${total}`;
+      if (n < total) meta.classList.add("todo");
+      b.addEventListener("click", () => { S.sel = i; renderAll(); focusWord(w); });
+      list.appendChild(b);
+    });
+  }
+  function renderEditor() {
+    const w = S.words[S.sel];
+    $("editor").hidden = !w;
+    if (!w) return;
+    $("fId").value = w.id; $("fLine").value = w.line ?? ""; $("fCtx").value = w.context;
+    const box = $("flags"); box.innerHTML = "";
+    FLAGS.forEach(([key, label]) => {
+      const id = "flag_" + key;
+      const l = document.createElement("label"); l.htmlFor = id;
+      const c = document.createElement("input"); c.type = "checkbox"; c.id = id;
+      c.checked = w.flags.includes(key) || (key === "no_alif" && w.skipped.includes("alif"));
+      c.addEventListener("change", () => {
+        w.flags = w.flags.filter((f) => f !== key); if (c.checked) w.flags.push(key);
+        if (key === "no_alif") {
+          w.skipped = w.skipped.filter((k) => k !== "alif");
+          if (c.checked) { w.skipped.push("alif"); delete w.strokes.alif; }
+        }
+        changed();
+      });
+      l.append(c, document.createTextNode(label)); box.appendChild(l);
+    });
+    renderDelete(false);
+  }
+  function renderDelete(confirming) {
+    const row = $("delRow"); row.innerHTML = "";
+    if (!confirming) {
+      const b = document.createElement("button"); b.type = "button"; b.className = "btn small danger"; b.textContent = "Delete word";
+      b.addEventListener("click", () => renderDelete(true)); row.appendChild(b);
+    } else {
+      const span = document.createElement("span"); span.className = "confirm"; span.textContent = `Delete word ${S.words[S.sel].id}?`;
+      const yes = document.createElement("button"); yes.type = "button"; yes.className = "btn small danger"; yes.textContent = "Delete";
+      const no = document.createElement("button"); no.type = "button"; no.className = "btn small"; no.textContent = "Keep";
+      yes.addEventListener("click", () => { S.words.splice(S.sel, 1); S.sel = Math.min(S.sel, S.words.length - 1); changed(); });
+      no.addEventListener("click", () => renderDelete(false));
+      span.append(yes, no); row.appendChild(span);
+    }
+  }
+  function renderAll() { renderStep(); renderList(); renderEditor(); renderNums(); refreshJson(); draw(); }
+  function changed() { save(); renderAll(); }
+
+  $("fId").addEventListener("change", (e) => { const w = S.words[S.sel]; if (w && e.target.value.trim()) { w.id = e.target.value.trim(); changed(); } });
+  $("fLine").addEventListener("change", (e) => { const w = S.words[S.sel]; if (w) { const v = parseInt(e.target.value, 10); w.line = isFinite(v) ? v : null; changed(); } });
+  $("fCtx").addEventListener("input", (e) => { const w = S.words[S.sel]; if (w) { w.context = e.target.value; save(); renderList(); refreshJson(); } });
+
+  // ---------------------------------------------------------------- editing
+  function addPoint(p) {
+    let w = S.words[S.sel];
+    if (!w || !currentSlot(w)) { w = blankWord(); S.words.push(w); S.sel = S.words.length - 1; }
+    const slot = currentSlot(w);
+    if (slot.key === "baseline") { w.baseline = p[1]; changed(); return; }
+    const pts = (w.strokes[slot.key] = w.strokes[slot.key] || []);
+    pts.push(p);
+    if (pts.length === 2 && SHAFTS.includes(slot.key) && S.snap) {
+      const res = snapSegment(pts[0], pts[1]);
+      if (res) {
+        const moved = Math.max(Math.hypot(res.a[0] - pts[0][0], res.a[1] - pts[0][1]), Math.hypot(res.b[0] - pts[1][0], res.b[1] - pts[1][1]));
+        pts[0] = res.a; pts[1] = res.b;
+        toast(`Snapped ${slot.label} to the ink (moved ${moved.toFixed(1)} px)`);
+      }
+    }
+    if (slot.key === "ha" && pts.length === 2 && w.baseline == null) w.baseline = (pts[0][1] + pts[1][1]) / 2;
+    changed();
+  }
+  function undo() {
+    const w = S.words[S.sel]; if (!w) return;
+    if (w.baseline != null && slotDone(w, TEMPLATE.slots[3]) && !currentSlot(w)) { w.baseline = null; return changed(); }
+    for (let i = TEMPLATE.slots.length - 1; i >= 0; i--) {
+      const s = TEMPLATE.slots[i];
+      if (s.key === "baseline") continue;
+      if (w.strokes[s.key] && w.strokes[s.key].length) {
+        w.strokes[s.key].pop(); if (!w.strokes[s.key].length) delete w.strokes[s.key];
+        return changed();
+      }
+      if (w.skipped.includes(s.key)) { w.skipped = w.skipped.filter((k) => k !== s.key); return changed(); }
+    }
+  }
+  function skip() {
+    const w = S.words[S.sel]; const slot = currentSlot(w); if (!slot) return;
+    if (slot.key === "baseline") return;
+    w.skipped.push(slot.key); delete w.strokes[slot.key];
+    if (slot.key === "alif" && !w.flags.includes("no_alif")) w.flags.push("no_alif");
+    changed();
+  }
+  function newWord() { const w = blankWord(); S.words.push(w); S.sel = S.words.length - 1; changed(); }
+  function hitPoint(sx, sy) {
+    const w = S.words[S.sel]; if (!w) return null;
+    let best = null, bd = 10;
+    for (const [key, pts] of Object.entries(w.strokes)) {
+      pts.forEach((p, i) => { const [x, y] = toScreen(p); const d = Math.hypot(x - sx, y - sy); if (d < bd) { bd = d; best = { key, i }; } });
+    }
+    if (w.baseline != null) {
+      const b = bboxOf(w);
+      if (b) { const [x0, by] = toScreen([b[0], w.baseline]); const [x1] = toScreen([b[2], 0]); if (sx >= x0 && sx <= x1 && Math.abs(sy - by) < 5 && !best) best = { key: "baseline" }; }
+    }
+    return best;
+  }
+
+  // ---------------------------------------------------------------- pointer
+  const pointers = new Map();
+  let drag = null, spaceDown = false, pinch = null;
+  function local(e) { const r = stage.getBoundingClientRect(); return [e.clientX - r.left, e.clientY - r.top]; }
+  stage.addEventListener("pointerdown", (e) => {
+    stage.setPointerCapture(e.pointerId);
+    const [x, y] = local(e); pointers.set(e.pointerId, [x, y]);
+    if (pointers.size === 2) {
+      const [a, b] = [...pointers.values()];
+      pinch = { d: Math.hypot(a[0] - b[0], a[1] - b[1]), m: [(a[0] + b[0]) / 2, (a[1] + b[1]) / 2] }; drag = null; return;
+    }
+    const panning = S.hand || spaceDown || e.button === 1 || e.button === 2;
+    const hit = !panning && hitPoint(x, y);
+    drag = { x0: x, y0: y, x, y, moved: false, pan: panning, hit };
+  });
+  stage.addEventListener("pointermove", (e) => {
+    const [x, y] = local(e);
+    if (S.img) { const p = toImage(x, y); $("hud").textContent = `x ${p[0].toFixed(1)}  y ${p[1].toFixed(1)}  ·  ${Math.round(S.view.s * 100)}%`; }
+    if (!pointers.has(e.pointerId)) return;
+    pointers.set(e.pointerId, [x, y]);
+    if (pinch && pointers.size === 2) {
+      const [a, b] = [...pointers.values()];
+      const d = Math.hypot(a[0] - b[0], a[1] - b[1]), m = [(a[0] + b[0]) / 2, (a[1] + b[1]) / 2];
+      S.view.tx += m[0] - pinch.m[0]; S.view.ty += m[1] - pinch.m[1];
+      zoomAt(d / pinch.d, m[0], m[1]); pinch = { d, m }; return;
+    }
+    if (!drag) return;
+    if (Math.hypot(x - drag.x0, y - drag.y0) > 4) drag.moved = true;
+    if (drag.pan || (!drag.hit && drag.moved && e.pointerType === "touch")) {
+      S.view.tx += x - drag.x; S.view.ty += y - drag.y; draw();
+    } else if (drag.hit && drag.moved) {
+      const w = S.words[S.sel], p = toImage(x, y);
+      if (drag.hit.key === "baseline") w.baseline = p[1]; else w.strokes[drag.hit.key][drag.hit.i] = p;
+      draw();
+    }
+    drag.x = x; drag.y = y;
+  });
+  function endPointer(e) {
+    pointers.delete(e.pointerId);
+    if (pointers.size < 2) pinch = null;
+    if (!drag) return;
+    const d = drag; drag = null;
+    if (d.hit && d.moved) return changed();
+    if (!d.pan && !d.moved && !d.hit && S.img && e.type === "pointerup") addPoint(toImage(d.x0, d.y0));
+  }
+  stage.addEventListener("pointerup", endPointer);
+  stage.addEventListener("pointercancel", endPointer);
+  stage.addEventListener("contextmenu", (e) => e.preventDefault());
+  stage.addEventListener("wheel", (e) => { e.preventDefault(); const [x, y] = local(e); zoomAt(Math.exp(-e.deltaY * 0.0015), x, y); }, { passive: false });
+  window.addEventListener("keydown", (e) => {
+    if (e.target.closest("input, textarea")) return;
+    if (e.code === "Space") { spaceDown = true; stage.classList.add("pan"); e.preventDefault(); }
+    else if (e.key === "s" || e.key === "S") skip();
+    else if (e.key === "Backspace") { e.preventDefault(); undo(); }
+    else if (e.key === "n" || e.key === "N") newWord();
+    else if (e.key === "+" || e.key === "=") { const r = stage.getBoundingClientRect(); zoomAt(1.25, r.width / 2, r.height / 2); }
+    else if (e.key === "-") { const r = stage.getBoundingClientRect(); zoomAt(0.8, r.width / 2, r.height / 2); }
+  });
+  window.addEventListener("keyup", (e) => { if (e.code === "Space") { spaceDown = false; stage.classList.toggle("pan", S.hand); } });
+
+  // ---------------------------------------------------------------- toolbar
+  function setToggle(btn, on) { btn.classList.toggle("on", on); btn.setAttribute("aria-pressed", String(on)); }
+  $("btnInk").addEventListener("click", () => { S.showInk = !S.showInk; setToggle($("btnInk"), S.showInk); draw(); });
+  $("btnSnap").addEventListener("click", () => { S.snap = !S.snap; setToggle($("btnSnap"), S.snap); });
+  $("btnHand").addEventListener("click", () => { S.hand = !S.hand; setToggle($("btnHand"), S.hand); stage.classList.toggle("pan", S.hand); stage.classList.toggle("add", !S.hand); });
+  $("thr").addEventListener("input", (e) => { S.thr = +e.target.value; $("thrVal").textContent = S.thr; paintInk(); draw(); });
+  $("btnFit").addEventListener("click", fit);
+  $("btnIn").addEventListener("click", () => { const r = stage.getBoundingClientRect(); zoomAt(1.25, r.width / 2, r.height / 2); });
+  $("btnOut").addEventListener("click", () => { const r = stage.getBoundingClientRect(); zoomAt(0.8, r.width / 2, r.height / 2); });
+  $("btnSkip").addEventListener("click", skip);
+  $("btnUndo").addEventListener("click", undo);
+  $("btnNew").addEventListener("click", newWord);
+  $("btnCopy").addEventListener("click", () => {
+    const text = $("json").value;
+    const fallback = () => { $("json").focus(); $("json").select(); toast("Selected — press Ctrl/⌘+C to copy"); };
+    try { navigator.clipboard.writeText(text).then(() => toast("Traces copied"), fallback); } catch (e) { fallback(); }
+  });
+  // Saving a file only works when the page runs on its own (not inside a viewer frame).
+  if (window.self === window.top) {
+    $("btnDownload").hidden = false;
+    $("btnDownload").addEventListener("click", () => {
+      const blob = new Blob([$("json").value], { type: "application/json" });
+      const a = document.createElement("a"); a.href = URL.createObjectURL(blob);
+      a.download = (S.imgName.replace(/\.[^.]+$/, "") || "traces") + "-traces.json"; a.click();
+      setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+    });
+  }
+  $("btnReset").addEventListener("click", async () => {
+    const d = await fetchFirst(SAMPLE_TRACES, "json");
+    if (!d) return toast("The sample traces are not available here");
+    fromTraces(d); changed(); toast("Sample traces reloaded");
+  });
+
+  $("fileImage").addEventListener("change", (e) => {
+    const f = e.target.files[0]; if (!f) return;
+    const rd = new FileReader();
+    rd.onload = () => loadImage(rd.result, f.name, true);
+    rd.readAsDataURL(f); e.target.value = "";
+  });
+  $("fileTraces").addEventListener("change", (e) => {
+    const f = e.target.files[0]; if (!f) return;
+    const rd = new FileReader();
+    rd.onload = () => {
+      try {
+        const d = JSON.parse(rd.result);
+        fromTraces(d);
+        if (d.image && d.image !== S.imgName) toast(`Traces were made on “${d.image}”`);
+        changed(); focusWord(S.words[S.sel]);
+      } catch (err) { toast("That file is not valid traces JSON"); }
+    };
+    rd.readAsText(f); e.target.value = "";
+  });
+
+  // ---------------------------------------------------------------- loading
+  async function fetchFirst(urls, kind) {
+    for (const u of urls) {
+      try { const r = await fetch(u); if (r.ok) return kind === "json" ? await r.json() : u; } catch (e) { /* try next */ }
+    }
+    return null;
+  }
+  function loadImage(src, name, fresh) {
+    return new Promise((resolve) => {
+      const img = new Image();
+      img.onload = () => {
+        S.img = img; S.imgName = name; notice("");
+        $("srcName").textContent = name + ` · ${img.naturalWidth}×${img.naturalHeight}`;
+        if (fresh) { S.words = []; S.sel = -1; S.source = ""; restore(); }
+        buildInk(); fit(); renderAll(); resolve(true);
+      };
+      img.onerror = () => resolve(false);
+      img.src = src;
+    });
+  }
+  async function start() {
+    new ResizeObserver(resize).observe(stage);
+    try { matchMedia("(prefers-color-scheme: dark)").addEventListener("change", () => { renderStep(); draw(); }); } catch (e) { /* older browsers */ }
+    new MutationObserver(() => { renderStep(); draw(); }).observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
+    resize(); renderAll();
+    let ok = false;
+    for (const u of SAMPLE_IMAGE) { ok = await loadImage(u, u.split("/").pop(), false); if (ok) break; }
+    if (!ok) { notice("Open a manuscript image to start tracing."); $("srcName").textContent = "no image"; return; }
+    if (!restore()) {
+      const d = await fetchFirst(SAMPLE_TRACES, "json");
+      if (d) fromTraces(d);
+      else notice("Couldn't load the sample traces (browsers block this when the page is opened as a local file). Use “Import traces…” with viability/data/traces_allah.json.");
+    }
+    S.source = S.source || "Bibliothèque nationale de France, Arabe 328 (gallica.bnf.fr)";
+    $("srcName").textContent = `BnF Arabe 328 · Sūrat al-Baqarah 2:282–286 · ${S.img.naturalWidth}×${S.img.naturalHeight}`;
+    renderAll();
+  }
+  start();
+})();
+</script>
