@@ -482,11 +482,34 @@ ink-following between the clicks.
 
   The scribe's m joins its first two minims with the same kind of hairline, rising
   diagonally from the middle of the first stroke to the head of the second.
-- **Hairlines need the pen's corner.** These hairlines, like the tail of the final n,
-  are thinner than the nib's own narrow edge. Strokes named *hairline…* or *…tail* are
-  now drawn with the corner of the pen (`pen.is_corner_stroke`), at half the narrow
-  edge. The tail is too faint to ink-follow, so it is drawn as a smooth curve through
-  its clicks.
+- **Separate hairlines use the pen's corner.** The e's closing hairline and the m's
+  join are thinner than the nib's own narrow edge. Strokes named *hairline…* are drawn
+  with the corner of the pen (`pen.is_corner_stroke`), at half the narrow edge.
+- **Word-final tails are twist-and-pull, not a switch to the corner.** The last stroke
+  of a word-final n or m comes down the stem at full width, then curves away
+  down-left. The scribe keeps pulling and twists the pen, and the width falls away
+  smoothly into a long hairline.
+
+  ![Twist-and-pull](out/hours_twist.png)
+
+  `twist.py` measures this along three tails (*nomen* line 1, *tuum* lines 1 and 22),
+  on a centre-line pulled onto the ink.
+  - **Shape of the taper.** Width holds at stem width until about 25 px before the end
+    of the stroke. It then falls steadily to about 1 px at 10 px from the end, and to
+    0.3 px at the tip.
+  - **A fixed pen can't do it.** Turning down-left, a pen held still bottoms out at
+    the nib's narrow edge, about 2.4 px.
+  - **How the scribe does it.** Solving point by point for the pen's motion gives a
+    consistent answer: the pen turns only a little (up to about 13°). Almost all of the
+    thinning comes from rolling the pen onto its corner while pulling: contact falls
+    from the full edge to about 0.15 of it over the last 18 px.
+
+  The renderer can now twist and roll the pen within a stroke (`pen.twist_profile`).
+  The fitted terminal is stored as keyframes by distance from the end of the stroke,
+  so it applies to any word-final stroke. The final n of *nomen* is now one stroke:
+  arch, stem and tail. Its outline score (1.2 px) counts the faint end of the tail as
+  excess model ink, because that hairline falls below the ink-mask threshold; the
+  width profile is the better check, and it matches.
 - **The tracer suggests this e** for the Book of Hours: back, top stroke, hairline.
 
 ### Limits

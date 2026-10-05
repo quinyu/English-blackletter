@@ -512,7 +512,7 @@ kbd { font: 11.5px var(--font-num); border: 1px solid var(--line); border-bottom
       S.words = inst.map((i) => ({
         id: String(i.id), kind: "letter", char: i.char || "?", line: i.line ?? null, index: i.index ?? null,
         context: i.context || "", flags: [...(i.flags || [])], plan: i.plan || planFor(i.char || "?"),
-        strokes: (i.strokes || []).map((s) => ({ name: s.name, clicks: s.clicks || [s.points[0], s.points[s.points.length - 1]], points: s.points })),
+        strokes: (i.strokes || []).map((s) => ({ ...s, clicks: s.clicks || [s.points[0], s.points[s.points.length - 1]] })),
       }));
       if (Array.isArray(d.lines) && d.lines.length && !S.lines.length) S.lines = d.lines;
     } else {
@@ -547,7 +547,7 @@ kbd { font: 11.5px var(--font-num); border: 1px solid var(--line); border-bottom
     const instances = S.words.filter((w) => w.kind === "letter").map((w) => ({
       id: w.id, kind: "letter", char: w.char, line: w.line, index: w.index, context: w.context,
       flags: w.flags, bbox: bboxOf(w),
-      strokes: w.strokes.map((s) => ({ name: s.name, clicks: s.clicks.map((p) => [r1(p[0]), r1(p[1])]), points: s.points.map((p) => [r1(p[0]), r1(p[1])]) })),
+      strokes: w.strokes.map((s) => ({ ...s, clicks: s.clicks.map((p) => [r1(p[0]), r1(p[1])]), points: s.points.map((p) => [r1(p[0]), r1(p[1])]) })),
     }));
     return {
       format: "ductus-traces/2", image: S.imgName, source: S.source, script: S.sample.script,
@@ -736,6 +736,7 @@ kbd { font: 11.5px var(--font-num); border: 1px solid var(--line); border-bottom
     return rdp(path, 0.5 * k);
   }
   function recompute(stroke) {
+    delete stroke.fixed;
     const c = stroke.clicks;
     const pts = [c[0]];
     for (let i = 1; i < c.length; i++) pts.push(...inkPath(c[i - 1], c[i]).slice(1));

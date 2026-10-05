@@ -3,7 +3,7 @@
  "image": "clermont-ms2262-f012r.jpg",
  "source": "Clermont-Ferrand, Bibliothèque du Patrimoine, MS 2262, f. 12r",
  "script": "latin",
- "note": "Seed traces: 'nomen' (line 1), in writing order, with ink-following between clicks. Click positions were placed on the stems found by letterforms.line_stems. Textura e is back (head, stem, foot), a top stroke out to the right, and a hairline back down-left to the stem; strokes named 'hairline…' or '…tail' are drawn with the pen's corner (pen.is_corner_stroke). The final n's tail is too faint for ink-following; its points are the clicks, smoothed when drawn.",
+ "note": "Seed traces: 'nomen' (line 1), in writing order, with ink-following between clicks. Click positions were placed on the stems found by letterforms.line_stems. Textura e is back (head, stem, foot), a top stroke out to the right, and a hairline back down-left to the stem; strokes named 'hairline…' are drawn with the pen's corner (pen.is_corner_stroke). The final n's last stroke is one movement: arch, stem and a tail drawn by twisting the pen onto its corner while pulling ('pen' = the twist-and-pull terminal fitted by twist.py; 'fixed' = its centre-line was pulled onto the ink by twist.ridge, not by ink-following).",
  "lines": [
   {
    "n": 1,
@@ -1173,7 +1173,7 @@
      ]
     },
     {
-     "name": "arch and minim",
+     "name": "arch, minim and tail",
      "clicks": [
       [
        392.0,
@@ -1188,12 +1188,16 @@
        231.0
       ],
       [
-       405.0,
-       252.0
+       405.5,
+       247.0
       ],
       [
-       405.0,
-       257.0
+       396.0,
+       262.0
+      ],
+      [
+       389.7,
+       268.9
       ]
      ],
      "points": [
@@ -1218,53 +1222,289 @@
        233.0
       ],
       [
-       405.0,
-       252.0
+       405.3,
+       246.2
+      ],
+      [
+       405.2,
+       246.7
+      ],
+      [
+       405.2,
+       247.1
+      ],
+      [
+       405.1,
+       247.6
       ],
       [
        405.0,
-       254.0
+       248.1
       ],
       [
-       404.0,
+       404.9,
+       248.6
+      ],
+      [
+       404.8,
+       249.0
+      ],
+      [
+       404.8,
+       249.5
+      ],
+      [
+       404.7,
+       250.0
+      ],
+      [
+       404.6,
+       250.5
+      ],
+      [
+       404.5,
+       251.0
+      ],
+      [
+       404.3,
+       251.4
+      ],
+      [
+       404.2,
+       251.9
+      ],
+      [
+       404.1,
+       252.4
+      ],
+      [
+       403.9,
+       252.8
+      ],
+      [
+       403.8,
+       253.3
+      ],
+      [
+       403.6,
+       253.7
+      ],
+      [
+       403.4,
+       254.1
+      ],
+      [
+       403.2,
+       254.6
+      ],
+      [
+       403.0,
        255.0
       ],
       [
-       405.0,
-       257.0
-      ]
-     ]
-    },
-    {
-     "name": "hairline tail",
-     "clicks": [
-      [
-       405.0,
-       257.0
+       402.7,
+       255.4
       ],
       [
-       404.0,
-       262.5
+       402.5,
+       255.9
       ],
       [
-       399.0,
+       402.3,
+       256.3
+      ],
+      [
+       402.1,
+       256.8
+      ],
+      [
+       401.8,
+       257.2
+      ],
+      [
+       401.6,
+       257.6
+      ],
+      [
+       401.3,
+       258.1
+      ],
+      [
+       401.0,
+       258.5
+      ],
+      [
+       400.7,
+       258.9
+      ],
+      [
+       400.4,
+       259.3
+      ],
+      [
+       400.1,
+       259.7
+      ],
+      [
+       399.8,
+       260.1
+      ],
+      [
+       399.5,
+       260.5
+      ],
+      [
+       399.1,
+       260.9
+      ],
+      [
+       398.8,
+       261.2
+      ],
+      [
+       398.4,
+       261.6
+      ],
+      [
+       398.1,
+       262.0
+      ],
+      [
+       397.8,
+       262.4
+      ],
+      [
+       397.5,
+       262.8
+      ],
+      [
+       397.1,
+       263.2
+      ],
+      [
+       396.8,
+       263.6
+      ],
+      [
+       396.5,
+       263.9
+      ],
+      [
+       396.1,
+       264.3
+      ],
+      [
+       395.8,
+       264.7
+      ],
+      [
+       395.4,
+       265.0
+      ],
+      [
+       395.0,
+       265.4
+      ],
+      [
+       394.7,
+       265.7
+      ],
+      [
+       394.3,
+       266.1
+      ],
+      [
+       393.9,
+       266.5
+      ],
+      [
+       393.5,
+       266.8
+      ],
+      [
+       393.2,
+       267.2
+      ],
+      [
+       392.8,
+       267.5
+      ],
+      [
+       392.4,
+       267.8
+      ],
+      [
+       392.0,
        268.0
+      ],
+      [
+       391.6,
+       268.3
+      ],
+      [
+       391.2,
+       268.5
+      ],
+      [
+       390.8,
+       268.6
+      ],
+      [
+       390.4,
+       268.7
+      ],
+      [
+       390.1,
+       268.8
+      ],
+      [
+       389.9,
+       268.9
+      ],
+      [
+       389.7,
+       268.9
       ]
      ],
-     "points": [
-      [
-       405.0,
-       257.0
+     "fixed": true,
+     "pen": {
+      "from_end_px": [
+       0,
+       3,
+       6,
+       9,
+       12,
+       15,
+       18,
+       21,
+       24,
+       28
       ],
-      [
-       404.0,
-       262.5
+      "dtheta": [
+       -8.2,
+       2.0,
+       3.2,
+       4.3,
+       8.4,
+       13.5,
+       13.4,
+       6.8,
+       6.9,
+       0.0
       ],
-      [
-       399.0,
-       268.0
+      "scale": [
+       0.141,
+       0.144,
+       0.231,
+       0.347,
+       0.436,
+       0.573,
+       0.885,
+       0.996,
+       1.0,
+       1.0
       ]
-     ]
+     }
     }
    ]
   }

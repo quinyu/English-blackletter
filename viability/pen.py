@@ -52,23 +52,59 @@ class Nib:
     def scaled(self, k):
         return Nib(self.a * k, self.b * k, self.theta)
 
+    def coords_at(self, dtheta=0.0, scale=1.0):
+        """Nib outline turned by dtheta degrees from its resting angle, with its contact
+        shrunk by `scale` (1 = the full edge on the page, towards 0 = only a corner)."""
+        if dtheta == 0.0 and scale == 1.0:
+            return self.coords
+        t = np.radians(-(self.theta + dtheta))
+        R = np.array([[np.cos(t), -np.sin(t)], [np.sin(t), np.cos(t)]])
+        return (scale * self._base) @ R.T
 
-def sweep(points, nib):
-    """Outline swept by the nib along a dense centre-line."""
+    @property
+    def _base(self):
+        n = len(self.coords)
+        t = np.linspace(0, 2 * np.pi, n, endpoint=False)
+        return np.c_[self.a / 2 * np.cos(t), self.b / 2 * np.sin(t)]
+
+
+def sweep(points, nib, dthetas=None, scales=None):
+    """Outline swept by the nib along a dense centre-line. With per-point dthetas and
+    scales the pen twists and lifts as it moves; consecutive stamps are still joined by
+    their convex hull, so width changes are continuous."""
+    if dthetas is None:
+        stamps = [nib.coords] * len(points)
+    else:
+        stamps = [nib.coords_at(d, k) for d, k in zip(dthetas, scales)]
     hulls = []
-    for p, q in zip(points[:-1], points[1:]):
-        hulls.append(MultiPoint(np.vstack([nib.coords + p, nib.coords + q])).convex_hull)
+    for i in range(len(points) - 1):
+        hulls.append(MultiPoint(np.vstack([stamps[i] + points[i], stamps[i + 1] + points[i + 1]])).convex_hull)
     return shapely.union_all(hulls) if hulls else Polygon()
+
+
+def twist_profile(points, pen_spec):
+    """Per-point pen twist and lift from a stroke's "pen" keyframes, given as distance
+    before the end of the stroke (px), so the same terminal fits strokes of any length:
+    {"from_end_px": [...], "dtheta": [...], "scale": [...]}; before the first keyframe
+    the pen rests (0, 1)."""
+    seg = np.r_[0, np.cumsum(np.hypot(*np.diff(points, axis=0).T))]
+    d_end = seg[-1] - seg
+    order = np.argsort(pen_spec["from_end_px"])
+    xs = np.asarray(pen_spec["from_end_px"], float)[order]
+    dth = np.interp(d_end, xs, np.asarray(pen_spec["dtheta"], float)[order])
+    sc = np.interp(d_end, xs, np.asarray(pen_spec["scale"], float)[order])
+    return dth, sc
 
 
 CORNER_FRACTION = 0.5  # corner hairline width as a share of the nib's narrow edge
 
 
 def is_corner_stroke(name):
-    """Strokes drawn with the corner of the pen rather than its edge: hairlines and
-    tails. On MS 2262 these are thinner than the nib's own narrow edge (about half)."""
-    n = (name or "").lower()
-    return n.startswith("hairline") or "tail" in n
+    """Separate strokes drawn with the corner of the pen rather than its edge, like the
+    hairline that closes a textura e. On MS 2262 these are about half the nib's narrow
+    edge. (Tails that grow out of a stroke are not separate strokes: they are drawn by
+    twisting the pen along the stroke, see twist_profile.)"""
+    return (name or "").lower().startswith("hairline")
 
 
 def corner_nib(nib):
@@ -76,13 +112,22 @@ def corner_nib(nib):
     return Nib(c, c, nib.theta)
 
 
-def render(strokes, nib, step=0.5, names=None):
+def render(strokes, nib, step=0.5, names=None, pens=None):
     """Union of all swept strokes. strokes: list of control-point lists. With names,
-    strokes named as hairlines or tails are drawn with the pen's corner."""
+    hairline strokes are drawn with the pen's corner; with pens (one twist spec or None
+    per stroke) the pen twists and lifts along that stroke."""
     corner = corner_nib(nib)
     names = names or [None] * len(strokes)
-    return shapely.union_all([sweep(catmull_rom(s, step), corner if is_corner_stroke(n) else nib)
-                              for s, n in zip(strokes, names)])
+    pens = pens or [None] * len(strokes)
+    parts = []
+    for s_, n, spec in zip(strokes, names, pens):
+        P = catmull_rom(s_, step)
+        if spec:
+            dth, sc = twist_profile(P, spec)
+            parts.append(sweep(P, nib, dth, sc))
+        else:
+            parts.append(sweep(P, corner if is_corner_stroke(n) else nib))
+    return shapely.union_all(parts)
 
 
 def _polys(geom):

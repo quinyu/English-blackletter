@@ -79,26 +79,25 @@
   {
    "width": 0.6805738985292186,
    "rise": 1.0064404659313608,
-   "drop": 0.3887360260535374,
-   "slant": 1.9020347086669194,
+   "drop": 0.4193618514873515,
+   "slant": -0.44996542945128354,
    "x_height_px": 29.386963036963067,
    "id": "1.4",
    "char": "n",
    "line": 1,
    "context": "nomen",
-   "overlap": 0.6109375,
-   "outline_dist_px": 1.1626924276351929,
+   "overlap": 0.5633587786259542,
+   "outline_dist_px": 1.2382981777191162,
    "strokes": [
     "minim",
-    "arch and minim",
-    "hairline tail"
+    "arch, minim and tail"
    ]
   }
  ],
  "up_down": {
-  "downstroke_width_px": 3.9182574507289827,
-  "upstroke_width_px": 1.4850305663149725,
-  "n_down": 101,
-  "n_up": 17
+  "downstroke_width_px": 3.134954955115023,
+  "upstroke_width_px": 1.6247268654321267,
+  "n_down": 195,
+  "n_up": 15
  }
 }
