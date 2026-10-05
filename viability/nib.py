@@ -42,9 +42,13 @@ def width_direction_samples(mask, radius=5, min_linearity=6.0, margin=40):
     return np.array(dirs), np.array(widths)
 
 
-def nib_model(phi_deg, a, b, theta_deg):
+def nib_model(phi_deg, a, b, theta_deg, p=2.0):
+    """Width of the line a nib leaves moving in direction φ. For a superellipse nib with
+    corner exponent p the width is (|a·sin|^q + |b·cos|^q)^(1/q) with q = p/(p − 1):
+    q = 2 for the ellipse, q = 1 for a sharp rectangular edge."""
     d = np.radians(np.asarray(phi_deg) - theta_deg)
-    return np.sqrt((a * np.sin(d)) ** 2 + (b * np.cos(d)) ** 2)
+    q = 1.0 if np.isinf(p) else p / (p - 1.0)
+    return (np.abs(a * np.sin(d)) ** q + np.abs(b * np.cos(d)) ** q) ** (1.0 / q)
 
 
 def fit_nib(dirs, widths, bin_deg=10):
@@ -73,6 +77,27 @@ def fit_nib(dirs, widths, bin_deg=10):
     rms = float(np.sqrt(err / len(med)))
     return {"a": float(a), "b": float(b), "theta_deg": float(theta), "contrast": float(a / b),
             "rms_px": rms, "bins": {"centre_deg": centres.tolist(), "median_width": med.tolist(), "n": counts}}
+
+
+def fit_nib_corners(bins, ps=(2.0, 2.5, 3.0, 4.0, 6.0, np.inf)):
+    """Refit (a, b, θ) to a fit_nib result's per-direction medians for nibs of increasing
+    corner sharpness p; returns one row per p with its rms error."""
+    from scipy.optimize import minimize
+    c, med = np.array(bins["centre_deg"]), np.array(bins["median_width"])
+    rows = []
+    for p in ps:
+        best = None
+        for theta in np.arange(0, 180, 1.0):
+            r = minimize(lambda x: np.sum((nib_model(c, x[0], x[1], theta, p) - med) ** 2), [6.0, 2.0],
+                         method="Nelder-Mead")
+            if best is None or r.fun < best[0]:
+                best = (r.fun, r.x, theta)
+        err, (a, b), theta = best
+        if a < b:
+            a, b, theta = b, a, (theta + 90) % 180
+        rows.append({"p": float(p), "a": float(a), "b": float(b), "theta_deg": float(theta),
+                     "rms_px": float(np.sqrt(err / len(med)))})
+    return rows
 
 
 def mass_width_samples(mask, dark, radius=5, min_linearity=6.0, margin=40, reach=7.0, step=0.5):

@@ -40,6 +40,8 @@ HANDS = [("hours", "French textura — MS 2262", "#6b5bd2"),
          ("lucretius", "Humanist cursive — Lucretius", "#eb6834")]
 
 # (letter, line, x0, x1, word) on f. 12r, grouped by construction
+# Boxes read from gridded close-ups. Two were corrected against the ink column profiles
+# when align.py was built (c of īimicos, s of ſtellas had included part of a neighbour).
 ATLAS = [
     ("Minim letters: built from upright strokes with lozenge heads and feet", [
         ("i", 19, 483, 494, "piſces"), ("n", 1, 252, 283, "nomen"), ("m", 1, 312, 356, "nomen"),
@@ -47,7 +49,7 @@ ATLAS = [
         ("n final", 1, 381, 413, "nomen")]),
     ("Round letters: the bowl is two upright strokes broken at top and bottom", [
         ("o", 1, 284, 306, "nomen"), ("o", 7, 738, 758, "celos"), ("o", 10, 580, 610, "homo"),
-        ("c", 7, 692, 708, "celos"), ("c", 5, 734, 752, "īimicos"), ("e", 1, 800, 822, "terra"),
+        ("c", 7, 692, 708, "celos"), ("c", 5, 743, 759, "īimicos"), ("e", 1, 800, 822, "terra"),
         ("e", 7, 706, 722, "celos"), ("e", 14, 826, 850, "euꝫ")]),
     ("Biting curves: facing bowls share one stroke", [
         ("de", 6, 303, 352, "deſtruas"), ("de", 7, 580, 625, "videbo"), ("bo", 7, 628, 680, "videbo")]),
@@ -56,7 +58,7 @@ ATLAS = [
     ("Two s's: long ſ inside words, round s at the end", [
         ("ſ", 1, 716, 738, "vniuſa"), ("ſ", 6, 350, 365, "deſtruas"), ("ſ", 9, 418, 432, "ſtellas"),
         ("s", 7, 757, 783, "celos"), ("s", 7, 862, 888, "tuos"),
-        ("s", 9, 520, 548, "ſtellas")]),
+        ("s", 9, 530, 555, "ſtellas")]),
     ("Ascender letters", [
         ("l", 6, 810, 826, "vltoꝛē"), ("l", 7, 726, 739, "celos"), ("b", 13, 282, 305, "ab"),
         ("h", 10, 488, 520, "homo"), ("d", 6, 299, 334, "deſtruas"), ("t", 1, 775, 800, "terra"),

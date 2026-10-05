@@ -325,10 +325,14 @@ kbd { font: 11.5px var(--font-num); border: 1px solid var(--line); border-bottom
       // i, n, m, u: no arches; every upright is its own minim, and inside a letter the
       // minims are linked by a hairline (pen corner): in n and m from mid-height up to
       // the next head, in u from the foot up to the middle of the next (minims.py)
+      // s (word-final, B-shaped), ſ, f, g, c, a, t: the stroke plans fitted by textura.py
       ductus: {
-        e: ["back", "top stroke", "hairline"], c: ["back", "top stroke"], i: ["minim"],
+        e: ["back", "top stroke", "hairline"], c: ["back", "top"], i: ["minim"],
         n: ["minim", "hairline join", "minim"], u: ["minim", "hairline join", "minim"],
         m: ["minim", "hairline join", "minim", "hairline join", "minim"],
+        s: ["back", "roof and spine", "belly", "hairline flag"], "ſ": ["stem", "head"],
+        f: ["stem", "head", "crossbar"], g: ["left side", "top", "right side", "tail"],
+        a: ["stem", "bowl"], t: ["stem", "hairline", "crossbar"],
       },
       source: "Clermont-Ferrand, Bibliothèque du Patrimoine (Clermont Auvergne Métropole), MS 2262, f. 12r",
     },

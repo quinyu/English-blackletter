@@ -36,7 +36,8 @@ CORRIDOR = 3
 PAGES = {
     "lucretius": dict(traces="traces_lucretius.json", lines="lucretius_lines.json", out="latin_letters"),
     "chigi": dict(traces="traces_chigi.json", lines="chigi_lines.json", out="chigi_letters"),
-    "hours": dict(traces="traces_hours.json", lines="hours_lines.json", out="hours_letters"),
+    # nib_p: corner sharpness of the rendering nib (2 = elliptical; chosen by corners.py)
+    "hours": dict(traces="traces_hours.json", lines="hours_lines.json", out="hours_letters", nib_p=4.0),
 }
 
 
@@ -69,16 +70,20 @@ def letter_features(strokes, line):
             "drop": float((pts[:, 1].max() - yb) / xh), "slant": slant, "x_height_px": float(xh)}
 
 
-def page_nib(lines_json, mask):
+def page_nib(lines_json, mask, corner_p=2.0):
     """Nib with the page's thick/thin contrast and angle (from latin_lines.py), scaled so
-    its average stroke width matches the measured width of the ink."""
+    its average stroke width matches the measured width of the ink. With corner_p > 2
+    the nib is squarer than an ellipse, and (a, b, θ) are refitted to the page's
+    width-by-direction medians for that corner shape (nib.fit_nib_corners)."""
     p = lines_json["pen"]
+    if corner_p != 2.0:
+        p = nib.fit_nib_corners(p["bins"], ps=(corner_p,))[0]
     dt = cv2.distanceTransform(mask.astype(np.uint8), cv2.DIST_L2, 5)
     from skimage.morphology import skeletonize
     sk = skeletonize(mask > 0)
     w_ink = float(np.median(2 * dt[sk]))
     k = w_ink / ((p["a"] + p["b"]) / 2)
-    return pen.Nib(p["a"] * k, p["b"] * k, p["theta_deg"]), w_ink
+    return pen.Nib(p["a"] * k, p["b"] * k, p["theta_deg"], p=corner_p), w_ink
 
 
 def directional_widths(strokes, dark, step=0.5, reach=5.0):
@@ -111,8 +116,9 @@ def main(page):
     lines = {str(l["n"]): l for l in lines_json["lines"]}
     rgb = ink.load_rgb(HERE / "data" / traces["image"])
     mask, dark = ink.ink_mask(rgb)
-    the_nib, w_ink = page_nib(lines_json, mask)
-    print(f"nib for rendering: {the_nib.a:.2f} x {the_nib.b:.2f} px at {the_nib.theta:.0f} deg (page ink width {w_ink:.2f} px)")
+    the_nib, w_ink = page_nib(lines_json, mask, P.get("nib_p", 2.0))
+    print(f"nib for rendering: {the_nib.a:.2f} x {the_nib.b:.2f} px at {the_nib.theta:.0f} deg, corners p={the_nib.p:g} "
+          f"(page ink width {w_ink:.2f} px)")
 
     results, panels, dirw = [], [], []
     for inst in traces["instances"]:

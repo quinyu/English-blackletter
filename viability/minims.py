@@ -45,6 +45,7 @@ from scipy.optimize import minimize
 
 import ink
 import letterforms as LF
+import measure_letters as ML
 import pen
 import twist
 
@@ -52,7 +53,8 @@ HERE = Path(__file__).resolve().parent
 OUT = HERE / "out"
 SURFACE, INK_TEXT, MUTED = "#fcfcfb", "#0b0b0b", "#52514e"
 DATA, MODEL, HEAD_C, FOOT_C = "#2a78d6", "#eb6834", "#d6293e", "#1baf7a"
-PEN = dict(a=8.12, b=3.08, theta=34.0)   # the page's rendering pen (measure_letters.page_nib)
+NIB_P = ML.PAGES["hours"]["nib_p"]   # corner sharpness of the nib (corners.py)
+PEN = {}                              # the page's rendering pen, set by load()
 
 # (letter, word, line, stem centres at the baseline) read with letterforms.line_stems
 INSTANCES = [
@@ -105,30 +107,34 @@ def join_points(a, b, yb, xh, slant, h0, h1):
 
 def module_strokes(stems, yb, xh, slant, p, joins=None, tail=None):
     """Strokes (name, points, pen spec or None) in writing order. joins: one (h0, h1) or
-    (h0, h1, fade) or None per gap, in x-heights above the baseline at the two stem
-    centres; h1 = "head" runs the hairline into the start of the next minim's head
-    stroke, and fade < 1 lifts the pen's corner along the hairline to that share of its
-    width at the end. tail: points in x-heights relative to the last stem
-    ((x - stem) / xh, height / xh) that replace its foot."""
+    None per gap, in x-heights above the baseline at the two stem centres; h1 = "head"
+    runs the hairline into the start of the next minim's head stroke. tail: points in
+    x-heights relative to the last stem ((x - stem) / xh, height / xh) that replace its
+    foot."""
     joins = [FIT_JOIN] * (len(stems) - 1) if joins is None else joins
     out = []
     for i, s in enumerate(stems):
         m = minim_points(s, yb, xh, slant, p)
         if i > 0 and joins[i - 1] is not None:
-            h0, h1, fade = (tuple(joins[i - 1]) + (1.0,))[:3]
+            h0, h1 = joins[i - 1]
             a = join_points(stems[i - 1], s, yb, xh, slant, h0, 0 if h1 == "head" else h1)
-            pts = [a[0], m[0]] if h1 == "head" else a
-            L = float(np.hypot(pts[1][0] - pts[0][0], pts[1][1] - pts[0][1]))
-            spec = dict(from_end_px=[0.0, L], dtheta=[0.0, 0.0], scale=[fade, 1.0]) if fade < 1 else None
-            out.append(("hairline join", pts, spec))
+            out.append(("hairline join", [a[0], m[0]] if h1 == "head" else a, None))
         if tail is not None and i == len(stems) - 1:
             m = m[:2] + [[s + u * xh, yb - v * xh] for u, v in tail]
         out.append(("minim", m, None))
     return out
 
 
+def load():
+    """Page, ink mask, line guides and darkness, with PEN set to the page's nib."""
+    rgb, mask, lines = LF.load_page("hours")
+    the_nib, _ = ML.page_nib(json.loads((HERE / "data" / "hours_lines.json").read_text(encoding="utf-8")), mask, NIB_P)
+    PEN.update(a=the_nib.a, b=the_nib.b, theta=the_nib.theta, p=the_nib.p)
+    return rgb, mask, lines, ink.ink_darkness(rgb).astype(float)
+
+
 def nib_for(p):
-    return pen.Nib(PEN["a"] * p[-1], PEN["b"] * p[-1], PEN["theta"])
+    return pen.Nib(PEN["a"] * p[-1], PEN["b"] * p[-1], PEN["theta"], p=PEN["p"])
 
 
 def render_strokes(st, p, tail_spec=None):
@@ -225,7 +231,7 @@ def measure_gaps(run, p, dark):
     for k in range(len(stems) - 1):
         a, b = stems[k], stems[k + 1]
         (c0, _), (c1, k1) = labels[k], labels[k + 1]
-        best = (-1e9, None, None, None)
+        best = (-1e9, None, None)
         for h0 in H0:
             for h1 in H1:
                 (xa, ya), (xb, yb_) = join_points(a, b, yb, xh, slant, h0, h1)
@@ -234,9 +240,8 @@ def measure_gaps(run, p, dark):
                 out = ~inside(xs, ys)
                 if out.sum() < 8:
                     continue
-                v = map_coordinates(dark, [ys[out], xs[out]], order=1)
-                if v.mean() > best[0]:   # darkness at a quarter and three quarters of the visible part
-                    best = (float(v.mean()), h0, h1, np.interp([0.25, 0.75], np.linspace(0, 1, len(v)), v))
+                v = float(map_coordinates(dark, [ys[out], xs[out]], order=1).mean())
+                best = max(best, (v, h0, h1))
         GX, GY = np.meshgrid(np.arange(int(a), int(b) + 1), np.arange(int(yb - xh), int(yb) + 1))
         sel = ~inside(GX.astype(float), GY.astype(float))
         bg = float(np.median(dark[GY[sel], GX[sel]]))
@@ -244,8 +249,7 @@ def measure_gaps(run, p, dark):
         context = ("inside " + ("u" if c1 == "u" else "n, m")) if within else ("into u" if c1 == "u" else "between")
         gaps.append(dict(line=run["line"], word=run["word"], pair=c0 if within else f"{c0}{c1}", context=context,
                          pitch_xh=float((b - a) / xh), h0=float(best[1]), h1=float(best[2]),
-                         contrast=float(best[0] - bg), a=float(a), b=float(b),
-                         quarter=float(best[3][0] - bg), three_quarters=float(best[3][1] - bg)))
+                         contrast=float(best[0] - bg), a=float(a), b=float(b)))
     return gaps
 
 
@@ -267,10 +271,7 @@ def join_rules(gaps):
     for kind in ("head", "foot"):
         G = [g for g in gaps if g["join"] == kind]
         h0, h1 = np.array([g["h0"] for g in G]), np.array([g["h1"] for g in G])
-        # fade: ink near the end of the hairline over ink near its start
-        fade = float(np.median([g["three_quarters"] for g in G]) / np.median([g["quarter"] for g in G]))
-        rules[kind] = dict(h0=float(np.median(h0)), h1=float(np.median(h1)), n=len(G), h0_sd=rq(h0), h1_sd=rq(h1),
-                           fade=min(1.0, fade))
+        rules[kind] = dict(h0=float(np.median(h0)), h1=float(np.median(h1)), n=len(G), h0_sd=rq(h0), h1_sd=rq(h1))
     table = {}
     for ctx in ("inside n, m", "inside u", "into u", "between"):
         G = [g for g in gaps if g["context"] == ctx]
@@ -326,8 +327,8 @@ def write_word(word, x0, yb, xh, slant, p, rules, tail, rng=None):
             if stems:
                 inside = k > 0
                 x += xh * (jit(P["inside"], P["inside_sd"]) if inside else jit(P["between"], P["between_sd"]))
-                head = (jit(H["h0"], H["h0_sd"]), "head", H["fade"])
-                foot = (jit(F["h0"], F["h0_sd"]), jit(F["h1"], F["h1_sd"]), F["fade"])
+                head = (jit(H["h0"], H["h0_sd"]), "head")
+                foot = (jit(F["h0"], F["h0_sd"]), jit(F["h1"], F["h1_sd"]))
                 if ch == "u":
                     joins.append(foot if inside or chance(rules["into_u_rate"]) else None)
                 else:
@@ -348,7 +349,7 @@ def rebuild_traces(p, inst, lines, rules, tail):
     by_id = {t["id"]: t for t in traces["instances"]}
     l1 = [l for l in lines if l["n"] == 1][0]
     slant = l1["slant_deg"] or 0.0
-    head = (rules["head"]["h0"], "head", rules["head"]["fade"])
+    head = (rules["head"]["h0"], "head")
     r = lambda pts: [[round(float(x), 2), round(float(y), 2)] for x, y in pts]
 
     def put(tid, stems, yb, xh, tail=None, spec=None):
@@ -480,8 +481,7 @@ def plot_minimum(rgb, runs, gaps, p, rules, tail, path):
 
 def main():
     OUT.mkdir(exist_ok=True)
-    rgb, mask, lines = LF.load_page("hours")
-    dark = ink.ink_darkness(rgb).astype(float)
+    rgb, mask, lines, dark = load()
 
     # 1. the minim and the pen
     inst = [make_instance(lines, n, stems, ch=ch, word=word) for ch, word, n, stems in INSTANCES]
@@ -506,13 +506,12 @@ def main():
         print(f"  {ctx:12s} head {c['head']:2d}  foot {c['foot']:2d}  none {c['none']:2d}")
     H, F, P = rules["head"], rules["foot"], rules["pitch"]
     for name, J in (("head", H), ("foot", F)):
-        print(f"  {name} join {J['h0']:.2f} → {J['h1']:.2f} x-height (±{J['h0_sd']:.2f}, ±{J['h1_sd']:.2f}; n={J['n']}), "
-              f"ink at its end {J['fade']:.2f} of its start")
+        print(f"  {name} join {J['h0']:.2f} → {J['h1']:.2f} x-height (±{J['h0_sd']:.2f}, ±{J['h1_sd']:.2f}; n={J['n']})")
     print(f"  pitch inside letters {P['inside']:.3f} ± {P['inside_sd']:.3f} x-height (n={P['n_inside']}), "
           f"between letters {P['between']:.3f} ± {P['between_sd']:.3f} (n={P['n_between']})")
 
     # the n's and m's with the measured head join
-    head = (H["h0"], "head", H["fade"])
+    head = (H["h0"], "head")
     per = []
     for i in inst:
         i["joins"] = [head] * (len(i["stems"]) - 1)
@@ -520,7 +519,7 @@ def main():
         per.append(dict(letter=i["ch"], word=i["word"], line=i["line"], shift_px=i["shift"],
                         overlap=score(g, mask, i["box"]), outline_px=outline_distance(g, mask, i["box"])))
     old_m = json.loads((HERE / "data" / "hours_m_hand_trace.json").read_text(encoding="utf-8"))
-    old_geom = pen.render([s["points"] for s in old_m["strokes"]], pen.Nib(PEN["a"], PEN["b"], PEN["theta"]),
+    old_geom = pen.render([s["points"] for s in old_m["strokes"]], nib_for([1.0]),
                           step=0.25, names=[s["name"] for s in old_m["strokes"]])
     old = dict(overlap=score(old_geom, mask, inst[0]["box"]), outline_px=outline_distance(old_geom, mask, inst[0]["box"]))
     print(f"m of nomen (l.1): hand trace overlap {old['overlap']:.2f}, outline {old['outline_px']:.2f} px; "

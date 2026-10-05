@@ -2,7 +2,7 @@
 
 Each stroke is a list of control points (page or local pixel coordinates, y down).
 The centre-line is smoothed with a centripetal Catmull–Rom spline and sampled densely.
-The nib (an ellipse at a fixed angle, see nib.py) is placed at every sample; consecutive
+The nib (an ellipse or a squarer superellipse at a fixed angle, see nib.py) is placed at every sample; consecutive
 placements are joined by their convex hull and everything is merged into one outline.
 Hulling consecutive stamps is what keeps the edges smooth instead of scalloped.
 """
@@ -38,19 +38,32 @@ def catmull_rom(ctrl, step=0.5, alpha=0.5):
     return np.array(out)
 
 
-class Nib:
-    """Elliptical nib: broad axis a, narrow axis b, broad-axis angle θ (degrees, y-up)."""
+def nib_outline(a, b, p=2.0, n=24):
+    """Nib outline before rotation: a superellipse |x/(a/2)|^p + |y/(b/2)|^p = 1.
+    p = 2 is an ellipse (a worn or soft-cornered nib); larger p squares the corners,
+    and p = inf is a sharp rectangle: an edge a long and b thick."""
+    if np.isinf(p):
+        return np.array([[a / 2, b / 2], [-a / 2, b / 2], [-a / 2, -b / 2], [a / 2, -b / 2]])
+    if p != 2.0:
+        n = max(n, 64)   # enough points to resolve the corners
+    t = np.linspace(0, 2 * np.pi, n, endpoint=False)
+    c, s = np.cos(t), np.sin(t)
+    return np.c_[a / 2 * np.sign(c) * np.abs(c) ** (2 / p), b / 2 * np.sign(s) * np.abs(s) ** (2 / p)]
 
-    def __init__(self, a, b, theta_deg, n=24):
-        self.a, self.b, self.theta = float(a), float(b), float(theta_deg)
-        t = np.linspace(0, 2 * np.pi, n, endpoint=False)
-        shape = Polygon(np.c_[a / 2 * np.cos(t), b / 2 * np.sin(t)])
+
+class Nib:
+    """Nib: broad axis a, narrow axis b, broad-axis angle θ (degrees, y-up), and corner
+    sharpness p (2 = elliptical, inf = a sharp rectangular edge; see nib_outline)."""
+
+    def __init__(self, a, b, theta_deg, n=24, p=2.0):
+        self.a, self.b, self.theta, self.p = float(a), float(b), float(theta_deg), float(p)
+        shape = Polygon(nib_outline(a, b, self.p, n))
         # page coordinates have y down, so an on-page anticlockwise angle is negative here
         self.shape = affinity.rotate(shape, -self.theta, origin=(0, 0))
         self.coords = np.asarray(self.shape.exterior.coords)[:-1]
 
     def scaled(self, k):
-        return Nib(self.a * k, self.b * k, self.theta)
+        return Nib(self.a * k, self.b * k, self.theta, p=self.p)
 
     def coords_at(self, dtheta=0.0, scale=1.0):
         """Nib outline turned by dtheta degrees from its resting angle, with its contact
@@ -63,9 +76,7 @@ class Nib:
 
     @property
     def _base(self):
-        n = len(self.coords)
-        t = np.linspace(0, 2 * np.pi, n, endpoint=False)
-        return np.c_[self.a / 2 * np.cos(t), self.b / 2 * np.sin(t)]
+        return nib_outline(self.a, self.b, self.p, len(self.coords))
 
 
 def sweep(points, nib, dthetas=None, scales=None):

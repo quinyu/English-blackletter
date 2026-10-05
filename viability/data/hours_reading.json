@@ -1,7 +1,7 @@
 {
  "image": "clermont-ms2262-f012r.jpg",
  "work": "Book of Hours, use of Clermont (Auvergne), France, 15th century. Clermont-Ferrand, Bibliothèque du Patrimoine (Clermont Auvergne Métropole), MS 2262, f. 12r: Hours of the Virgin, Matins, Psalm 8 (Domine Dominus noster).",
- "note": "\"diplomatic\" is what the scribe wrote, as read from this image (not yet checked against a facsimile edition): ſ = long s, s = round final s, ꝛ = r rotunda (after bowed letters), ꝓ = pro (p with a loop through the descender), ꝙ = quod, ꝫ = -m (the z-shaped final), macrons as written; [ ] = editorial expansion of a sign too small to show, [Q] etc. = painted initial. \"edition\" is the Vulgate text of Psalm 8 split at the manuscript's line breaks (the manuscript has \"et opera\" and \"memores\"). The scribe writes super/per in full: textura p bites into the following e, which can look like an abbreviation at small size.",
+ "note": "\"diplomatic\" is what the scribe wrote, as read from this image (not yet checked against a facsimile edition): ſ = long s, s = round final s, ꝛ = r rotunda (after bowed letters), ꝓ = pro (p with a loop through the descender), ꝙ = quod, ꝫ = -m (the z-shaped final), macrons as written; [ ] = editorial expansion of a sign too small to show, [Q] etc. = painted initial. \"edition\" is the Vulgate text of Psalm 8 split at the manuscript's line breaks (the manuscript has \"et opera\" and \"memores\"). The scribe writes super/per in full: textura p bites into the following e, which can look like an abbreviation at small size. Line 21: the -us of dominus is a ligature, the round s fused to the second stroke of the u as its flag (after 'do' the ink holds exactly eight upright strokes: m, i, n and the u); the s is bracketed because it is not written as a letter of its own.",
  "lines": [
   {
    "n": 1,
@@ -126,7 +126,7 @@
   {
    "n": 21,
    "kind": "text",
-   "diplomatic": "mine dominus noſter quā admi",
+   "diplomatic": "mine dominu[s] noſter quā admi",
    "edition": "mine Dominus noster, quam admi-"
   },
   {

@@ -473,10 +473,10 @@ The first word, *nomen* (line 1), is traced in full, in the scribe's stroke orde
 e were clicked on the ink, with ink-following between the clicks; n and m are drawn by
 the minim module (next section).
 
-- **The pen model fits.** Re-drawn with the page's pen, the letters land within
-  0.8–1.2 px of the ink.
-- **Up and down differ strongly.** Along the traced strokes, downstrokes are 4.2 px
-  wide; the upward hairlines that join the minims carry 0.7 px of ink.
+- **The pen model fits.** Re-drawn with the page's pen (the squared nib of the next
+  sections), the letters land within 0.8–1.2 px of the ink.
+- **Up and down differ strongly.** Along the traced strokes, downstrokes are 4.1 px
+  wide; the upward hairlines that join the minims carry 0.8 px of ink.
 - **The ductus matters, not just the outline.** The textura e is three strokes:
   1. its back (head, stem, foot);
   2. a broad stroke out to the right from the top, its end dropping slightly;
@@ -530,9 +530,9 @@ one by one and rebuilds them from measurements:
    and the pen's width.
    - Each letter is first shifted onto its ink (up to ±2 px across, ±8 px up or down).
      The letters of *mine* on line 21 sit 4–6 px above that line's fitted baseline.
-   - Mean overlap with the ink rises from 63% to 69%.
-   - For the m of *nomen*, the module scores 64% overlap and 1.4 px outline distance.
-     The hand trace scored 58% and 1.6 px.
+   - Mean overlap with the ink rises from 64% to 70% (with the squared nib below).
+   - For the m of *nomen*, the module scores 65% overlap and 1.4 px outline distance.
+     The hand trace scored 61% and 1.5 px.
 2. **The hairlines, measured on the darkness image.** They are too faint for the ink
    mask. Across 52 gaps between neighbouring minims, in fifteen runs of minim letters,
    `minims.py` finds the straight line with the darkest ink outside the drawn minims.
@@ -541,23 +541,26 @@ one by one and rebuilds them from measurements:
 
    | Gap | Head join | Foot join | No clear hairline |
    |---|---|---|---|
-   | Inside n and m | 9 | 0 | 17 |
-   | Inside u | 0 | 6 | 3 |
-   | Into a u, from the letter before | 0 | 4 | 3 |
-   | Between other letters | 2 | 1 | 7 |
+   | Inside n and m | 8 | 0 | 18 |
+   | Inside u | 0 | 5 | 4 |
+   | Into a u, from the letter before | 0 | 3 | 4 |
+   | Between other letters | 2 | 0 | 8 |
 
-   - **Head join (n, m).** It leaves the right side of a minim at 0.50 x-height (±0.07)
-     and runs up into the head of the next. It fades: near its end it carries about
-     two thirds (0.68) of the ink it has where it leaves the stem.
+   - **Head join (n, m).** It leaves the right side of a minim at about half the
+     x-height (0.52 ± 0.13) and runs up into the head of the next.
    - **Often only the start shows.** In two thirds of the gaps inside n and m no
      hairline stands out. In the m of *nomen*, the join from the second minim to the
      third is only a short spur at mid-height. The module always draws the join
-     inside a letter, because it is the path the pen takes to the next head, and draws
-     it thinning out.
-   - **Foot join (u).** It leaves the foot of a minim (−0.05 x-height) and rises to the
-     middle of the next (0.62 ± 0.13). It barely fades (0.87). The same join usually
-     leads into a u from the letter before.
-   - **Between other letters the pen is usually lifted.** 7 of 10 such gaps show no
+     inside a letter, because it is the path the pen takes to the next head.
+   - **Whether the hairline fades can't be measured here.** An earlier version
+     reported that it thins towards the next head (to 0.68 of its ink). Re-measured
+     with a different nib, the same estimate came out at 1.00. Sampling at fixed points
+     across the gap is swamped by the next head's ink. So the joins are drawn at the
+     corner's constant width.
+   - **Foot join (u).** It leaves the foot of a minim (−0.03 x-height) and rises to the
+     middle of the next (0.56 ± 0.06). The same join leads into a u from the letter
+     before in 3 of 7 cases.
+   - **Between other letters the pen is usually lifted.** 8 of 10 such gaps show no
      hairline.
    - **The rhythm doesn't break between letters.** Stem pitch is 0.53 x-height inside
      letters (±0.04, 35 gaps) and 0.54 between them (±0.04, 17 gaps). Only the joins
@@ -582,12 +585,196 @@ test of a textura hand. Here it is written from the rules alone:
 Above it, two runs from the page with the hairlines found are shown next to the same
 letters written by the module.
 
+### The pen's corners
+
+![Nib corners](out/hours_nib_corners.png)
+
+An elliptical nib rounds off the lozenge heads and feet of textura. A broad-edge quill
+has a straight edge and corners. `corners.py` models the nib as a superellipse. Its
+corner exponent p runs from 2 (an ellipse) to infinity (a sharp rectangle). Each p is
+tested two ways:
+
+1. **Width by direction.** The page's per-direction stroke widths are refitted for each
+   p.
+2. **Letter outlines.** The minim module is refitted with each nib, and its n's and m's
+   are compared with the ink.
+
+| Corner exponent p | 2 (ellipse) | 3 | 4 | 6 | ∞ (sharp) |
+|---|---|---|---|---|---|
+| Width by direction, rms (px) | **0.25** | 0.27 | 0.29 | 0.32 | 0.37 |
+| Minims: overlap | 68.9% | 69.4% | 69.9% | 69.8% | **70.0%** |
+| Minims: outline distance (px) | 1.16 | 1.15 | 1.14 | 1.14 | **1.13** |
+| Heads and feet only (px) | 1.12 | 1.12 | 1.12 | 1.11 | **1.08** |
+
+- **The two kinds of evidence pull opposite ways.** The letters fit better as the
+  corners get sharper. The page's width-by-direction curve fits worse.
+- **The differences are small.** At 29 px to the x-height a corner is about one pixel
+  of blur.
+- **p = 4 is used for this hand.** It is a straight edge with slightly softened
+  corners. It gains most of the letters' improvement in overlap and outline, and gives
+  up little on the width curve. Only the heads and feet, taken alone, improve further
+  with a fully sharp edge. The choice is one setting (`nib_p` in
+  `measure_letters.PAGES`).
+
+### Finding every letter
+
+![Letters found by aligning the reading](out/hours_alignment.png)
+
+`align.py` places every letter of the reading on f. 12r, 527 in all. It works one
+line at a time:
+
+- **Straighten the line.** The line is unslanted, so stems stand upright.
+- **Lay templates along it.** Dynamic programming lays the line's letters along it as
+  templates, choosing the layout that disagrees with the ink in the fewest pixels.
+- **Templates.** i, n, m and u are drawn by the minim module. Every other letter
+  starts from its atlas box. After each round, a letter's templates are replaced by the
+  examples that agree best with all its other examples.
+- **Stem counts.** Minim letters must hold exactly 1, 2, 3 or 2 stems. Templates alone
+  slide by one stem, the classic minim confusion.
+- **Check.** All 32 minim letters of the minim runs land exactly on their stems.
+
+Building the finder turned up three corrections:
+- **Two atlas boxes were wrong.** The s of *ſtellas* and the c of *īimicos* took in
+  part of a neighbour. Both are corrected.
+- **One reading was wrong.** On line 21, after *do*, *dominus* has exactly eight
+  upright strokes. The final s is fused to the u as its flag, an *-us* ligature. The
+  reading now has `dominu[s]`.
+
+### The letters of *significatis*
+
+![Fitted letters over their examples](out/hours_textura.png)
+
+`textura.py` gives each non-minim letter a stroke plan. Each plan is a few strokes in
+writing order, each a handful of control points in x-heights, drawn from gridded
+close-ups of the sharpest examples.
+
+- **One fit per letter.** Every control point is fitted to all the examples the finder
+  located.
+- **Comparison.** Each example is compared only within the letter's own columns and
+  height zone, after shifting it onto its ink.
+- **Limits on movement.** A point may move at most 0.2 x-height from the plan.
+- **Other forms.** Examples that fit far worse than the rest are set aside and listed.
+- **Variation.** Each example's own width and height scale gives the scribe's
+  variation.
+
+| Letter | Strokes | Examples | Overlap | Width varies | Height varies | Set aside |
+|---|---|---|---|---|---|---|
+| final s | back, roof and spine, belly, hairline flag | 20 | 0.73 | ±11% | ±4% | 2 |
+| ſ | stem (pulled to a point), head | 23 | 0.58 | ±10% | ±4% | 1 |
+| f | stem, head, crossbar | 5 | 0.69 | ±10% | ±3% | 0 |
+| g | left side, top, right side, tail | 4 | 0.68 | ±5% | ±2% | 0 |
+| c | back, top | 15 | 0.62 | ±7% | ±5% | 0 |
+| a | stem, bowl | 40 | 0.72 | ±6% | ±5% | 0 |
+| t | stem, hairline, crossbar | 43 | 0.69 | ±9% | ±4% | 2 |
+
+- **ſ fits least well.** Its head hangs over the next letter, outside the columns it is
+  compared in.
+- **c's boxes are slightly too wide.** They take in the stem of the next letter.
+- **f and g rest on 5 and 4 examples.** The book's other pages would give hundreds.
+
+### The final s
+
+![Every word-final s with the fitted letter](out/hours_final_s.png)
+
+The word-final s of this hand is the closed, B-shaped round s. Its four strokes are:
+1. **Back:** down the left side to the foot.
+2. **Roof and spine:** up to an apex above the x-line, down into a shoulder, then back
+   down-left to the middle. This closes a small upper counter.
+3. **Belly:** from the middle round the right and down to the foot. This closes the
+   larger lower counter.
+4. **Hairline flag:** from the shoulder up to the right, with the pen's corner.
+
+It fits 20 of the 22 examples, with 73% overlap.
+- **Two examples set aside:** the s next to the painted initial on line 20, and a
+  crowded *tuos* on line 7.
+- **Variants:**
+  - Several examples open the upper counter into a short arm, like a 6. The fitted
+    shape stays closed.
+  - At the end of line 16 (*pedibus,*) the scribe wrote a tall serpentine s that drops
+    below the baseline.
+
+### Writing: a held-out test, and *ſignificatis*
+
+![Writing from fitted letters](out/hours_scribe.png)
+
+`scribe.py` writes words from the minim module, the fitted letters and spacing measured
+on the page.
+
+- **Spacing model.** Each pair of neighbouring letters inside a word (405 on the page)
+  gives the distance between their left edges. That distance is modelled as an advance
+  for the left letter plus an approach for the right one, so unseen pairs are spaced
+  too.
+- **Spacing variation.** The scatter left over (0.14 x-height) is mostly box-edge
+  noise from the finder. The scribe's own spacing variation is taken from the
+  between-letter stem pitch instead (±0.04 x-height).
+
+**Held-out test.** Four page words made only of modelled letters are written again,
+each with its own letters left out of every fit. Each is placed at its first letter
+and compared with the ink.
+
+| Word (line) | Overlap, held out | Overlap, nothing held out | Spacing error, worst letter |
+|---|---|---|---|
+| *magni* (2) | 49% | 54% | 4.0 px |
+| *infantium* (4) | 52% | 56% | 5.4 px |
+| *ciſti* (5) | 35% | 37% | 7.5 px |
+| *inimicum* (6) | 55% | 56% | 3.3 px |
+
+- **The models generalise.** Leaving a word's own letters out costs 0–5 points of
+  overlap.
+- **Placement, not shape, limits whole-word overlap.** A letter misplaced by 4–7 px,
+  a quarter of an x-height, is enough to halve the overlap of a 7 px stem. The
+  per-letter fits overlap 0.6–0.7.
+
+***ſignificatis*** is not on the page.
+- **Letter forms.** It starts with ſ, ends with the B-shaped final s, and keeps *-ti-*,
+  as the scribe does (*ficentia, infantium*).
+- **Versions.** It is written once from the medians and three times with the measured
+  variation.
+
+### Abbreviation follows the space left in the line
+
+The scribe could write the same word several ways, and chose by the room left in the
+line. f. 12r shows it directly:
+
+| Word | Written in full | Abbreviated |
+|---|---|---|
+| *quoniam* | lines 2 and 7, first word | *qm̄*, line 11, second-to-last word |
+| *eum* | line 12, first word; line 14, mid-line | *euꝫ*, line 14, last word |
+| *eius* | line 17, first word | *e[ius]*, line 10, last word |
+
+- **Abbreviations bunch towards line ends.** 12 of the 17 abbreviated words fall in
+  the last two words of their line, where only about 40% of all words fall.
+- **Some abbreviations are habitual.** *vniu[er]ſa* is abbreviated all three times,
+  mid-line too. *ꝓpter*, *ꝙ*, *glīa* and *Omīa* are always short on this page.
+- **What the writer needs.** It should choose between written forms per word: full,
+  macron, ꝫ, suspension, ligature. It should fill each line to the ruled width,
+  preferring the habitual forms always and the optional ones near the line end. The
+  page gives the starting rates.
+
+**Run order** for this page (each step reads the previous ones' outputs):
+
+```sh
+python3 latin_lines.py hours      # line guides, slant, pen
+python3 letterforms.py            # letterform atlas, minim rhythm
+python3 twist.py                  # twist-and-pull tails
+python3 minims.py                 # minim module, joins, minim spacing, 'minimum'
+python3 corners.py                # nib corner test (about 5 minutes)
+python3 align.py                  # find every letter on the page
+python3 textura.py                # fit the other letters' stroke plans
+python3 scribe.py                 # held-out test and 'ſignificatis'
+python3 measure_letters.py hours  # the traced 'nomen'
+```
+
 ### Limits
 
 - **One page analysed in depth.** The book's other text pages (about a hundred) are in
   the PDF and can be run the same way. Page-to-page consistency hasn't been measured yet.
-- **The minims' heads and feet are rounder than the scribe's lozenges.** The renderer's
-  nib is an ellipse; a nib with straight edges and sharp corners would give the points.
+- **Not every letter is modelled yet.** Besides the minim letters, the fitted ones are
+  those of *significatis* (s, ſ, f, g, c, a, t); o and e are single traces. b, d, h,
+  l, p, q, r, ꝛ, v, x and the abbreviation signs are still to do, the same way.
+- **Corners are at the limit of the scan.** At 29 px to the x-height, the difference
+  between a squared and a fully sharp nib corner is a few hundredths of a pixel on
+  average (see *The pen's corners*).
 - **Letter boxes are approximate.** Positions in the atlas were read by eye (±2 px).
   The transcription hasn't been checked against a printed edition or catalogue.
 - **The library's own description of MS 2262 wasn't found** online from here. The
