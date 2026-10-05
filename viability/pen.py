@@ -115,18 +115,19 @@ def corner_nib(nib):
 def render(strokes, nib, step=0.5, names=None, pens=None):
     """Union of all swept strokes. strokes: list of control-point lists. With names,
     hairline strokes are drawn with the pen's corner; with pens (one twist spec or None
-    per stroke) the pen twists and lifts along that stroke."""
+    per stroke) the pen, edge or corner, twists and lifts along that stroke."""
     corner = corner_nib(nib)
     names = names or [None] * len(strokes)
     pens = pens or [None] * len(strokes)
     parts = []
     for s_, n, spec in zip(strokes, names, pens):
         P = catmull_rom(s_, step)
+        tip = corner if is_corner_stroke(n) else nib
         if spec:
             dth, sc = twist_profile(P, spec)
-            parts.append(sweep(P, nib, dth, sc))
+            parts.append(sweep(P, tip, dth, sc))
         else:
-            parts.append(sweep(P, corner if is_corner_stroke(n) else nib))
+            parts.append(sweep(P, tip))
     return shapely.union_all(parts)
 
 

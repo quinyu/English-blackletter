@@ -6,20 +6,21 @@
  },
  "letters": [
   {
-   "width": 0.6125165086762974,
-   "rise": 0.9102130277889665,
-   "drop": 0.008561735225479435,
-   "slant": 0.0,
+   "width": 0.5441188318741111,
+   "rise": 0.9134980642851104,
+   "drop": 0.013103298562421338,
+   "slant": -6.545492382611183,
    "x_height_px": 29.38696303696304,
    "id": "1.0",
    "char": "n",
    "line": 1,
    "context": "nomen",
-   "overlap": 0.6547619047619048,
-   "outline_dist_px": 1.0533323287963867,
+   "overlap": 0.7191413237924866,
+   "outline_dist_px": 0.8380633592605591,
    "strokes": [
     "minim",
-    "arch and minim"
+    "hairline join",
+    "minim"
    ]
   },
   {
@@ -40,22 +41,23 @@
    ]
   },
   {
-   "width": 1.1569756274996739,
-   "rise": 0.9587738904838063,
-   "drop": -0.03999912746935944,
-   "slant": -2.8331444019267216,
+   "width": 1.1226066456239485,
+   "rise": 0.9307525276476054,
+   "drop": -0.003810877850808576,
+   "slant": -6.542192188983675,
    "x_height_px": 29.38696303696301,
    "id": "1.2",
    "char": "m",
    "line": 1,
    "context": "nomen",
-   "overlap": 0.6343115124153499,
-   "outline_dist_px": 1.0279520750045776,
+   "overlap": 0.6689265536723163,
+   "outline_dist_px": 0.9345822930335999,
    "strokes": [
     "minim",
     "hairline join",
     "minim",
-    "arch and minim"
+    "hairline join",
+    "minim"
    ]
   },
   {
@@ -77,27 +79,28 @@
    ]
   },
   {
-   "width": 0.6805738985292186,
-   "rise": 1.0064404659313608,
-   "drop": 0.4193618514873515,
-   "slant": -0.44996542945128354,
+   "width": 0.6455243427549647,
+   "rise": 0.9474507549939621,
+   "drop": 0.3558482606894918,
+   "slant": -3.392425565599196,
    "x_height_px": 29.386963036963067,
    "id": "1.4",
    "char": "n",
    "line": 1,
    "context": "nomen",
-   "overlap": 0.5633587786259542,
-   "outline_dist_px": 1.2382981777191162,
+   "overlap": 0.6452702702702703,
+   "outline_dist_px": 1.0241258144378662,
    "strokes": [
     "minim",
-    "arch, minim and tail"
+    "hairline join",
+    "minim and tail"
    ]
   }
  ],
  "up_down": {
-  "downstroke_width_px": 3.134954955115023,
-  "upstroke_width_px": 1.6247268654321267,
-  "n_down": 195,
-  "n_up": 15
+  "downstroke_width_px": 4.226692682982184,
+  "upstroke_width_px": 0.7055042849016303,
+  "n_down": 130,
+  "n_up": 41
  }
 }

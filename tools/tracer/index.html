@@ -321,8 +321,15 @@ kbd { font: 11.5px var(--font-num); border: 1px solid var(--line); border-bottom
       lines: ["sample/hours_lines.json", "../../viability/data/hours_lines.json"],
       title: "Book of Hours, use of Clermont · MS 2262, f. 12r (Psalm 8)",
       // textura e: the back, a broad stroke out to the right from its top, and a
-      // hairline (pen corner) back down-left to the stem, closing the eye
-      ductus: { e: ["back", "top stroke", "hairline"], c: ["back", "top stroke"] },
+      // hairline (pen corner) back down-left to the stem, closing the eye.
+      // i, n, m, u: no arches; every upright is its own minim, and inside a letter the
+      // minims are linked by a hairline (pen corner): in n and m from mid-height up to
+      // the next head, in u from the foot up to the middle of the next (minims.py)
+      ductus: {
+        e: ["back", "top stroke", "hairline"], c: ["back", "top stroke"], i: ["minim"],
+        n: ["minim", "hairline join", "minim"], u: ["minim", "hairline join", "minim"],
+        m: ["minim", "hairline join", "minim", "hairline join", "minim"],
+      },
       source: "Clermont-Ferrand, Bibliothèque du Patrimoine (Clermont Auvergne Métropole), MS 2262, f. 12r",
     },
   ];

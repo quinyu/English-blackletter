@@ -36,8 +36,10 @@ so the ink overlay and ink-following won't work. In that case:
      few clicks are enough even on 14 px letters.
    - Press **Enter** (or double-click) to finish a stroke.
 3. **Use the suggested strokes as a guide.** The tool suggests strokes for each letter
-   (n = minim, then arch and minim). Use **Skip** when the scribe made two of them in
-   one movement, and **Add stroke** when there are more.
+   (n = minim, then arch and minim). Some pages have their own plans: in the Book of
+   Hours, n, m and u have no arch, so the tool suggests separate minims linked by a
+   *hairline join*. Use **Skip** when the scribe made two strokes in one movement, and
+   **Add stroke** when there are more.
 4. **Carry on with the next letter.** When a letter is done, the next letter of the
    reading is selected automatically. Traced letters turn green.
 5. **Trace abbreviation signs with Other letter…** Use it for signs the reading doesn't

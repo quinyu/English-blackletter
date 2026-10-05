@@ -417,8 +417,9 @@ checked against overlays. They show the rules this hand follows, and the editor 
 have to follow them too:
 
 1. **Everything is built from upright strokes.** i, n, m and u are one, two, three and
-   two minims, each with a lozenge head and foot. Without dots or context they are
-   ambiguous; this is the minim problem every textura reader knows.
+   two minims, each with a lozenge head and foot. This scribe puts no stroke over i, so
+   without context they are ambiguous; this is the minim problem every textura reader
+   knows.
 2. **Round letters are broken.** o is two upright strokes joined at angles, and c and
    e share the same broken curve; e adds an eye.
 3. **Facing bowls fuse ("biting").** *de*, *bo* and *pe* share a stroke where the
@@ -430,8 +431,8 @@ have to follow them too:
 5. **Two s's.** Long ſ appears at the start and in the middle of words, round s at the
    end (checked closely in *celos* twice, *tuos*, *ſtellas* and *memoꝛes*).
 6. **v at the start of a word, u inside it** (*vniuersa, vt, vltore, videbo, visitas*).
-7. **Word-final forms.** Final n has a descending tail (*nomen*), and final -m can be
-   the z-shaped ꝫ (*euꝫ, tuaruꝫ*). The textura a is two-storey; a line-final a gets a
+7. **Word-final forms.** Final n and final m have a descending tail (*nomen, tuum,
+   manuum*), and final -m can also be the z-shaped ꝫ (*euꝫ, tuaruꝫ*). The textura a is two-storey; a line-final a gets a
    flourish (*terra*).
 8. **Abbreviations:**
    - a macron for a missing m or n (*glīa, quā, īimicos, Omīa, vltoꝛē*);
@@ -468,20 +469,20 @@ on blur.
 
 ![nomen traced and re-drawn](out/hours_letters.png)
 
-The first word, *nomen* (line 1), is traced in full, in the scribe's stroke order, with
-ink-following between the clicks.
+The first word, *nomen* (line 1), is traced in full, in the scribe's stroke order. o and
+e were clicked on the ink, with ink-following between the clicks; n and m are drawn by
+the minim module (next section).
 
 - **The pen model fits.** Re-drawn with the page's pen, the letters land within
-  0.9–1.2 px of the ink.
-- **Up and down differ strongly.** Along the traced strokes, downstrokes are 4.0 px
-  wide and upstrokes 1.8 px.
+  0.8–1.2 px of the ink.
+- **Up and down differ strongly.** Along the traced strokes, downstrokes are 4.2 px
+  wide; the upward hairlines that join the minims carry 0.7 px of ink.
 - **The ductus matters, not just the outline.** The textura e is three strokes:
   1. its back (head, stem, foot);
   2. a broad stroke out to the right from the top, its end dropping slightly;
   3. a hairline from the end of that stroke down-left to the stem, closing the eye.
 
-  The scribe's m joins its first two minims with the same kind of hairline, rising
-  diagonally from the middle of the first stroke to the head of the second.
+  The minims of n, m and u are joined by hairlines of the same kind (next section).
 - **Separate hairlines use the pen's corner.** The e's closing hairline and the m's
   join are thinner than the nib's own narrow edge. Strokes named *hairline…* are drawn
   with the corner of the pen (`pen.is_corner_stroke`), at half the narrow edge.
@@ -506,16 +507,87 @@ ink-following between the clicks.
 
   The renderer can now twist and roll the pen within a stroke (`pen.twist_profile`).
   The fitted terminal is stored as keyframes by distance from the end of the stroke,
-  so it applies to any word-final stroke. The final n of *nomen* is now one stroke:
-  arch, stem and tail. Its outline score (1.2 px) counts the faint end of the tail as
-  excess model ink, because that hairline falls below the ink-mask threshold; the
-  width profile is the better check, and it matches.
-- **The tracer suggests this e** for the Book of Hours: back, top stroke, hairline.
+  so it applies to any word-final stroke. The final n of *nomen* ends in it: its last
+  minim comes down the stem and twists into the tail. Its outline score (1.0 px) counts
+  the faint end of the tail as excess model ink, because that hairline falls below the
+  ink-mask threshold; the width profile is the better check, and it matches.
+- **The tracer suggests these stroke plans** for the Book of Hours: e as back, top
+  stroke and hairline; i, n, m and u as minims with hairline joins.
+
+### i, n, m and u: minims and hairlines
+
+![n and m from the minim module](out/hours_minims.png)
+
+The hand-traced m had an arch from its second minim to its third, drawn as a flat bar
+with a spike where it met the stem. The scribe draws no arch. In all six m's on the
+page, each minim is a separate stroke with its own lozenge head and foot, and the
+minims are linked by thin diagonal hairlines. `minims.py` stops tracing these letters
+one by one and rebuilds them from measurements:
+
+1. **One minim for all.** A single minim stroke is fitted to six m's and three n's at
+   once, by drawing them with the page's pen and comparing with the ink. Its
+   parameters are where the head stroke starts and where the foot ends, in x-heights,
+   and the pen's width.
+   - Each letter is first shifted onto its ink (up to ±2 px across, ±8 px up or down).
+     The letters of *mine* on line 21 sit 4–6 px above that line's fitted baseline.
+   - Mean overlap with the ink rises from 63% to 69%.
+   - For the m of *nomen*, the module scores 64% overlap and 1.4 px outline distance.
+     The hand trace scored 58% and 1.6 px.
+2. **The hairlines, measured on the darkness image.** They are too faint for the ink
+   mask. Across 52 gaps between neighbouring minims, in fifteen runs of minim letters,
+   `minims.py` finds the straight line with the darkest ink outside the drawn minims.
+   It counts that line as a hairline when it is clearly darker (by 10 levels) than the
+   gap around it.
+
+   | Gap | Head join | Foot join | No clear hairline |
+   |---|---|---|---|
+   | Inside n and m | 9 | 0 | 17 |
+   | Inside u | 0 | 6 | 3 |
+   | Into a u, from the letter before | 0 | 4 | 3 |
+   | Between other letters | 2 | 1 | 7 |
+
+   - **Head join (n, m).** It leaves the right side of a minim at 0.50 x-height (±0.07)
+     and runs up into the head of the next. It fades: near its end it carries about
+     two thirds (0.68) of the ink it has where it leaves the stem.
+   - **Often only the start shows.** In two thirds of the gaps inside n and m no
+     hairline stands out. In the m of *nomen*, the join from the second minim to the
+     third is only a short spur at mid-height. The module always draws the join
+     inside a letter, because it is the path the pen takes to the next head, and draws
+     it thinning out.
+   - **Foot join (u).** It leaves the foot of a minim (−0.05 x-height) and rises to the
+     middle of the next (0.62 ± 0.13). It barely fades (0.87). The same join usually
+     leads into a u from the letter before.
+   - **Between other letters the pen is usually lifted.** 7 of 10 such gaps show no
+     hairline.
+   - **The rhythm doesn't break between letters.** Stem pitch is 0.53 x-height inside
+     letters (±0.04, 35 gaps) and 0.54 between them (±0.04, 17 gaps). Only the joins
+     show where one letter ends.
+   - **No stroke over i.** None of the five i's checked (*in*, *vniu* twice, *mine*,
+     *dominus*) has a stroke or dot above it.
+3. **Word-final tails.** A final n or m ends in the twist-and-pull tail above. The
+   module uses the mean of the three tails `twist.py` measured.
+
+The n, m and final n of *nomen* in `data/traces_hours.json` are now drawn by the
+module.
+
+![Minim letters from measured rules, and minimum](out/hours_minimum.png)
+
+**A word the page doesn't contain: *minimum*.** Fifteen minims in a row is the classic
+test of a textura hand. Here it is written from the rules alone:
+
+- once with the medians;
+- three times with the scribe's own variation, drawn from the measurements (stem
+  pitch, join heights, and whether letters are linked).
+
+Above it, two runs from the page with the hairlines found are shown next to the same
+letters written by the module.
 
 ### Limits
 
 - **One page analysed in depth.** The book's other text pages (about a hundred) are in
   the PDF and can be run the same way. Page-to-page consistency hasn't been measured yet.
+- **The minims' heads and feet are rounder than the scribe's lozenges.** The renderer's
+  nib is an ellipse; a nib with straight edges and sharp corners would give the points.
 - **Letter boxes are approximate.** Positions in the atlas were read by eye (±2 px).
   The transcription hasn't been checked against a printed edition or catalogue.
 - **The library's own description of MS 2262 wasn't found** online from here. The
