@@ -179,12 +179,7 @@ def analyse(path=HERE / "data" / IMAGE):
         next_x = (lambda x, gg=guides[i + 1]: gg["xline"][0] * x + gg["xline"][1]) if i + 1 < len(guides) else None
         up, down, nu, nd = extents(mask, g, l["x0"], l["x1"], l["x_height"], prev_base, next_x)
         l.update({"ascender_xh": up, "descender_xh": down, "n_ascenders": nu, "n_descenders": nd})
-    m = mask.copy()
-    m[:BLOCK["y0"]] = 0; m[BLOCK["y1"]:] = 0; m[:, :BLOCK["x0"]] = 0; m[:, BLOCK["x1"]:] = 0
-    dirs, widths = nib.width_direction_samples(m)
-    pen = nib.fit_nib(dirs, widths)
-    pen["n_samples"] = int(len(dirs))
-    return rgb, mask, lines, pen, (dirs, widths)
+    return rgb, mask, lines
 
 
 def attach_reading(lines, reading):
@@ -273,7 +268,7 @@ def plot_lines(rgb, lines, pen, dirs, widths, path):
 
 
 def main():
-    rgb, mask, lines, pen, _ = analyse()
+    rgb, mask, lines = analyse()
     reading = json.loads((HERE / "data" / "lucretius_reading.json").read_text(encoding="utf-8"))
     lines = attach_reading(lines, reading)
     # pen from ink mass (pixel widths are too coarse at this x-height)
@@ -311,11 +306,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-
-def _old_main():
-    rgb, mask, lines, pen, _ = analyse()
-    for i, l in enumerate(lines):
-        print(f"{i:2d} y={l['baseline'][0][1]:7.1f} xh={l['x_height']:5.1f} slope={l['slope_deg']:5.2f} "
-              f"asc={l['ascender_xh']:.2f}({l['n_ascenders']}) desc={l['descender_xh']:.2f}({l['n_descenders']}) slant={l['slant_deg']:5.1f} (n={l['slant_samples']})")
-    print({k: v for k, v in pen.items() if k != "bins"})
