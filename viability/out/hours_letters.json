@@ -43,59 +43,62 @@
    "width": 1.1569756274996739,
    "rise": 0.9587738904838063,
    "drop": -0.03999912746935944,
-   "slant": -2.449465870687984,
+   "slant": -2.8331444019267216,
    "x_height_px": 29.38696303696301,
    "id": "1.2",
    "char": "m",
    "line": 1,
    "context": "nomen",
-   "overlap": 0.6415730337078651,
-   "outline_dist_px": 1.0661360025405884,
+   "overlap": 0.6343115124153499,
+   "outline_dist_px": 1.0279520750045776,
    "strokes": [
     "minim",
-    "arch and minim",
+    "hairline join",
+    "minim",
     "arch and minim"
    ]
   },
   {
-   "width": 0.23820086448522673,
-   "rise": 0.9662635461798161,
-   "drop": -0.08151747809183114,
+   "width": 0.40834433911753115,
+   "rise": 0.9668224757093696,
+   "drop": -0.08207640762138545,
    "slant": 0.0,
-   "x_height_px": 29.38696303696304,
+   "x_height_px": 29.386963036963067,
    "id": "1.3",
    "char": "e",
    "line": 1,
    "context": "nomen",
-   "overlap": 0.6510989010989011,
-   "outline_dist_px": 1.1371891498565674,
+   "overlap": 0.5857142857142857,
+   "outline_dist_px": 1.2161937952041626,
    "strokes": [
-    "bowl",
-    "eye"
+    "back",
+    "top stroke",
+    "hairline"
    ]
   },
   {
-   "width": 0.7146025934556802,
-   "rise": 1.0065522518372714,
-   "drop": 0.3886242401476281,
-   "slant": 2.0671325076283265,
-   "x_height_px": 29.38696303696304,
+   "width": 0.6805738985292186,
+   "rise": 1.0064404659313608,
+   "drop": 0.3887360260535374,
+   "slant": 1.9020347086669194,
+   "x_height_px": 29.386963036963067,
    "id": "1.4",
    "char": "n",
    "line": 1,
    "context": "nomen",
-   "overlap": 0.5634588563458857,
-   "outline_dist_px": 1.4532475471496582,
+   "overlap": 0.6109375,
+   "outline_dist_px": 1.1626924276351929,
    "strokes": [
     "minim",
-    "arch and tail"
+    "arch and minim",
+    "hairline tail"
    ]
   }
  ],
  "up_down": {
-  "downstroke_width_px": 3.9934887177364686,
-  "upstroke_width_px": 1.8144635409288188,
-  "n_down": 117,
-  "n_up": 21
+  "downstroke_width_px": 3.9182574507289827,
+  "upstroke_width_px": 1.4850305663149725,
+  "n_down": 101,
+  "n_up": 17
  }
 }

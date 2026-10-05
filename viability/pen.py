@@ -61,9 +61,28 @@ def sweep(points, nib):
     return shapely.union_all(hulls) if hulls else Polygon()
 
 
-def render(strokes, nib, step=0.5):
-    """Union of all swept strokes. strokes: list of control-point lists."""
-    return shapely.union_all([sweep(catmull_rom(s, step), nib) for s in strokes])
+CORNER_FRACTION = 0.5  # corner hairline width as a share of the nib's narrow edge
+
+
+def is_corner_stroke(name):
+    """Strokes drawn with the corner of the pen rather than its edge: hairlines and
+    tails. On MS 2262 these are thinner than the nib's own narrow edge (about half)."""
+    n = (name or "").lower()
+    return n.startswith("hairline") or "tail" in n
+
+
+def corner_nib(nib):
+    c = CORNER_FRACTION * nib.b
+    return Nib(c, c, nib.theta)
+
+
+def render(strokes, nib, step=0.5, names=None):
+    """Union of all swept strokes. strokes: list of control-point lists. With names,
+    strokes named as hairlines or tails are drawn with the pen's corner."""
+    corner = corner_nib(nib)
+    names = names or [None] * len(strokes)
+    return shapely.union_all([sweep(catmull_rom(s, step), corner if is_corner_stroke(n) else nib)
+                              for s, n in zip(strokes, names)])
 
 
 def _polys(geom):

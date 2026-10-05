@@ -468,16 +468,26 @@ on blur.
 
 ![nomen traced and re-drawn](out/hours_letters.png)
 
-The first word, *nomen* (line 1), is traced in full. Each minim is clicked at its
-lozenge head, stem and foot, with ink-following between the clicks.
+The first word, *nomen* (line 1), is traced in full, in the scribe's stroke order, with
+ink-following between the clicks.
 
 - **The pen model fits.** Re-drawn with the page's pen, the letters land within
-  0.9–1.5 px of the ink.
+  0.9–1.2 px of the ink.
 - **Up and down differ strongly.** Along the traced strokes, downstrokes are 4.0 px
   wide and upstrokes 1.8 px.
-- **One clear miss: the tail of the final n.** It is a hairline thinner than the nib's
-  own narrow edge. Scribes draw such tails and joins with the corner of the pen, so
-  the editor's pen needs a "corner" mode for hairlines, alongside the broad edge.
+- **The ductus matters, not just the outline.** The textura e is three strokes:
+  1. its back (head, stem, foot);
+  2. a broad stroke out to the right from the top, its end dropping slightly;
+  3. a hairline from the end of that stroke down-left to the stem, closing the eye.
+
+  The scribe's m joins its first two minims with the same kind of hairline, rising
+  diagonally from the middle of the first stroke to the head of the second.
+- **Hairlines need the pen's corner.** These hairlines, like the tail of the final n,
+  are thinner than the nib's own narrow edge. Strokes named *hairline…* or *…tail* are
+  now drawn with the corner of the pen (`pen.is_corner_stroke`), at half the narrow
+  edge. The tail is too faint to ink-follow, so it is drawn as a smooth curve through
+  its clicks.
+- **The tracer suggests this e** for the Book of Hours: back, top stroke, hairline.
 
 ### Limits
 
@@ -509,7 +519,8 @@ What this means for the editor:
 
 - **One renderer can serve all four hands.** A swept nib with three settings (size,
   contrast, angle) produces the near-monoline reed, the light humanist pen and both
-  broad Gothic nibs. Hairline tails and joins also need a pen-corner mode.
+  broad Gothic nibs. Hairline tails and joins are drawn with the pen's corner
+  (`pen.is_corner_stroke`).
 - **Some hands need more than angle.** The cursive needs an extra up-/downstroke
   (pressure) setting, which the traced stroke direction supplies.
 - **Each hand varies at a different level.** The Hijazi scribe varies whole words; the

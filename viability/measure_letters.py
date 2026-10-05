@@ -118,11 +118,14 @@ def main(page):
     for inst in traces["instances"]:
         strokes = []
         for s in inst["strokes"]:
-            clicks, pts = inkpath.trace_stroke(dark, THR, s["clicks"])
+            if s.get("points") == s.get("clicks"):  # drawn without ink-following (faint hairlines)
+                clicks, pts = s["clicks"], s["points"]
+            else:
+                clicks, pts = inkpath.trace_stroke(dark, THR, s["clicks"])
             strokes.append({"name": s["name"], "clicks": clicks, "points": pts})
         line = lines[str(inst["line"])]
         f = letter_features(strokes, line)
-        geom = pen.render([s["points"] for s in strokes], the_nib, step=0.25)
+        geom = pen.render([s["points"] for s in strokes], the_nib, step=0.25, names=[s["name"] for s in strokes])
         x0, y0, x1, y1 = [int(v) for v in geom.bounds]
         x0 -= 5; y0 -= 5; x1 += 6; y1 += 6
         model = pen.rasterize(geom, (y1 - y0, x1 - x0), origin=(x0, y0))

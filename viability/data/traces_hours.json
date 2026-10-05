@@ -3,7 +3,7 @@
  "image": "clermont-ms2262-f012r.jpg",
  "source": "Clermont-Ferrand, Bibliothèque du Patrimoine, MS 2262, f. 12r",
  "script": "latin",
- "note": "Seed traces: 'nomen' (line 1), every minim with its lozenge head and foot, in writing order, with ink-following between clicks. Click positions were placed on the stems found by letterforms.line_stems.",
+ "note": "Seed traces: 'nomen' (line 1), in writing order, with ink-following between clicks. Click positions were placed on the stems found by letterforms.line_stems. Textura e is back (head, stem, foot), a top stroke out to the right, and a hairline back down-left to the stem; strokes named 'hairline…' or '…tail' are drawn with the pen's corner (pen.is_corner_stroke). The final n's tail is too faint for ink-following; its points are the clicks, smoothed when drawn.",
  "lines": [
   {
    "n": 1,
@@ -846,19 +846,38 @@
      ]
     },
     {
-     "name": "arch and minim",
+     "name": "hairline join",
      "clicks": [
       [
        322.0,
-       231.0
+       243.0
+      ],
+      [
+       335.0,
+       230.0
+      ]
+     ],
+     "points": [
+      [
+       322.0,
+       243.0
+      ],
+      [
+       335.0,
+       230.0
+      ]
+     ]
+    },
+    {
+     "name": "minim",
+     "clicks": [
+      [
+       336.0,
+       229.0
       ],
       [
        337.0,
-       228.0
-      ],
-      [
-       336.0,
-       231.0
+       230.0
       ],
       [
        334.0,
@@ -871,32 +890,16 @@
      ],
      "points": [
       [
-       322.0,
-       231.0
-      ],
-      [
-       322.0,
-       239.0
-      ],
-      [
-       324.0,
-       241.0
-      ],
-      [
-       337.0,
-       228.0
+       336.0,
+       229.0
       ],
       [
        337.0,
        230.0
       ],
       [
-       336.0,
-       231.0
-      ],
-      [
-       336.0,
-       249.0
+       337.0,
+       248.0
       ],
       [
        334.0,
@@ -986,18 +989,18 @@
    "context": "nomen",
    "flags": [],
    "bbox": [
-    363,
+    362,
     225,
-    377,
+    381,
     259
    ],
    "strokes": [
     {
-     "name": "bowl",
+     "name": "back",
      "clicks": [
       [
-       373.0,
-       228.0
+       365.0,
+       230.0
       ],
       [
        367.0,
@@ -1010,20 +1013,16 @@
       [
        370.0,
        255.0
+      ],
+      [
+       371.0,
+       254.0
       ]
      ],
      "points": [
       [
-       373.0,
-       228.0
-      ],
-      [
-       371.0,
-       229.0
-      ],
-      [
-       368.0,
-       229.0
+       365.0,
+       230.0
       ],
       [
        367.0,
@@ -1040,49 +1039,76 @@
       [
        370.0,
        255.0
+      ],
+      [
+       371.0,
+       254.0
       ]
      ]
     },
     {
-     "name": "eye",
+     "name": "top stroke",
      "clicks": [
       [
        367.0,
-       238.0
+       230.0
       ],
       [
-       373.0,
-       234.0
-      ],
-      [
-       373.0,
+       372.0,
        228.0
+      ],
+      [
+       377.0,
+       232.0
       ]
      ],
      "points": [
       [
        367.0,
-       238.0
+       230.0
       ],
       [
-       367.0,
-       236.0
-      ],
-      [
-       368.0,
-       235.0
+       371.0,
+       229.0
       ],
       [
        372.0,
-       235.0
-      ],
-      [
-       373.0,
-       234.0
+       228.0
       ],
       [
        373.0,
        228.0
+      ],
+      [
+       377.0,
+       232.0
+      ]
+     ]
+    },
+    {
+     "name": "hairline",
+     "clicks": [
+      [
+       377.0,
+       235.0
+      ],
+      [
+       369.0,
+       244.0
+      ]
+     ],
+     "points": [
+      [
+       377.0,
+       235.0
+      ],
+      [
+       369.0,
+       243.0
+      ],
+      [
+       369.0,
+       244.0
       ]
      ]
     }
@@ -1147,7 +1173,7 @@
      ]
     },
     {
-     "name": "arch and tail",
+     "name": "arch and minim",
      "clicks": [
       [
        392.0,
@@ -1166,12 +1192,8 @@
        252.0
       ],
       [
-       407.0,
-       262.0
-      ],
-      [
-       400.0,
-       268.0
+       405.0,
+       257.0
       ]
      ],
      "points": [
@@ -1204,19 +1226,42 @@
        254.0
       ],
       [
-       403.0,
-       258.0
+       404.0,
+       255.0
       ],
       [
-       407.0,
-       262.0
+       405.0,
+       257.0
+      ]
+     ]
+    },
+    {
+     "name": "hairline tail",
+     "clicks": [
+      [
+       405.0,
+       257.0
       ],
       [
-       406.0,
-       262.0
+       404.0,
+       262.5
       ],
       [
-       400.0,
+       399.0,
+       268.0
+      ]
+     ],
+     "points": [
+      [
+       405.0,
+       257.0
+      ],
+      [
+       404.0,
+       262.5
+      ],
+      [
+       399.0,
        268.0
       ]
      ]

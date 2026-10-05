@@ -320,6 +320,9 @@ kbd { font: 11.5px var(--font-num); border: 1px solid var(--line); border-bottom
       traces: ["sample/traces_hours.json", "../../viability/data/traces_hours.json"],
       lines: ["sample/hours_lines.json", "../../viability/data/hours_lines.json"],
       title: "Book of Hours, use of Clermont · MS 2262, f. 12r (Psalm 8)",
+      // textura e: the back, a broad stroke out to the right from its top, and a
+      // hairline (pen corner) back down-left to the stem, closing the eye
+      ductus: { e: ["back", "top stroke", "hairline"], c: ["back", "top stroke"] },
       source: "Clermont-Ferrand, Bibliothèque du Patrimoine (Clermont Auvergne Métropole), MS 2262, f. 12r",
     },
   ];
@@ -434,6 +437,8 @@ kbd { font: 11.5px var(--font-num); border: 1px solid var(--line); border-bottom
   // ---------------------------------------------------------------- word / letter model
   function blankAllah() { return { id: nextAllahId(), kind: "allah", line: null, context: "", flags: [], skipped: [], strokes: {}, baseline: null }; }
   function planFor(ch) {
+    const own = (S.sample && S.sample.ductus) || {};
+    if (own[ch]) return own[ch].slice();
     if (DUCTUS[ch]) return DUCTUS[ch].slice();
     const parts = ch.normalize("NFD");  // ā ē ī ō ū m̄: the letter, then its abbreviation stroke
     if (parts.length > 1 && /[\u0300-\u036f]/.test(parts.slice(1))) return planFor(parts[0]).concat(["abbreviation mark"]);
