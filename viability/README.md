@@ -731,6 +731,139 @@ and compared with the ink.
 - **Versions.** It is written once from the medians and three times with the measured
   variation.
 
+### The rest of the lowercase
+
+![The lowercase alphabet of f. 12r](out/hours_alphabet.png)
+
+`textura.py` now fits a stroke plan to every lowercase letter on the page except the
+single x. `hand.py` draws the whole alphabet and measures what the letters share.
+
+| Letter | Strokes | Examples | Overlap | Width varies |
+|---|---|---|---|---|
+| o | left side, right side | 30 | 0.67 | ±8% |
+| e | back, top stroke, hairline | 58 | 0.49 | ±8% |
+| r | minim, shoulder | 18 | 0.57 | ±10% |
+| ꝛ | head, spine and foot | 7 | 0.45 | ±9% |
+| l | stem, head | 17 | 0.75 | ±8% |
+| b | stem, head, bowl | 8 | 0.70 | ±8% |
+| h | stem, head, leg, hairline tail | 3 | 0.63 | ±3% |
+| d | bowl, back | 9 | 0.59 | ±9% |
+| p | stem, bowl, base and descender | 13 | 0.70 | ±7% |
+| q | bowl, stem | 4 | 0.75 | ±7% |
+| v | left stroke, right stroke | 6 | 0.73 | ±8% |
+
+What the letters show:
+
+- **Three heights, and they are firm.**
+  - x-band letters rise only a little above the x-line (1.05–1.15 x-heights) and sit a
+    little below the baseline.
+  - The ascenders l, b and h reach 1.7. The round d (1.5) and t (1.43) are shorter.
+  - Descenders differ by letter: q goes deepest (0.75 below the baseline), then ſ
+    (0.54) and f (0.46). p's descender is a short hairline lead-in (0.42), and g's tail
+    lies almost flat on the baseline (0.31).
+- **The ascender heads are not one shared part.** l curls only a little (0.19 x-height
+  to the right of the stem), h more (0.37) and b most (0.50, a flag that meets the
+  bowl). ſ and f share theirs (0.36). The parts library needs three heads, not one.
+- **d has one form:** round-backed, its back leaning up to the left (9 of 9).
+- **h ends in a long hairline** from the foot of its leg down to the left, below the
+  baseline: the same corner-pen hairline as the joins.
+- **v is a word-initial letter.** All 7 are word-initial. Its thick left stroke curls
+  in from above the x-line, and its right stroke meets it in a point on the baseline.
+- **Biting is mostly pe.**
+  - Facing bowls touch with no white column between them in 27% of cases (22 pairs);
+    other neighbours touch in 5% and minims in 2%.
+  - Almost all of that is p before e, which touches in 5 of 9 cases. de, do, bo and ꝛe
+    sit close but rarely touch on this page.
+  - ſt touches in 5 of 13 cases, through ſ's head.
+- **The positional rules hold without exception** on this page:
+  - ꝛ only after o (7 of 7), straight r never after o (0 of 18);
+  - ſ never at the end of a word (0 of 23), round s only there (22 of 22);
+  - v only at the start of a word (7 of 7), u never there;
+  - the z-shaped ꝫ only at a line end (2 of 2), m in full everywhere else (13).
+- **Weak fits.**
+  - e fits worst (0.49 over 58 examples). Its top stroke and eye vary more than one
+    plan can follow, and the fitted e is too slight.
+  - ꝛ (0.45) is small and often fused with the o before it.
+  - Both need a second look before they are written.
+
+### Capitals: painted initials and the scribe's own
+
+The scribe writes no capitals inside the running text. Capitals come in two kinds, and
+`capitals.py` surveys both over all 108 text pages of the book.
+
+![Painted initials](out/hours_initials.png)
+
+**Painted initials.** These are gold letters on a ground split into blue and rose,
+with white tracery. Each counter is filled with the other colour and patterned with
+rosettes, crosses, scrolls or fleurs-de-lis. They were painted after the writing, into
+spaces the scribe left.
+
+- **Four sizes, by function.**
+
+  | Size | Initials | At the start of a line |
+  |---|---|---|
+  | 1 line | 552 | 117 |
+  | 2 lines | 82 | 75 |
+  | 3 lines | 29 | 29 |
+  | 4 lines | 6 | 6 |
+
+- **One-line initials mark verse starts, inside the running line.** 79% sit inside a
+  line, because the text runs on: on f. 12r they are *[Q]uoniam, [E]x, [Q]uid,
+  [M]inuisti, [O]mnia, [V]olucres, [D]omine*.
+- **Larger initials begin sections at the start of a line.** These are psalms, hymns,
+  lessons and hours. The four-line ones open the major offices, such as *Domine labia
+  mea* at Matins on f. 11r.
+- **Spacing.** About 7 initials fall on a typical page. 96 painted line-fillers close
+  short lines, mostly in the litany.
+- **What the editor must do.** Leave the space for an initial: one x-band-and-ascender
+  box inside the line at a verse start, two to four whole lines at a section start.
+  The initial itself is painting, not pen-work, so it belongs to a separate decoration
+  layer.
+
+![The scribe's ink capitals](out/hours_ink_capitals.png)
+
+**The scribe's ink capitals.** These open the responses, versicles, doxologies and
+prayers: *Et, Deus, Domine, Gloria, Ave, Sancta, Iube, Sicut, Requiem, Qui, Dum,
+Iudica*. The rubricator marked each with a red point before it, sometimes with a red
+stroke through the letter (the G of *Gloria*, the S of *Sicut*). The letter's counters
+and strokes carry a pale yellow wash.
+
+- **Finding them.** The rubricator's red is far stronger than the page's red ruling
+  (a* about 48 against 20–30), so the red marks can be found. The yellow wash can't: on
+  this scan it is barely yellower than the parchment and the ink's halo.
+- **What the 60 red marks are.**
+
+  | What follows the mark | Count |
+  |---|---|
+  | Capitals | 38 |
+  | Lowercase words: *kyrie* (k), *xpe*, *ſancta*, *quam*, and cues like *an* and *ā* | 12 |
+  | Other red: rubric fragments, ornaments, a lone point | 10 |
+
+  So the red point marks a section start, not a capital as such. *Kyrie* and *Christe*
+  keep their lowercase k and x.
+- **Capitals found, with counts:** E 8 (all *Et*), D 5, G 5, S 4, I 4, Q 3, A 2, P 2,
+  V 2, N 1, R 1, T 1.
+- **Their forms are textura capitals built from the lowercase parts.**
+  - E and G are broken round letters with a spur. E has a tongue, and G closes with a
+    vertical.
+  - D appears in two forms: a round D with its back curling up to the left (as in the
+    lowercase d), and a D with a flat top stroke running out to the left.
+  - S lies on its side, wider than it is tall.
+  - Q is an O-like bowl with a tail. A has a curved left side and a straight right
+    one. V is the word-initial v made larger.
+  - Most add a thin vertical hairline inside the bowl (E, D, G, Q, T). The yellow wash
+    is laid beside that hairline.
+- **They are hardly taller than the lowercase.**
+  - Measured over each capital's first 0.7 x-height of width, E reaches 0.96 x-height
+    (median of 8).
+  - Most others stay within 0.9–1.15.
+  - Only I (1.46–1.65) and R (1.45) reach ascender height.
+  - They are distinguished by width, the inner hairline, the red point and the yellow
+    wash, not by height.
+- **What the editor must do.** Model a capital as a lowercase-height broken letter
+  with an inner hairline. Its colouring is a separate layer: a red point before it, an
+  optional red stroke, and the yellow wash.
+
 ### Abbreviation follows the space left in the line
 
 The scribe could write the same word several ways, and chose by the room left in the
@@ -762,6 +895,8 @@ python3 corners.py                # nib corner test (about 5 minutes)
 python3 align.py                  # find every letter on the page
 python3 textura.py                # fit the other letters' stroke plans
 python3 scribe.py                 # held-out test and 'ſignificatis'
+python3 hand.py                   # the alphabet, heights, heads, biting, positional rules
+python3 capitals.py PDF_PAGE_DIR  # painted initials and ink capitals, whole book
 python3 measure_letters.py hours  # the traced 'nomen'
 ```
 
@@ -769,9 +904,11 @@ python3 measure_letters.py hours  # the traced 'nomen'
 
 - **One page analysed in depth.** The book's other text pages (about a hundred) are in
   the PDF and can be run the same way. Page-to-page consistency hasn't been measured yet.
-- **Not every letter is modelled yet.** Besides the minim letters, the fitted ones are
-  those of *significatis* (s, ſ, f, g, c, a, t); o and e are single traces. b, d, h,
-  l, p, q, r, ꝛ, v, x and the abbreviation signs are still to do, the same way.
+- **Not every form is modelled yet.**
+  - Every lowercase letter on f. 12r is fitted except x (one example).
+  - Still to do: the abbreviation signs (ꝫ, ꝓ, ꝙ, the macron) and the punctuation.
+  - The ink capitals are described, not yet fitted, and the painted initials are not
+    modelled.
 - **Corners are at the limit of the scan.** At 29 px to the x-height, the difference
   between a squared and a fully sharp nib corner is a few hundredths of a pixel on
   average (see *The pen's corners*).

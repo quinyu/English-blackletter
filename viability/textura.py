@@ -1,6 +1,7 @@
 """The other letters of MS 2262: stroke plans fitted to every example on f. 12r.
 
-The minim letters (i, n, m, u) come from minims.py. Every other letter is a stroke plan:
+The minim letters (i, n, m, u) come from minims.py. Every other lowercase letter on
+f. 12r (all but the single x) is a stroke plan:
 a few strokes in writing order, each a handful of control points in x-heights (u from
 the letter's left edge at the baseline, v above the baseline), drawn with the page's pen
 (the nib of corners.py; strokes named "hairline…" with its corner; a stem marked
@@ -100,6 +101,58 @@ PLANS = {
         ("stem", [(0.14, 1.1), (0.13, 0.8), (0.14, 0.15), (0.3, 0.0)], None),
         ("hairline", [(0.14, 1.12), (0.58, 1.55)], None),
         ("crossbar", [(-0.15, 0.85), (0.15, 0.97), (0.5, 0.97)], None)]),
+    # o: two broken sides meeting in points at the top and the bottom.
+    "o": dict(zone=(-0.25, 1.3), strokes=[
+        ("left side", [(0.35, 1.03), (0.17, 0.85), (0.13, 0.2), (0.3, -0.02)], None),
+        ("right side", [(0.35, 1.03), (0.52, 0.85), (0.55, 0.2), (0.3, -0.02)], None)]),
+    # e: the back (head, stem, foot), a top stroke out to the right, a hairline back to the
+    # back closing the eye.
+    "e": dict(zone=(-0.25, 1.3), strokes=[
+        ("back", [(0.3, 1.03), (0.08, 0.8), (0.07, 0.15), (0.22, -0.02), (0.35, 0.03)], None),
+        ("top stroke", [(0.28, 1.03), (0.42, 0.97), (0.45, 0.85)], None),
+        ("hairline", [(0.45, 0.85), (0.2, 0.6)], None)]),
+    # r: a minim and a shoulder ending in a flag at the x-line.
+    "r": dict(zone=(-0.25, 1.3), strokes=[
+        ("minim", [(0.0, 0.95), (0.08, 0.88), (0.08, 0.12), (0.18, 0.0)], None),
+        ("shoulder", [(0.1, 0.92), (0.3, 1.0), (0.45, 0.92)], None)]),
+    # r rotunda (after o): a head, then a spine down to the left and a foot out to the right.
+    "ꝛ": dict(zone=(-0.25, 1.3), strokes=[
+        ("head", [(0.25, 1.0), (0.42, 0.95), (0.55, 0.82)], None),
+        ("spine and foot", [(0.52, 0.8), (0.25, 0.5), (0.38, 0.2), (0.5, 0.05), (0.62, 0.08)], None)]),
+    # l: a tall stem with a foot; its head curls over to the right.
+    "l": dict(zone=(-0.25, 1.85), strokes=[
+        ("stem", [(0.15, 1.55), (0.14, 1.0), (0.14, 0.15), (0.28, 0.0)], None),
+        ("head", [(0.14, 1.55), (0.3, 1.68), (0.45, 1.6), (0.5, 1.45)], None)]),
+    # b: l's ascender and a bowl on the right, closed at the baseline.
+    "b": dict(zone=(-0.25, 1.85), strokes=[
+        ("stem", [(0.15, 1.55), (0.14, 1.0), (0.15, 0.15), (0.25, 0.0)], None),
+        ("head", [(0.14, 1.55), (0.3, 1.66), (0.45, 1.6), (0.5, 1.45)], None),
+        ("bowl", [(0.2, 0.9), (0.42, 0.97), (0.55, 0.75), (0.55, 0.15), (0.25, 0.0)], None)]),
+    # h: l's ascender, a leg, and a long hairline from the foot of the leg down to the left.
+    "h": dict(zone=(-0.75, 1.85), strokes=[
+        ("stem", [(0.18, 1.55), (0.15, 1.0), (0.15, 0.15), (0.28, 0.0)], None),
+        ("head", [(0.17, 1.55), (0.33, 1.66), (0.47, 1.58), (0.5, 1.45)], None),
+        ("leg", [(0.2, 0.88), (0.45, 0.95), (0.6, 0.7), (0.58, 0.15), (0.45, 0.0)], None),
+        ("hairline tail", [(0.45, 0.02), (0.0, -0.6)], None)]),
+    # d: round-backed. A bowl, and a back leaning up to the left above the x-line.
+    "d": dict(zone=(-0.25, 1.75), strokes=[
+        ("bowl", [(0.5, 0.82), (0.2, 0.55), (0.18, 0.15), (0.35, -0.02), (0.65, 0.05)], None),
+        ("back", [(0.1, 1.5), (0.45, 1.15), (0.68, 0.8), (0.72, 0.3), (0.68, 0.02)], None)]),
+    # p: a stem and a right side standing on a base stroke, which runs left and drops
+    # below the baseline as a hairline descender.
+    "p": dict(zone=(-0.6, 1.3), strokes=[
+        ("stem", [(0.0, 0.97), (0.07, 0.88), (0.08, 0.1)], None),
+        ("bowl", [(0.35, 0.93), (0.55, 0.85), (0.58, 0.1)], None),
+        ("base and descender", [(0.6, 0.02), (0.3, 0.0), (0.02, 0.0), (-0.12, -0.28), (-0.2, -0.45)], None)]),
+    # q: a bowl, and a stem from a horned head down below the baseline, pulled to a point.
+    "q": dict(zone=(-0.8, 1.3), strokes=[
+        ("bowl", [(0.55, 0.98), (0.25, 0.85), (0.1, 0.4), (0.2, 0.0), (0.45, 0.05)], None),
+        ("stem", [(0.6, 1.05), (0.62, 0.6), (0.62, -0.2), (0.62, -0.6)], "terminal")]),
+    # v (word-initial): a thick left stroke curling in from above the x-line, a right
+    # stroke meeting it in a point on the baseline.
+    "v": dict(zone=(-0.25, 1.6), strokes=[
+        ("left stroke", [(-0.05, 1.32), (0.1, 1.15), (0.3, 0.5), (0.4, 0.02)], None),
+        ("right stroke", [(0.62, 0.92), (0.6, 0.5), (0.45, 0.02)], None)]),
 }
 
 
@@ -395,8 +448,8 @@ def plot_fits(fits, fp, path, n=8):
                matplotlib.patches.Patch(color=MODEL, label="letter where there is no ink"),
                matplotlib.patches.Patch(color="#d9d8d5", label="outside the letter's own columns (neighbours)")]
     fig.legend(handles=handles, loc="lower center", ncol=4, frameon=False, fontsize=6.5, labelcolor=INK_TEXT)
-    fig.suptitle("The letters of 'significatis' that are not minims: one stroke plan each, fitted to every example "
-                 "(left), drawn over the examples (best-fitting first)", fontsize=8, color=INK_TEXT, x=0.01, ha="left")
+    fig.suptitle("The lowercase letters of f. 12r other than the minims: one stroke plan each, fitted to every "
+                 "example (left), drawn over the examples (best-fitting first)", fontsize=8, color=INK_TEXT, x=0.01, ha="left")
     fig.tight_layout(rect=(0, 0.03, 1, 0.97))
     fig.savefig(path, facecolor=SURFACE)
     plt.close(fig)
