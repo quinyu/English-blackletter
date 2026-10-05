@@ -314,6 +314,14 @@ kbd { font: 11.5px var(--font-num); border: 1px solid var(--line); border-bottom
       title: "Guinizzelli, Tegno de folle 'mpresa · Chig. L.VIII.305, f. 1r",
       source: "Città del Vaticano, Biblioteca Apostolica Vaticana, Chig. L.VIII.305, f. 1r",
     },
+    {
+      key: "hours", label: "Clermont MS 2262 — Book of Hours (French textura)", script: "latin", template: "letters",
+      image: ["sample/clermont-ms2262-f012r.jpg", "../../viability/data/clermont-ms2262-f012r.jpg"],
+      traces: ["sample/traces_hours.json", "../../viability/data/traces_hours.json"],
+      lines: ["sample/hours_lines.json", "../../viability/data/hours_lines.json"],
+      title: "Book of Hours, use of Clermont · MS 2262, f. 12r (Psalm 8)",
+      source: "Clermont-Ferrand, Bibliothèque du Patrimoine (Clermont Auvergne Métropole), MS 2262, f. 12r",
+    },
   ];
 
   // ---------------------------------------------------------------- templates
@@ -344,6 +352,8 @@ kbd { font: 11.5px var(--font-num); border: 1px solid var(--line); border-bottom
     s: ["spine"], "ſ": ["descender", "head"], t: ["stem", "cross-stroke"], u: ["minim", "minim"], v: ["minim", "minim"],
     x: ["first diagonal", "second diagonal"], y: ["first arm", "second arm and tail"], z: ["top", "diagonal and foot"],
     "ꝑ": ["descender", "bowl", "bar"], "ꝗ": ["bowl", "descender", "bar"], "&": ["stroke 1", "stroke 2"],
+    "ꝛ": ["curve", "foot"], "ꝙ": ["bowl", "descender", "stroke"], "ꝫ": ["top", "diagonal and tail"],
+    "ꝓ": ["descender and loop", "bowl"],
   };
   const LATIN_FLAGS = [
     ["ligature", "joined to a neighbour"], ["abbreviation", "abbreviation sign"],
@@ -425,6 +435,8 @@ kbd { font: 11.5px var(--font-num); border: 1px solid var(--line); border-bottom
   function blankAllah() { return { id: nextAllahId(), kind: "allah", line: null, context: "", flags: [], skipped: [], strokes: {}, baseline: null }; }
   function planFor(ch) {
     if (DUCTUS[ch]) return DUCTUS[ch].slice();
+    const parts = ch.normalize("NFD");  // ā ē ī ō ū m̄: the letter, then its abbreviation stroke
+    if (parts.length > 1 && /[\u0300-\u036f]/.test(parts.slice(1))) return planFor(parts[0]).concat(["abbreviation mark"]);
     const lo = ch.toLowerCase();
     if (DUCTUS[lo]) return ch !== lo ? ["stroke 1", "stroke 2"] : DUCTUS[lo].slice();
     return ["stroke 1"];

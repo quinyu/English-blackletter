@@ -1,4 +1,4 @@
-"""The three hands side by side: pen behaviour, measured the same way on each page.
+"""The four hands side by side: pen behaviour, measured the same way on each page.
 
 Stroke width is measured as ink mass across the stroke (nib.mass_width_samples) on
 each page's text block and divided by that page's median, so the curves compare the
@@ -24,7 +24,8 @@ HANDS = [
     # name, image, text block (y0, y1, x0, x1), regions to blank, drop red ink, colour
     ("Hijazi reed — BnF Arabe 328", "bnf-arabe328-baqarah-282-286.jpg", (90, 1240, 60, 1000), [], False, "#2a78d6"),
     ("Humanist cursive — Lucretius", "lucretius-drn-1r.jpg", (200, 1570, 140, 900), [], False, "#eb6834"),
-    ("Gothic textualis — Chig. L.VIII.305", "chigi-L-VIII-305-f1r.webp", (96, 711, 0, 836), [(0, 0, 263, 362)], True, "#1baf7a"),
+    ("Italian rotunda — Chig. L.VIII.305", "chigi-L-VIII-305-f1r.webp", (96, 711, 0, 836), [(0, 0, 263, 362)], True, "#1baf7a"),
+    ("French textura — Clermont MS 2262", "clermont-ms2262-f012r.jpg", (190, 1500, 225, 935), "paint", False, "#6b5bd2"),
 ]
 
 
@@ -36,8 +37,11 @@ def measure(image, block, blank, drop_red):
     m = np.zeros_like(mask, dtype=np.uint8)
     y0, y1, x0, x1 = block
     m[y0:y1, x0:x1] = mask[y0:y1, x0:x1]
-    for a, b, c, d in blank:
-        m[b:d, a:c] = 0
+    if blank == "paint":
+        m[ink.paint_boxes(rgb, mask)] = 0
+    else:
+        for a, b, c, d in blank:
+            m[b:d, a:c] = 0
     dirs, widths = nib.mass_width_samples(m, dark)
     fit = nib.fit_nib(dirs, widths)
     return fit, dirs, widths
@@ -65,7 +69,7 @@ def main():
     ax.set_xticklabels(["0°\n→ / ←", "45°\n↗ / ↙", "90°\n↑ / ↓", "135°\n↖ / ↘", "180°"])
     ax.set_xlabel("stroke direction", color=MUTED, fontsize=8)
     ax.set_ylabel("stroke width ÷ page median", color=MUTED, fontsize=8)
-    ax.set_title("Thick and thin by stroke direction, three hands measured the same way",
+    ax.set_title("Thick and thin by stroke direction, four hands measured the same way",
                  fontsize=10, color=INK_TEXT, loc="left")
     for s in ("top", "right"):
         ax.spines[s].set_visible(False)

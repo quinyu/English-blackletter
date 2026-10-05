@@ -1,0 +1,908 @@
+{
+ "image": "clermont-ms2262-f012r.jpg",
+ "lines": [
+  {
+   "x0": 259,
+   "x1": 898,
+   "baseline": [
+    [
+     259,
+     255.6695554445554
+    ],
+    [
+     898,
+     259.8678471528472
+    ]
+   ],
+   "xline": [
+    [
+     259,
+     226.28259240759238
+    ],
+    [
+     898,
+     230.48088411588415
+    ]
+   ],
+   "x_height": 29.38696303696301,
+   "slope_deg": 0.3764333881265228,
+   "slant_deg": 4.498073933146519,
+   "slant_samples": 669,
+   "ascender_xh": 1.6316547883518313,
+   "descender_xh": null,
+   "n_ascenders": 3,
+   "n_descenders": 0,
+   "n": 1,
+   "kind": "text",
+   "edition": "nomen tuum in universa terra.",
+   "diplomatic": "nomen tuum in vniu[er]ſa terra"
+  },
+  {
+   "x0": 340,
+   "x1": 934,
+   "baseline": [
+    [
+     340,
+     315.8173826173826
+    ],
+    [
+     934,
+     319.72001998002
+    ]
+   ],
+   "xline": [
+    [
+     340,
+     286.0434565434565
+    ],
+    [
+     934,
+     289.94609390609395
+    ]
+   ],
+   "x_height": 29.773926073926077,
+   "slope_deg": 0.3764333881265228,
+   "slant_deg": 6.116416411140821,
+   "slant_samples": 812,
+   "ascender_xh": null,
+   "descender_xh": null,
+   "n_ascenders": 1,
+   "n_descenders": 0,
+   "n": 2,
+   "kind": "text",
+   "edition": "Quoniam elevata est magni-",
+   "diplomatic": "[Q]uoniam eleuata eſt magni"
+  },
+  {
+   "x0": 245,
+   "x1": 903,
+   "baseline": [
+    [
+     245,
+     372.31738261738263
+    ],
+    [
+     903,
+     376.6405061605062
+    ]
+   ],
+   "xline": [
+    [
+     245,
+     342.5217282717283
+    ],
+    [
+     903,
+     346.8448518148519
+    ]
+   ],
+   "x_height": 29.795654345654327,
+   "slope_deg": 0.3764333881265228,
+   "slant_deg": 5.121330561249157,
+   "slant_samples": 910,
+   "ascender_xh": 1.5166142785216457,
+   "descender_xh": 0.6241583390471352,
+   "n_ascenders": 3,
+   "n_descenders": 3,
+   "n": 3,
+   "kind": "text",
+   "edition": "ficentia tua super caelos. Ex ore",
+   "diplomatic": "ficentia tua ſuper celos [E]x oꝛe"
+  },
+  {
+   "x0": 261,
+   "x1": 914,
+   "baseline": [
+    [
+     261,
+     430.57824675324673
+    ],
+    [
+     914,
+     434.86851981351987
+    ]
+   ],
+   "xline": [
+    [
+     261,
+     401.6695554445554
+    ],
+    [
+     914,
+     405.9598285048285
+    ]
+   ],
+   "x_height": 28.908691308691346,
+   "slope_deg": 0.3764333881265228,
+   "slant_deg": 4.401066710624512,
+   "slant_samples": 813,
+   "ascender_xh": 1.5776710922813222,
+   "descender_xh": null,
+   "n_ascenders": 3,
+   "n_descenders": 1,
+   "n": 4,
+   "kind": "text",
+   "edition": "infantium et lactentium perfe-",
+   "diplomatic": "infantium et lactentium perfe"
+  },
+  {
+   "x0": 259,
+   "x1": 931,
+   "baseline": [
+    [
+     259,
+     488.61303696303696
+    ],
+    [
+     931,
+     493.02814185814196
+    ]
+   ],
+   "xline": [
+    [
+     259,
+     457.98693806193796
+    ],
+    [
+     931,
+     462.40204295704297
+    ]
+   ],
+   "x_height": 30.626098901099,
+   "slope_deg": 0.3764333881265228,
+   "slant_deg": 2.6211052391377057,
+   "slant_samples": 1044,
+   "ascender_xh": null,
+   "descender_xh": null,
+   "n_ascenders": 1,
+   "n_descenders": 1,
+   "n": 5,
+   "kind": "text",
+   "edition": "cisti laudem propter inimicos tuos,",
+   "diplomatic": "ciſti laudem ꝓpter īimicos tuos"
+  },
+  {
+   "x0": 256,
+   "x1": 912,
+   "baseline": [
+    [
+     256,
+     546.9304195804195
+    ],
+    [
+     912,
+     551.240402930403
+    ]
+   ],
+   "xline": [
+    [
+     256,
+     516.986938061938
+    ],
+    [
+     912,
+     521.2969214119214
+    ]
+   ],
+   "x_height": 29.943481518481576,
+   "slope_deg": 0.3764333881265228,
+   "slant_deg": 3.473584748984064,
+   "slant_samples": 977,
+   "ascender_xh": 1.586980133234686,
+   "descender_xh": null,
+   "n_ascenders": 2,
+   "n_descenders": 1,
+   "n": 6,
+   "kind": "text",
+   "edition": "ut destruas inimicum et ultorem.",
+   "diplomatic": "vt deſtruas inimicum et vltoꝛē,"
+  },
+  {
+   "x0": 251,
+   "x1": 906,
+   "baseline": [
+    [
+     251,
+     605.9869380619381
+    ],
+    [
+     906,
+     610.2903513153514
+    ]
+   ],
+   "xline": [
+    [
+     251,
+     574.3956293706293
+    ],
+    [
+     906,
+     578.6990426240426
+    ]
+   ],
+   "x_height": 31.591308691308768,
+   "slope_deg": 0.3764333881265228,
+   "slant_deg": 4.114424374238407,
+   "slant_samples": 1071,
+   "ascender_xh": null,
+   "descender_xh": null,
+   "n_ascenders": 1,
+   "n_descenders": 0,
+   "n": 7,
+   "kind": "text",
+   "edition": "Quoniam videbo caelos tuos,",
+   "diplomatic": "[Q]uoniam videbo celos tuos"
+  },
+  {
+   "x0": 259,
+   "x1": 934,
+   "baseline": [
+    [
+     259,
+     662.1912837162836
+    ],
+    [
+     934,
+     666.6260989010989
+    ]
+   ],
+   "xline": [
+    [
+     259,
+     632.6912837162836
+    ],
+    [
+     934,
+     637.1260989010989
+    ]
+   ],
+   "x_height": 29.5,
+   "slope_deg": 0.3764333881265228,
+   "slant_deg": 5.333171829598076,
+   "slant_samples": 881,
+   "ascender_xh": null,
+   "descender_xh": null,
+   "n_ascenders": 1,
+   "n_descenders": 0,
+   "n": 8,
+   "kind": "text",
+   "edition": "opera digitorum tuorum, lu-",
+   "diplomatic": "et opera digitoꝛum tuoꝛum: lu"
+  },
+  {
+   "x0": 252,
+   "x1": 910,
+   "baseline": [
+    [
+     252,
+     720.1912837162837
+    ],
+    [
+     910,
+     724.5144072594073
+    ]
+   ],
+   "xline": [
+    [
+     252,
+     689.5217282717283
+    ],
+    [
+     910,
+     693.844851814852
+    ]
+   ],
+   "x_height": 30.669555444555385,
+   "slope_deg": 0.3764333881265228,
+   "slant_deg": 4.8812261282312095,
+   "slant_samples": 1076,
+   "ascender_xh": null,
+   "descender_xh": 0.5786536852200069,
+   "n_ascenders": 0,
+   "n_descenders": 3,
+   "n": 9,
+   "kind": "text",
+   "edition": "nam et stellas quae tu fundasti.",
+   "diplomatic": "nam et ſtellas que tu fundaſti,"
+  },
+  {
+   "x0": 250,
+   "x1": 929,
+   "baseline": [
+    [
+     250,
+     778.3391108891109
+    ],
+    [
+     929,
+     782.8002064602066
+    ]
+   ],
+   "xline": [
+    [
+     250,
+     747.6347652347652
+    ],
+    [
+     929,
+     752.0958608058609
+    ]
+   ],
+   "x_height": 30.70434565434573,
+   "slope_deg": 0.3764333881265228,
+   "slant_deg": 4.82219384678061,
+   "slant_samples": 1100,
+   "ascender_xh": 1.6625443372740007,
+   "descender_xh": 0.546307174816155,
+   "n_ascenders": 5,
+   "n_descenders": 2,
+   "n": 10,
+   "kind": "text",
+   "edition": "Quid est homo, quod memor es eius?",
+   "diplomatic": "[Q]uid eſt homo ꝙ memoꝛes e[ius]:"
+  },
+  {
+   "x0": 258,
+   "x1": 914,
+   "baseline": [
+    [
+     258,
+     834.0782467532468
+    ],
+    [
+     914,
+     838.3882301032303
+    ]
+   ],
+   "xline": [
+    [
+     258,
+     804.1912837162837
+    ],
+    [
+     914,
+     808.5012670662671
+    ]
+   ],
+   "x_height": 29.886963036963152,
+   "slope_deg": 0.3764333881265228,
+   "slant_deg": 5.840179727228097,
+   "slant_samples": 989,
+   "ascender_xh": 1.6189565969233588,
+   "descender_xh": 0.5722847937979134,
+   "n_ascenders": 2,
+   "n_descenders": 2,
+   "n": 11,
+   "kind": "text",
+   "edition": "aut filius hominis, quoniam visitas",
+   "diplomatic": "aut filius hominis qm̄ viſitas"
+  },
+  {
+   "x0": 258,
+   "x1": 917,
+   "baseline": [
+    [
+     258,
+     892.0434565434565
+    ],
+    [
+     917,
+     896.3731501831502
+    ]
+   ],
+   "xline": [
+    [
+     258,
+     862.2260739260739
+    ],
+    [
+     917,
+     866.5557675657676
+    ]
+   ],
+   "x_height": 29.817382617382577,
+   "slope_deg": 0.3764333881265228,
+   "slant_deg": 7.401907510170117,
+   "slant_samples": 844,
+   "ascender_xh": 1.625751661797425,
+   "descender_xh": null,
+   "n_ascenders": 2,
+   "n_descenders": 0,
+   "n": 12,
+   "kind": "text",
+   "edition": "eum? Minuisti eum paulo minus",
+   "diplomatic": "eum [M]inuiſti eum paulo mi[nus]"
+  },
+  {
+   "x0": 248,
+   "x1": 921,
+   "baseline": [
+    [
+     248,
+     954.6347652347652
+    ],
+    [
+     921,
+     959.0564402264403
+    ]
+   ],
+   "xline": [
+    [
+     248,
+     924.0086663336663
+    ],
+    [
+     921,
+     928.4303413253414
+    ]
+   ],
+   "x_height": 30.626098901098885,
+   "slope_deg": 0.3764333881265228,
+   "slant_deg": 6.483704572166155,
+   "slant_samples": 864,
+   "ascender_xh": 1.7762247924395047,
+   "descender_xh": null,
+   "n_ascenders": 4,
+   "n_descenders": 0,
+   "n": 13,
+   "kind": "text",
+   "edition": "ab angelis, gloria et honore co-",
+   "diplomatic": "ab angelis: glīa et honoꝛe co"
+  },
+  {
+   "x0": 247,
+   "x1": 900,
+   "baseline": [
+    [
+     247,
+     1013.0782467532467
+    ],
+    [
+     900,
+     1017.3685198135198
+    ]
+   ],
+   "xline": [
+    [
+     247,
+     981.4869380619381
+    ],
+    [
+     900,
+     985.7772111222112
+    ]
+   ],
+   "x_height": 31.591308691308654,
+   "slope_deg": 0.3764333881265228,
+   "slant_deg": 4.512733771152214,
+   "slant_samples": 1162,
+   "ascender_xh": null,
+   "descender_xh": null,
+   "n_ascenders": 0,
+   "n_descenders": 1,
+   "n": 14,
+   "kind": "text",
+   "edition": "ronasti eum, et constituisti eum",
+   "diplomatic": "ronaſti eum et conſtituiſti euꝫ"
+  },
+  {
+   "x0": 245,
+   "x1": 924,
+   "baseline": [
+    [
+     245,
+     1068.226073926074
+    ],
+    [
+     924,
+     1072.6871694971696
+    ]
+   ],
+   "xline": [
+    [
+     245,
+     1039.3391108891108
+    ],
+    [
+     924,
+     1043.8002064602065
+    ]
+   ],
+   "x_height": 28.886963036963152,
+   "slope_deg": 0.3764333881265228,
+   "slant_deg": 5.36528118223477,
+   "slant_samples": 1019,
+   "ascender_xh": null,
+   "descender_xh": null,
+   "n_ascenders": 1,
+   "n_descenders": 0,
+   "n": 15,
+   "kind": "text",
+   "edition": "super opera manuum tuarum.",
+   "diplomatic": "ſuper opera manuum tuaruꝫ"
+  },
+  {
+   "x0": 241,
+   "x1": 916,
+   "baseline": [
+    [
+     241,
+     1130.247802197802
+    ],
+    [
+     916,
+     1134.6826173826173
+    ]
+   ],
+   "xline": [
+    [
+     241,
+     1097.099975024975
+    ],
+    [
+     916,
+     1101.5347902097903
+    ]
+   ],
+   "x_height": 33.147827172826965,
+   "slope_deg": 0.3764333881265228,
+   "slant_deg": 4.689264202277608,
+   "slant_samples": 1388,
+   "ascender_xh": 1.6389201944789207,
+   "descender_xh": null,
+   "n_ascenders": 5,
+   "n_descenders": 0,
+   "n": 16,
+   "kind": "text",
+   "edition": "Omnia subiecisti sub pedibus",
+   "diplomatic": "[O]mīa ſubieciſti ſub pedibus,"
+  },
+  {
+   "x0": 225,
+   "x1": 900,
+   "baseline": [
+    [
+     225,
+     1186.6347652347652
+    ],
+    [
+     900,
+     1191.0695804195805
+    ]
+   ],
+   "xline": [
+    [
+     225,
+     1156.1347652347652
+    ],
+    [
+     900,
+     1160.5695804195805
+    ]
+   ],
+   "x_height": 30.5,
+   "slope_deg": 0.3764333881265228,
+   "slant_deg": 3.7928537358068084,
+   "slant_samples": 960,
+   "ascender_xh": null,
+   "descender_xh": null,
+   "n_ascenders": 1,
+   "n_descenders": 0,
+   "n": 17,
+   "kind": "text",
+   "edition": "eius, oves et boves universas, in-",
+   "diplomatic": "eius: oues et boues vniu[er]ſas in"
+  },
+  {
+   "x0": 249,
+   "x1": 915,
+   "baseline": [
+    [
+     249,
+     1237.4652097902097
+    ],
+    [
+     915,
+     1241.840894105894
+    ]
+   ],
+   "xline": [
+    [
+     249,
+     1213.613036963037
+    ],
+    [
+     915,
+     1217.9887212787214
+    ]
+   ],
+   "x_height": 23.85217282717258,
+   "slope_deg": 0.3764333881265228,
+   "slant_deg": 3.4411705990980703,
+   "slant_samples": 551,
+   "ascender_xh": 1.6777660156300562,
+   "descender_xh": 0.7907355460830261,
+   "n_ascenders": 2,
+   "n_descenders": 3,
+   "n": 18,
+   "kind": "text",
+   "edition": "super et pecora campi, volu-",
+   "diplomatic": "ſuper et pecoꝛa campi [V]olu"
+  },
+  {
+   "x0": 251,
+   "x1": 910,
+   "baseline": [
+    [
+     251,
+     1304.6347652347652
+    ],
+    [
+     910,
+     1308.9644588744588
+    ]
+   ],
+   "xline": [
+    [
+     251,
+     1275.134765234765
+    ],
+    [
+     910,
+     1279.4644588744586
+    ]
+   ],
+   "x_height": 29.500000000000227,
+   "slope_deg": 0.3764333881265228,
+   "slant_deg": 4.29712048430433,
+   "slant_samples": 844,
+   "ascender_xh": null,
+   "descender_xh": null,
+   "n_ascenders": 1,
+   "n_descenders": 1,
+   "n": 19,
+   "kind": "text",
+   "edition": "cres caeli et pisces maris, qui per-",
+   "diplomatic": "cres celi et piſces maris: qui per"
+  },
+  {
+   "x0": 252,
+   "x1": 896,
+   "baseline": [
+    [
+     252,
+     1361.3739010989011
+    ],
+    [
+     896,
+     1365.6050432900433
+    ]
+   ],
+   "xline": [
+    [
+     252,
+     1331.4304195804195
+    ],
+    [
+     896,
+     1335.6615617715618
+    ]
+   ],
+   "x_height": 29.943481518481576,
+   "slope_deg": 0.3764333881265228,
+   "slant_deg": 4.258012923326782,
+   "slant_samples": 999,
+   "ascender_xh": 1.7426838941495668,
+   "descender_xh": 0.575922059846901,
+   "n_ascenders": 2,
+   "n_descenders": 2,
+   "n": 20,
+   "kind": "text",
+   "edition": "ambulant semitas maris. Do-",
+   "diplomatic": "ambulant ſemitas maris [D]o"
+  },
+  {
+   "x0": 247,
+   "x1": 919,
+   "baseline": [
+    [
+     247,
+     1418.4304195804195
+    ],
+    [
+     919,
+     1422.8455244755246
+    ]
+   ],
+   "xline": [
+    [
+     247,
+     1389.8391108891108
+    ],
+    [
+     919,
+     1394.2542157842158
+    ]
+   ],
+   "x_height": 28.591308691308768,
+   "slope_deg": 0.3764333881265228,
+   "slant_deg": 4.827578531571124,
+   "slant_samples": 1123,
+   "ascender_xh": 1.5454340045446187,
+   "descender_xh": null,
+   "n_ascenders": 3,
+   "n_descenders": 0,
+   "n": 21,
+   "kind": "text",
+   "edition": "mine Dominus noster, quam admi-",
+   "diplomatic": "mine dominus noſter quā admi"
+  },
+  {
+   "x0": 249,
+   "x1": 898,
+   "baseline": [
+    [
+     249,
+     1469.7478021978022
+    ],
+    [
+     898,
+     1474.011794871795
+    ]
+   ],
+   "xline": [
+    [
+     249,
+     1441.2825924075926
+    ],
+    [
+     898,
+     1445.5465850815854
+    ]
+   ],
+   "x_height": 28.465209790209656,
+   "slope_deg": 0.3764333881265228,
+   "slant_deg": 4.5809240205694115,
+   "slant_samples": 963,
+   "ascender_xh": 1.6655904629126872,
+   "descender_xh": null,
+   "n_ascenders": 3,
+   "n_descenders": 1,
+   "n": 22,
+   "kind": "text",
+   "edition": "rabile est nomen tuum in universa",
+   "diplomatic": "rabile eſt nomen tuum ī vniu[er]ſa"
+  }
+ ],
+ "pen": {
+  "a": 6.103091705828393,
+  "b": 2.3104111893101837,
+  "theta_deg": 34.0,
+  "contrast": 2.6415608330093763,
+  "rms_px": 0.2512200996389443,
+  "bins": {
+   "centre_deg": [
+    5.0,
+    15.0,
+    25.0,
+    35.0,
+    45.0,
+    55.0,
+    65.0,
+    75.0,
+    85.0,
+    95.0,
+    105.0,
+    115.0,
+    125.0,
+    135.0,
+    145.0,
+    155.0,
+    165.0,
+    175.0
+   ],
+   "median_width": [
+    3.5743290172416335,
+    3.1009254449275807,
+    2.482217599947349,
+    2.1391565558399495,
+    2.4305476664143266,
+    3.273523678036219,
+    3.923528643544366,
+    4.643134380183368,
+    4.896421374784258,
+    5.141322726761926,
+    5.493100791567047,
+    5.9345324626187,
+    6.040191245392628,
+    6.204948257133773,
+    6.130606779627582,
+    5.779138329520863,
+    4.568163450193467,
+    3.732175794794381
+   ],
+   "n": [
+    569,
+    634,
+    730,
+    661,
+    637,
+    660,
+    1128,
+    2269,
+    4145,
+    1884,
+    912,
+    507,
+    354,
+    203,
+    187,
+    247,
+    352,
+    495
+   ]
+  },
+  "method": "ink mass across the stroke (relative widths)",
+  "n_samples": 16574
+ },
+ "summary": {
+  "x_height": {
+   "mean": 29.804942784488244,
+   "sd": 1.714107871494553
+  },
+  "slant_deg": {
+   "mean": 4.766969320138026,
+   "sd": 1.0665495008408692
+  },
+  "ascender_xh": {
+   "mean": 1.6359070963492017,
+   "sd": 0.07248689774898794
+  },
+  "descender_xh": {
+   "mean": 0.6146769331351897,
+   "sd": 0.08984170988502772
+  },
+  "slope_deg": {
+   "mean": 0.3764333881265227,
+   "sd": 1.136349493877995e-16
+  },
+  "line_pitch_px": {
+   "mean": 57.81324984539271,
+   "sd": 3.5112988501623144
+  },
+  "split_half": {
+   "slant": {
+    "r_left_right": 0.3500296789599141,
+    "n_lines": 22,
+    "noise_sd_per_half": 1.0714787070248093,
+    "between_line_sd": 1.0918838447552202
+   },
+   "x_height": {
+    "r_left_right": -0.002055754946679641,
+    "n_lines": 22,
+    "noise_sd_per_half": 1.8555084888955653,
+    "between_line_sd": 1.3093606102959032
+   }
+  }
+ }
+}

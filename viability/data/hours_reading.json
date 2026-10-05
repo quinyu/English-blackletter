@@ -1,0 +1,139 @@
+{
+ "image": "clermont-ms2262-f012r.jpg",
+ "work": "Book of Hours, use of Clermont (Auvergne), France, 15th century. Clermont-Ferrand, Bibliothèque du Patrimoine (Clermont Auvergne Métropole), MS 2262, f. 12r: Hours of the Virgin, Matins, Psalm 8 (Domine Dominus noster).",
+ "note": "\"diplomatic\" is what the scribe wrote, as read from this image (not yet checked against a facsimile edition): ſ = long s, s = round final s, ꝛ = r rotunda (after bowed letters), ꝓ = pro (p with a loop through the descender), ꝙ = quod, ꝫ = -m (the z-shaped final), macrons as written; [ ] = editorial expansion of a sign too small to show, [Q] etc. = painted initial. \"edition\" is the Vulgate text of Psalm 8 split at the manuscript's line breaks (the manuscript has \"et opera\" and \"memores\"). The scribe writes super/per in full: textura p bites into the following e, which can look like an abbreviation at small size.",
+ "lines": [
+  {
+   "n": 1,
+   "kind": "text",
+   "diplomatic": "nomen tuum in vniu[er]ſa terra",
+   "edition": "nomen tuum in universa terra."
+  },
+  {
+   "n": 2,
+   "kind": "text",
+   "diplomatic": "[Q]uoniam eleuata eſt magni",
+   "edition": "Quoniam elevata est magni-"
+  },
+  {
+   "n": 3,
+   "kind": "text",
+   "diplomatic": "ficentia tua ſuper celos [E]x oꝛe",
+   "edition": "ficentia tua super caelos. Ex ore"
+  },
+  {
+   "n": 4,
+   "kind": "text",
+   "diplomatic": "infantium et lactentium perfe",
+   "edition": "infantium et lactentium perfe-"
+  },
+  {
+   "n": 5,
+   "kind": "text",
+   "diplomatic": "ciſti laudem ꝓpter īimicos tuos",
+   "edition": "cisti laudem propter inimicos tuos,"
+  },
+  {
+   "n": 6,
+   "kind": "text",
+   "diplomatic": "vt deſtruas inimicum et vltoꝛē,",
+   "edition": "ut destruas inimicum et ultorem."
+  },
+  {
+   "n": 7,
+   "kind": "text",
+   "diplomatic": "[Q]uoniam videbo celos tuos",
+   "edition": "Quoniam videbo caelos tuos,"
+  },
+  {
+   "n": 8,
+   "kind": "text",
+   "diplomatic": "et opera digitoꝛum tuoꝛum: lu",
+   "edition": "opera digitorum tuorum, lu-"
+  },
+  {
+   "n": 9,
+   "kind": "text",
+   "diplomatic": "nam et ſtellas que tu fundaſti,",
+   "edition": "nam et stellas quae tu fundasti."
+  },
+  {
+   "n": 10,
+   "kind": "text",
+   "diplomatic": "[Q]uid eſt homo ꝙ memoꝛes e[ius]:",
+   "edition": "Quid est homo, quod memor es eius?"
+  },
+  {
+   "n": 11,
+   "kind": "text",
+   "diplomatic": "aut filius hominis qm̄ viſitas",
+   "edition": "aut filius hominis, quoniam visitas"
+  },
+  {
+   "n": 12,
+   "kind": "text",
+   "diplomatic": "eum [M]inuiſti eum paulo mi[nus]",
+   "edition": "eum? Minuisti eum paulo minus"
+  },
+  {
+   "n": 13,
+   "kind": "text",
+   "diplomatic": "ab angelis: glīa et honoꝛe co",
+   "edition": "ab angelis, gloria et honore co-"
+  },
+  {
+   "n": 14,
+   "kind": "text",
+   "diplomatic": "ronaſti eum et conſtituiſti euꝫ",
+   "edition": "ronasti eum, et constituisti eum"
+  },
+  {
+   "n": 15,
+   "kind": "text",
+   "diplomatic": "ſuper opera manuum tuaruꝫ",
+   "edition": "super opera manuum tuarum."
+  },
+  {
+   "n": 16,
+   "kind": "text",
+   "diplomatic": "[O]mīa ſubieciſti ſub pedibus,",
+   "edition": "Omnia subiecisti sub pedibus"
+  },
+  {
+   "n": 17,
+   "kind": "text",
+   "diplomatic": "eius: oues et boues vniu[er]ſas in",
+   "edition": "eius, oves et boves universas, in-"
+  },
+  {
+   "n": 18,
+   "kind": "text",
+   "diplomatic": "ſuper et pecoꝛa campi [V]olu",
+   "edition": "super et pecora campi, volu-"
+  },
+  {
+   "n": 19,
+   "kind": "text",
+   "diplomatic": "cres celi et piſces maris: qui per",
+   "edition": "cres caeli et pisces maris, qui per-"
+  },
+  {
+   "n": 20,
+   "kind": "text",
+   "diplomatic": "ambulant ſemitas maris [D]o",
+   "edition": "ambulant semitas maris. Do-"
+  },
+  {
+   "n": 21,
+   "kind": "text",
+   "diplomatic": "mine dominus noſter quā admi",
+   "edition": "mine Dominus noster, quam admi-"
+  },
+  {
+   "n": 22,
+   "kind": "text",
+   "diplomatic": "rabile eſt nomen tuum ī vniu[er]ſa",
+   "edition": "rabile est nomen tuum in universa"
+  }
+ ]
+}

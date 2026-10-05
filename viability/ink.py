@@ -44,3 +44,26 @@ def red_mask(rgb, mask, a_thr=15.0):
     text ink sits near a* = 0–8, vermilion rubrication around 20–35."""
     lab = cv2.cvtColor(rgb, cv2.COLOR_RGB2LAB).astype(np.float32)
     return ((lab[..., 1] - 128.0) > a_thr) & (mask > 0)
+
+
+def paint_boxes(rgb, mask, max_side=200, min_area=40):
+    """Painted initials and line-fillers: blue (b* < -8) or rose/red (a* > 13) regions,
+    grown to take in their gold and outline, then filled to their bounding box. Large
+    regions (binding, page edges) are left alone."""
+    lab = cv2.cvtColor(rgb, cv2.COLOR_RGB2LAB).astype(np.float32)
+    a, b = lab[..., 1] - 128.0, lab[..., 2] - 128.0
+
+    def regions(sel):
+        n, lab_, st, _ = cv2.connectedComponentsWithStats(sel.astype(np.uint8), connectivity=8)
+        keep = np.zeros(n, bool)
+        keep[1:] = st[1:, cv2.CC_STAT_AREA] >= min_area
+        return keep[lab_]
+    paint = regions(b < -8.0) | regions(a > 13.0)
+    paint = cv2.dilate(paint.astype(np.uint8), cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (25, 25)))
+    n, lab_, st, _ = cv2.connectedComponentsWithStats(paint, connectivity=8)
+    out = np.zeros(mask.shape, bool)
+    for i in range(1, n):
+        x, y, w, h, area = st[i]
+        if area > 400 and w <= max_side and h <= max_side:
+            out[y:y + h, x:x + w] = True
+    return out

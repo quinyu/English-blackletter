@@ -2,20 +2,21 @@
 
 A browser tool for tracing letters on manuscript scans, stroke by stroke. The traces
 are saved as JSON for the measurement scripts in `viability/`. The menu at the top
-switches between three manuscripts:
+switches between four manuscripts:
 
 | Manuscript | Mode | Output format |
 |---|---|---|
 | BnF Arabe 328 (Hijazi) | Word template for الله: alif, two lāms, hā', baseline | `viability/data/traces_allah.json` |
 | Lucretius, *De rerum natura* I (humanist cursive) | Any letter, any number of strokes, guided by the reading | `ductus-traces/2`, as in `viability/data/traces_lucretius.json` |
 | Chig. L.VIII.305, Guinizzelli (Gothic textualis) | Same as Lucretius | `ductus-traces/2`, as in `viability/data/traces_chigi.json` |
+| Clermont-Ferrand MS 2262, Book of Hours (French textura) | Same as Lucretius | `ductus-traces/2`, as in `viability/data/traces_hours.json` |
 
 ## Run it
 
 ```sh
 # from the repository root
 python3 -m http.server 8000
-# open http://localhost:8000/tools/tracer/            (add #lucretius or #chigi to open a Latin page)
+# open http://localhost:8000/tools/tracer/            (add #lucretius, #chigi or #hours to open a Latin page)
 ```
 
 If you open `index.html` directly as a file instead, the browser blocks pixel access,

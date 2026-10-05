@@ -1,14 +1,17 @@
-# Viability checks: stroke-and-nib models of three scribes
+# Viability checks: stroke-and-nib models of four scribes
 
-Three hands are tested:
+Four hands are tested:
 
 - an early Hijazi Qur'an (BnF Arabe 328, below),
 - a 15th-century Latin humanist cursive
-  ([Lucretius](#second-sample-latin-humanist-cursive-lucretius)), and
+  ([Lucretius](#second-sample-latin-humanist-cursive-lucretius)),
 - a 14th-century Italian Gothic book hand
-  ([Chig. L.VIII.305](#third-sample-italian-gothic-textualis-chig-lviii305)).
+  ([Chig. L.VIII.305](#third-sample-italian-gothic-textualis-chig-lviii305)), and
+- a 15th-century French Book of Hours in textura
+  ([Clermont-Ferrand MS 2262](#fourth-sample-french-textura-clermont-ferrand-ms-2262)),
+  studied letter by letter.
 
-The [comparison](#the-three-hands-compared) at the end puts them side by side.
+The [comparison](#the-four-hands-compared) at the end puts them side by side.
 
 ## Hijazi: one scribe's الله
 
@@ -340,35 +343,187 @@ Both occurrences of *alta* (lines 9 and 10) are traced: four a's, two l's and tw
   statistics, but the same pattern twice is what a contextual-variant rule in the
   editor would have to reproduce.
 
-## The three hands compared
+## Fourth sample: French textura (Clermont-Ferrand MS 2262)
 
-![Pen behaviour of the three hands](out/compare_hands.png)
+**What and where.** A Book of Hours in the Bibliothèque du Patrimoine of Clermont
+Auvergne Métropole, Clermont-Ferrand (library code FR-631136102), **MS 2262**. The
+digitisation is a 137-image PDF on Wikimedia Commons; this environment couldn't reach
+it, so it was supplied as three uploads.
 
-`compare.py` measures the pen on all three pages with the same method (ink across the
+The book has three main parts:
+
+- **A calendar** (ff. 1r–10v, January to December), in red and brown with gold
+  initials.
+- **The Hours of the Virgin.** Matins opens on f. 11r with *Domine labia mea
+  aperies*, the invitatory *Ave Maria gratia plena* and *Venite exultemus*.
+- **A litany**, on lines filled with blue, rose and gold line-fillers.
+
+On f. 1r are a later owner's signature ("… Chamaillard"), a crowned monogram,
+and the stamp of the former Bibliothèque municipale et interuniversitaire (BMIU)
+of Clermont-Ferrand.
+
+**Why Clermont.** The calendar and the litany are those of the diocese of Clermont in
+Auvergne:
+
+- **Bishops of Clermont:** Bonitus (Bonnet) on 15 January, with a translation in June;
+  Illidius (Allyre), with a December translation; Gallus on 1 July; Austremonius,
+  Clermont's first bishop.
+- **Relics kept at Clermont:** Agricola and Vitalis, with their translation in
+  November.
+- **Regional saints:** Gerald of Aurillac (13 October); Robert of La Chaise-Dieu
+  (*Robberti*, 24 April, the day after George).
+- **The litany** names the same group: *Sancte bonite, … geralde, … robberte*.
+
+The script and the decoration are French, 15th century. The calendar's feast of the
+Transfiguration (6 August) suggests the second half of the century, but some French
+diocesan calendars had it earlier, so that is only a hint.
+
+**The page studied.** f. 12r, Psalm 8 at Matins (`data/clermont-ms2262-f012r.jpg`,
+300 dpi). Its diplomatic reading, with the Vulgate alongside, is in
+`data/hours_reading.json`. Writing it out letter by letter caught one trap: at small
+size, textura *p* biting into *e* looks like the abbreviation ꝑ, but the scribe writes
+*super*, *perfe-* and *per-* in full.
+
+### What the page shows
+
+![Line guides, metrics and pen](out/hours_lines.png)
+
+`latin_lines.py` handles this page with two additions:
+
+- **Painted initials and line-fillers are masked by colour.** Blue and rose regions are
+  grown to their gold frame and blanked.
+- **The page is ruled, so all lines share one slope.** Each line keeps only its own
+  height. Without this, a painted initial or a dense run of ascenders tilted the
+  guides.
+
+The results:
+
+- **A compact hand.** x-height 29.8 ± 1.7 px (2.5 mm). The lines are only 1.94
+  x-heights apart. Ascenders rise 1.64 x-heights above the baseline, and descenders
+  drop 0.61.
+- **Nearly upright and steady.** Slant is 4.8° ± 1.1°. As with the other two Latin
+  scribes, line-to-line differences don't hold up between halves of a line.
+- **A broad pen, cleanly fitted.** Contrast is 2.64 and the thinnest direction is 34°:
+  a steeper pen than the Italian rotunda's 24°, as expected for a northern textura.
+  This is the best single-nib fit of the four hands (relative residual 0.056).
+
+### The letterforms
+
+![Letterform atlas](out/hours_atlas.png)
+
+`letterforms.py` cuts letters out of f. 12r at one scale, each in the vertical window
+of its own line's guides. The letter positions were read from gridded close-ups and
+checked against overlays. They show the rules this hand follows, and the editor will
+have to follow them too:
+
+1. **Everything is built from upright strokes.** i, n, m and u are one, two, three and
+   two minims, each with a lozenge head and foot. Without dots or context they are
+   ambiguous; this is the minim problem every textura reader knows.
+2. **Round letters are broken.** o is two upright strokes joined at angles, and c and
+   e share the same broken curve; e adds an eye.
+3. **Facing bowls fuse ("biting").** *de*, *bo* and *pe* share a stroke where the
+   letters meet. The renderer needs these as joined pairs, not as two glyphs with
+   kerning.
+4. **Two r's.** After *o* the scribe always writes r rotunda (ꝛ): 7 of 7 in this
+   transcription (*oꝛe, vltoꝛē, digitoꝛum, tuoꝛum, memoꝛes, honoꝛe, pecoꝛa*). After
+   every other letter he writes the straight r (15 of 15).
+5. **Two s's.** Long ſ appears at the start and in the middle of words, round s at the
+   end (checked closely in *celos* twice, *tuos*, *ſtellas* and *memoꝛes*).
+6. **v at the start of a word, u inside it** (*vniuersa, vt, vltore, videbo, visitas*).
+7. **Word-final forms.** Final n has a descending tail (*nomen*), and final -m can be
+   the z-shaped ꝫ (*euꝫ, tuaruꝫ*). The textura a is two-storey; a line-final a gets a
+   flourish (*terra*).
+8. **Abbreviations:**
+   - a macron for a missing m or n (*glīa, quā, īimicos, Omīa, vltoꝛē*);
+   - ꝙ for *quod*, ꝓ for *pro*, qm̄ for *quoniam*;
+   - a superscript stroke for *-er-* (*vniu[er]sa*).
+
+### Minim rhythm: what makes it textura
+
+![Stem pitch in the three Latin hands](out/minim_rhythm.png)
+
+For every text line, the x-band is sheared upright by the line's slant. Columns that
+are ink from top to bottom of the band count as stems, and the distance between stems
+inside a word is the pitch.
+
+Blur widens strokes and narrows gaps by the same few pixels, so all three scans are
+compared at the same 14 px x-height. Pitch, measured centre to centre, doesn't depend
+on blur.
+
+| | French textura | Italian rotunda | Humanist cursive |
+|---|---|---|---|
+| Stem pitch (x-heights) | **0.54** | 0.76 | 0.77 |
+| Spread of pitch in a line (IQR ÷ median) | **0.20** | 0.28 | 0.41 |
+
+- **The textura packs its strokes about 40% closer** than the other two hands, and
+  spaces them most evenly. That even "picket fence" is the visual signature of
+  textura, and it is now a number the renderer can be held to.
+- **White and black are about equal.** In the textura, the white between stems equals
+  the stem width at 14 px (ratio 0.99); at the scan's full 300 dpi the white is
+  slightly wider (1.28).
+- **The width ratio isn't compared across hands.** It is too sensitive to resolution,
+  and in the rounder hands small closed bowls also count as "stems".
+
+### Traced letters
+
+![nomen traced and re-drawn](out/hours_letters.png)
+
+The first word, *nomen* (line 1), is traced in full. Each minim is clicked at its
+lozenge head, stem and foot, with ink-following between the clicks.
+
+- **The pen model fits.** Re-drawn with the page's pen, the letters land within
+  0.9–1.5 px of the ink.
+- **Up and down differ strongly.** Along the traced strokes, downstrokes are 4.0 px
+  wide and upstrokes 1.8 px.
+- **One clear miss: the tail of the final n.** It is a hairline thinner than the nib's
+  own narrow edge. Scribes draw such tails and joins with the corner of the pen, so
+  the editor's pen needs a "corner" mode for hairlines, alongside the broad edge.
+
+### Limits
+
+- **One page analysed in depth.** The book's other text pages (about a hundred) are in
+  the PDF and can be run the same way. Page-to-page consistency hasn't been measured yet.
+- **Letter boxes are approximate.** Positions in the atlas were read by eye (±2 px).
+  The transcription hasn't been checked against a printed edition or catalogue.
+- **The library's own description of MS 2262 wasn't found** online from here. The
+  dating above rests on the calendar and the style alone.
+
+## The four hands compared
+
+![Pen behaviour of the four hands](out/compare_hands.png)
+
+`compare.py` measures the pen on all four pages with the same method (ink across the
 stroke, divided by the page's median).
 
-| | Hijazi reed (Arabe 328) | Humanist cursive (Lucretius) | Gothic textualis (Chigi) |
-|---|---|---|---|
-| Thick/thin contrast | 1.18 | 1.31 (poor single-nib fit) | **2.89** |
-| Thinnest stroke direction | 44° | 16° (unclear) | 24° |
-| Slant of uprights | 25–34°, alif ≈ 9° more than lām | 14.8° | upright (−0.3°) |
-| Where variation lives | shared by each word (size r = 0.97) | within lines, not between | within lines, not between |
-| Line spacing | — | 3.4 x-heights | 4.0 x-heights |
-| Ascender above baseline | alif ≈ 7.8 stroke widths | 2.0 x-heights | 2.5 x-heights |
+| | Hijazi reed (Arabe 328) | Humanist cursive (Lucretius) | Italian rotunda (Chigi) | French textura (MS 2262) |
+|---|---|---|---|---|
+| Thick/thin contrast | 1.18 | 1.31 (poor single-nib fit) | **2.89** | **2.64** |
+| Thinnest stroke direction | 44° | 16° (unclear) | 24° | 34° |
+| Slant of uprights | 25–34°, alif ≈ 9° more than lām | 14.8° | upright (−0.3°) | 4.8° |
+| Where variation lives | shared by each word (size r = 0.97) | within lines, not between | within lines, not between | within lines, not between |
+| Line spacing | — | 3.4 x-heights | 4.0 x-heights | 1.9 x-heights |
+| Ascender above baseline | alif ≈ 7.8 stroke widths | 2.0 x-heights | 2.5 x-heights | 1.6 x-heights |
+| Stem pitch (at 14 px x-height) | — | 0.77 x-heights | 0.76 x-heights | **0.54 x-heights** |
 
 What this means for the editor:
 
-- **One renderer can serve all three hands.** A swept nib with three settings (size,
-  contrast, angle) produces the near-monoline reed, the light humanist pen and the
-  broad Gothic nib.
+- **One renderer can serve all four hands.** A swept nib with three settings (size,
+  contrast, angle) produces the near-monoline reed, the light humanist pen and both
+  broad Gothic nibs. Hairline tails and joins also need a pen-corner mode.
 - **Some hands need more than angle.** The cursive needs an extra up-/downstroke
   (pressure) setting, which the traced stroke direction supplies.
 - **Each hand varies at a different level.** The Hijazi scribe varies whole words; the
-  two Latin scribes hold the page steady and vary within lines. The variation model
+  three Latin scribes hold the page steady and vary within lines. The variation model
   needs a level setting per style.
-- **Every style needs a text step before drawing.** Contextual letter forms (the
-  Chigi *ta*), abbreviations (the Lucretius ꝑ, q;) and early spelling (Hijazi short
-  spellings, Tuscan ç/ngn) all sit between the reading and the strokes.
+- **A style is also a set of spacing targets.** Stem pitch and its evenness tell the
+  textura apart from the rotunda and the cursive more clearly than any single letter
+  shape. Layout should be driven by these numbers, not by fixed glyph widths.
+- **Every style needs a text step before drawing.** These all sit between the reading
+  and the strokes:
+  - contextual letter forms (the Chigi *ta*; the textura's ꝛ after o, ſ inside words
+    and s at the end, v at the start of a word, fused *de/bo/pe*);
+  - abbreviations (the Lucretius ꝑ and q;, the textura's macrons and ꝙ, ꝓ, ꝫ);
+  - early spelling (Hijazi short spellings, Tuscan ç/ngn).
 
 ## Sources
 
@@ -378,5 +533,9 @@ What this means for the editor:
 - The Chigi page is a detail of Città del Vaticano, Biblioteca Apostolica Vaticana,
   Chig. L.VIII.305, f. 1r (DigiVatLib, with the Library's watermark). Check the BAV's
   terms before any reuse beyond study.
+- The Book of Hours is Clermont-Ferrand, Bibliothèque du Patrimoine (Clermont Auvergne
+  Métropole), MS 2262, from the digitisation published on Wikimedia Commons
+  (`FR-631136102_MS_2262_Book_of_Hours.pdf`). Check the file page's licence before
+  reuse.
 - The Lucretius page image was supplied with this project. Its holding library and
   reuse terms still need to be recorded here.

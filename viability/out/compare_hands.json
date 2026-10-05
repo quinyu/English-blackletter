@@ -11,10 +11,16 @@
   "fit_rms_relative": 0.13958046940677188,
   "n_samples": 13651
  },
- "Gothic textualis — Chig. L.VIII.305": {
+ "Italian rotunda — Chig. L.VIII.305": {
   "contrast": 2.8921733278836506,
   "thin_direction_deg": 24.0,
   "fit_rms_relative": 0.08907170874984299,
   "n_samples": 7491
+ },
+ "French textura — Clermont MS 2262": {
+  "contrast": 2.6415608330093763,
+  "thin_direction_deg": 34.0,
+  "fit_rms_relative": 0.055895286881349496,
+  "n_samples": 16574
  }
 }

@@ -38,6 +38,11 @@ PAGES = {
         exclude=[(0, 0, 263, 362), (0, 0, 560, 44)],    # painted initial T and the border above it
         pen_block=dict(x0=0, x1=836, y0=96, y1=711),    # brown text only (no red rubric)
         min_gap=36, half=30, crop_x=(262, 836), out="chigi_lines.json", fig="chigi_lines.png"),
+    "hours": dict(
+        image="clermont-ms2262-f012r.jpg", reading="hours_reading.json", mask_paint=True, common_slope=True,
+        block=dict(x0=225, x1=935, y0=190, y1=1500),
+        exclude=[], pen_block=dict(x0=225, x1=935, y0=190, y1=1500),
+        min_gap=40, half=34, crop_x=(240, 925), out="hours_lines.json", fig="hours_lines.png"),
 }
 
 
@@ -49,7 +54,7 @@ def line_bands(mask, block, min_gap=28):
     return [int(p + block["y0"]) for p in peaks], prof
 
 
-def fit_guides(mask, y_peak, x0, x1, half=26, chunk=90):
+def fit_guides(mask, y_peak, x0, x1, half=26, chunk=90, fixed_slope=None):
     """Baseline and x-height line for one text line.
 
     The ink profile of a line of minuscule has a dense plateau between the x-height
@@ -79,6 +84,8 @@ def fit_guides(mask, y_peak, x0, x1, half=26, chunk=90):
 
     def robust_line(xs, ys):
         xs, ys = np.array(xs), np.array(ys)
+        if fixed_slope is not None:  # ruled page: only the height of the line is free
+            return float(fixed_slope), float(np.median(ys - fixed_slope * xs))
         keep = np.ones(len(xs), bool)
         for _ in range(3):
             a, b = np.polyfit(xs[keep], ys[keep], 1)
@@ -174,6 +181,8 @@ def analyse(page):
     mask, _ = ink.ink_mask(rgb)
     for x0, y0, x1, y1 in P["exclude"]:
         mask[y0:y1, x0:x1] = 0
+    if P.get("mask_paint"):
+        mask[ink.paint_boxes(rgb, mask)] = 0
     peaks, _ = line_bands(mask, BLOCK, P["min_gap"])
     full = mask
     if P.get("separate_red"):
@@ -182,7 +191,23 @@ def analyse(page):
         # marks and flourishes in red don't pull the text guides.
         red = ink.red_mask(rgb, mask)
         brown = (mask > 0) & ~red
-    lines, guides, masks = [], [], []
+    lines, guides, masks, first_pass = [], [], [], []
+
+    def add_line(g, x0, x1, mask):
+        xm = (x0 + x1) / 2
+        xh = (g["baseline"][0] * xm + g["baseline"][1]) - (g["xline"][0] * xm + g["xline"][1])
+        slant, n_sl = line_slant(mask, g, x0, x1, xh)
+        guides.append(g)
+        masks.append(mask)
+        lines.append({
+            "x0": x0, "x1": x1,
+            "baseline": [[x0, g["baseline"][0] * x0 + g["baseline"][1]], [x1, g["baseline"][0] * x1 + g["baseline"][1]]],
+            "xline": [[x0, g["xline"][0] * x0 + g["xline"][1]], [x1, g["xline"][0] * x1 + g["xline"][1]]],
+            "x_height": float(xh),
+            "slope_deg": float(np.degrees(np.arctan(g["baseline"][0]))),
+            "slant_deg": slant, "slant_samples": n_sl,
+        })
+
     for y in peaks:
         mask = full
         if P.get("separate_red"):
@@ -198,19 +223,18 @@ def analyse(page):
         g = fit_guides(mask, y, x0, x1, half=P["half"])
         if g is None:
             continue
-        xm = (x0 + x1) / 2
-        xh = (g["baseline"][0] * xm + g["baseline"][1]) - (g["xline"][0] * xm + g["xline"][1])
-        slant, n_sl = line_slant(mask, g, x0, x1, xh)
-        guides.append(g)
-        masks.append(mask)
-        lines.append({
-            "x0": x0, "x1": x1,
-            "baseline": [[x0, g["baseline"][0] * x0 + g["baseline"][1]], [x1, g["baseline"][0] * x1 + g["baseline"][1]]],
-            "xline": [[x0, g["xline"][0] * x0 + g["xline"][1]], [x1, g["xline"][0] * x1 + g["xline"][1]]],
-            "x_height": float(xh),
-            "slope_deg": float(np.degrees(np.arctan(g["baseline"][0]))),
-            "slant_deg": slant, "slant_samples": n_sl,
-        })
+        if P.get("common_slope"):
+            first_pass.append((y, x0, x1, mask, g["baseline"][0]))
+            continue
+        add_line(g, x0, x1, mask)
+    if P.get("common_slope") and first_pass:
+        # The page is ruled: every line shares one slope (the median of the free fits);
+        # each line keeps only its own height. Painted initials and dense ascenders
+        # cannot tilt a guide this way.
+        slope = float(np.median([fp[4] for fp in first_pass]))
+        for y, x0, x1, mask, _ in first_pass:
+            g = fit_guides(mask, y, x0, x1, half=P["half"], fixed_slope=slope)
+            add_line(g, x0, x1, mask)
     for i, (l, g) in enumerate(zip(lines, guides)):
         prev_base = (lambda x, gg=guides[i - 1]: gg["baseline"][0] * x + gg["baseline"][1]) if i > 0 else None
         next_x = (lambda x, gg=guides[i + 1]: gg["xline"][0] * x + gg["xline"][1]) if i + 1 < len(guides) else None

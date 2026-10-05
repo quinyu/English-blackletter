@@ -36,6 +36,7 @@ CORRIDOR = 3
 PAGES = {
     "lucretius": dict(traces="traces_lucretius.json", lines="lucretius_lines.json", out="latin_letters"),
     "chigi": dict(traces="traces_chigi.json", lines="chigi_lines.json", out="chigi_letters"),
+    "hours": dict(traces="traces_hours.json", lines="hours_lines.json", out="hours_letters"),
 }
 
 
