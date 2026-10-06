@@ -114,8 +114,12 @@ def load_letters():
 
 
 class Scribe:
-    def __init__(self, letters, minim, spacing, offsets, slant):
+    def __init__(self, letters, minim, spacing, offsets, slant, nib=None, terminal=None):
+        """nib: (a, b, theta, p) of the hand's pen, terminal: its twist-and-pull keyframes;
+        both default to MS 2262's as fitted (minims.load, twist.py). A hand bundle
+        (bundle.py) carries its own."""
         self.L, self.Mi, self.sp, self.off = letters, minim, spacing, offsets
+        self.nib, self.terminal = nib, terminal
         self.t = np.tan(np.radians(slant))
         self.p = np.array([minim["module"][k] for k in M.PARAMS])
         self.tail = minim["tail"]
@@ -158,7 +162,7 @@ class Scribe:
                 tail = self.tail if (final and ch in "nm") else None
                 st = M.module_strokes(stems, yb, xh, np.degrees(np.arctan(self.t)), self.p, joins, tail)
                 if tail is not None:
-                    st[-1] = (st[-1][0], st[-1][1], M.tail_spec(xh))
+                    st[-1] = (st[-1][0], st[-1][1], self.tail_spec(xh))
                 # join from the previous minim letter, at the scribe's rates
                 if prev_last_stem is not None:
                     a = prev_last_stem
@@ -176,13 +180,33 @@ class Scribe:
                 X = x - Lc["shift_px"][0] * xh / TX.XH
                 for s_ in Lc["strokes"]:
                     pts = [[X + u * su * xh + v * sv * xh * self.t, yb - v * sv * xh] for u, v in s_["points"]]
-                    spec = M.tail_spec(xh) if s_["pen"] == "terminal" else None
+                    spec = self.tail_spec(xh) if s_["pen"] == "terminal" else None
                     out.append((s_["name"], pts, spec))
                 prev_last_stem = None
         return out
 
+    def tail_spec(self, xh, ref_xh=29.4):
+        if self.terminal is None:
+            return M.tail_spec(xh)
+        return dict(self.terminal, from_end_px=[v * xh / ref_xh for v in self.terminal["from_end_px"]])
+
+    def pen(self):
+        if self.nib is None:
+            return M.nib_for([1.0])
+        a, b, theta, p = self.nib
+        return pen.Nib(a, b, theta, p=p)
+
+    @classmethod
+    def from_bundle(cls, path):
+        """The writer for a hand saved by bundle.py."""
+        B = json.loads(Path(path).read_text(encoding="utf-8"))
+        letters = dict(B["letters"], **B.get("signs", {}))
+        n = B["pen"]
+        return cls(letters, B["minim"], B["spacing"], B["minim_offsets"], B["slant_deg"],
+                   nib=(n["a"], n["b"], n["theta"], n["p"]), terminal=B["terminal"])
+
     def render(self, strokes):
-        return pen.render([s for _, s, _ in strokes], M.nib_for([1.0]), step=0.5,
+        return pen.render([s for _, s, _ in strokes], self.pen(), step=0.5,
                           names=[n for n, _, _ in strokes], pens=[k for _, _, k in strokes])
 
 

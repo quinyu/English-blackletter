@@ -7,7 +7,8 @@ What the page shows (gridded close-ups), with the MUFI 4.0 encoding of each sign
   macron     ◌̄  0304 COMBINING MACRON. A short thick bar, nearly flat, about 1.45 x-heights
                   up, over a vowel for a missing m or n (ī, ā, ē) and over m in qm̄.
   er sign    ◌͛  035B COMBINING ZIGZAG ABOVE, in this hand its curly form (F1C8): a small
-                  lozenge with a hairline curl, above the u of vniu[er]ſa.
+                  curl like a question mark without its dot (in at the top, a swelling to
+                  the right, a thin tail down), above the u of vniu[er]ſa.
   et / -m    ꝫ   A76B LATIN SMALL LETTER ET. z-shaped: a top bar, a diagonal down to the
                   left, a small bowl, and a long hairline tail below the line. Only at line
                   ends here (euꝫ, tuaruꝫ).
@@ -40,7 +41,9 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import numpy as np
 
-import textura as TX
+import align as A
+A.TOP = 2.05          # marks reach higher than letters: the er curl on line 1 rises to 1.95 x-heights
+import textura as TX  # (imported after: its canvas is sized from align.TOP)
 
 HERE = Path(__file__).resolve().parent
 OUT = HERE / "out"
@@ -69,9 +72,13 @@ SIGNS = {
         ("hairline tail", [(0.17, 0.52), (0.12, 0.15), (0.02, -0.35), (-0.03, -0.72)], None)]),
     MACRON: dict(zone=(1.18, 1.75), strokes=[
         ("bar", [(0.0, 1.43), (0.2, 1.48), (0.42, 1.46)], None)]),
-    ER: dict(zone=(1.2, 1.75), move=0.08, ties=[((0, 1), (1, 0))], strokes=[   # keeps its curl, too faint for the ink mask
-        ("point", [(0.25, 1.65), (0.31, 1.57)], None),
-        ("hairline curl", [(0.31, 1.57), (0.28, 1.45), (0.2, 1.38)], None)]),
+    # the er sign is a curl, like a small question mark without its dot: from the top it
+    # bends down to the left, swells out to the right, and runs back down-left in a thin
+    # tail (line 1 shows it whole, 1.3–1.95 x-heights; on lines 17 and 22 it is smaller,
+    # heavier and lower, 1.05–1.6).
+    ER: dict(zone=(1.02, 2.0), move=0.1, ties=[((0, 4), (1, 0))], strokes=[
+        ("curl", [(0.42, 1.92), (0.35, 1.8), (0.45, 1.68), (0.5, 1.6), (0.44, 1.5)], None),
+        ("hairline tail", [(0.44, 1.5), (0.36, 1.3)], None)]),
 }
 MUFI = {"ꝫ": ("A76B", "LATIN SMALL LETTER ET"), "ꝓ": ("A753", "LATIN SMALL LETTER P WITH FLOURISH"),
         "ꝙ": ("0071+02BC", "q + MODIFIER LETTER APOSTROPHE (read as ꝙ, A759)"), ":": ("003A", "COLON"),

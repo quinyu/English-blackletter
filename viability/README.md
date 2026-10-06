@@ -889,7 +889,7 @@ adjust plans drawn from close-ups; the book's other pages hold hundreds more.
 | Sign | On the page | MUFI 4.0 | Examples | Overlap |
 |---|---|---|---|---|
 | macron | a short thick bar about 1.45 x-heights up, over ī, ā, ē and the m of qm̄ | 0304 COMBINING MACRON | 6 (+1 set aside) | 0.68 |
-| er sign | a small lozenge with a hairline curl, above the u of *vniu[er]ſa* | 035B COMBINING ZIGZAG ABOVE, curly form (F1C8) | 2 (+1) | 0.57 |
+| er sign | a small curl, like a question mark without its dot: in at the top, a swelling to the right, a thin tail down; above the u of *vniu[er]ſa* | 035B COMBINING ZIGZAG ABOVE, curly form (F1C8) | 3 | 0.53 |
 | ꝫ | z-shaped: top bar, diagonal, small bowl, long hairline tail below the line | A76B LATIN SMALL LETTER ET | 2 | 0.72 |
 | ꝓ | the p, its base running on under the stem into a hairline flourish | A753 P WITH FLOURISH | 1 | 0.77 |
 | quod | q followed by a raised hook at its shoulder | q + 02BC MODIFIER LETTER APOSTROPHE | 1 | 0.66 |
@@ -899,16 +899,19 @@ adjust plans drawn from close-ups; the book's other pages hold hundreds more.
 - **Quod is not ꝙ on this page.** My reading wrote ꝙ (A759, q with a diagonal stroke),
   but the scribe writes q and a raised hook. The reading keeps ꝙ as the word sign, and
   the model draws what is on the page.
-- **One hook, two uses.** The quod hook and the er sign are the same lozenge-and-curl,
-  at the shoulder and above the line respectively.
+- **The er sign is a curl, not a dot.** The first plan drew a lozenge with a short
+  hairline, and at writing size it read as a dot. Redrawn as the curl it is (line 1
+  shows it whole, 1.3–1.95 x-heights up; on lines 17 and 22 it is smaller, heavier and
+  lower), it reads as the er sign in *vniu͛ſa*. The quod hook at the q's shoulder is the
+  same movement, smaller.
 - **The punctuation follows the chant.** The colon marks the mid-verse pause, where
   the psalm tone has its mediant, in 5 of the page's 7 full verses. The other two have
   no mark there: after *tuos* (line 5, at a line end) and after *noſter* (line 21). The
   comma-like mark ends a verse (*vltoꝛē, fundaſti*) or makes a flex before the pause
   (*pedibus*). MUFI's medieval punctuation offers closer encodings
   than colon and comma; which fits best is left until more of the book is read.
-- **Shapes the ink mask can't confirm.** The er sign's curl and the colon's lower point
-  are faint, so the fit is held close to the plan (0.08 and 0.06 x-height): left free,
+- **Shapes the ink mask can't confirm.** The er sign's tail and the colon's lower point
+  are faint, so the fit is held close to the plan (0.1 and 0.06 x-height): left free,
   the curl vanished and the two points merged.
 
 ![Words in full and abbreviated](out/hours_abbreviated.png)
@@ -939,6 +942,105 @@ line. f. 12r shows it directly:
   preferring the habitual forms always and the optional ones near the line end. The
   page gives the starting rates.
 
+### One scribe or several?
+
+A book of hours was often shared out among several scribes trained in the same
+tradition, to save time. Their stints then differ in small, steady ways, often changing
+at a quire. The editor should be able to write each of them, so the book was searched
+for such changes, first page-wide and then letter by letter.
+
+![The hand page by page](out/hours_hands.png)
+
+**Page by page.** `hands.py` measures all 108 text pages of the PDF (ff. 11r–64v) in the
+same way: x-height and ruling, slant, minim rhythm, stem weight, the fitted pen, reach
+of ascenders and descenders, and the ink. Red ink and painted initials are removed
+first. 106 pages measure; 2 have too few lines. On the 99 text pages, half the pages
+lie within these bands:
+
+| Measure | Median | Middle half spans | Range |
+|---|---|---|---|
+| x-height | 29.5 px | 0.95 px | 25.4–31.0 |
+| x-height / line pitch | 0.50 | 0.015 | 0.44–0.53 |
+| slant | 5.0° | 1.1° | 2.7–6.7 |
+| stem pitch | 0.534 x-heights | 0.016 | 0.504–0.571 |
+| stem width | 0.255 x-heights | 0.014 | 0.234–0.276 |
+| pen angle | 31° | 3.5° | 24–37 |
+| ascender | 1.59 x-heights | 0.05 | 1.53–1.71 |
+| descender | 0.61 x-heights | 0.05 | 0.54–0.81 |
+
+- **One run stands out, and it is layout.** ff. 42r–45r are the litany: "Sancte
+  Bartholomee — oꝛ̃", short invocations each closed by a painted line-filler, with a
+  column of one-line initials. There the fitted pen falls to 9–25° and its contrast
+  jumps to 9–13. The fillers' outlines and the stacked initials cause that, not another
+  pen. These pages (five or more line-fillers each in the capitals survey) are marked
+  and left out.
+- **No boundary between text pages moves a measure of the hand by more than 2.3
+  times its page-to-page noise.** That is the median of 8 pages either side of each
+  boundary, compared. Slant drifts up by about a degree over ff. 38–58 and back.
+  Stem width wanders by 0.02 x-heights. Ink lightness moves in runs of pages: ink
+  batches, not scribes.
+- **The pen contrast rises in the last quires** (ff. 54–64), with four pages at 14–16.
+  Close-ups of those pages (the Hours of the Cross, the prayers, the Gospel sequences)
+  show the same letterforms and the same ink capitals with their inner hairline. In
+  close-up the strokes look more transparent (their median colour hardly changes). The
+  likely cause is that faint hairlines drop out of the ink mask, which raises the fitted
+  thick-to-thin ratio.
+
+![The same letters through the book](out/hours_forms.png)
+
+**Letter by letter.** Scribes of one tradition are usually told apart by small habits
+in particular letters, so `forms.py` follows five of them through the book:
+- how g closes its tail;
+- the lean of round d's back;
+- the head of a;
+- the B-shaped final s;
+- ꝛ after o.
+
+Each example of the letter on f. 12r (up to the eight most typical) is matched by
+correlation over every page. The match is scored separately in the ascender, x-height
+and descender bands, and the weakest band decides. That way a g must have a g's tail
+and an a nothing above or below it, and the minim rhythm all textura letters share
+cannot decide the match. Whole words were tried first: most words of f. 12r are absent
+from most pages, and their best matches were only look-alikes.
+
+The best matches are averaged per eighth of the book (about 13 pages each). Three pages
+with fewer than ten lines are left out (ff. 34v, 55r, 64v).
+
+| Letter | Mean letter of each eighth vs f. 12r's (r) | Match score per eighth |
+|---|---|---|
+| a | 0.976–0.981 | 0.89–0.90 |
+| final s | 0.965–0.978 | 0.89–0.91 |
+| ꝛ | 0.956–0.975 | 0.85–0.89 |
+| round d | 0.911–0.966 | 0.74–0.79 |
+| g | 0.878–0.909 | 0.67–0.72 |
+
+- **No stretch of the book stands apart.** Against the mean of the other seven eighths,
+  each eighth's mean letter scores r = 0.98–0.997 (round d in the last eighth 0.96).
+  Match scores per eighth differ by at most 0.05.
+- **Round d drifts a little.** Its mean letter moves from r = 0.97 to 0.91 by the last
+  eighth (ff. 58r–64r): a slow change in one letter, not a break.
+- **Conclusion: one scribe wrote ff. 11–64 of this copy,** as far as size, pen, rhythm
+  and these five letters show. The calendar (ff. 1–10) and any missing quires were not
+  compared. The variation that remains (page to page, and the slow drifts in slant and
+  in d) is one scribe's, which the model keeps as its variation.
+
+### One file per hand
+
+So that the editor can write any number of scribes, `bundle.py` saves all that the writer
+needs for one hand in one file (`out/hands/ms2262_A.json`, 30 kB):
+- the pen at the page's x-height: nib size, angle and corner sharpness;
+- the slant and the twist-and-pull terminal;
+- the minim module, with its joins, pitch and tail, and the minim letters' offsets;
+- the spacing model;
+- every fitted letter and sign, each with its examples' spread in width and height;
+- where it came from: folios, and the number of examples per letter.
+
+`Scribe.from_bundle(path)` writes from that file alone. For f. 12r it draws exactly what
+the writer built from the separate fits draws: no pixel differs in *ſignificatis*,
+*dn̄s* or *vniu͛ſa*. A second scribe means running the same fits on that scribe's pages
+and saving a second file; the writer does not change. MS 2262 shows one hand on
+ff. 11–64, so it has one file.
+
 **Run order** for this page (each step reads the previous ones' outputs):
 
 ```sh
@@ -954,16 +1056,28 @@ python3 hand.py                   # the alphabet, heights, heads, biting, positi
 python3 abbrev.py                 # abbreviation signs, marks, punctuation; words full and abbreviated
 python3 capitals.py PDF_PAGE_DIR  # painted initials and ink capitals, whole book
 python3 measure_letters.py hours  # the traced 'nomen'
+python3 hands.py PDF_PAGE_DIR     # the hand page by page, whole book (about 15 minutes)
+python3 forms.py PDF_PAGE_DIR     # the same letters through the book (about 10 minutes, 4 cores)
+python3 bundle.py ms2262_A 12r    # save the fitted hand as one file
 ```
 
 ### Limits
 
-- **One page analysed in depth.** The book's other text pages (about a hundred) are in
-  the PDF and can be run the same way. Page-to-page consistency hasn't been measured yet.
+- **One page analysed in depth.** The book's other text pages (about a hundred) are
+  measured page-wide and letter by letter (*One scribe or several?*), but the letters
+  are fitted on f. 12r alone.
 - **Not every form is modelled yet.**
   - Every lowercase letter on f. 12r is fitted except x (one example).
   - The abbreviation signs rest on 1–7 examples each; the rest of the book would
     give many more.
+  - Signs the book uses that f. 12r lacks come next, each to be fitted from other pages:
+    | Sign | MUFI code | Example |
+    |---|---|---|
+    | ꝯ (con) | A76F | *ꝯu͛s̃* |
+    | ꝝ (rum) | A75D | *qꝝ*, *ſeculoꝝ* |
+    | đ, d with stroke | | *p͛đoꝝ* |
+    | the que sign | | *qq;* or *qqꝫ*, *Quecumq;* |
+    | s with tilde | | |
   - The ink capitals are described, not yet fitted, and the painted initials are not
     modelled.
 - **Corners are at the limit of the scan.** At 29 px to the x-height, the difference
