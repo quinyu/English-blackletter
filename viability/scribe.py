@@ -121,6 +121,12 @@ def load_biting():
     return json.loads(p.read_text(encoding="utf-8"))["summary"].get("writer") if p.exists() else None
 
 
+def load_anchors():
+    """The letters' anchors, the marks and their placement (anchors.py), or None."""
+    p = OUT / "hours_anchors.json"
+    return json.loads(p.read_text(encoding="utf-8")) if p.exists() else None
+
+
 def with_book_spacing(sp):
     """The spacing model with the approach and advance of the signs fitted from the whole
     book (book_signs.py), which f. 12r's pairs do not cover."""
@@ -132,13 +138,16 @@ def with_book_spacing(sp):
 
 
 class Scribe:
-    def __init__(self, letters, minim, spacing, offsets, slant, nib=None, terminal=None, biting=None):
+    def __init__(self, letters, minim, spacing, offsets, slant, nib=None, terminal=None, biting=None, anchors=None):
         """nib: (a, b, theta, p) of the hand's pen, terminal: its twist-and-pull keyframes;
         both default to MS 2262's as fitted (minims.load, twist.py). biting: the rates
         and stroke offsets with which neighbouring letters share a stroke (biting.py;
-        None: letters are only spaced). A hand bundle (bundle.py) carries its own."""
+        None: letters are only spaced). anchors: the letters' anchors, the marks and the
+        scribe's placement of them (anchors.py; None: only the fitted marks, each drawn
+        where it was fitted over its letter's box). A hand bundle (bundle.py) carries its own."""
         self.L, self.Mi, self.sp, self.off = letters, minim, spacing, offsets
-        self.nib, self.terminal, self.bite = nib, terminal, biting
+        self.nib, self.terminal, self.bite, self.anchors = nib, terminal, biting, anchors
+        self._names = None
         self.t = np.tan(np.radians(slant))
         self.p = np.array([minim["module"][k] for k in M.PARAMS])
         self.tail = minim["tail"]
@@ -152,13 +161,7 @@ class Scribe:
         out = []
         x = x0
         prev_last_stem = None
-        # letters with the marks they carry (combining characters: macron, er sign)
-        clusters = []
-        for ch in unicodedata.normalize("NFD", word):
-            if unicodedata.combining(ch) and clusters:
-                clusters[-1][1].append(ch)
-            else:
-                clusters.append((ch, []))
+        clusters = self.clusters(word)
         bases = [c for c, _ in clusters]
         prev_x = x
         for i, (ch, marks) in enumerate(clusters):
@@ -169,11 +172,14 @@ class Scribe:
                 x = prev_x + xh * d
             prev_x = x
             final = i == len(clusters) - 1
-            for mk in marks:          # drawn over this letter's box, from the fitted mark plan
-                Lm = self.L[mk]
-                Xm = x - Lm["shift_px"][0] * xh / TX.XH
-                for s_ in Lm["strokes"]:
-                    out.append((s_["name"], [[Xm + u * xh + v * xh * self.t, yb - v * xh] for u, v in s_["points"]], None))
+            if not self.anchors:
+                for mk, _ in marks:   # drawn over this letter's box, from the fitted mark plan
+                    Lm = self.L[mk]
+                    Xm = x - Lm["shift_px"][0] * xh / TX.XH
+                    for s_ in Lm["strokes"]:
+                        out.append((s_["name"], [[Xm + u * xh + v * xh * self.t, yb - v * xh] for u, v in s_["points"]], None))
+            elif marks and ch in MINIM_LETTERS:
+                out += self.mark_strokes(ch, marks, x, 0.0, 1.0, 1.0, yb, xh, jit)
             if ch in MINIM_LETTERS:
                 s0 = x + self.off.get(ch, 0.2) * xh
                 stems = [s0 + j * xh * jit(P["inside"], P["inside_sd"]) if j else s0 for j in range(MINIM_LETTERS[ch])]
@@ -206,7 +212,76 @@ class Scribe:
                     pts = [[X + u * su * xh + v * sv * xh * self.t, yb - v * sv * xh] for u, v in s_["points"]]
                     spec = self.tail_spec(xh) if s_["pen"] == "terminal" else None
                     out.append((s_["name"], pts, spec))
+                if marks and self.anchors:
+                    out += self.mark_strokes(ch, marks, x, Lc["shift_px"][0] / TX.XH, su, sv, yb, xh, jit)
                 prev_last_stem = None
+        return out
+
+    def clusters(self, word):
+        """The word's letters, each with the marks it carries: [(letter, [(mark, anchor
+        or None)])]. The word is a string, or a list whose items may also name marks
+        that have no character of their own (anchors.py: "diagonal diaeresis").
+        Combining characters go on the letter before them; a precomposed
+        letter the hand has no strokes for is taken apart (with anchors: anchors.decompose,
+        which also reads MUFI's Private Use Area names; without: Unicode's decomposition)."""
+        out = []
+        for c in word:
+            if out and ((self.anchors and c in self.anchors["marks"]) or (len(c) == 1 and unicodedata.combining(c))):
+                out[-1][1].append((c, None))
+            elif c in self.L or c in MINIM_LETTERS:
+                out.append((c, []))
+            else:
+                d = None
+                if self.anchors:
+                    import anchors as AN
+                    if self._names is None:
+                        self._names = AN.mufi_names()
+                    d = AN.decompose(c, self._names)
+                if d is None:
+                    n = unicodedata.normalize("NFD", c)
+                    d = (n[0], [(m, None) for m in n[1:]])
+                out.append((d[0], list(d[1])))
+        return out
+
+    def mark_strokes(self, ch, marks, x, uo, su, sv, yb, xh, jit):
+        """Strokes of the marks a letter carries, placed by anchors (anchors.py): each mark's
+        own anchor is put on the letter's (top, bottom, ogonek …), above or below it by the
+        scribe's gap, drifting right by his measured drift (the letter's own where measured); a second mark on the same anchor sits
+        on the first one's top (or hangs from its bottom). x: the letter's box edge; uo:
+        its plan's offset from that edge, su, sv: its width and height scales (x-heights)."""
+        AN = self.anchors
+        A_, P, MK = AN["letters"][ch], AN["placement"], AN["marks"]
+        out, nxt = [], {}
+        for mk, att in marks:
+            m = MK[mk]
+            att = att or m["attach"]
+            if att == "top" and m["cross"] and A_["top"][1] > 1.3 and "cross" in A_:
+                att = "cross"           # the scribe crosses an ascender rather than sit above it
+            if att not in A_:
+                att = {"bar": "middle", "cross": "top", "desc": "bottom"}.get(att, "top")
+            kind = "on" if (m.get("own") == "start" or att not in ("top", "top_right", "high", "bottom")) else \
+                ("below" if att == "bottom" else "above")
+            key = (kind, att)
+            if key in nxt:
+                tu, tv = nxt[key]
+                g = P["stack_gap"]
+            else:
+                u, v = A_[att]
+                tu, tv = (u + uo) * su - uo, v * sv
+                g = P["gap"]
+                drift = P.get("drift_by_letter", {}).get(ch, P["drift"])
+                tu += jit(drift, P["drift_sd"]) if kind == "above" else jit(0.0, P["drift_sd"] / 2)
+            if kind == "above":
+                tv += max(0.02, jit(g, P["gap_sd"]))
+            elif kind == "below":
+                tv -= max(0.02, jit(g, P["gap_sd"]))
+            au, av = m["_"] if kind != "on" or m.get("own") == "start" else m["centre"]
+            du, dv = tu - au, tv - av
+            for s_ in m["strokes"]:
+                out.append((s_["name"], [[x + (u + du) * xh + (v + dv) * xh * self.t, yb - (v + dv) * xh]
+                                         for u, v in s_["points"]], None))
+            nu, nv = m["next"]
+            nxt[key] = (nu + du, nv + dv) if kind != "on" else (tu, tv + 0.2)
         return out
 
     def bite_distance(self, a, b, chance, jit):
@@ -243,7 +318,8 @@ class Scribe:
         letters = dict(B["letters"], **B.get("signs", {}))
         n = B["pen"]
         return cls(letters, B["minim"], B["spacing"], B["minim_offsets"], B["slant_deg"],
-                   nib=(n["a"], n["b"], n["theta"], n["p"]), terminal=B["terminal"], biting=B.get("biting"))
+                   nib=(n["a"], n["b"], n["theta"], n["p"]), terminal=B["terminal"], biting=B.get("biting"),
+                   anchors=B.get("anchors"))
 
     def render(self, strokes):
         return pen.render([s for _, s, _ in strokes], self.pen(), step=0.5,

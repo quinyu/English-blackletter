@@ -4,10 +4,10 @@ A codex was often shared among several scribes of one tradition (hands.py looks 
 in MS 2262). A *hand* here is everything the writer needs, fitted from that scribe's
 pages: the pen (nib size, angle, corner sharpness), the twist-and-pull terminal, the minim
 module with its joins and pitch, the letters and signs with their variation, the spacing
-model, the biting rates (which neighbours write their facing sides as one stroke), and
-where it all came from (pages, numbers of examples). Fitting another scribe
-means running the same fits on their pages and saving another bundle; nothing else in the
-writer changes.
+model, the biting rates (which neighbours write their facing sides as one stroke), the
+letters' anchors with the marks and the scribe's placement of them, and where it all came
+from (pages, numbers of examples). Fitting another scribe means running the same fits on
+their pages and saving another bundle; nothing else in the writer changes.
 
 Run:  python3 bundle.py ID [FOLIOS]   → out/hands/ID.json
       e.g.  python3 bundle.py ms2262_A 12r
@@ -53,6 +53,7 @@ def build(hand_id, folios, manuscript="Clermont-Ferrand, Bibliothèque du Patrim
         spacing=SC.with_book_spacing(SC.fit_spacing(SC.pairs(found))),
         letters=letters, signs=signs,
         biting=SC.load_biting(),          # how often neighbouring letters share a stroke (biting.py)
+        anchors=SC.load_anchors(),        # where marks go on each letter, the marks, their placement (anchors.py)
         provenance=dict(letters={ch: v["n"] for ch, v in letters.items()},
                         signs={ch: v["n"] for ch, v in signs.items()},
                         minim_letters_fitted=len(M.INSTANCES), spacing_pairs=len(SC.pairs(found))))

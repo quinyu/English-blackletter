@@ -1119,6 +1119,94 @@ model. The rates travel in the hand file.
 
 ![Words as the scribe and the writer write them](out/hours_biting_words.png)
 
+### Accents: anchors on the letters, marks in the scribe's manner
+
+Letters with accents and other marks make up the largest group of MUFI characters still
+missing: 276 are one of twenty base letters with one of some thirty marks, singly or
+stacked two or three high. Old Norse and Icelandic texts are full of them (á, é, ó, ú,
+ǫ, ǿ, ǭ, ǫ́ …). Latin has ę, and the vernaculars have â, ü and ŏ. A font draws each mark
+once and puts it on any letter by *anchors*. A point on the base (top, bottom …) and a
+point on the mark (its foot, its top …) are made to coincide, and a mark's own top
+carries the next mark (mark-to-mark). `anchors.py` builds the same scheme from this
+hand: the anchors come from the letters' ink, the placement from where this scribe puts
+his marks, and the marks from strokes he already makes.
+
+**Anchors from the letters' own ink.** Every letter the writer has is drawn alone, with
+the hand's pen and without variation, and its anchors are read off the ink:
+
+| Anchor | Where | For |
+|---|---|---|
+| top | the middle of the body at its top; on b d h l ſ f, the top of the ascender | marks above |
+| bottom | the middle of the body's foot (h's hairline tail aside); on g p q ſ f, the descender's end | marks below |
+| ogonek | where the letter leaves the baseline on the right | ogonek |
+| middle | the middle of the body at half the x-height | ø, ʉ, ɨ, ł, ꝟ |
+| bar | through the ascender at 1.2 x-heights, where the scribe crosses his đ | ð, ƀ, ħ |
+| cross | across the ascender near its top, where he bars l for *-or-* (gl̄ia) and h, b in *ih̄s*, *nob̄* | the macron over an ascender, ꝉ |
+| desc | through the descender | ꝑ, ꝗ, ǥ |
+| top_right | over the right shoulder | comma above right, slashes above right |
+| high | above the ascender line (1.64 x-heights) whatever the letter | MUFI's "high" marks |
+
+**Where the scribe puts his marks.** The 12 pages read for the biting study carry 216
+marks over found letters. The mark is the ink component nearest the letter's middle
+lying wholly above the x-height, below the line above's descenders. 187 are found. Over
+the x-height letters there are 175 (167 macrons, 8 er curls):
+- **The mark's foot sits 0.12 x-height above the letter's top** (spread 0.10). That is
+  1.18 x-heights above the baseline, lower than the macrons fitted on f. 12r.
+- **Marks drift to the right of the body's middle** by 0.09 x-height in all, with a
+  spread of 0.12 over the minim letters, whose boxes are held to their stems. The drift
+  depends on the letter:
+
+  | | i | u | o | m | n | r | p |
+  |---|---|---|---|---|---|---|---|
+  | marks | 48 | 26 | 13 | 14 | 28 | 14 | 11 |
+  | drift (x-heights) | +0.05 | +0.03 | −0.04 | +0.10 | +0.21 | +0.24 | +0.26 |
+
+  Over r, p and n the bar leans towards the next letter. The writer uses a letter's own
+  drift where it has at least ten measured marks, and the overall median elsewhere.
+- **Over an ascender the scribe crosses rather than sits above.** The writer's macron
+  and overline do the same. MUFI's "high" marks and its accents sit above.
+
+**Marks from the scribe's own strokes.** MS 2262 has no accents, so they are designed
+from the four things this scribe does with his pen beside the letters:
+
+| Made from | Marks |
+|---|---|
+| fitted marks (4) | the macron, the tilde and the er curl as fitted; đ's crossing hairline for every bar through a letter |
+| the fitted marks, reused (14) | overline and the fixed-height macrons and overlines (the macron's bar), double overline, bar with dot, macron below, low line, double low line; hook above, MUFI's curl and its high form (the er curl at ¾ size), the er curl's MUFI form F1C8; comma above right (his comma at 0.4) |
+| his point (6) | dot above and below, its high form, diaeresis above and below, diagonal diaeresis: the colon's point (the nib drawn down to the right) at 0.6 size |
+| the pen's edge (8) | acute and double acute (a short steep stroke up to the right: a slim wedge with this 33° nib), circumflex and its double form, caron, zigzag above and below; the grave (below) |
+| the pen's corner, as a hairline (16) | breve, ring above and below, vertical line(s), vertical tilde, curly bar, inverted breve below, double breve below, asterisk below, ogonek and ogonek above, cedilla, slashes and strokes |
+
+- **The nib decides several shapes.** Drawn up to the right at 60°, the nib makes the
+  slim wedge of an acute. Drawn down to the right it makes a heavy lozenge, which is
+  how the point is made, so a grave drawn that way would read as a dot. The grave is
+  therefore a small point with a hairline running down from it, the scribe's comma
+  turned over.
+- **Only the corner can draw thin uprights and small rounds.** The nib's edge fills a
+  ring or a breve solid, so these are corner hairlines, like the er tail and đ's stroke.
+- **Stacking.** A second mark on the same anchor sits on the first one's top at 0.6 of
+  the gap (ǭ, ǫ́, ę with ogonek, dot and acute).
+- **Decomposing characters.** Precomposed characters are taken apart in three ways:
+  - by Unicode's decomposition (á, ǫ, ǭ);
+  - for letters whose stroke Unicode keeps whole, by a small table (ø ł đ ð ħ ƀ ꝑ ꝗ ꝉ …);
+  - for MUFI's Private Use Area letters, by their names ("LATIN SMALL LETTER O WITH
+    OGONEK AND DOT ABOVE AND ACUTE": o + ogonek + dot above + acute, the first named
+    nearest the letter). MUFI's "variant letter forms" with a curl are other shapes of
+    the letter, not a mark, and are left out.
+
+![Every mark on fifteen letters](out/hours_marks.png)
+
+![MUFI's letters with marks in this hand](out/hours_marks_mufi.png)
+
+**What the writer writes now.** 258 MUFI characters are written from a fitted letter
+and its marks: 222 letters (ð among them, as d with đ's stroke) and 36 combining marks.
+The specimen above adds the three fitted marks (261). Before, 8 letters with fitted
+marks were ready. The anchors reproduce the page's own
+abbreviations as the fitted positions did (dn̄s, qm̄, vniu͛ſa, h̄itant). Placement varies
+by the measured spreads, as the letters do.
+
+![Words with marks, plain and with the scribe's variation](out/hours_marks_words.png)
+
 ### One scribe or several?
 
 A book of hours was often shared out among several scribes trained in the same
@@ -1204,17 +1292,19 @@ with fewer than ten lines are left out (ff. 34v, 55r, 64v).
 ### One file per hand
 
 So that the editor can write any number of scribes, `bundle.py` saves all that the writer
-needs for one hand in one file (`out/hands/ms2262_A.json`, 30 kB):
+needs for one hand in one file (`out/hands/ms2262_A.json`, 80 kB):
 - the pen at the page's x-height: nib size, angle and corner sharpness;
 - the slant and the twist-and-pull terminal;
 - the minim module, with its joins, pitch and tail, and the minim letters' offsets;
 - the spacing model;
 - every fitted letter and sign, each with its examples' spread in width and height;
+- the biting rates;
+- the letters' anchors, the marks and the scribe's placement of them;
 - where it came from: folios, and the number of examples per letter.
 
 `Scribe.from_bundle(path)` writes from that file alone. For f. 12r it draws exactly what
 the writer built from the separate fits draws: no pixel differs in *ſignificatis*,
-*dn̄s* or *vniu͛ſa*. A second scribe means running the same fits on that scribe's pages
+*dn̄s*, *vniu͛ſa*, *hǫrðr* or *pręſul*. A second scribe means running the same fits on that scribe's pages
 and saving a second file; the writer does not change. MS 2262 shows one hand on
 ff. 11–64, so it has one file.
 
@@ -1238,6 +1328,7 @@ python3 forms.py PDF_PAGE_DIR     # the same letters through the book (about 10 
 python3 book_signs.py PDF_PAGE_DIR  # ꝯ, ꝝ, ꝫ, đ, tilde from the whole book (reads data/hours_book_signs.jsonl)
 python3 find_letters.py PDF_PAGE_DIR  # letters of the pages read in data/hours_readings.json
 python3 biting.py PDF_PAGE_DIR    # biting on those pages and f. 12r; the writer's biting rates
+python3 anchors.py PDF_PAGE_DIR   # letters' anchors, the marks, where the scribe puts them
 python3 bundle.py ms2262_A 12r    # save the fitted hand as one file
 ```
 
@@ -1259,6 +1350,10 @@ python3 bundle.py ms2262_A 12r    # save the fitted hand as one file
     letters.
   - The ink capitals are described, not yet fitted, and the painted initials are not
     modelled.
+  - The accents are designed, not fitted: MS 2262 has none. The placement is measured
+    on macrons and er curls only, and the gap between stacked marks is a choice (0.6 of
+    the gap above a letter). Marks under descenders, and above ascenders, follow font
+    practice, not this scribe.
 - **Corners are at the limit of the scan.** At 29 px to the x-height, the difference
   between a squared and a fully sharp nib corner is a few hundredths of a pixel on
   average (see *The pen's corners*).
@@ -1289,30 +1384,15 @@ decompositions.
 | Class | What it needs | Characters |
 |---|---|---|
 | fitted | fitted on f. 12r: 22 letters (with dotless ı, as this scribe writes i), ꝓ, macron, er sign, colon, comma; from the whole book: ꝯ, ꝝ, ꝫ, đ, tilde | 33 |
-| composed, ready | a fitted letter with fitted marks only (ā, ē, ī, ō, ū, ã, ñ, õ) | 8 |
-| composed | a fitted letter with a mark or modification still to design | 268 |
+| composed, written | a fitted letter with marks placed by its anchors (*Accents*), and the combining marks themselves | 258 |
+| composed | a fitted letter with a modification still to design: tails, hooks and long legs (ɖ ɦ ƞ ɲ ꝕ ɼ), q ligated with ꝛ or ꝫ, ꝙ, superscript letters as marks (ur, us, is, ra), a triple breve | 19 |
 | derived | built from fitted letters: capitals, small capitals, ligatures, superscript, enlarged and variant forms | 650 |
-| new | no fitted base: other letters, numerals, punctuation, symbols | 563 |
+| new | no fitted base: other letters, numerals, punctuation, symbols | 562 |
 
 **Suggested order**, by what each step opens up:
 
-1. **The common marks.** About fifteen marks open some 270 composed characters, for
-   example:
-
-   | Mark | Characters |
-   |---|---|
-   | acute | 42 |
-   | dot above | 31 |
-   | ogonek | 27 |
-   | dot below | 25 |
-   | macron, fitted | 21 |
-   | stroke | 19 |
-   | diaeresis | 14 |
-   | circumflex | 13 |
-   | breve | 13 |
-
-   Most are a single stroke or a lozenge point. This scribe's corner-pen hairline, macron
-   and points already show how they should look.
+1. **The common marks: done** (*Accents: anchors on the letters, marks in the scribe's
+   manner*). 48 marks on anchors open 258 characters. Before, 8 were ready.
 2. **Capitals.** The scribe's ink capitals are lowercase-height broken letters with an
    inner hairline. Twelve are attested in the book (E, D, G, S, I, Q, A, P, V, R, T, N):
    fit those, and build the rest the same way. With small capitals, capitals carry
@@ -1321,7 +1401,9 @@ decompositions.
    scribe uses when facing bowls bite.
 4. **Missing letters.** By the characters each opens: y 54, j 30, k 28, w 28, z 13, x 10.
    k and x occur in the book (*kyrie*, *xpe*) and can be fitted. Then the letters with
-   no Latin model in this hand: thorn, eth, wynn, yogh and the insular forms.
+   no Latin model in this hand: thorn, wynn, yogh and the insular forms (eth is written
+   as d with đ's stroke). Old Icelandic needs þ, æ, y and k next: with them and the
+   marks, most of its words can be written.
 5. **Numerals, punctuation and symbols.** The calendar's red roman numerals can be
    fitted; the rest are designed.
 

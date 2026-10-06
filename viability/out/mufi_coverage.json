@@ -39,26 +39,27 @@
  ],
  "classes": {
   "fitted": 33,
-  "composed (fitted marks)": 8,
-  "composed": 268,
+  "composed (anchored marks)": 258,
+  "composed": 19,
   "derived": 650,
-  "new": 563
+  "new": 562
  },
  "by_section": {
   "1: Alphabetical characters": {
    "fitted": 25,
    "derived": 591,
-   "new": 231,
-   "composed": 224,
-   "composed (fitted marks)": 8
+   "new": 230,
+   "composed (anchored marks)": 222,
+   "composed": 11
   },
   "2: Numbers": {
    "new": 43
   },
   "3: Combining alphabetical and abbreviation characters": {
    "derived": 59,
-   "composed": 44,
-   "fitted": 3
+   "composed (anchored marks)": 36,
+   "fitted": 3,
+   "composed": 8
   },
   "4: Spacing abbreviation and modifying characters": {
    "new": 46,

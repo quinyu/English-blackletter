@@ -12,10 +12,13 @@ extracted with pdftotext -layout. Every character is then placed in one of these
 by what the writer needs in order to write it (a first pass, from the names and the
 Unicode decompositions):
 
-  fitted                    fitted on f. 12r (textura.py, minims.py, abbrev.py)
-  composed (fitted marks)   a fitted letter with fitted marks only (e.g. ā, ē, ī, n̄): ready
-  composed                  a fitted letter with a modification still to design (an accent,
-                            dot, hook, bar or stroke): the letter's strokes are reused
+  fitted                    fitted on f. 12r (textura.py, minims.py, abbrev.py) or in the
+                            book (book_signs.py)
+  composed (anchored marks) a fitted letter with marks the writer has (fitted or designed in
+                            the scribe's manner), placed by the letters' anchors (anchors.py):
+                            written; also the combining marks themselves
+  composed                  a fitted letter with a modification still to design (a tail,
+                            hook, long leg, a ligated letter): the letter's strokes are reused
   derived                   built from fitted letters: capitals and small capitals (the
                             scribe's capitals are lowercase-height broken letters), ligatures,
                             superscript letters, enlarged and variant forms
@@ -115,15 +118,31 @@ def letters_in(name):
     return out
 
 
-def classify(r, F):
-    """fitted | composed (fitted marks) | composed | derived | new: what writing it needs."""
+def anchored():
+    """The marks the writer places by anchors (out/hours_anchors.json) and anchors.decompose,
+    or (empty, None) before anchors.py has run."""
+    p = OUT / "hours_anchors.json"
+    if not p.exists():
+        return set(), None
+    import anchors as AN
+    return set(json.loads(p.read_text(encoding="utf-8"))["marks"]), AN
+
+
+def classify(r, F, marks=frozenset(), AN=None, names=None):
+    """fitted | composed (anchored marks) | composed | derived | new: what writing it needs."""
     name, ch = r["name"], r["chars"]
     if ch in F:
         return "fitted"
     sec = r["section"] or ""
+    if AN is not None:
+        if sec.startswith("3") and ch in marks:
+            return "composed (anchored marks)"
+        dd = AN.decompose(ch, names) if len(ch) == 1 and not AN.is_capital(ch, name) else None
+        if dd and dd[1] and dd[0] in F and all(m in marks for m, _ in dd[1]):
+            return "composed (anchored marks)"
     d = unicodedata.normalize("NFD", ch) if not r["pua"] else ch
     if len(d) > 1 and d[0] in F and all(unicodedata.combining(c) for c in d[1:]):
-        return "composed (fitted marks)" if all(c in F for c in d[1:]) else "composed"
+        return "composed"
     if sec.startswith("3"):
         return "composed" if r["group"] != "Alphabetical characters" else "derived"
     if sec.startswith("1"):
@@ -140,15 +159,17 @@ def classify(r, F):
     return "new"
 
 
-ORDER = ["fitted", "composed (fitted marks)", "composed", "derived", "new"]
+ORDER = ["fitted", "composed (anchored marks)", "composed", "derived", "new"]
 
 
 def main(path):
     text = Path(path).read_text(encoding="utf-8")
     rows = parse(text)
     F = fitted_set()
+    marks, AN = anchored()
+    names = {r["chars"]: r["name"] for r in rows if r["pua"] and r["group"] != "Variant letter forms"}
     for r in rows:
-        r["class"] = classify(r, F)
+        r["class"] = classify(r, F, marks, AN, names)
     (HERE / "data" / "mufi4.json").write_text(json.dumps(rows, ensure_ascii=False, indent=0), encoding="utf-8")
     by_sec = {}
     for r in rows:
