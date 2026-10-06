@@ -1,0 +1,27 @@
+{
+ "approach": {
+  "ꝝ": 0.495,
+  "ꝫ": 0.556
+ },
+ "advance": {
+  "ꝯ": 0.463
+ },
+ "n": {
+  "ꝯ": {
+   "approach": 0,
+   "advance": 36
+  },
+  "ꝝ": {
+   "approach": 19,
+   "advance": 0
+  },
+  "ꝫ": {
+   "approach": 252,
+   "advance": 0
+  },
+  "đ": {
+   "approach": 0,
+   "advance": 0
+  }
+ }
+}

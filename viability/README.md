@@ -942,6 +942,113 @@ line. f. 12r shows it directly:
   preferring the habitual forms always and the optional ones near the line end. The
   page gives the starting rates.
 
+### Signs from the whole book: ꝯ, ꝝ, ꝫ, đ and the tilde
+
+The book uses abbreviation signs that f. 12r lacks, or shows only once or twice. To fit
+them, every text page (ff. 11r–64v) was read for them by eye.
+- **The records:** 1,063 in all, of 29 kinds, in `data/hours_book_signs.jsonl`. Each
+  gives the page, the sign's box, the word, its reading, and a note on anything unusual.
+- **The checks:** every target sign was checked on contact sheets of its words.
+- **The fit:** `book_signs.py` finds each example's line on its page (`hands.guides`),
+  straightens it and rescales it to f. 12r's x-height. It then fits one stroke plan per
+  sign with f. 12r's pen, like the lowercase letters.
+- **Red ink:** signs the rubricator wrote in red are read from the red ink.
+
+![The signs fitted from the whole book](out/hours_book_signs.png)
+
+| Sign | MUFI 4.0 | In this hand | Fitted | Overlap | Width spread |
+|---|---|---|---|---|---|
+| con | A76F ꝯ | a 9: closed oval bowl in the upper x-height, stem down past the baseline into a hairline turning left | 38 (+4 another form) | 0.61 | ±0.09 |
+| rum | A75D ꝝ | the r rotunda written as a z (top bar against the o, diagonal, foot), crossed by a long hairline down-left below the line | 19 | 0.50 | ±0.08 |
+| et sign | A76B ꝫ | a z: point or short bar at the x-line, hairline diagonal, lower curve, hairline tail below the line | 254 (+5) | 0.45 | ±0.22 |
+| d with stroke | 0111 đ | the round d with a thin stroke through its ascender, rising to the right | 3 | 0.60 | ±0.07 |
+| tilde | 0303 ◌̃ | two lozenges side by side, each a short down-stroke of the broad nib, joined by a hairline; over s in *s̃* | 5 (+1) | 0.47 | ±0.06 |
+
+**What the readings showed.**
+- **The que sign is ꝫ.** After q the scribe writes the same z-shaped sign that stands
+  for a final -m after a vowel (*meuꝫ*, *eaꝫ*, *tuuꝫ*). The two uses do not differ in
+  shape or size: median width 1.10 of the plan for both, 56 and 175 examples. So ꝫ is
+  fitted once, from all 259 uses, instead of f. 12r's two.
+- **What ꝫ stands for depends on the letter before it.**
+  - The commonest readings are those in `book_signs.SEMI_READINGS`: *qꝫ* -que, a
+    vowel + ꝫ a final -m (190), *ſꝫ* sed (or scilicet), *dꝫ* debet, *bꝫ* -bus.
+  - It also stands for *deus* (*dꝫ*, f. 61v), *laudet* (ff. 20v, 54v), *redimet*,
+    *Emittet*, *licet*, *hic* and *Melchisedech*.
+  - *uſꝫ* and *neꝫ* need no q at all.
+- **Where the shapes come from.**
+  - **đ:** only three are clear, and two of them are the rubricator's red *dd* (David,
+    f. 33v). There the thin stroke runs through both ascenders. The third is *đ.* for
+    *dei* (f. 44r).
+  - **s̃:** it is in the cue lines of ff. 56r–57r (*ut s̃*, ut supra) and in a red *vs̃*
+    (vesperas).
+- **The same two-humped tilde stands over q for *quam*** (*q̃*, f. 33v, one line after
+  *qᵃ*), so the form is the scribe's tilde generally, not one made for s.
+- **The tilde is held near its drawn plan.** At this scan the waist between its two
+  lozenges is a pixel or two, so the ink mask merges them. Fitted freely, the tilde
+  became a single bar with a higher overlap (0.57) that misreads the page.
+- **Spacing next to the signs is measured from the page.** f. 12r's pairs do not
+  include these signs. For each example, the white gap between the sign and its
+  neighbour, in the middle of the x-height band, gives the sign's approach or advance:
+  the value at which the writer leaves the same gap (`out/hours_book_spacing.json`).
+  The medians come from 252 examples for ꝫ, 19 for ꝝ and 36 for ꝯ.
+
+![Every example, with outliers framed](out/hours_book_signs_all.png)
+
+**Outliers in form.** These are framed above: set aside by the fit as another form,
+more than 2.5 robust spreads from the median width or height, or sitting more than
+0.2 x-height off the usual line.
+- **ꝯ:** the fit set four aside.
+  - In *ꝯceptus* (f. 38r) the bowl fills the whole x-height.
+  - *ꝯſolatione* (f. 60v) is narrow, its bowl pressed against the ſ, with hardly any
+    tail.
+  - *ꝯfirmauit* (f. 58r) and *ꝯdēp|sis* (f. 25r) are ordinary 9s, set aside for faint
+    ink and an offset box.
+  - Separately, the readers found an a-shaped con with no tail below the line, readable
+    only from the Latin (*ꝯgregationis* f. 48r, *ꝯpꝛehenderunt* f. 62v, *ꝯfirmāte*
+    f. 64v).
+  - With two lozenges above it, it stands for a whole word: *conspectu* (f. 49r),
+    *contrarium* (f. 50v).
+  - The rubricator writes it in red in *ꝯpletorium* (ff. 57r, 58v).
+- **ꝝ:**
+  - Its hairline sometimes drops almost vertically (*eoꝝ*, f. 12v).
+  - It follows u, a and e as well as o (*auꝝ*, *tuaꝝ*, *mortifeꝝ*).
+  - It stands once for -ris (*remīſcaꝝ*, f. 41v).
+  - In the litany the same shape after ō is the plural *orate* (*ōꝝ*), where the
+    singular *ora* is *ōꝛ*. On f. 42r orate is twice a quite different round-d-like sign
+    with a separate curl.
+- **ꝫ:**
+  - Its width varies more than any letter's (0.75–1.4 of the plan), whatever it
+    stands for.
+  - It is sometimes split into its two parts, a true semicolon: *neq;* twice on
+    f. 48v, *vſq;* f. 36v, *utiq;* f. 38v. Elsewhere *neqꝫ* is the z.
+  - Once it is a closed 8 with no tail (*q8* = que, f. 25r).
+  - With a macron over the q it is a whole word: *q̄ꝫ* = *quoniam* (f. 37v).
+  - Standing alone for *et*, it is two wedges entered by a looped hairline from the
+    left (ff. 15r, 17r, 18v), not the -m form.
+- **ꝰ against ꝯ.** Written full size at a word's end (*numeꝰ* f. 15v, *fluctꝰ* f. 16v,
+  *oībꝰ* f. 21r), the us sign is the same 9 as the con sign. Only its place in the word
+  tells them apart.
+
+**The same word abbreviated differently, close together.** This is the scribe fitting
+the line:
+
+| Word | Forms | Where |
+|---|---|---|
+| eorum | *eoꝝ*, in full, *eoruꝫ* | within three lines, f. 12v |
+| conceptus, concepit | *ꝯceptus*, *cōcepit* | consecutive lines, f. 38r |
+| tuum | *tuū*, *tuuꝫ* | f. 34r |
+| quam | *qᵃ*, *q̃* | consecutive lines, f. 33v |
+| dominus | *Dominꝰ*, *doꝰ* | one line, f. 23r |
+
+![Words written with the new signs](out/hours_book_abbreviated.png)
+
+**Writing them.** The figure shows your examples in this hand, *p͛đoꝝ* (prædicatorum),
+*qqꝫ* (quoque), *ꝯu͛s̃* (conuersis) and *qꝝ* (quorum), then forms found in the book:
+*noſtroꝝ*, *neqꝫ*, *ꝯpꝛehenderunt*, *s̃*, *ſꝫ*, *dꝫ*, *đ*. con written as *cō-*, the
+scribe's other way (five clear cases and three likely, often at line ends), needs no new sign: it is c and o
+with the fitted macron. The hand file (`out/hands/ms2262_A.json`) now carries the new
+signs and their spacing.
+
 ### One scribe or several?
 
 A book of hours was often shared out among several scribes trained in the same
@@ -1058,6 +1165,7 @@ python3 capitals.py PDF_PAGE_DIR  # painted initials and ink capitals, whole boo
 python3 measure_letters.py hours  # the traced 'nomen'
 python3 hands.py PDF_PAGE_DIR     # the hand page by page, whole book (about 15 minutes)
 python3 forms.py PDF_PAGE_DIR     # the same letters through the book (about 10 minutes, 4 cores)
+python3 book_signs.py PDF_PAGE_DIR  # ꝯ, ꝝ, ꝫ, đ, tilde from the whole book (reads data/hours_book_signs.jsonl)
 python3 bundle.py ms2262_A 12r    # save the fitted hand as one file
 ```
 
@@ -1070,14 +1178,13 @@ python3 bundle.py ms2262_A 12r    # save the fitted hand as one file
   - Every lowercase letter on f. 12r is fitted except x (one example).
   - The abbreviation signs rest on 1–7 examples each; the rest of the book would
     give many more.
-  - Signs the book uses that f. 12r lacks come next, each to be fitted from other pages:
-    | Sign | MUFI code | Example |
-    |---|---|---|
-    | ꝯ (con) | A76F | *ꝯu͛s̃* |
-    | ꝝ (rum) | A75D | *qꝝ*, *ſeculoꝝ* |
-    | đ, d with stroke | | *p͛đoꝝ* |
-    | the que sign | | *qq;* or *qqꝫ*, *Quecumq;* |
-    | s with tilde | | |
+  - The signs fitted from the whole book rest on 3–259 examples (*Signs from the whole
+    book*): đ on three, the tilde on five. The readers' boxes are good to about ±4 px.
+    Only examples marked "sure" are fitted. The counts of the minor signs (ꝰ, ꝑ, ꝓ,
+    superscripts) are not exhaustive.
+  - Other signs recorded but not yet fitted: ꝰ (us, 60 sure), ꝑ (per, 30), ꝓ (pro,
+    26), standalone et (27), the barred l of the Kyrie and litany responses, superscript
+    letters.
   - The ink capitals are described, not yet fitted, and the painted initials are not
     modelled.
 - **Corners are at the limit of the scan.** At 29 px to the x-height, the difference
@@ -1109,11 +1216,11 @@ decompositions.
 
 | Class | What it needs | Characters |
 |---|---|---|
-| fitted | fitted on f. 12r: 22 letters (with dotless ı, as this scribe writes i), ꝫ, ꝓ, macron, er sign, colon, comma | 29 |
-| composed, ready | a fitted letter with fitted marks only (ā, ē, ī, ō, ū) | 5 |
-| composed | a fitted letter with a mark or modification still to design | 273 |
+| fitted | fitted on f. 12r: 22 letters (with dotless ı, as this scribe writes i), ꝓ, macron, er sign, colon, comma; from the whole book: ꝯ, ꝝ, ꝫ, đ, tilde | 33 |
+| composed, ready | a fitted letter with fitted marks only (ā, ē, ī, ō, ū, ã, ñ, õ) | 8 |
+| composed | a fitted letter with a mark or modification still to design | 268 |
 | derived | built from fitted letters: capitals, small capitals, ligatures, superscript, enlarged and variant forms | 650 |
-| new | no fitted base: other letters, numerals, punctuation, symbols | 565 |
+| new | no fitted base: other letters, numerals, punctuation, symbols | 563 |
 
 **Suggested order**, by what each step opens up:
 

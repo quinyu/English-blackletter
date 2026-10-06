@@ -1,0 +1,5052 @@
+{
+ "ꝯ": {
+  "strokes": [
+   {
+    "name": "bowl",
+    "points": [
+     [
+      0.6556,
+      1.095
+     ],
+     [
+      0.2142,
+      0.9357
+     ],
+     [
+      0.1433,
+      0.6764
+     ],
+     [
+      0.1716,
+      0.2338
+     ],
+     [
+      0.5568,
+      0.451
+     ]
+    ],
+    "pen": null
+   },
+   {
+    "name": "stem",
+    "points": [
+     [
+      0.5472,
+      1.0
+     ],
+     [
+      0.6059,
+      0.7751
+     ],
+     [
+      0.6272,
+      0.1999
+     ],
+     [
+      0.5007,
+      0.0768
+     ]
+    ],
+    "pen": null
+   },
+   {
+    "name": "hairline tail",
+    "points": [
+     [
+      0.5007,
+      0.0768
+     ],
+     [
+      0.3046,
+      -0.1841
+     ],
+     [
+      0.142,
+      -0.3561
+     ]
+    ],
+    "pen": null
+   }
+  ],
+  "zone": [
+   -0.75,
+   1.3
+  ],
+  "n": 38,
+  "overlap": 0.6102344530137835,
+  "shift_px": [
+   -0.5,
+   -3.0
+  ],
+  "width_scale": [
+   1.0200000000000005,
+   0.0889707225646967
+  ],
+  "height_scale": [
+   1.0000000000000002,
+   0.0538387867475555
+  ],
+  "set_aside": [
+   {
+    "folio": "25r",
+    "page": "p1/pg-052",
+    "box": [
+     783,
+     521,
+     806,
+     563
+    ],
+    "word": "ꝯdēp|sis"
+   },
+   {
+    "folio": "38r",
+    "page": "p2/pg-019",
+    "box": [
+     468,
+     587,
+     499,
+     624
+    ],
+    "word": "ꝯceptus"
+   },
+   {
+    "folio": "58r",
+    "page": "p3/pg-013",
+    "box": [
+     522,
+     455,
+     546,
+     500
+    ],
+    "word": "ꝯfirmauit"
+   },
+   {
+    "folio": "60v",
+    "page": "p3/pg-018",
+    "box": [
+     535,
+     365,
+     560,
+     405
+    ],
+    "word": "ꝯſolatione"
+   }
+  ],
+  "mufi": {
+   "code_point": "A76F",
+   "name": "LATIN SMALL LETTER CON"
+  },
+  "examples": [
+   {
+    "folio": "16r",
+    "page": "p1/pg-034",
+    "box": [
+     693,
+     1132,
+     718,
+     1180
+    ],
+    "word": "ꝯfundar",
+    "overlap": 0.648,
+    "width": 0.86,
+    "height": 1.04
+   },
+   {
+    "folio": "20v",
+    "page": "p1/pg-043",
+    "box": [
+     643,
+     412,
+     666,
+     458
+    ],
+    "word": "ꝯfugimus",
+    "overlap": 0.579,
+    "width": 0.98,
+    "height": 0.96
+   },
+   {
+    "folio": "22r",
+    "page": "p1/pg-046",
+    "box": [
+     620,
+     467,
+     643,
+     510
+    ],
+    "word": "ꝯfeſſorum",
+    "overlap": 0.665,
+    "width": 1.02,
+    "height": 1.08
+   },
+   {
+    "folio": "27v",
+    "page": "p1/pg-057",
+    "box": [
+     665,
+     1386,
+     684,
+     1421
+    ],
+    "word": "ꝯfūdet᷑",
+    "overlap": 0.489,
+    "width": 1.14,
+    "height": 1.08
+   },
+   {
+    "folio": "28v",
+    "page": "p2/pg-000",
+    "box": [
+     717,
+     1383,
+     736,
+     1418
+    ],
+    "word": "ꝯfundantur",
+    "overlap": 0.515,
+    "width": 1.1,
+    "height": 1.16
+   },
+   {
+    "folio": "29r",
+    "page": "p2/pg-001",
+    "box": [
+     740,
+     1360,
+     767,
+     1404
+    ],
+    "word": "ꝯditorem",
+    "overlap": 0.65,
+    "width": 1.06,
+    "height": 1.04
+   },
+   {
+    "folio": "30r",
+    "page": "p2/pg-003",
+    "box": [
+     668,
+     668,
+     693,
+     712
+    ],
+    "word": "ꝯfregit",
+    "overlap": 0.616,
+    "width": 1.06,
+    "height": 1.08
+   },
+   {
+    "folio": "32v",
+    "page": "p2/pg-008",
+    "box": [
+     1046,
+     997,
+     1066,
+     1032
+    ],
+    "word": "ꝯcluſꝰ",
+    "overlap": 0.7,
+    "width": 1.02,
+    "height": 0.96
+   },
+   {
+    "folio": "33v",
+    "page": "p2/pg-010",
+    "box": [
+     880,
+     715,
+     901,
+     756
+    ],
+    "word": "ꝯfuſione",
+    "overlap": 0.643,
+    "width": 0.9,
+    "height": 1.0
+   },
+   {
+    "folio": "34r",
+    "page": "p2/pg-011",
+    "box": [
+     293,
+     668,
+     312,
+     706
+    ],
+    "word": "ꝯcluſus",
+    "overlap": 0.655,
+    "width": 0.98,
+    "height": 1.0
+   },
+   {
+    "folio": "34r",
+    "page": "p2/pg-011",
+    "box": [
+     680,
+     1260,
+     699,
+     1297
+    ],
+    "word": "ꝯbuſtum",
+    "overlap": 0.715,
+    "width": 1.02,
+    "height": 1.0
+   },
+   {
+    "folio": "34r",
+    "page": "p2/pg-011",
+    "box": [
+     210,
+     1310,
+     229,
+     1345
+    ],
+    "word": "ꝯſeruatam",
+    "overlap": 0.599,
+    "width": 1.1,
+    "height": 1.04
+   },
+   {
+    "folio": "35v",
+    "page": "p2/pg-014",
+    "box": [
+     592,
+     462,
+     614,
+     502
+    ],
+    "word": "ꝯu͛tantur",
+    "overlap": 0.615,
+    "width": 0.98,
+    "height": 1.08
+   },
+   {
+    "folio": "35v",
+    "page": "p2/pg-014",
+    "box": [
+     750,
+     1058,
+     772,
+     1098
+    ],
+    "word": "ꝯu͛ſus",
+    "overlap": 0.732,
+    "width": 1.06,
+    "height": 1.04
+   },
+   {
+    "folio": "36r",
+    "page": "p2/pg-015",
+    "box": [
+     357,
+     1012,
+     379,
+     1047
+    ],
+    "word": "ꝯſtringe",
+    "overlap": 0.396,
+    "width": 1.22,
+    "height": 1.0
+   },
+   {
+    "folio": "37v",
+    "page": "p2/pg-018",
+    "box": [
+     702,
+     302,
+     724,
+     345
+    ],
+    "word": "ꝯſpectu",
+    "overlap": 0.467,
+    "width": 1.18,
+    "height": 0.96
+   },
+   {
+    "folio": "38v",
+    "page": "p2/pg-020",
+    "box": [
+     687,
+     478,
+     713,
+     526
+    ],
+    "word": "ꝯuertentur",
+    "overlap": 0.673,
+    "width": 0.98,
+    "height": 1.08
+   },
+   {
+    "folio": "40r",
+    "page": "p2/pg-023",
+    "box": [
+     836,
+     372,
+     862,
+     410
+    ],
+    "word": "ꝯ",
+    "overlap": 0.649,
+    "width": 0.94,
+    "height": 1.0
+   },
+   {
+    "folio": "43v",
+    "page": "p2/pg-030",
+    "box": [
+     683,
+     659,
+     707,
+     695
+    ],
+    "word": "ꝯfeſſores",
+    "overlap": 0.618,
+    "width": 0.9,
+    "height": 0.96
+   },
+   {
+    "folio": "45v",
+    "page": "p2/pg-034",
+    "box": [
+     477,
+     1237,
+     502,
+     1270
+    ],
+    "word": "ꝯſtringit",
+    "overlap": 0.669,
+    "width": 1.02,
+    "height": 0.92
+   },
+   {
+    "folio": "48r",
+    "page": "p2/pg-039",
+    "box": [
+     844,
+     1115,
+     872,
+     1149
+    ],
+    "word": "ꝯſor-",
+    "overlap": 0.721,
+    "width": 0.98,
+    "height": 1.0
+   },
+   {
+    "folio": "48v",
+    "page": "p2/pg-040",
+    "box": [
+     667,
+     341,
+     689,
+     374
+    ],
+    "word": "ꝯſequantur",
+    "overlap": 0.691,
+    "width": 1.02,
+    "height": 1.04
+   },
+   {
+    "folio": "49r",
+    "page": "p2/pg-041",
+    "box": [
+     565,
+     476,
+     590,
+     506
+    ],
+    "word": "ꝯſpectu",
+    "overlap": 0.655,
+    "width": 0.98,
+    "height": 1.0
+   },
+   {
+    "folio": "49r",
+    "page": "p2/pg-041",
+    "box": [
+     741,
+     1345,
+     770,
+     1390
+    ],
+    "word": "ꝯ̈",
+    "overlap": 0.653,
+    "width": 0.9,
+    "height": 1.0
+   },
+   {
+    "folio": "50v",
+    "page": "p2/pg-044",
+    "box": [
+     983,
+     1056,
+     1006,
+     1094
+    ],
+    "word": "ꝯ̈riū",
+    "overlap": 0.631,
+    "width": 1.02,
+    "height": 0.96
+   },
+   {
+    "folio": "53v",
+    "page": "p3/pg-004",
+    "box": [
+     511,
+     1055,
+     543,
+     1099
+    ],
+    "word": "ꝯuoluta",
+    "overlap": 0.612,
+    "width": 0.9,
+    "height": 1.08
+   },
+   {
+    "folio": "57r",
+    "page": "p3/pg-011",
+    "box": [
+     744,
+     413,
+     771,
+     457
+    ],
+    "word": "ꝯpletoꝛ̃",
+    "overlap": 0.372,
+    "width": 1.22,
+    "height": 0.96
+   },
+   {
+    "folio": "57r",
+    "page": "p3/pg-011",
+    "box": [
+     430,
+     638,
+     457,
+     690
+    ],
+    "word": "ꝯpletoꝛij",
+    "overlap": 0.722,
+    "width": 0.98,
+    "height": 1.0
+   },
+   {
+    "folio": "58v",
+    "page": "p3/pg-014",
+    "box": [
+     985,
+     768,
+     1006,
+     808
+    ],
+    "word": "ꝯpletoꝛ̃",
+    "overlap": 0.59,
+    "width": 1.06,
+    "height": 1.0
+   },
+   {
+    "folio": "59r",
+    "page": "p3/pg-015",
+    "box": [
+     712,
+     455,
+     737,
+     503
+    ],
+    "word": "ꝯſolatio",
+    "overlap": 0.61,
+    "width": 0.86,
+    "height": 1.04
+   },
+   {
+    "folio": "59r",
+    "page": "p3/pg-015",
+    "box": [
+     474,
+     800,
+     497,
+     845
+    ],
+    "word": "ꝯſolatiõis",
+    "overlap": 0.583,
+    "width": 0.98,
+    "height": 0.96
+   },
+   {
+    "folio": "59r",
+    "page": "p3/pg-015",
+    "box": [
+     342,
+     1092,
+     363,
+     1130
+    ],
+    "word": "ꝯceptus",
+    "overlap": 0.606,
+    "width": 0.98,
+    "height": 1.04
+   },
+   {
+    "folio": "59v",
+    "page": "p3/pg-016",
+    "box": [
+     1066,
+     1053,
+     1090,
+     1092
+    ],
+    "word": "ꝯpaſ-",
+    "overlap": 0.372,
+    "width": 1.18,
+    "height": 0.92
+   },
+   {
+    "folio": "60r",
+    "page": "p3/pg-017",
+    "box": [
+     638,
+     385,
+     660,
+     425
+    ],
+    "word": "ꝯtritionem",
+    "overlap": 0.67,
+    "width": 1.06,
+    "height": 1.08
+   },
+   {
+    "folio": "60v",
+    "page": "p3/pg-018",
+    "box": [
+     662,
+     308,
+     690,
+     348
+    ],
+    "word": "ꝯplementum",
+    "overlap": 0.526,
+    "width": 1.06,
+    "height": 1.08
+   },
+   {
+    "folio": "61r",
+    "page": "p3/pg-019",
+    "box": [
+     752,
+     393,
+     775,
+     428
+    ],
+    "word": "ꝯplere",
+    "overlap": 0.666,
+    "width": 1.06,
+    "height": 1.0
+   },
+   {
+    "folio": "62r",
+    "page": "p3/pg-021",
+    "box": [
+     818,
+     648,
+     845,
+     688
+    ],
+    "word": "ꝯcepᵗ",
+    "overlap": 0.646,
+    "width": 1.02,
+    "height": 0.92
+   },
+   {
+    "folio": "62v",
+    "page": "p3/pg-022",
+    "box": [
+     698,
+     380,
+     727,
+     415
+    ],
+    "word": "ꝯpꝛehenderunt",
+    "overlap": 0.572,
+    "width": 0.98,
+    "height": 1.0
+   }
+  ]
+ },
+ "ꝝ": {
+  "strokes": [
+   {
+    "name": "top",
+    "points": [
+     [
+      0.2242,
+      0.9168
+     ],
+     [
+      0.4445,
+      0.7864
+     ],
+     [
+      0.7879,
+      0.8624
+     ]
+    ],
+    "pen": null
+   },
+   {
+    "name": "diagonal",
+    "points": [
+     [
+      0.7879,
+      0.8624
+     ],
+     [
+      0.4251,
+      0.5605
+     ],
+     [
+      0.3208,
+      0.1021
+     ]
+    ],
+    "pen": null
+   },
+   {
+    "name": "foot",
+    "points": [
+     [
+      0.3208,
+      0.1021
+     ],
+     [
+      0.5681,
+      0.1883
+     ],
+     [
+      0.8639,
+      0.1158
+     ]
+    ],
+    "pen": null
+   },
+   {
+    "name": "hairline stroke",
+    "points": [
+     [
+      0.9289,
+      0.8581
+     ],
+     [
+      0.5803,
+      0.0761
+     ],
+     [
+      0.2994,
+      -0.4444
+     ]
+    ],
+    "pen": null
+   }
+  ],
+  "zone": [
+   -0.75,
+   1.3
+  ],
+  "n": 19,
+  "overlap": 0.4976975640034307,
+  "shift_px": [
+   2.0,
+   0.0
+  ],
+  "width_scale": [
+   0.9800000000000003,
+   0.08368255542884975
+  ],
+  "height_scale": [
+   1.0000000000000002,
+   0.047263040675039295
+  ],
+  "set_aside": [],
+  "mufi": {
+   "code_point": "A75D",
+   "name": "LATIN SMALL LETTER RUM ROTUNDA"
+  },
+  "examples": [
+   {
+    "folio": "12v",
+    "page": "p1/pg-027",
+    "box": [
+     1140,
+     755,
+     1170,
+     812
+    ],
+    "word": "eoꝝ",
+    "overlap": 0.588,
+    "width": 1.06,
+    "height": 1.08
+   },
+   {
+    "folio": "13r",
+    "page": "p1/pg-028",
+    "box": [
+     835,
+     483,
+     866,
+     532
+    ],
+    "word": "auꝝ",
+    "overlap": 0.59,
+    "width": 0.98,
+    "height": 1.04
+   },
+   {
+    "folio": "16v",
+    "page": "p1/pg-035",
+    "box": [
+     1135,
+     1055,
+     1163,
+     1103
+    ],
+    "word": "dieꝝ",
+    "overlap": 0.583,
+    "width": 1.02,
+    "height": 1.0
+   },
+   {
+    "folio": "17v",
+    "page": "p1/pg-037",
+    "box": [
+     1178,
+     346,
+     1204,
+     395
+    ],
+    "word": "tuaꝝ",
+    "overlap": 0.431,
+    "width": 0.94,
+    "height": 0.92
+   },
+   {
+    "folio": "25v",
+    "page": "p1/pg-053",
+    "box": [
+     830,
+     1220,
+     851,
+     1257
+    ],
+    "word": "ſuoꝝ:",
+    "overlap": 0.628,
+    "width": 0.94,
+    "height": 0.96
+   },
+   {
+    "folio": "25v",
+    "page": "p1/pg-053",
+    "box": [
+     670,
+     1278,
+     697,
+     1326
+    ],
+    "word": "do|minoꝝ",
+    "overlap": 0.482,
+    "width": 0.9,
+    "height": 1.0
+   },
+   {
+    "folio": "25v",
+    "page": "p1/pg-053",
+    "box": [
+     775,
+     1278,
+     801,
+     1322
+    ],
+    "word": "ſuoꝝ",
+    "overlap": 0.424,
+    "width": 0.98,
+    "height": 1.0
+   },
+   {
+    "folio": "26v",
+    "page": "p1/pg-055",
+    "box": [
+     1200,
+     640,
+     1225,
+     682
+    ],
+    "word": "p̄ctoꝝ",
+    "overlap": 0.404,
+    "width": 0.74,
+    "height": 0.96
+   },
+   {
+    "folio": "30r",
+    "page": "p2/pg-003",
+    "box": [
+     882,
+     845,
+     915,
+     885
+    ],
+    "word": "multoꝝ",
+    "overlap": 0.631,
+    "width": 1.06,
+    "height": 1.04
+   },
+   {
+    "folio": "36v",
+    "page": "p2/pg-016",
+    "box": [
+     1150,
+     478,
+     1172,
+     520
+    ],
+    "word": "peccatoꝝ",
+    "overlap": 0.447,
+    "width": 0.82,
+    "height": 1.04
+   },
+   {
+    "folio": "41v",
+    "page": "p2/pg-026",
+    "box": [
+     1160,
+     882,
+     1185,
+     925
+    ],
+    "word": "remīſcaꝝ",
+    "overlap": 0.489,
+    "width": 0.9,
+    "height": 0.92
+   },
+   {
+    "folio": "41v",
+    "page": "p2/pg-026",
+    "box": [
+     1150,
+     940,
+     1182,
+     985
+    ],
+    "word": "nr̄oꝝ",
+    "overlap": 0.527,
+    "width": 1.02,
+    "height": 1.0
+   },
+   {
+    "folio": "44v",
+    "page": "p2/pg-032",
+    "box": [
+     638,
+     998,
+     664,
+     1039
+    ],
+    "word": "Sāctaꝝ",
+    "overlap": 0.399,
+    "width": 1.02,
+    "height": 1.0
+   },
+   {
+    "folio": "45v",
+    "page": "p2/pg-034",
+    "box": [
+     1143,
+     243,
+     1172,
+     293
+    ],
+    "word": "noſtroꝝ",
+    "overlap": 0.437,
+    "width": 0.94,
+    "height": 0.92
+   },
+   {
+    "folio": "47v",
+    "page": "p2/pg-038",
+    "box": [
+     1095,
+     1066,
+     1126,
+     1113
+    ],
+    "word": "peccatoꝝ",
+    "overlap": 0.57,
+    "width": 0.98,
+    "height": 1.0
+   },
+   {
+    "folio": "48r",
+    "page": "p2/pg-039",
+    "box": [
+     878,
+     238,
+     916,
+     292
+    ],
+    "word": "famuloꝝ",
+    "overlap": 0.497,
+    "width": 1.02,
+    "height": 1.04
+   },
+   {
+    "folio": "48r",
+    "page": "p2/pg-039",
+    "box": [
+     896,
+     1361,
+     932,
+     1392
+    ],
+    "word": "tuaꝝ",
+    "overlap": 0.478,
+    "width": 1.06,
+    "height": 1.0
+   },
+   {
+    "folio": "53v",
+    "page": "p3/pg-004",
+    "box": [
+     1088,
+     598,
+     1126,
+     642
+    ],
+    "word": "dieꝝ",
+    "overlap": 0.407,
+    "width": 1.02,
+    "height": 1.04
+   },
+   {
+    "folio": "59v",
+    "page": "p3/pg-016",
+    "box": [
+     1098,
+     580,
+     1132,
+     616
+    ],
+    "word": "angeloꝝ",
+    "overlap": 0.443,
+    "width": 1.06,
+    "height": 0.92
+   }
+  ]
+ },
+ "ꝫ": {
+  "strokes": [
+   {
+    "name": "top",
+    "points": [
+     [
+      -0.0963,
+      1.0174
+     ],
+     [
+      0.3158,
+      1.0016
+     ],
+     [
+      0.3158,
+      0.8522
+     ]
+    ],
+    "pen": null
+   },
+   {
+    "name": "diagonal",
+    "points": [
+     [
+      0.487,
+      0.913
+     ],
+     [
+      0.0358,
+      0.3018
+     ]
+    ],
+    "pen": null
+   },
+   {
+    "name": "bowl",
+    "points": [
+     [
+      -0.0685,
+      0.3815
+     ],
+     [
+      0.2839,
+      0.5847
+     ],
+     [
+      0.4229,
+      0.2089
+     ],
+     [
+      0.3881,
+      0.1029
+     ]
+    ],
+    "pen": null
+   },
+   {
+    "name": "hairline tail",
+    "points": [
+     [
+      0.3881,
+      0.1029
+     ],
+     [
+      0.2236,
+      -0.2523
+     ],
+     [
+      0.1144,
+      -0.4747
+     ],
+     [
+      0.1194,
+      -0.4767
+     ]
+    ],
+    "pen": null
+   }
+  ],
+  "zone": [
+   -0.75,
+   1.3
+  ],
+  "n": 254,
+  "overlap": 0.4457924365518769,
+  "shift_px": [
+   -1.0,
+   -4.0
+  ],
+  "width_scale": [
+   1.1000000000000005,
+   0.22002451686477156
+  ],
+  "height_scale": [
+   1.0000000000000002,
+   0.057398280367317485
+  ],
+  "set_aside": [
+   {
+    "folio": "14v",
+    "page": "p1/pg-031",
+    "box": [
+     698,
+     652,
+     720,
+     697
+    ],
+    "word": "(con)ualliuꝫ"
+   },
+   {
+    "folio": "21v",
+    "page": "p1/pg-045",
+    "box": [
+     882,
+     1100,
+     900,
+     1135
+    ],
+    "word": "meaꝫ"
+   },
+   {
+    "folio": "29v",
+    "page": "p2/pg-002",
+    "box": [
+     1088,
+     918,
+     1110,
+     955
+    ],
+    "word": "adiutoriuꝫ"
+   },
+   {
+    "folio": "33r",
+    "page": "p2/pg-009",
+    "box": [
+     506,
+     260,
+     522,
+     302
+    ],
+    "word": "dormitatioñeꝫ"
+   },
+   {
+    "folio": "44v",
+    "page": "p2/pg-032",
+    "box": [
+     983,
+     1398,
+     999,
+     1451
+    ],
+    "word": "mortalibꝫ"
+   }
+  ],
+  "mufi": {
+   "code_point": "A76B",
+   "name": "LATIN SMALL LETTER ET (after q: -que; after a vowel: -m)"
+  },
+  "examples": [
+   {
+    "folio": "11r",
+    "page": "p1/pg-024",
+    "box": [
+     834,
+     577,
+     862,
+     613
+    ],
+    "word": "tecuꝫ",
+    "overlap": 0.378,
+    "width": 0.98,
+    "height": 0.96
+   },
+   {
+    "folio": "11v",
+    "page": "p1/pg-025",
+    "box": [
+     1017,
+     203,
+     1043,
+     240
+    ],
+    "word": "coraꝫ",
+    "overlap": 0.337,
+    "width": 0.86,
+    "height": 0.8
+   },
+   {
+    "folio": "11v",
+    "page": "p1/pg-025",
+    "box": [
+     1128,
+     558,
+     1162,
+     613
+    ],
+    "word": "dieꝫ",
+    "overlap": 0.375,
+    "width": 0.78,
+    "height": 1.12
+   },
+   {
+    "folio": "12r",
+    "page": "p1/pg-026",
+    "box": [
+     882,
+     993,
+     906,
+     1035
+    ],
+    "word": "euꝫ",
+    "overlap": 0.654,
+    "width": 0.98,
+    "height": 1.0
+   },
+   {
+    "folio": "12r",
+    "page": "p1/pg-026",
+    "box": [
+     868,
+     1040,
+     896,
+     1086
+    ],
+    "word": "tuaruꝫ",
+    "overlap": 0.335,
+    "width": 1.42,
+    "height": 1.04
+   },
+   {
+    "folio": "12v",
+    "page": "p1/pg-027",
+    "box": [
+     760,
+     632,
+     783,
+     668
+    ],
+    "word": "neq;",
+    "overlap": 0.475,
+    "width": 1.06,
+    "height": 1.0
+   },
+   {
+    "folio": "12v",
+    "page": "p1/pg-027",
+    "box": [
+     1133,
+     633,
+     1160,
+     673
+    ],
+    "word": "quoruꝫ",
+    "overlap": 0.543,
+    "width": 0.9,
+    "height": 0.96
+   },
+   {
+    "folio": "12v",
+    "page": "p1/pg-027",
+    "box": [
+     1143,
+     812,
+     1167,
+     856
+    ],
+    "word": "eoruꝫ",
+    "overlap": 0.454,
+    "width": 0.7,
+    "height": 0.96
+   },
+   {
+    "folio": "12v",
+    "page": "p1/pg-027",
+    "box": [
+     846,
+     1166,
+     866,
+     1198
+    ],
+    "word": "uſq;",
+    "overlap": 0.404,
+    "width": 0.94,
+    "height": 1.04
+   },
+   {
+    "folio": "12v",
+    "page": "p1/pg-027",
+    "box": [
+     1058,
+     1166,
+     1080,
+     1202
+    ],
+    "word": "ſummuꝫ",
+    "overlap": 0.273,
+    "width": 0.66,
+    "height": 0.84
+   },
+   {
+    "folio": "12v",
+    "page": "p1/pg-027",
+    "box": [
+     1068,
+     1346,
+     1088,
+     1388
+    ],
+    "word": "teſtimoniuꝫ",
+    "overlap": 0.33,
+    "width": 1.46,
+    "height": 1.04
+   },
+   {
+    "folio": "13v",
+    "page": "p1/pg-029",
+    "box": [
+     1060,
+     866,
+     1081,
+     909
+    ],
+    "word": "mīaꝫ",
+    "overlap": 0.394,
+    "width": 1.42,
+    "height": 1.04
+   },
+   {
+    "folio": "14r",
+    "page": "p1/pg-030",
+    "box": [
+     839,
+     512,
+     860,
+     550
+    ],
+    "word": "aīaruꝫ",
+    "overlap": 0.449,
+    "width": 0.9,
+    "height": 0.96
+   },
+   {
+    "folio": "14r",
+    "page": "p1/pg-030",
+    "box": [
+     850,
+     805,
+     876,
+     848
+    ],
+    "word": "oīꝫ",
+    "overlap": 0.337,
+    "width": 1.38,
+    "height": 0.96
+   },
+   {
+    "folio": "14v",
+    "page": "p1/pg-031",
+    "box": [
+     1190,
+     363,
+     1213,
+     397
+    ],
+    "word": "aſcendēteꝫ",
+    "overlap": 0.464,
+    "width": 1.34,
+    "height": 1.0
+   },
+   {
+    "folio": "14v",
+    "page": "p1/pg-031",
+    "box": [
+     1112,
+     1128,
+     1132,
+     1163
+    ],
+    "word": "euꝫ",
+    "overlap": 0.332,
+    "width": 1.46,
+    "height": 1.0
+   },
+   {
+    "folio": "15v",
+    "page": "p1/pg-033",
+    "box": [
+     1170,
+     668,
+     1197,
+     705
+    ],
+    "word": "orbeꝫ",
+    "overlap": 0.303,
+    "width": 1.46,
+    "height": 1.04
+   },
+   {
+    "folio": "15v",
+    "page": "p1/pg-033",
+    "box": [
+     1095,
+     850,
+     1122,
+     885
+    ],
+    "word": "ueruꝫ",
+    "overlap": 0.292,
+    "width": 0.66,
+    "height": 0.96
+   },
+   {
+    "folio": "15v",
+    "page": "p1/pg-033",
+    "box": [
+     1095,
+     1080,
+     1120,
+     1115
+    ],
+    "word": "liberanduꝫ",
+    "overlap": 0.538,
+    "width": 1.14,
+    "height": 1.08
+   },
+   {
+    "folio": "16r",
+    "page": "p1/pg-034",
+    "box": [
+     857,
+     615,
+     876,
+     652
+    ],
+    "word": "uſq;",
+    "overlap": 0.445,
+    "width": 1.14,
+    "height": 0.92
+   },
+   {
+    "folio": "17r",
+    "page": "p1/pg-036",
+    "box": [
+     787,
+     482,
+     808,
+     516
+    ],
+    "word": "uſqꝫ",
+    "overlap": 0.383,
+    "width": 1.18,
+    "height": 1.04
+   },
+   {
+    "folio": "17r",
+    "page": "p1/pg-036",
+    "box": [
+     861,
+     1484,
+     875,
+     1513
+    ],
+    "word": "ſtratꝫ",
+    "overlap": 0.523,
+    "width": 1.06,
+    "height": 0.88
+   },
+   {
+    "folio": "17v",
+    "page": "p1/pg-037",
+    "box": [
+     1188,
+     527,
+     1201,
+     580
+    ],
+    "word": "aīaꝫ",
+    "overlap": 0.558,
+    "width": 0.82,
+    "height": 1.0
+   },
+   {
+    "folio": "17v",
+    "page": "p1/pg-037",
+    "box": [
+     1025,
+     1225,
+     1047,
+     1262
+    ],
+    "word": "uiaꝫ",
+    "overlap": 0.272,
+    "width": 1.46,
+    "height": 1.04
+   },
+   {
+    "folio": "17v",
+    "page": "p1/pg-037",
+    "box": [
+     1185,
+     1453,
+     1200,
+     1497
+    ],
+    "word": "qꝛ",
+    "overlap": 0.473,
+    "width": 0.78,
+    "height": 1.08
+   },
+   {
+    "folio": "18v",
+    "page": "p1/pg-039",
+    "box": [
+     768,
+     836,
+     795,
+     866
+    ],
+    "word": "hoīꝫ",
+    "overlap": 0.297,
+    "width": 0.62,
+    "height": 1.08
+   },
+   {
+    "folio": "18v",
+    "page": "p1/pg-039",
+    "box": [
+     938,
+     1358,
+     956,
+     1392
+    ],
+    "word": "p̄reꝫ",
+    "overlap": 0.642,
+    "width": 0.9,
+    "height": 1.0
+   },
+   {
+    "folio": "19r",
+    "page": "p1/pg-040",
+    "box": [
+     380,
+     658,
+     397,
+     694
+    ],
+    "word": "euꝫ",
+    "overlap": 0.399,
+    "width": 1.1,
+    "height": 0.96
+   },
+   {
+    "folio": "20r",
+    "page": "p1/pg-042",
+    "box": [
+     725,
+     1062,
+     748,
+     1092
+    ],
+    "word": "multitudineꝫ",
+    "overlap": 0.368,
+    "width": 1.34,
+    "height": 1.04
+   },
+   {
+    "folio": "20r",
+    "page": "p1/pg-042",
+    "box": [
+     455,
+     1356,
+     478,
+     1392
+    ],
+    "word": "euꝫ",
+    "overlap": 0.406,
+    "width": 1.34,
+    "height": 1.04
+   },
+   {
+    "folio": "20v",
+    "page": "p1/pg-043",
+    "box": [
+     1170,
+     297,
+     1194,
+     335
+    ],
+    "word": "laudꝫ",
+    "overlap": 0.461,
+    "width": 1.06,
+    "height": 0.92
+   },
+   {
+    "folio": "20v",
+    "page": "p1/pg-043",
+    "box": [
+     612,
+     410,
+     630,
+     438
+    ],
+    "word": "preſiduꝫ",
+    "overlap": 0.45,
+    "width": 1.26,
+    "height": 1.04
+   },
+   {
+    "folio": "20v",
+    "page": "p1/pg-043",
+    "box": [
+     749,
+     530,
+     768,
+     575
+    ],
+    "word": "ſꝫ",
+    "overlap": 0.52,
+    "width": 1.02,
+    "height": 0.96
+   },
+   {
+    "folio": "20v",
+    "page": "p1/pg-043",
+    "box": [
+     1150,
+     702,
+     1173,
+     745
+    ],
+    "word": "ancillaꝫ",
+    "overlap": 0.48,
+    "width": 1.26,
+    "height": 0.96
+   },
+   {
+    "folio": "20v",
+    "page": "p1/pg-043",
+    "box": [
+     852,
+     866,
+     876,
+     902
+    ],
+    "word": "atqꝫ",
+    "overlap": 0.444,
+    "width": 0.9,
+    "height": 1.0
+   },
+   {
+    "folio": "21r",
+    "page": "p1/pg-044",
+    "box": [
+     729,
+     884,
+     752,
+     925
+    ],
+    "word": "mīaꝫ",
+    "overlap": 0.435,
+    "width": 1.26,
+    "height": 1.04
+   },
+   {
+    "folio": "21r",
+    "page": "p1/pg-044",
+    "box": [
+     845,
+     1074,
+     868,
+     1113
+    ],
+    "word": "nrꝫ",
+    "overlap": 0.355,
+    "width": 0.66,
+    "height": 1.08
+   },
+   {
+    "folio": "21v",
+    "page": "p1/pg-045",
+    "box": [
+     1032,
+     334,
+     1052,
+     368
+    ],
+    "word": "remiſſioneꝫ",
+    "overlap": 0.349,
+    "width": 1.46,
+    "height": 1.12
+   },
+   {
+    "folio": "21v",
+    "page": "p1/pg-045",
+    "box": [
+     1168,
+     628,
+     1192,
+     668
+    ],
+    "word": "uiaꝫ",
+    "overlap": 0.418,
+    "width": 0.82,
+    "height": 0.92
+   },
+   {
+    "folio": "21v",
+    "page": "p1/pg-045",
+    "box": [
+     759,
+     1100,
+     782,
+     1140
+    ],
+    "word": "oratiōeꝫ",
+    "overlap": 0.417,
+    "width": 1.34,
+    "height": 1.04
+   },
+   {
+    "folio": "22r",
+    "page": "p1/pg-046",
+    "box": [
+     615,
+     413,
+     637,
+     448
+    ],
+    "word": "quoqꝫ",
+    "overlap": 0.456,
+    "width": 1.02,
+    "height": 1.08
+   },
+   {
+    "folio": "22r",
+    "page": "p1/pg-046",
+    "box": [
+     870,
+     470,
+     892,
+     505
+    ],
+    "word": "atqꝫ",
+    "overlap": 0.418,
+    "width": 0.78,
+    "height": 1.0
+   },
+   {
+    "folio": "22r",
+    "page": "p1/pg-046",
+    "box": [
+     365,
+     642,
+     384,
+     675
+    ],
+    "word": "bonisqꝫ",
+    "overlap": 0.334,
+    "width": 1.3,
+    "height": 0.88
+   },
+   {
+    "folio": "22r",
+    "page": "p1/pg-046",
+    "box": [
+     660,
+     993,
+     681,
+     1026
+    ],
+    "word": "eoſqꝫ",
+    "overlap": 0.423,
+    "width": 1.1,
+    "height": 0.96
+   },
+   {
+    "folio": "22r",
+    "page": "p1/pg-046",
+    "box": [
+     872,
+     1050,
+     896,
+     1082
+    ],
+    "word": "dn̄ꝫ",
+    "overlap": 0.492,
+    "width": 1.1,
+    "height": 1.04
+   },
+   {
+    "folio": "22v",
+    "page": "p1/pg-047",
+    "box": [
+     1100,
+     218,
+     1118,
+     266
+    ],
+    "word": "orōneꝫ",
+    "overlap": 0.552,
+    "width": 1.06,
+    "height": 1.08
+   },
+   {
+    "folio": "22v",
+    "page": "p1/pg-047",
+    "box": [
+     872,
+     1020,
+     893,
+     1048
+    ],
+    "word": "dominuꝫ",
+    "overlap": 0.525,
+    "width": 1.14,
+    "height": 1.04
+   },
+   {
+    "folio": "22v",
+    "page": "p1/pg-047",
+    "box": [
+     1146,
+     1318,
+     1162,
+     1358
+    ],
+    "word": "doloſaꝫ",
+    "overlap": 0.594,
+    "width": 0.9,
+    "height": 1.0
+   },
+   {
+    "folio": "23r",
+    "page": "p1/pg-048",
+    "box": [
+     872,
+     462,
+     890,
+     500
+    ],
+    "word": "eraꝫ",
+    "overlap": 0.459,
+    "width": 0.98,
+    "height": 1.0
+   },
+   {
+    "folio": "23r",
+    "page": "p1/pg-048",
+    "box": [
+     765,
+     866,
+     782,
+     898
+    ],
+    "word": "tuuꝫ",
+    "overlap": 0.596,
+    "width": 0.82,
+    "height": 1.0
+   },
+   {
+    "folio": "23r",
+    "page": "p1/pg-048",
+    "box": [
+     872,
+     866,
+     890,
+     895
+    ],
+    "word": "neqꝫ",
+    "overlap": 0.428,
+    "width": 1.18,
+    "height": 0.96
+   },
+   {
+    "folio": "23r",
+    "page": "p1/pg-048",
+    "box": [
+     512,
+     977,
+     532,
+     1005
+    ],
+    "word": "neqꝫ",
+    "overlap": 0.412,
+    "width": 1.26,
+    "height": 1.04
+   },
+   {
+    "folio": "23r",
+    "page": "p1/pg-048",
+    "box": [
+     296,
+     1210,
+     314,
+     1245
+    ],
+    "word": "neqꝫ",
+    "overlap": 0.466,
+    "width": 1.14,
+    "height": 0.96
+   },
+   {
+    "folio": "23v",
+    "page": "p1/pg-049",
+    "box": [
+     685,
+     228,
+     705,
+     260
+    ],
+    "word": "tuuꝫ",
+    "overlap": 0.428,
+    "width": 1.18,
+    "height": 1.04
+   },
+   {
+    "folio": "23v",
+    "page": "p1/pg-049",
+    "box": [
+     1052,
+     235,
+     1068,
+     262
+    ],
+    "word": "uſqꝫ",
+    "overlap": 0.551,
+    "width": 1.1,
+    "height": 0.96
+   },
+   {
+    "folio": "23v",
+    "page": "p1/pg-049",
+    "box": [
+     1060,
+     355,
+     1080,
+     388
+    ],
+    "word": "domuꝫ",
+    "overlap": 0.547,
+    "width": 1.06,
+    "height": 1.08
+   },
+   {
+    "folio": "23v",
+    "page": "p1/pg-049",
+    "box": [
+     1040,
+     580,
+     1058,
+     616
+    ],
+    "word": "idipꝫ",
+    "overlap": 0.267,
+    "width": 1.18,
+    "height": 1.0
+   },
+   {
+    "folio": "24r",
+    "page": "p1/pg-050",
+    "box": [
+     852,
+     365,
+     873,
+     398
+    ],
+    "word": "ſeclꝫ",
+    "overlap": 0.299,
+    "width": 1.3,
+    "height": 1.2
+   },
+   {
+    "folio": "24r",
+    "page": "p1/pg-050",
+    "box": [
+     850,
+     478,
+     870,
+     508
+    ],
+    "word": "ſeclꝫ",
+    "overlap": 0.555,
+    "width": 0.98,
+    "height": 1.0
+   },
+   {
+    "folio": "24v",
+    "page": "p1/pg-051",
+    "box": [
+     1182,
+     285,
+     1204,
+     328
+    ],
+    "word": "caderꝫ",
+    "overlap": 0.262,
+    "width": 1.46,
+    "height": 1.0
+   },
+   {
+    "folio": "24v",
+    "page": "p1/pg-051",
+    "box": [
+     1180,
+     1288,
+     1204,
+     1338
+    ],
+    "word": "fc̄ꝫ",
+    "overlap": 0.474,
+    "width": 1.26,
+    "height": 0.96
+   },
+   {
+    "folio": "25r",
+    "page": "p1/pg-052",
+    "box": [
+     516,
+     522,
+     535,
+     569
+    ],
+    "word": "dieꝫ",
+    "overlap": 0.502,
+    "width": 1.1,
+    "height": 0.96
+   },
+   {
+    "folio": "25r",
+    "page": "p1/pg-052",
+    "box": [
+     347,
+     580,
+     363,
+     627
+    ],
+    "word": "usq;",
+    "overlap": 0.413,
+    "width": 1.06,
+    "height": 0.96
+   },
+   {
+    "folio": "25r",
+    "page": "p1/pg-052",
+    "box": [
+     395,
+     855,
+     414,
+     890
+    ],
+    "word": "quoniaꝫ",
+    "overlap": 0.516,
+    "width": 1.06,
+    "height": 1.0
+   },
+   {
+    "folio": "25r",
+    "page": "p1/pg-052",
+    "box": [
+     835,
+     1201,
+     858,
+     1250
+    ],
+    "word": "oīꝫ",
+    "overlap": 0.398,
+    "width": 1.14,
+    "height": 1.0
+   },
+   {
+    "folio": "25r",
+    "page": "p1/pg-052",
+    "box": [
+     836,
+     1318,
+     858,
+     1362
+    ],
+    "word": "eaꝫ",
+    "overlap": 0.321,
+    "width": 0.94,
+    "height": 0.8
+   },
+   {
+    "folio": "25r",
+    "page": "p1/pg-052",
+    "box": [
+     484,
+     1376,
+     503,
+     1421
+    ],
+    "word": "eaꝫ:",
+    "overlap": 0.257,
+    "width": 0.62,
+    "height": 1.0
+   },
+   {
+    "folio": "25v",
+    "page": "p1/pg-053",
+    "box": [
+     705,
+     300,
+     726,
+     338
+    ],
+    "word": "ꝑtuꝫ",
+    "overlap": 0.371,
+    "width": 0.78,
+    "height": 0.96
+   },
+   {
+    "folio": "25v",
+    "page": "p1/pg-053",
+    "box": [
+     1180,
+     505,
+     1200,
+     545
+    ],
+    "word": "verbuꝫ",
+    "overlap": 0.359,
+    "width": 0.82,
+    "height": 0.92
+   },
+   {
+    "folio": "25v",
+    "page": "p1/pg-053",
+    "box": [
+     968,
+     694,
+     982,
+     730
+    ],
+    "word": "eaꝫ",
+    "overlap": 0.505,
+    "width": 1.18,
+    "height": 0.96
+   },
+   {
+    "folio": "25v",
+    "page": "p1/pg-053",
+    "box": [
+     1188,
+     697,
+     1203,
+     728
+    ],
+    "word": "gēitriceꝫ",
+    "overlap": 0.464,
+    "width": 1.14,
+    "height": 1.0
+   },
+   {
+    "folio": "25v",
+    "page": "p1/pg-053",
+    "box": [
+     1162,
+     870,
+     1183,
+     903
+    ],
+    "word": "adiutoriuꝫ",
+    "overlap": 0.401,
+    "width": 1.34,
+    "height": 1.04
+   },
+   {
+    "folio": "25v",
+    "page": "p1/pg-053",
+    "box": [
+     676,
+     1395,
+     694,
+     1446
+    ],
+    "word": "dñꝫ",
+    "overlap": 0.555,
+    "width": 1.02,
+    "height": 1.0
+   },
+   {
+    "folio": "26r",
+    "page": "p1/pg-054",
+    "box": [
+     683,
+     1038,
+     706,
+     1079
+    ],
+    "word": "forcitaꝫ",
+    "overlap": 0.384,
+    "width": 1.42,
+    "height": 1.04
+   },
+   {
+    "folio": "26v",
+    "page": "p1/pg-055",
+    "box": [
+     953,
+     228,
+     972,
+     262
+    ],
+    "word": "celuꝫ",
+    "overlap": 0.443,
+    "width": 0.9,
+    "height": 0.96
+   },
+   {
+    "folio": "26v",
+    "page": "p1/pg-055",
+    "box": [
+     805,
+     580,
+     826,
+     622
+    ],
+    "word": "usq;",
+    "overlap": 0.436,
+    "width": 0.82,
+    "height": 1.08
+   },
+   {
+    "folio": "27r",
+    "page": "p1/pg-056",
+    "box": [
+     745,
+     832,
+     759,
+     869
+    ],
+    "word": "adiuuāduꝫ",
+    "overlap": 0.519,
+    "width": 1.02,
+    "height": 0.88
+   },
+   {
+    "folio": "27r",
+    "page": "p1/pg-056",
+    "box": [
+     803,
+     1235,
+     817,
+     1268
+    ],
+    "word": "cuꝫ",
+    "overlap": 0.541,
+    "width": 1.06,
+    "height": 1.04
+   },
+   {
+    "folio": "27v",
+    "page": "p1/pg-057",
+    "box": [
+     1182,
+     758,
+     1200,
+     795
+    ],
+    "word": "ciuitateꝫ",
+    "overlap": 0.481,
+    "width": 0.7,
+    "height": 1.0
+   },
+   {
+    "folio": "27v",
+    "page": "p1/pg-057",
+    "box": [
+     1182,
+     815,
+     1202,
+     850
+    ],
+    "word": "eaꝫ.",
+    "overlap": 0.496,
+    "width": 1.06,
+    "height": 0.96
+   },
+   {
+    "folio": "27v",
+    "page": "p1/pg-057",
+    "box": [
+     1182,
+     864,
+     1203,
+     902
+    ],
+    "word": "luceꝫ",
+    "overlap": 0.458,
+    "width": 0.82,
+    "height": 0.96
+   },
+   {
+    "folio": "27v",
+    "page": "p1/pg-057",
+    "box": [
+     934,
+     1340,
+     950,
+     1370
+    ],
+    "word": "desideriuꝫ",
+    "overlap": 0.436,
+    "width": 0.9,
+    "height": 1.0
+   },
+   {
+    "folio": "28r",
+    "page": "p1/pg-058",
+    "box": [
+     856,
+     1252,
+     873,
+     1296
+    ],
+    "word": "suꝫ",
+    "overlap": 0.342,
+    "width": 1.38,
+    "height": 1.0
+   },
+   {
+    "folio": "28v",
+    "page": "p2/pg-000",
+    "box": [
+     1152,
+     1162,
+     1172,
+     1210
+    ],
+    "word": "meuꝫ",
+    "overlap": 0.431,
+    "width": 1.34,
+    "height": 1.0
+   },
+   {
+    "folio": "29r",
+    "page": "p2/pg-001",
+    "box": [
+     400,
+     818,
+     421,
+     860
+    ],
+    "word": "neq;",
+    "overlap": 0.458,
+    "width": 1.18,
+    "height": 1.04
+   },
+   {
+    "folio": "29r",
+    "page": "p2/pg-001",
+    "box": [
+     274,
+     876,
+     292,
+     912
+    ],
+    "word": "q;",
+    "overlap": 0.269,
+    "width": 0.62,
+    "height": 0.88
+   },
+   {
+    "folio": "29r",
+    "page": "p2/pg-001",
+    "box": [
+     810,
+     880,
+     829,
+     912
+    ],
+    "word": "neq;",
+    "overlap": 0.414,
+    "width": 1.26,
+    "height": 0.96
+   },
+   {
+    "folio": "29r",
+    "page": "p2/pg-001",
+    "box": [
+     704,
+     996,
+     723,
+     1028
+    ],
+    "word": "ſ;",
+    "overlap": 0.43,
+    "width": 0.82,
+    "height": 0.92
+   },
+   {
+    "folio": "29r",
+    "page": "p2/pg-001",
+    "box": [
+     557,
+     1228,
+     581,
+     1272
+    ],
+    "word": "usq;",
+    "overlap": 0.534,
+    "width": 1.1,
+    "height": 1.04
+   },
+   {
+    "folio": "29v",
+    "page": "p2/pg-002",
+    "box": [
+     997,
+     278,
+     1012,
+     322
+    ],
+    "word": "cynamomuꝫ",
+    "overlap": 0.486,
+    "width": 0.7,
+    "height": 1.0
+   },
+   {
+    "folio": "29v",
+    "page": "p2/pg-002",
+    "box": [
+     1154,
+     338,
+     1170,
+     381
+    ],
+    "word": "odoreꝫ",
+    "overlap": 0.344,
+    "width": 1.46,
+    "height": 1.0
+   },
+   {
+    "folio": "30r",
+    "page": "p2/pg-003",
+    "box": [
+     728,
+     262,
+     750,
+     300
+    ],
+    "word": "inimicoruꝫ",
+    "overlap": 0.464,
+    "width": 1.18,
+    "height": 1.04
+   },
+   {
+    "folio": "30r",
+    "page": "p2/pg-003",
+    "box": [
+     887,
+     263,
+     904,
+     300
+    ],
+    "word": "tuoruꝫ",
+    "overlap": 0.606,
+    "width": 1.1,
+    "height": 0.96
+   },
+   {
+    "folio": "30r",
+    "page": "p2/pg-003",
+    "box": [
+     890,
+     612,
+     908,
+     655
+    ],
+    "word": "melchiſedꝫ",
+    "overlap": 0.572,
+    "width": 1.06,
+    "height": 1.0
+   },
+   {
+    "folio": "30r",
+    "page": "p2/pg-003",
+    "box": [
+     459,
+     1188,
+     478,
+     1226
+    ],
+    "word": "usq;",
+    "overlap": 0.451,
+    "width": 1.1,
+    "height": 0.96
+   },
+   {
+    "folio": "30r",
+    "page": "p2/pg-003",
+    "box": [
+     356,
+     1244,
+     374,
+     1278
+    ],
+    "word": "usꝫ",
+    "overlap": 0.509,
+    "width": 1.06,
+    "height": 1.0
+   },
+   {
+    "folio": "30v",
+    "page": "p2/pg-004",
+    "box": [
+     1143,
+     355,
+     1160,
+     392
+    ],
+    "word": "paupeꝫ",
+    "overlap": 0.666,
+    "width": 0.98,
+    "height": 0.96
+   },
+   {
+    "folio": "30v",
+    "page": "p2/pg-004",
+    "box": [
+     1150,
+     1350,
+     1166,
+     1392
+    ],
+    "word": "Emittꝫ",
+    "overlap": 0.501,
+    "width": 0.9,
+    "height": 0.92
+   },
+   {
+    "folio": "31v",
+    "page": "p2/pg-006",
+    "box": [
+     963,
+     776,
+     983,
+     822
+    ],
+    "word": "Summuꝫ",
+    "overlap": 0.475,
+    "width": 1.1,
+    "height": 0.96
+   },
+   {
+    "folio": "31v",
+    "page": "p2/pg-006",
+    "box": [
+     608,
+     832,
+     627,
+     878
+    ],
+    "word": "tuuꝫ",
+    "overlap": 0.439,
+    "width": 0.62,
+    "height": 0.96
+   },
+   {
+    "folio": "31v",
+    "page": "p2/pg-006",
+    "box": [
+     583,
+     948,
+     600,
+     990
+    ],
+    "word": "atq;",
+    "overlap": 0.466,
+    "width": 1.1,
+    "height": 0.96
+   },
+   {
+    "folio": "31v",
+    "page": "p2/pg-006",
+    "box": [
+     737,
+     1364,
+     757,
+     1402
+    ],
+    "word": "aq;",
+    "overlap": 0.384,
+    "width": 1.26,
+    "height": 0.96
+   },
+   {
+    "folio": "32r",
+    "page": "p2/pg-007",
+    "box": [
+     463,
+     1115,
+     485,
+     1160
+    ],
+    "word": "ſuuꝫ:",
+    "overlap": 0.304,
+    "width": 0.62,
+    "height": 1.04
+   },
+   {
+    "folio": "32v",
+    "page": "p2/pg-008",
+    "box": [
+     843,
+     298,
+     860,
+     340
+    ],
+    "word": "quecūq;",
+    "overlap": 0.5,
+    "width": 0.7,
+    "height": 1.0
+   },
+   {
+    "folio": "32v",
+    "page": "p2/pg-008",
+    "box": [
+     1150,
+     706,
+     1166,
+     750
+    ],
+    "word": "completoriuꝫ",
+    "overlap": 0.285,
+    "width": 0.82,
+    "height": 0.96
+   },
+   {
+    "folio": "32v",
+    "page": "p2/pg-008",
+    "box": [
+     1157,
+     880,
+     1177,
+     930
+    ],
+    "word": "adiutoriuꝫ",
+    "overlap": 0.406,
+    "width": 1.3,
+    "height": 1.0
+   },
+   {
+    "folio": "33r",
+    "page": "p2/pg-009",
+    "box": [
+     858,
+     1250,
+     878,
+     1292
+    ],
+    "word": "eoruꝫ",
+    "overlap": 0.436,
+    "width": 1.3,
+    "height": 1.0
+   },
+   {
+    "folio": "33r",
+    "page": "p2/pg-009",
+    "box": [
+     304,
+     1300,
+     318,
+     1345
+    ],
+    "word": "uſq;",
+    "overlap": 0.451,
+    "width": 0.98,
+    "height": 0.96
+   },
+   {
+    "folio": "33r",
+    "page": "p2/pg-009",
+    "box": [
+     766,
+     1425,
+     786,
+     1458
+    ],
+    "word": "habitatiōeꝫ",
+    "overlap": 0.549,
+    "width": 0.82,
+    "height": 0.96
+   },
+   {
+    "folio": "33v",
+    "page": "p2/pg-010",
+    "box": [
+     1028,
+     260,
+     1046,
+     296
+    ],
+    "word": "ſeculuꝫ",
+    "overlap": 0.434,
+    "width": 1.14,
+    "height": 0.96
+   },
+   {
+    "folio": "34r",
+    "page": "p2/pg-011",
+    "box": [
+     750,
+     912,
+     771,
+     955
+    ],
+    "word": "ſecunduꝫ",
+    "overlap": 0.354,
+    "width": 1.42,
+    "height": 1.04
+   },
+   {
+    "folio": "34r",
+    "page": "p2/pg-011",
+    "box": [
+     862,
+     913,
+     882,
+     952
+    ],
+    "word": "v̓buꝫ",
+    "overlap": 0.486,
+    "width": 1.14,
+    "height": 0.92
+   },
+   {
+    "folio": "34r",
+    "page": "p2/pg-011",
+    "box": [
+     283,
+     952,
+     302,
+     1000
+    ],
+    "word": "tuuꝫ",
+    "overlap": 0.408,
+    "width": 1.34,
+    "height": 0.96
+   },
+   {
+    "folio": "34r",
+    "page": "p2/pg-011",
+    "box": [
+     777,
+     1138,
+     796,
+     1181
+    ],
+    "word": "gentiuꝫ:",
+    "overlap": 0.525,
+    "width": 1.02,
+    "height": 0.96
+   },
+   {
+    "folio": "35r",
+    "page": "p2/pg-013",
+    "box": [
+     320,
+     433,
+     339,
+     472
+    ],
+    "word": "neq;",
+    "overlap": 0.453,
+    "width": 1.14,
+    "height": 0.88
+   },
+   {
+    "folio": "35v",
+    "page": "p2/pg-014",
+    "box": [
+     822,
+     1182,
+     844,
+     1230
+    ],
+    "word": "meuꝫ",
+    "overlap": 0.428,
+    "width": 1.34,
+    "height": 1.0
+   },
+   {
+    "folio": "36r",
+    "page": "p2/pg-015",
+    "box": [
+     794,
+     372,
+     812,
+     416
+    ],
+    "word": "aquaruꝫ",
+    "overlap": 0.581,
+    "width": 1.1,
+    "height": 1.0
+   },
+   {
+    "folio": "36r",
+    "page": "p2/pg-015",
+    "box": [
+     743,
+     486,
+     762,
+     532
+    ],
+    "word": "meuꝫ",
+    "overlap": 0.456,
+    "width": 1.3,
+    "height": 1.04
+   },
+   {
+    "folio": "36r",
+    "page": "p2/pg-015",
+    "box": [
+     643,
+     1425,
+     662,
+     1482
+    ],
+    "word": "neq;",
+    "overlap": 0.513,
+    "width": 1.06,
+    "height": 1.08
+   },
+   {
+    "folio": "36v",
+    "page": "p2/pg-016",
+    "box": [
+     897,
+     545,
+     913,
+     590
+    ],
+    "word": "quoniaꝫ",
+    "overlap": 0.515,
+    "width": 1.14,
+    "height": 1.0
+   },
+   {
+    "folio": "36v",
+    "page": "p2/pg-016",
+    "box": [
+     916,
+     895,
+     933,
+     922
+    ],
+    "word": "vſq;",
+    "overlap": 0.477,
+    "width": 1.02,
+    "height": 0.96
+   },
+   {
+    "folio": "37v",
+    "page": "p2/pg-018",
+    "box": [
+     528,
+     646,
+     545,
+     690
+    ],
+    "word": "ĩ|q;",
+    "overlap": 0.27,
+    "width": 0.62,
+    "height": 1.04
+   },
+   {
+    "folio": "37v",
+    "page": "p2/pg-018",
+    "box": [
+     1064,
+     712,
+     1082,
+     758
+    ],
+    "word": "q̄;",
+    "overlap": 0.508,
+    "width": 1.06,
+    "height": 1.08
+   },
+   {
+    "folio": "37v",
+    "page": "p2/pg-018",
+    "box": [
+     965,
+     1120,
+     983,
+     1165
+    ],
+    "word": "mīaꝫ",
+    "overlap": 0.484,
+    "width": 1.14,
+    "height": 1.0
+   },
+   {
+    "folio": "38r",
+    "page": "p2/pg-019",
+    "box": [
+     443,
+     246,
+     472,
+     293
+    ],
+    "word": "iniquitateꝫ",
+    "overlap": 0.307,
+    "width": 1.38,
+    "height": 1.04
+   },
+   {
+    "folio": "38r",
+    "page": "p2/pg-019",
+    "box": [
+     609,
+     707,
+     627,
+     745
+    ],
+    "word": "eniꝫ",
+    "overlap": 0.587,
+    "width": 1.14,
+    "height": 1.08
+   },
+   {
+    "folio": "38r",
+    "page": "p2/pg-019",
+    "box": [
+     801,
+     706,
+     819,
+     745
+    ],
+    "word": "ueritateꝫ",
+    "overlap": 0.636,
+    "width": 1.02,
+    "height": 1.04
+   },
+   {
+    "folio": "38v",
+    "page": "p2/pg-020",
+    "box": [
+     1029,
+     839,
+     1044,
+     869
+    ],
+    "word": "utiq;",
+    "overlap": 0.472,
+    "width": 0.9,
+    "height": 1.0
+   },
+   {
+    "folio": "39r",
+    "page": "p2/pg-021",
+    "box": [
+     852,
+     496,
+     878,
+     530
+    ],
+    "word": "Inq̃acūꝫ",
+    "overlap": 0.423,
+    "width": 1.34,
+    "height": 1.0
+   },
+   {
+    "folio": "39r",
+    "page": "p2/pg-021",
+    "box": [
+     360,
+     728,
+     387,
+     762
+    ],
+    "word": "cremiuꝫ",
+    "overlap": 0.335,
+    "width": 0.7,
+    "height": 0.96
+   },
+   {
+    "folio": "39r",
+    "page": "p2/pg-021",
+    "box": [
+     853,
+     788,
+     880,
+     824
+    ],
+    "word": "meuꝫ",
+    "overlap": 0.325,
+    "width": 1.42,
+    "height": 1.08
+   },
+   {
+    "folio": "39v",
+    "page": "p2/pg-022",
+    "box": [
+     1155,
+     598,
+     1173,
+     635
+    ],
+    "word": "tuuꝫ",
+    "overlap": 0.464,
+    "width": 1.26,
+    "height": 1.08
+   },
+   {
+    "folio": "39v",
+    "page": "p2/pg-022",
+    "box": [
+     1168,
+     660,
+     1190,
+     690
+    ],
+    "word": "generationeꝫ",
+    "overlap": 0.372,
+    "width": 0.9,
+    "height": 1.0
+   },
+   {
+    "folio": "39v",
+    "page": "p2/pg-022",
+    "box": [
+     596,
+     1076,
+     617,
+     1122
+    ],
+    "word": "tuuꝫ",
+    "overlap": 0.54,
+    "width": 1.14,
+    "height": 1.04
+   },
+   {
+    "folio": "40r",
+    "page": "p2/pg-023",
+    "box": [
+     680,
+     1193,
+     702,
+     1230
+    ],
+    "word": "uestimentuꝫ",
+    "overlap": 0.473,
+    "width": 0.78,
+    "height": 0.92
+   },
+   {
+    "folio": "40r",
+    "page": "p2/pg-023",
+    "box": [
+     688,
+     1255,
+     713,
+     1296
+    ],
+    "word": "opꝛtoꝛiuꝫ",
+    "overlap": 0.511,
+    "width": 1.14,
+    "height": 1.08
+   },
+   {
+    "folio": "40v",
+    "page": "p2/pg-024",
+    "box": [
+     862,
+     900,
+     883,
+     932
+    ],
+    "word": "uſꝫ",
+    "overlap": 0.388,
+    "width": 1.14,
+    "height": 1.0
+   },
+   {
+    "folio": "40v",
+    "page": "p2/pg-024",
+    "box": [
+     1046,
+     900,
+     1068,
+     930
+    ],
+    "word": "nocteꝫ",
+    "overlap": 0.271,
+    "width": 1.46,
+    "height": 1.0
+   },
+   {
+    "folio": "40v",
+    "page": "p2/pg-024",
+    "box": [
+     1154,
+     1068,
+     1176,
+     1108
+    ],
+    "word": "redimꝫ",
+    "overlap": 0.366,
+    "width": 1.38,
+    "height": 0.96
+   },
+   {
+    "folio": "40v",
+    "page": "p2/pg-024",
+    "box": [
+     1058,
+     1427,
+     1075,
+     1460
+    ],
+    "word": "iudiciuꝫ",
+    "overlap": 0.596,
+    "width": 1.14,
+    "height": 1.0
+   },
+   {
+    "folio": "41r",
+    "page": "p2/pg-025",
+    "box": [
+     768,
+     666,
+     794,
+     706
+    ],
+    "word": "turbatuꝫ",
+    "overlap": 0.383,
+    "width": 1.34,
+    "height": 1.04
+   },
+   {
+    "folio": "41r",
+    "page": "p2/pg-025",
+    "box": [
+     383,
+     900,
+     401,
+     936
+    ],
+    "word": "manuuꝫ",
+    "overlap": 0.565,
+    "width": 1.06,
+    "height": 1.04
+   },
+   {
+    "folio": "41v",
+    "page": "p2/pg-026",
+    "box": [
+     973,
+     822,
+     993,
+     866
+    ],
+    "word": "meaꝫ",
+    "overlap": 0.377,
+    "width": 1.46,
+    "height": 1.0
+   },
+   {
+    "folio": "41v",
+    "page": "p2/pg-026",
+    "box": [
+     596,
+     1003,
+     614,
+     1037
+    ],
+    "word": "neqꝫ",
+    "overlap": 0.438,
+    "width": 0.82,
+    "height": 0.92
+   },
+   {
+    "folio": "41v",
+    "page": "p2/pg-026",
+    "box": [
+     1135,
+     1058,
+     1168,
+     1100
+    ],
+    "word": "queꝫ",
+    "overlap": 0.531,
+    "width": 0.9,
+    "height": 0.96
+   },
+   {
+    "folio": "44v",
+    "page": "p2/pg-032",
+    "box": [
+     818,
+     999,
+     844,
+     1034
+    ],
+    "word": "undeciꝫ",
+    "overlap": 0.325,
+    "width": 1.42,
+    "height": 0.92
+   },
+   {
+    "folio": "45r",
+    "page": "p2/pg-033",
+    "box": [
+     413,
+     812,
+     437,
+     848
+    ],
+    "word": "ecc̄aꝫ",
+    "overlap": 0.478,
+    "width": 1.18,
+    "height": 1.04
+   },
+   {
+    "folio": "45r",
+    "page": "p2/pg-033",
+    "box": [
+     771,
+     936,
+     804,
+     979
+    ],
+    "word": "concordiaꝫ",
+    "overlap": 0.534,
+    "width": 1.06,
+    "height": 1.0
+   },
+   {
+    "folio": "45v",
+    "page": "p2/pg-034",
+    "box": [
+     978,
+     240,
+     1009,
+     276
+    ],
+    "word": "ꝑentuꝫ",
+    "overlap": 0.472,
+    "width": 0.9,
+    "height": 0.96
+   },
+   {
+    "folio": "45v",
+    "page": "p2/pg-034",
+    "box": [
+     808,
+     1361,
+     834,
+     1391
+    ],
+    "word": "confitentiuꝫ",
+    "overlap": 0.405,
+    "width": 1.38,
+    "height": 0.96
+   },
+   {
+    "folio": "45v",
+    "page": "p2/pg-034",
+    "box": [
+     818,
+     1415,
+     838,
+     1445
+    ],
+    "word": "idulgentiaꝫ",
+    "overlap": 0.605,
+    "width": 1.14,
+    "height": 1.0
+   },
+   {
+    "folio": "46r",
+    "page": "p2/pg-035",
+    "box": [
+     568,
+     893,
+     592,
+     935
+    ],
+    "word": "meaꝫ",
+    "overlap": 0.505,
+    "width": 1.02,
+    "height": 1.08
+   },
+   {
+    "folio": "46r",
+    "page": "p2/pg-035",
+    "box": [
+     815,
+     1435,
+     844,
+     1475
+    ],
+    "word": "Requieꝫ",
+    "overlap": 0.336,
+    "width": 1.1,
+    "height": 1.0
+   },
+   {
+    "folio": "46v",
+    "page": "p2/pg-036",
+    "box": [
+     1133,
+     485,
+     1152,
+     524
+    ],
+    "word": "aīaꝫ",
+    "overlap": 0.608,
+    "width": 0.9,
+    "height": 1.0
+   },
+   {
+    "folio": "46v",
+    "page": "p2/pg-036",
+    "box": [
+     1115,
+     1136,
+     1142,
+     1175
+    ],
+    "word": "tuuꝫ",
+    "overlap": 0.394,
+    "width": 0.7,
+    "height": 0.96
+   },
+   {
+    "folio": "46v",
+    "page": "p2/pg-036",
+    "box": [
+     722,
+     1190,
+     766,
+     1236
+    ],
+    "word": "quacūqꝫ",
+    "overlap": 0.382,
+    "width": 1.02,
+    "height": 0.8
+   },
+   {
+    "folio": "47r",
+    "page": "p2/pg-037",
+    "box": [
+     885,
+     716,
+     910,
+     752
+    ],
+    "word": "ſcl̄ꝫ",
+    "overlap": 0.491,
+    "width": 1.06,
+    "height": 1.04
+   },
+   {
+    "folio": "47r",
+    "page": "p2/pg-037",
+    "box": [
+     363,
+     893,
+     383,
+     925
+    ],
+    "word": "tuaruꝫ",
+    "overlap": 0.534,
+    "width": 1.26,
+    "height": 0.96
+   },
+   {
+    "folio": "47r",
+    "page": "p2/pg-037",
+    "box": [
+     881,
+     1374,
+     904,
+     1409
+    ],
+    "word": "hoīꝫ",
+    "overlap": 0.355,
+    "width": 1.42,
+    "height": 1.04
+   },
+   {
+    "folio": "47v",
+    "page": "p2/pg-038",
+    "box": [
+     1114,
+     1306,
+     1133,
+     1342
+    ],
+    "word": "eoꝛuꝫ",
+    "overlap": 0.586,
+    "width": 1.14,
+    "height": 0.92
+   },
+   {
+    "folio": "48r",
+    "page": "p2/pg-039",
+    "box": [
+     556,
+     295,
+     595,
+     332
+    ],
+    "word": "qꝫ",
+    "overlap": 0.597,
+    "width": 1.1,
+    "height": 1.04
+   },
+   {
+    "folio": "48r",
+    "page": "p2/pg-039",
+    "box": [
+     714,
+     296,
+     738,
+     332
+    ],
+    "word": "tuaruꝫ",
+    "overlap": 0.402,
+    "width": 0.78,
+    "height": 0.88
+   },
+   {
+    "folio": "48r",
+    "page": "p2/pg-039",
+    "box": [
+     886,
+     296,
+     914,
+     332
+    ],
+    "word": "quoruꝫ",
+    "overlap": 0.405,
+    "width": 0.78,
+    "height": 1.0
+   },
+   {
+    "folio": "48v",
+    "page": "p2/pg-040",
+    "box": [
+     706,
+     1044,
+     724,
+     1080
+    ],
+    "word": "neq;",
+    "overlap": 0.442,
+    "width": 0.9,
+    "height": 1.04
+   },
+   {
+    "folio": "48v",
+    "page": "p2/pg-040",
+    "box": [
+     718,
+     1100,
+     736,
+     1135
+    ],
+    "word": "neq;",
+    "overlap": 0.457,
+    "width": 0.9,
+    "height": 0.96
+   },
+   {
+    "folio": "48v",
+    "page": "p2/pg-040",
+    "box": [
+     921,
+     1283,
+     944,
+     1314
+    ],
+    "word": "mendaciuꝫ",
+    "overlap": 0.321,
+    "width": 0.62,
+    "height": 1.0
+   },
+   {
+    "folio": "48v",
+    "page": "p2/pg-040",
+    "box": [
+     1101,
+     1281,
+     1126,
+     1314
+    ],
+    "word": "uiruꝫ",
+    "overlap": 0.351,
+    "width": 1.38,
+    "height": 1.0
+   },
+   {
+    "folio": "48v",
+    "page": "p2/pg-040",
+    "box": [
+     688,
+     1342,
+     711,
+     1374
+    ],
+    "word": "sanguinuꝫ",
+    "overlap": 0.411,
+    "width": 1.3,
+    "height": 1.0
+   },
+   {
+    "folio": "49r",
+    "page": "p2/pg-041",
+    "box": [
+     891,
+     242,
+     916,
+     272
+    ],
+    "word": "domuꝫ",
+    "overlap": 0.318,
+    "width": 1.34,
+    "height": 1.0
+   },
+   {
+    "folio": "49r",
+    "page": "p2/pg-041",
+    "box": [
+     879,
+     656,
+     895,
+     689
+    ],
+    "word": "eoruꝫ",
+    "overlap": 0.578,
+    "width": 0.98,
+    "height": 1.08
+   },
+   {
+    "folio": "49r",
+    "page": "p2/pg-041",
+    "box": [
+     890,
+     1361,
+     905,
+     1389
+    ],
+    "word": "uiaꝫ",
+    "overlap": 0.493,
+    "width": 0.98,
+    "height": 0.8
+   },
+   {
+    "folio": "49r",
+    "page": "p2/pg-041",
+    "box": [
+     296,
+     1412,
+     315,
+     1437
+    ],
+    "word": "meaꝫ",
+    "overlap": 0.476,
+    "width": 1.26,
+    "height": 0.88
+   },
+   {
+    "folio": "49v",
+    "page": "p2/pg-042",
+    "box": [
+     711,
+     541,
+     736,
+     574
+    ],
+    "word": "neqꝫ",
+    "overlap": 0.399,
+    "width": 1.14,
+    "height": 1.08
+   },
+   {
+    "folio": "49v",
+    "page": "p2/pg-042",
+    "box": [
+     1113,
+     843,
+     1127,
+     874
+    ],
+    "word": "aīaꝫ",
+    "overlap": 0.436,
+    "width": 1.06,
+    "height": 0.96
+   },
+   {
+    "folio": "49v",
+    "page": "p2/pg-042",
+    "box": [
+     1106,
+     964,
+     1129,
+     994
+    ],
+    "word": "gl̄iaꝫ",
+    "overlap": 0.304,
+    "width": 1.42,
+    "height": 0.96
+   },
+   {
+    "folio": "50r",
+    "page": "p2/pg-043",
+    "box": [
+     662,
+     762,
+     679,
+     793
+    ],
+    "word": "ſuuꝫ",
+    "overlap": 0.606,
+    "width": 1.02,
+    "height": 1.0
+   },
+   {
+    "folio": "50r",
+    "page": "p2/pg-043",
+    "box": [
+     484,
+     815,
+     500,
+     848
+    ],
+    "word": "ſuu;",
+    "overlap": 0.545,
+    "width": 0.82,
+    "height": 1.0
+   },
+   {
+    "folio": "50r",
+    "page": "p2/pg-043",
+    "box": [
+     889,
+     1170,
+     909,
+     1199
+    ],
+    "word": "quaꝫ",
+    "overlap": 0.371,
+    "width": 1.42,
+    "height": 0.96
+   },
+   {
+    "folio": "50v",
+    "page": "p2/pg-044",
+    "box": [
+     636,
+     284,
+     664,
+     314
+    ],
+    "word": "Requieꝫ",
+    "overlap": 0.375,
+    "width": 0.66,
+    "height": 1.04
+   },
+   {
+    "folio": "50v",
+    "page": "p2/pg-044",
+    "box": [
+     551,
+     396,
+     574,
+     429
+    ],
+    "word": "neqꝫ",
+    "overlap": 0.528,
+    "width": 1.14,
+    "height": 1.04
+   },
+   {
+    "folio": "50v",
+    "page": "p2/pg-044",
+    "box": [
+     1126,
+     1174,
+     1149,
+     1204
+    ],
+    "word": "meuꝫ",
+    "overlap": 0.266,
+    "width": 1.46,
+    "height": 1.04
+   },
+   {
+    "folio": "51r",
+    "page": "p2/pg-045",
+    "box": [
+     892,
+     288,
+     918,
+     317
+    ],
+    "word": "Reqꝫ",
+    "overlap": 0.336,
+    "width": 1.34,
+    "height": 1.0
+   },
+   {
+    "folio": "51r",
+    "page": "p2/pg-045",
+    "box": [
+     772,
+     872,
+     785,
+     903
+    ],
+    "word": "manuuꝫ",
+    "overlap": 0.443,
+    "width": 0.74,
+    "height": 1.0
+   },
+   {
+    "folio": "51v",
+    "page": "p3/pg-000",
+    "box": [
+     1106,
+     588,
+     1126,
+     645
+    ],
+    "word": "totuꝫ",
+    "overlap": 0.533,
+    "width": 0.98,
+    "height": 1.08
+   },
+   {
+    "folio": "51v",
+    "page": "p3/pg-000",
+    "box": [
+     755,
+     1058,
+     780,
+     1104
+    ],
+    "word": "mīaꝫ",
+    "overlap": 0.318,
+    "width": 1.34,
+    "height": 1.04
+   },
+   {
+    "folio": "51v",
+    "page": "p3/pg-000",
+    "box": [
+     995,
+     1117,
+     1018,
+     1150
+    ],
+    "word": "ſp̄ꝫ",
+    "overlap": 0.544,
+    "width": 1.1,
+    "height": 0.96
+   },
+   {
+    "folio": "51v",
+    "page": "p3/pg-000",
+    "box": [
+     1103,
+     1115,
+     1125,
+     1160
+    ],
+    "word": "meuꝫ",
+    "overlap": 0.538,
+    "width": 0.94,
+    "height": 0.96
+   },
+   {
+    "folio": "52r",
+    "page": "p3/pg-001",
+    "box": [
+     295,
+     567,
+     313,
+     605
+    ],
+    "word": "atqꝫ",
+    "overlap": 0.507,
+    "width": 1.14,
+    "height": 1.04
+   },
+   {
+    "folio": "52r",
+    "page": "p3/pg-001",
+    "box": [
+     378,
+     868,
+     398,
+     902
+    ],
+    "word": "Duꝫ",
+    "overlap": 0.409,
+    "width": 0.62,
+    "height": 0.96
+   },
+   {
+    "folio": "52r",
+    "page": "p3/pg-001",
+    "box": [
+     765,
+     1343,
+     786,
+     1395
+    ],
+    "word": "oīꝫ",
+    "overlap": 0.578,
+    "width": 0.98,
+    "height": 0.96
+   },
+   {
+    "folio": "52v",
+    "page": "p3/pg-002",
+    "box": [
+     789,
+     298,
+     806,
+     328
+    ],
+    "word": "corpusq;",
+    "overlap": 0.519,
+    "width": 1.02,
+    "height": 1.08
+   },
+   {
+    "folio": "53r",
+    "page": "p3/pg-003",
+    "box": [
+     895,
+     213,
+     917,
+     263
+    ],
+    "word": "finiuꝫ",
+    "overlap": 0.47,
+    "width": 1.06,
+    "height": 0.92
+   },
+   {
+    "folio": "53r",
+    "page": "p3/pg-003",
+    "box": [
+     883,
+     683,
+     907,
+     725
+    ],
+    "word": "t̾raꝫ",
+    "overlap": 0.384,
+    "width": 0.86,
+    "height": 1.04
+   },
+   {
+    "folio": "53r",
+    "page": "p3/pg-003",
+    "box": [
+     804,
+     858,
+     830,
+     895
+    ],
+    "word": "cibuꝫ",
+    "overlap": 0.509,
+    "width": 1.18,
+    "height": 0.96
+   },
+   {
+    "folio": "53v",
+    "page": "p3/pg-004",
+    "box": [
+     898,
+     362,
+     926,
+     402
+    ],
+    "word": "orōneꝫ",
+    "overlap": 0.36,
+    "width": 0.78,
+    "height": 1.04
+   },
+   {
+    "folio": "53v",
+    "page": "p3/pg-004",
+    "box": [
+     587,
+     1298,
+     609,
+     1330
+    ],
+    "word": "uſqꝫ",
+    "overlap": 0.417,
+    "width": 1.1,
+    "height": 0.96
+   },
+   {
+    "folio": "53v",
+    "page": "p3/pg-004",
+    "box": [
+     789,
+     1362,
+     815,
+     1393
+    ],
+    "word": "uſqꝫ",
+    "overlap": 0.522,
+    "width": 1.14,
+    "height": 0.96
+   },
+   {
+    "folio": "54r",
+    "page": "p3/pg-005",
+    "box": [
+     556,
+     222,
+     580,
+     256
+    ],
+    "word": "uſqꝫ",
+    "overlap": 0.457,
+    "width": 1.1,
+    "height": 0.96
+   },
+   {
+    "folio": "54r",
+    "page": "p3/pg-005",
+    "box": [
+     880,
+     985,
+     910,
+     1042
+    ],
+    "word": "auteꝫ",
+    "overlap": 0.333,
+    "width": 1.46,
+    "height": 0.96
+   },
+   {
+    "folio": "54r",
+    "page": "p3/pg-005",
+    "box": [
+     903,
+     1222,
+     932,
+     1278
+    ],
+    "word": "neꝫ",
+    "overlap": 0.477,
+    "width": 1.1,
+    "height": 1.0
+   },
+   {
+    "folio": "54v",
+    "page": "p3/pg-006",
+    "box": [
+     999,
+     662,
+     1022,
+     702
+    ],
+    "word": "laudꝫ",
+    "overlap": 0.413,
+    "width": 1.3,
+    "height": 0.96
+   },
+   {
+    "folio": "54v",
+    "page": "p3/pg-006",
+    "box": [
+     860,
+     710,
+     885,
+     755
+    ],
+    "word": "iudiciuꝫ",
+    "overlap": 0.356,
+    "width": 0.7,
+    "height": 1.08
+   },
+   {
+    "folio": "54v",
+    "page": "p3/pg-006",
+    "box": [
+     1075,
+     1188,
+     1096,
+     1230
+    ],
+    "word": "mīaꝫ",
+    "overlap": 0.445,
+    "width": 0.98,
+    "height": 1.0
+   },
+   {
+    "folio": "54v",
+    "page": "p3/pg-006",
+    "box": [
+     968,
+     1296,
+     993,
+     1338
+    ],
+    "word": "famularuꝫqꝫ",
+    "overlap": 0.364,
+    "width": 1.34,
+    "height": 1.0
+   },
+   {
+    "folio": "54v",
+    "page": "p3/pg-006",
+    "box": [
+     1015,
+     1296,
+     1038,
+     1335
+    ],
+    "word": "famularuꝫqꝫ",
+    "overlap": 0.424,
+    "width": 1.1,
+    "height": 0.96
+   },
+   {
+    "folio": "55v",
+    "page": "p3/pg-008",
+    "box": [
+     556,
+     465,
+     583,
+     507
+    ],
+    "word": "meuꝫ",
+    "overlap": 0.426,
+    "width": 0.9,
+    "height": 0.92
+   },
+   {
+    "folio": "55v",
+    "page": "p3/pg-008",
+    "box": [
+     950,
+     1310,
+     974,
+     1355
+    ],
+    "word": "aīaꝫ",
+    "overlap": 0.517,
+    "width": 0.9,
+    "height": 1.0
+   },
+   {
+    "folio": "55v",
+    "page": "p3/pg-008",
+    "box": [
+     1085,
+     1303,
+     1106,
+     1352
+    ],
+    "word": "meaꝫ",
+    "overlap": 0.489,
+    "width": 1.06,
+    "height": 0.96
+   },
+   {
+    "folio": "55v",
+    "page": "p3/pg-008",
+    "box": [
+     1066,
+     1418,
+     1088,
+     1465
+    ],
+    "word": "mīaꝫ",
+    "overlap": 0.617,
+    "width": 1.14,
+    "height": 1.0
+   },
+   {
+    "folio": "56r",
+    "page": "p3/pg-009",
+    "box": [
+     695,
+     565,
+     716,
+     615
+    ],
+    "word": "adiutoꝛiuꝫ",
+    "overlap": 0.567,
+    "width": 1.02,
+    "height": 1.04
+   },
+   {
+    "folio": "56r",
+    "page": "p3/pg-009",
+    "box": [
+     403,
+     928,
+     424,
+     978
+    ],
+    "word": "Vultuꝫ",
+    "overlap": 0.58,
+    "width": 1.06,
+    "height": 1.0
+   },
+   {
+    "folio": "56r",
+    "page": "p3/pg-009",
+    "box": [
+     653,
+     1047,
+     684,
+     1092
+    ],
+    "word": "adiutoꝛiuꝫ",
+    "overlap": 0.538,
+    "width": 0.94,
+    "height": 1.0
+   },
+   {
+    "folio": "56v",
+    "page": "p3/pg-010",
+    "box": [
+     858,
+     308,
+     880,
+     345
+    ],
+    "word": "adiutoꝛiuꝫ",
+    "overlap": 0.54,
+    "width": 0.94,
+    "height": 1.0
+   },
+   {
+    "folio": "56v",
+    "page": "p3/pg-010",
+    "box": [
+     978,
+     306,
+     1003,
+     341
+    ],
+    "word": "meuꝫ",
+    "overlap": 0.332,
+    "width": 0.7,
+    "height": 1.04
+   },
+   {
+    "folio": "56v",
+    "page": "p3/pg-010",
+    "box": [
+     946,
+     480,
+     970,
+     515
+    ],
+    "word": "Atqꝫ",
+    "overlap": 0.46,
+    "width": 0.94,
+    "height": 1.04
+   },
+   {
+    "folio": "57r",
+    "page": "p3/pg-011",
+    "box": [
+     573,
+     588,
+     600,
+     630
+    ],
+    "word": "adiutoꝛiuꝫ",
+    "overlap": 0.444,
+    "width": 0.9,
+    "height": 0.92
+   },
+   {
+    "folio": "57r",
+    "page": "p3/pg-011",
+    "box": [
+     866,
+     1297,
+     890,
+     1338
+    ],
+    "word": "laudeꝫ",
+    "overlap": 0.302,
+    "width": 1.46,
+    "height": 1.0
+   },
+   {
+    "folio": "57v",
+    "page": "p3/pg-012",
+    "box": [
+     1080,
+     700,
+     1104,
+     750
+    ],
+    "word": "illaꝫ",
+    "overlap": 0.482,
+    "width": 1.14,
+    "height": 1.04
+   },
+   {
+    "folio": "57v",
+    "page": "p3/pg-012",
+    "box": [
+     756,
+     1235,
+     780,
+     1272
+    ],
+    "word": "atqꝫ",
+    "overlap": 0.42,
+    "width": 1.18,
+    "height": 0.96
+   },
+   {
+    "folio": "58r",
+    "page": "p3/pg-013",
+    "box": [
+     640,
+     697,
+     668,
+     740
+    ],
+    "word": "adiutoꝛiuꝫ",
+    "overlap": 0.542,
+    "width": 1.1,
+    "height": 0.96
+   },
+   {
+    "folio": "58r",
+    "page": "p3/pg-013",
+    "box": [
+     752,
+     697,
+     780,
+     742
+    ],
+    "word": "meuꝫ",
+    "overlap": 0.476,
+    "width": 1.22,
+    "height": 1.08
+   },
+   {
+    "folio": "58r",
+    "page": "p3/pg-013",
+    "box": [
+     640,
+     1097,
+     670,
+     1137
+    ],
+    "word": "adiutoꝛiuꝫ",
+    "overlap": 0.455,
+    "width": 1.22,
+    "height": 1.04
+   },
+   {
+    "folio": "58r",
+    "page": "p3/pg-013",
+    "box": [
+     690,
+     1282,
+     722,
+     1330
+    ],
+    "word": "donuꝫ",
+    "overlap": 0.537,
+    "width": 1.14,
+    "height": 0.96
+   },
+   {
+    "folio": "58v",
+    "page": "p3/pg-014",
+    "box": [
+     681,
+     1178,
+     700,
+     1218
+    ],
+    "word": "dexteraꝫ",
+    "overlap": 0.564,
+    "width": 1.14,
+    "height": 1.04
+   },
+   {
+    "folio": "58v",
+    "page": "p3/pg-014",
+    "box": [
+     773,
+     1180,
+     796,
+     1218
+    ],
+    "word": "ſuaꝫ",
+    "overlap": 0.432,
+    "width": 1.18,
+    "height": 0.96
+   },
+   {
+    "folio": "58v",
+    "page": "p3/pg-014",
+    "box": [
+     990,
+     1243,
+     1012,
+     1287
+    ],
+    "word": "cu;",
+    "overlap": 0.442,
+    "width": 1.1,
+    "height": 0.96
+   },
+   {
+    "folio": "59v",
+    "page": "p3/pg-016",
+    "box": [
+     1125,
+     810,
+     1152,
+     862
+    ],
+    "word": "v̾buꝫ",
+    "overlap": 0.378,
+    "width": 0.78,
+    "height": 0.88
+   },
+   {
+    "folio": "59v",
+    "page": "p3/pg-016",
+    "box": [
+     1040,
+     1050,
+     1058,
+     1098
+    ],
+    "word": "maximaꝫ",
+    "overlap": 0.302,
+    "width": 1.46,
+    "height": 0.96
+   },
+   {
+    "folio": "59v",
+    "page": "p3/pg-016",
+    "box": [
+     1030,
+     1283,
+     1057,
+     1320
+    ],
+    "word": "cruceꝫ",
+    "overlap": 0.362,
+    "width": 0.78,
+    "height": 1.0
+   },
+   {
+    "folio": "59v",
+    "page": "p3/pg-016",
+    "box": [
+     832,
+     1398,
+     862,
+     1447
+    ],
+    "word": "crucifixuꝫ",
+    "overlap": 0.371,
+    "width": 0.82,
+    "height": 0.96
+   },
+   {
+    "folio": "60r",
+    "page": "p3/pg-017",
+    "box": [
+     870,
+     218,
+     902,
+     256
+    ],
+    "word": "clamanteꝫ",
+    "overlap": 0.434,
+    "width": 1.14,
+    "height": 1.0
+   },
+   {
+    "folio": "60r",
+    "page": "p3/pg-017",
+    "box": [
+     448,
+     322,
+     474,
+     363
+    ],
+    "word": "quinqꝫ",
+    "overlap": 0.285,
+    "width": 1.38,
+    "height": 0.88
+   },
+   {
+    "folio": "60r",
+    "page": "p3/pg-017",
+    "box": [
+     583,
+     685,
+     607,
+     722
+    ],
+    "word": "omneꝫ",
+    "overlap": 0.577,
+    "width": 1.02,
+    "height": 1.04
+   },
+   {
+    "folio": "60r",
+    "page": "p3/pg-017",
+    "box": [
+     770,
+     685,
+     797,
+     724
+    ],
+    "word": "paſſioneꝫ",
+    "overlap": 0.472,
+    "width": 0.9,
+    "height": 0.96
+   },
+   {
+    "folio": "60r",
+    "page": "p3/pg-017",
+    "box": [
+     480,
+     735,
+     507,
+     775
+    ],
+    "word": "omneꝫ",
+    "overlap": 0.285,
+    "width": 0.62,
+    "height": 1.0
+   },
+   {
+    "folio": "60v",
+    "page": "p3/pg-018",
+    "box": [
+     1140,
+     1185,
+     1172,
+     1232
+    ],
+    "word": "honorabileꝫ",
+    "overlap": 0.381,
+    "width": 1.14,
+    "height": 1.08
+   },
+   {
+    "folio": "60v",
+    "page": "p3/pg-018",
+    "box": [
+     995,
+     1363,
+     1018,
+     1405
+    ],
+    "word": "ſpūaleꝫ",
+    "overlap": 0.518,
+    "width": 1.14,
+    "height": 1.0
+   },
+   {
+    "folio": "60v",
+    "page": "p3/pg-018",
+    "box": [
+     1018,
+     1420,
+     1047,
+     1458
+    ],
+    "word": "bonaꝫ",
+    "overlap": 0.395,
+    "width": 1.14,
+    "height": 1.0
+   },
+   {
+    "folio": "61r",
+    "page": "p3/pg-019",
+    "box": [
+     863,
+     286,
+     888,
+     320
+    ],
+    "word": "Quinqꝫ",
+    "overlap": 0.4,
+    "width": 1.1,
+    "height": 0.96
+   },
+   {
+    "folio": "61r",
+    "page": "p3/pg-019",
+    "box": [
+     444,
+     693,
+     472,
+     728
+    ],
+    "word": "vſqꝫ",
+    "overlap": 0.507,
+    "width": 1.06,
+    "height": 1.04
+   },
+   {
+    "folio": "61v",
+    "page": "p3/pg-020",
+    "box": [
+     652,
+     760,
+     677,
+     797
+    ],
+    "word": "Quecūqꝫ",
+    "overlap": 0.595,
+    "width": 1.02,
+    "height": 1.08
+   },
+   {
+    "folio": "61v",
+    "page": "p3/pg-020",
+    "box": [
+     1025,
+     990,
+     1058,
+     1030
+    ],
+    "word": "dominuꝫ",
+    "overlap": 0.441,
+    "width": 1.26,
+    "height": 1.04
+   },
+   {
+    "folio": "61v",
+    "page": "p3/pg-020",
+    "box": [
+     1110,
+     1345,
+     1134,
+     1390
+    ],
+    "word": "eternuꝫ",
+    "overlap": 0.318,
+    "width": 1.46,
+    "height": 1.04
+   },
+   {
+    "folio": "62r",
+    "page": "p3/pg-021",
+    "box": [
+     350,
+     535,
+     378,
+     572
+    ],
+    "word": "Ideoqꝫ",
+    "overlap": 0.47,
+    "width": 1.1,
+    "height": 1.08
+   },
+   {
+    "folio": "62v",
+    "page": "p3/pg-022",
+    "box": [
+     1008,
+     493,
+     1036,
+     528
+    ],
+    "word": "testimoniuꝫ",
+    "overlap": 0.495,
+    "width": 1.02,
+    "height": 1.08
+   },
+   {
+    "folio": "62v",
+    "page": "p3/pg-022",
+    "box": [
+     789,
+     668,
+     812,
+     702
+    ],
+    "word": "ſꝫ",
+    "overlap": 0.516,
+    "width": 1.06,
+    "height": 0.96
+   },
+   {
+    "folio": "62v",
+    "page": "p3/pg-022",
+    "box": [
+     950,
+     782,
+     968,
+     818
+    ],
+    "word": "om̄eꝫ",
+    "overlap": 0.562,
+    "width": 1.06,
+    "height": 1.0
+   },
+   {
+    "folio": "62v",
+    "page": "p3/pg-022",
+    "box": [
+     1138,
+     782,
+     1162,
+     818
+    ],
+    "word": "homineꝫ",
+    "overlap": 0.605,
+    "width": 1.14,
+    "height": 1.0
+   },
+   {
+    "folio": "62v",
+    "page": "p3/pg-022",
+    "box": [
+     1008,
+     1316,
+     1032,
+     1350
+    ],
+    "word": "neqꝫ",
+    "overlap": 0.369,
+    "width": 1.14,
+    "height": 0.96
+   },
+   {
+    "folio": "62v",
+    "page": "p3/pg-022",
+    "box": [
+     927,
+     1372,
+     946,
+     1408
+    ],
+    "word": "neqꝫ",
+    "overlap": 0.502,
+    "width": 1.1,
+    "height": 0.96
+   },
+   {
+    "folio": "62v",
+    "page": "p3/pg-022",
+    "box": [
+     724,
+     1424,
+     746,
+     1462
+    ],
+    "word": "ſꝫ",
+    "overlap": 0.482,
+    "width": 1.14,
+    "height": 0.92
+   },
+   {
+    "folio": "63v",
+    "page": "p3/pg-024",
+    "box": [
+     860,
+     898,
+     883,
+     933
+    ],
+    "word": "uſqꝫ",
+    "overlap": 0.503,
+    "width": 1.14,
+    "height": 1.04
+   },
+   {
+    "folio": "63v",
+    "page": "p3/pg-024",
+    "box": [
+     1148,
+     1135,
+     1175,
+     1170
+    ],
+    "word": "puerꝫ",
+    "overlap": 0.427,
+    "width": 0.78,
+    "height": 1.0
+   },
+   {
+    "folio": "64r",
+    "page": "p3/pg-025",
+    "box": [
+     855,
+     343,
+     888,
+     388
+    ],
+    "word": "marcꝫ",
+    "overlap": 0.382,
+    "width": 1.02,
+    "height": 0.92
+   }
+  ]
+ },
+ "đ": {
+  "strokes": [
+   {
+    "name": "bowl",
+    "points": [
+     [
+      0.3383,
+      0.7695
+     ],
+     [
+      0.3001,
+      0.5491
+     ],
+     [
+      0.4139,
+      0.2631
+     ],
+     [
+      0.5582,
+      0.0839
+     ],
+     [
+      0.5798,
+      0.1081
+     ]
+    ],
+    "pen": null
+   },
+   {
+    "name": "back",
+    "points": [
+     [
+      0.1044,
+      1.3773
+     ],
+     [
+      0.3693,
+      1.1389
+     ],
+     [
+      0.8216,
+      0.6931
+     ],
+     [
+      0.8348,
+      0.3058
+     ],
+     [
+      0.576,
+      0.1008
+     ]
+    ],
+    "pen": null
+   },
+   {
+    "name": "hairline stroke",
+    "points": [
+     [
+      -0.025,
+      1.1607
+     ],
+     [
+      0.3994,
+      1.115
+     ],
+     [
+      0.94,
+      1.2902
+     ]
+    ],
+    "pen": null
+   }
+  ],
+  "zone": [
+   -0.25,
+   1.75
+  ],
+  "n": 3,
+  "overlap": 0.5989766348332015,
+  "shift_px": [
+   -3.0,
+   -4.0
+  ],
+  "width_scale": [
+   0.9400000000000003,
+   0.0679869268479039
+  ],
+  "height_scale": [
+   0.9600000000000002,
+   0.03771236166328257
+  ],
+  "set_aside": [],
+  "mufi": {
+   "code_point": "0111",
+   "name": "LATIN SMALL LETTER D WITH STROKE"
+  },
+  "examples": [
+   {
+    "folio": "33v",
+    "page": "p2/pg-010",
+    "box": [
+     1110,
+     822,
+     1141,
+     858
+    ],
+    "word": "dd̄",
+    "overlap": 0.554,
+    "width": 0.9,
+    "height": 0.96
+   },
+   {
+    "folio": "33v",
+    "page": "p2/pg-010",
+    "box": [
+     1120,
+     1400,
+     1148,
+     1440
+    ],
+    "word": "dd̄",
+    "overlap": 0.552,
+    "width": 0.94,
+    "height": 0.96
+   },
+   {
+    "folio": "44r",
+    "page": "p2/pg-031",
+    "box": [
+     795,
+     396,
+     824,
+     445
+    ],
+    "word": "đ.",
+    "overlap": 0.691,
+    "width": 1.06,
+    "height": 1.04
+   }
+  ]
+ },
+ "̃": {
+  "strokes": [
+   {
+    "name": "left point",
+    "points": [
+     [
+      0.0554,
+      1.4536
+     ],
+     [
+      0.2444,
+      1.3236
+     ]
+    ],
+    "pen": null
+   },
+   {
+    "name": "hairline link",
+    "points": [
+     [
+      0.2444,
+      1.3236
+     ],
+     [
+      0.4118,
+      1.4705
+     ]
+    ],
+    "pen": null
+   },
+   {
+    "name": "right point",
+    "points": [
+     [
+      0.4118,
+      1.4705
+     ],
+     [
+      0.641,
+      1.3618
+     ]
+    ],
+    "pen": null
+   }
+  ],
+  "zone": [
+   1.12,
+   1.85
+  ],
+  "n": 5,
+  "overlap": 0.47226083539593533,
+  "shift_px": [
+   -8.0,
+   -4.0
+  ],
+  "width_scale": [
+   1.1800000000000006,
+   0.06499230723708774
+  ],
+  "height_scale": [
+   1.0000000000000002,
+   0.029933259094191558
+  ],
+  "set_aside": [
+   {
+    "folio": "56v",
+    "page": "p3/pg-010",
+    "box": [
+     1055,
+     718,
+     1088,
+     752
+    ],
+    "word": "ut s̃"
+   }
+  ],
+  "mufi": {
+   "code_point": "0303",
+   "name": "COMBINING TILDE (over s: s̃)"
+  },
+  "examples": [
+   {
+    "folio": "56r",
+    "page": "p3/pg-009",
+    "box": [
+     680,
+     976,
+     712,
+     1010
+    ],
+    "word": "ut s̃",
+    "overlap": 0.347,
+    "width": 1.3,
+    "height": 1.0
+   },
+   {
+    "folio": "56v",
+    "page": "p3/pg-010",
+    "box": [
+     1088,
+     243,
+     1125,
+     285
+    ],
+    "word": "ut s̃",
+    "overlap": 0.456,
+    "width": 1.26,
+    "height": 0.96
+   },
+   {
+    "folio": "56v",
+    "page": "p3/pg-010",
+    "box": [
+     972,
+     1180,
+     1002,
+     1216
+    ],
+    "word": "ut s̃",
+    "overlap": 0.489,
+    "width": 1.14,
+    "height": 0.96
+   },
+   {
+    "folio": "56v",
+    "page": "p3/pg-010",
+    "box": [
+     1058,
+     1180,
+     1100,
+     1218
+    ],
+    "word": "vs̃",
+    "overlap": 0.422,
+    "width": 1.18,
+    "height": 1.04
+   },
+   {
+    "folio": "57r",
+    "page": "p3/pg-011",
+    "box": [
+     715,
+     403,
+     748,
+     440
+    ],
+    "word": "ut s̃",
+    "overlap": 0.647,
+    "width": 1.14,
+    "height": 1.0
+   }
+  ]
+ }
+}

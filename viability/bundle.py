@@ -36,6 +36,8 @@ def build(hand_id, folios, manuscript="Clermont-Ferrand, Bibliothèque du Patrim
     for fn in ("hours_signs.json", "hours_book_signs.json"):     # f. 12r's signs, then the book's
         if (OUT / fn).exists():
             signs.update(json.loads((OUT / fn).read_text(encoding="utf-8")))
+    for v in signs.values():       # the book's example lists stay in out/hours_book_signs.json
+        v.pop("examples", None)
     B = dict(
         id=hand_id, manuscript=manuscript, folios=folios,
         # the page's pen, as the letters were fitted with it (the minim module's own fit
@@ -47,7 +49,7 @@ def build(hand_id, folios, manuscript="Clermont-Ferrand, Bibliothèque du Patrim
         terminal=twist["terminal"],
         minim=dict(module=minim["module"], rules=minim["rules"], tail=minim["tail"]),
         minim_offsets=SC.minim_offsets(found),
-        spacing=SC.fit_spacing(SC.pairs(found)),
+        spacing=SC.with_book_spacing(SC.fit_spacing(SC.pairs(found))),
         letters=letters, signs=signs,
         provenance=dict(letters={ch: v["n"] for ch, v in letters.items()},
                         signs={ch: v["n"] for ch, v in signs.items()},

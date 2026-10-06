@@ -145,27 +145,33 @@ FORMS = [("dominus", ["dn\u0304s", "do\u0304ꝫ"]), ("quoniam", ["qm\u0304"]), (
          ("quod", ["ꝙ"]), ("inimicos", ["i\u0304imicos"])]
 
 
-def plot_forms(env, path, xh=29.0):
+def plot_forms(env, path, xh=29.0, forms=None, title="Words in full and abbreviated, written from the fitted letters and signs"):
     import scribe as SC
+    forms = forms or FORMS
     minim = json.loads((OUT / "hours_minims.json").read_text(encoding="utf-8"))
     found = [f for f in env["found"] if f["char"] not in (MACRON, ER)]
-    w = SC.Scribe(SC.load_letters(), minim, SC.fit_spacing(SC.pairs(found)), SC.minim_offsets(found), env["slant"])
-    fig, axes = plt.subplots(len(FORMS), 1 + max(len(a) for _, a in FORMS), figsize=(12, 1.15 * len(FORMS)),
-                             dpi=180, facecolor=SURFACE)
-    for r, (full, abbrs) in enumerate(FORMS):
+    w = SC.Scribe(SC.load_letters(), minim, SC.with_book_spacing(SC.fit_spacing(SC.pairs(found))), SC.minim_offsets(found),
+                   env["slant"])
+    geoms = {(r, c): w.render(w.write(word, 0.0, 0.0, xh))
+             for r, (full, abbrs) in enumerate(forms) for c, word in enumerate([full] + abbrs)}
+    right = max(7.0 * xh, max(g.bounds[2] for g in geoms.values()) + 0.4 * xh)   # the longest word
+    ncol = 1 + max(len(a) for _, a in forms)
+    # panels keep the words' proportions: 2.8 x-heights tall, (right + 0.6) x-heights wide
+    fig, axes = plt.subplots(len(forms), ncol, figsize=(1.08 * ncol * 1.15 * (right / xh + 0.6) / 2.8, 1.15 * len(forms)),
+                             dpi=180, facecolor=SURFACE, squeeze=False)
+    for r, (full, abbrs) in enumerate(forms):
         for c, word in enumerate([full] + abbrs):
             ax = axes[r, c]
-            geom = w.render(w.write(word, 0.0, 0.0, xh))
+            geom = geoms[(r, c)]
             SC.fill(ax, geom)
             x0, y0, x1, y1 = geom.bounds
-            ax.set_xlim(-0.6 * xh, 7.0 * xh); ax.set_ylim(0.95 * xh, -1.85 * xh)
+            ax.set_xlim(-0.6 * xh, right); ax.set_ylim(0.95 * xh, -1.85 * xh)
             ax.set_aspect("equal"); ax.axis("off")
             ax.set_title(("in full" if c == 0 else "abbreviated") + f": {word}", fontsize=7.5, color=MUTED, loc="left",
                          pad=1, fontfamily="FreeSerif")
         for c in range(1 + len(abbrs), axes.shape[1]):
             axes[r, c].axis("off")
-    fig.suptitle("Words in full and abbreviated, written from the fitted letters and signs", fontsize=8.5,
-                 color=INK_TEXT, x=0.01, ha="left")
+    fig.suptitle(title, fontsize=8.5, color=INK_TEXT, x=0.01, ha="left")
     fig.tight_layout(rect=(0, 0, 1, 0.96))
     fig.savefig(path, facecolor=SURFACE)
     plt.close(fig)

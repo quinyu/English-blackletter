@@ -25,40 +25,44 @@
   "t",
   "u",
   "v",
+  "đ",
   "ı",
   "ſ",
+  "̃",
   "̄",
   "͛",
   "ꝓ",
   "ꝛ",
-  "ꝫ"
+  "ꝝ",
+  "ꝫ",
+  "ꝯ"
  ],
  "classes": {
-  "fitted": 29,
-  "composed (fitted marks)": 5,
-  "composed": 273,
+  "fitted": 33,
+  "composed (fitted marks)": 8,
+  "composed": 268,
   "derived": 650,
-  "new": 565
+  "new": 563
  },
  "by_section": {
   "1: Alphabetical characters": {
-   "fitted": 24,
+   "fitted": 25,
    "derived": 591,
    "new": 231,
-   "composed": 228,
-   "composed (fitted marks)": 5
+   "composed": 224,
+   "composed (fitted marks)": 8
   },
   "2: Numbers": {
    "new": 43
   },
   "3: Combining alphabetical and abbreviation characters": {
    "derived": 59,
-   "composed": 45,
-   "fitted": 2
+   "composed": 44,
+   "fitted": 3
   },
   "4: Spacing abbreviation and modifying characters": {
-   "new": 48,
-   "fitted": 1
+   "new": 46,
+   "fitted": 3
   },
   "5: Punctuation": {
    "new": 107,

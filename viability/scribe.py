@@ -115,6 +115,16 @@ def load_letters():
     return L
 
 
+def with_book_spacing(sp):
+    """The spacing model with the approach and advance of the signs fitted from the whole
+    book (book_signs.py), which f. 12r's pairs do not cover."""
+    p = OUT / "hours_book_spacing.json"
+    if not p.exists():
+        return sp
+    B = json.loads(p.read_text(encoding="utf-8"))
+    return dict(sp, advance=dict(sp["advance"], **B["advance"]), approach=dict(sp["approach"], **B["approach"]))
+
+
 class Scribe:
     def __init__(self, letters, minim, spacing, offsets, slant, nib=None, terminal=None):
         """nib: (a, b, theta, p) of the hand's pen, terminal: its twist-and-pull keyframes;

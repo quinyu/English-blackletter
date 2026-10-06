@@ -393,7 +393,7 @@
 "letter": "A",
 "group": "Base characters",
 "pua": false,
-"class": "composed"
+"class": "composed (fitted marks)"
 },
 {
 "cp": "00C3",
@@ -2397,7 +2397,7 @@
 "letter": "D",
 "group": "Base characters",
 "pua": false,
-"class": "composed"
+"class": "fitted"
 },
 {
 "cp": "0110",
@@ -6921,7 +6921,7 @@
 "letter": "N",
 "group": "Base characters",
 "pua": false,
-"class": "composed"
+"class": "composed (fitted marks)"
 },
 {
 "cp": "00D1",
@@ -7857,7 +7857,7 @@
 "letter": "O",
 "group": "Base characters",
 "pua": false,
-"class": "composed"
+"class": "composed (fitted marks)"
 },
 {
 "cp": "00D5",
@@ -14229,7 +14229,7 @@
 "letter": null,
 "group": "Diacritical marks",
 "pua": false,
-"class": "composed"
+"class": "fitted"
 },
 {
 "cp": "0304",
@@ -14925,7 +14925,7 @@
 "letter": null,
 "group": "Abbreviation characters",
 "pua": false,
-"class": "new"
+"class": "fitted"
 },
 {
 "cp": "A76E",
@@ -15021,7 +15021,7 @@
 "letter": null,
 "group": "Abbreviation characters",
 "pua": false,
-"class": "new"
+"class": "fitted"
 },
 {
 "cp": "A75C",
