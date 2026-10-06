@@ -1056,13 +1056,13 @@ in a row, most of all where the strokes are the sides of bowls. o + p + p + o ca
 all along, and o + c bites, but r + a does not: r has no upright right side to share.
 
 **How it was measured.**
-- **Readings.** Eleven pages spread through the book (ff. 13v, 26r, 29r, 33r, 39v, 47v,
-  50r, 52v, 58v, 62v and f. 12r) were read letter by letter into
+- **Readings.** Thirteen pages spread through the book (f. 12r and ff. 13v, 18v, 23v,
+  26r, 29r, 33r, 39v, 47v, 50r, 52v, 58v, 62v) were read letter by letter into
   `data/hours_readings.json`, which also keeps the readers' notes on doubtful lines.
 - **Letter positions.** `find_letters.py` lays each line's reading along its ink, as
   `align.py` does for f. 12r, with f. 12r's templates and the book's own sign
   examples, on lines straightened and rescaled to f. 12r's x-height. Of the minim
-  letters (i, n, m, u) it finds, 1,648 of 1,662 hold exactly their stems (at least 99%
+  letters (i, n, m, u) it finds, 1,974 of 1,992 hold exactly their stems (at least 98%
   on every page), the same check f. 12r passes.
 - **The junction.** `biting.py` looks at each pair of neighbouring letters inside a
   word. The left letter's last upright stroke and the right letter's first are found
@@ -1083,30 +1083,30 @@ all along, and o + c bites, but r + a does not: r has no upright right side to s
 
 | Facing sides | Pairs | Bite | Examples |
 |---|---|---|---|
-| bowl → bowl | 265 | 95% | *do* 29/29, *be* 13/13, *oc* 10/10, *po* 10/10, *ho* 9/9, *pa* 8/8, *de* 54/55, *pe* 40/41, *os* 29/30, *ge* 10/13 |
-| bowl → stem | 339 | 7% | *pp* 3/3, *ot* 4/9, *ol* 3/11, *pl* 2/8, *op* 1/4; before a minim almost never (*on* 1/52, *di* 1/47, *om* 0/35, *bu* 0/21) |
-| stem → bowl | 693 | 10% | *le* 14/21, *ac* 13/20; a minim before e about one time in ten (*ne* 5/48, *me* 4/33, *ue* 3/29) |
-| stem → stem | 1,255 | 5% | *ar* 20/28, *ll* 5/16, *at* 10/57, *nt* 8/47; minims never (*in* 0/93, *um* 0/83, *ui* 0/74, *mi* 0/52) |
-| an open side | 1,656 | never | 58% touch at the head or foot: *ra* 0/52 (49 touch), *te* 0/65, *ce* 0/30, *ſt* 0/54 |
+| bowl → bowl | 327 | 95% | *do* 45/45, *be* 17/17, *oc* 11/11, *ho* 11/11, *po* 10/10, *pa* 12/13, *de* 64/65, *pe* 44/46, *os* 32/33, *ge* 12/15 |
+| bowl → stem | 415 | 7% | *pp* 3/3, *ot* 4/10, *ol* 3/13, *pl* 2/8, *op* 2/6; before a minim almost never (*on* 1/57, *di* 1/61, *om* 0/53, *bu* 0/26) |
+| stem → bowl | 815 | 9% | *le* 14/23, *ac* 15/22; a minim before e about one time in ten (*ne* 6/56, *me* 4/35, *ue* 4/34) |
+| stem → stem | 1,471 | 6% | *ar* 23/32, *ll* 5/17, *at* 15/67, *nt* 12/59; minims never (*in* 0/117, *um* 0/94, *ui* 0/83, *mi* 0/72) |
+| an open side | 1,916 | never | 58% touch at the head or foot: *ra* 0/58 (55 touch), *te* 0/91, *ce* 0/36, *ſt* 0/57 |
 
 - **Bowls bite.** Two facing bowls are written on one line 95 times in 100, and at least
-  9 times in 10 on every page sampled. Of the 12 that do not, 5 follow a g, whose bowl
-  hangs from its stem and stands apart (*ge*, *go*, *ga*).
+  9 times in 10 on every page sampled. Of the 16 that do not, 6 involve a g, whose bowl
+  hangs from its stem and stands apart (*ge*, *go*, *ga*, *og*).
 - **A bowl against a stem bites only where the stem is tall or a p's.** o + t, o + l and
-  p + l bite now and then, and p + p always. o + p bites once in four, and the other
-  three times the o's side and the p's stem stand side by side, linked by a hairline.
+  p + l bite now and then, and p + p always. o + p bites twice in six; the other four
+  times the o's side and the p's stem stand side by side, linked by a hairline.
   So in *o p p o* this scribe fuses the p's and the p with the o, but not the first o
   with the p.
 - **Minims never share a stroke.** Sharing one would turn *um* into *un*. But r is
-  built straight onto a's stem (*ar* 20 of 28), and e and c lean their backs on l and a
+  built straight onto a's stem (*ar* 23 of 32), and e and c lean their backs on l and a
   (*le*, *ac*).
 - **r rotunda is the other way of joining.** After o the scribe always writes ꝛ, which
-  hooks its head onto the o's side instead of sharing it: *oꝛ* 0 of 55 share a side, 13
+  hooks its head onto the o's side instead of sharing it: *oꝛ* 0 of 58 share a side, 14
   touch.
-- **Chains.** Twenty runs of three or more letters each bite the next: *ꝓpt*, *ppa*,
-  *pot*, *hoc*, *doc*, *odo*, *dde*, *oll*, *loc*, *llat* …
+- **Chains.** 27 runs of three or more letters each bite the next: *ꝓpt*, *ppa*, *opt*,
+  *pot*, *pac*, *hoc*, *doc*, *odo*, *dde*, *oll*, *loc*, *llat* …
 - **How far they overlap.** The shared run is 9 px wide at the median (one stroke is 7):
-  329 of 413 biting pairs share one stroke, 84 run two strokes together.
+  398 of 496 biting pairs share one stroke, 98 run two strokes together.
 
 ![Pairs as the scribe wrote them](out/hours_biting_examples.png)
 

@@ -11,14 +11,14 @@
    },
    {
     "n": 2,
-    "y": 315,
+    "y": 314,
     "kind": "text",
     "diplomatic": "tudo eius oꝛbis terrarum:",
     "latin": "tudo eius orbis terrarum"
    },
    {
     "n": 3,
-    "y": 366,
+    "y": 367,
     "kind": "text",
     "diplomatic": "et vniu͛ſi qui h̄itant in eo [Q]uia",
     "latin": "et universi qui habitant in eo. Quia"
@@ -39,14 +39,14 @@
    },
    {
     "n": 6,
-    "y": 545,
+    "y": 546,
     "kind": "text",
     "diplomatic": "aſcendet ī montem domini: aut",
     "latin": "ascendet in montem Domini aut"
    },
    {
     "n": 7,
-    "y": 600,
+    "y": 602,
     "kind": "text",
     "diplomatic": "quis ſtabit in loco ſancto eius:",
     "latin": "quis stabit in loco sancto eius"
@@ -60,21 +60,21 @@
    },
    {
     "n": 9,
-    "y": 718,
+    "y": 719,
     "kind": "text",
     "diplomatic": "coꝛde qui non accepit īuano aī",
     "latin": "corde qui non accepit in vano ani-"
    },
    {
     "n": 10,
-    "y": 777,
+    "y": 778,
     "kind": "text",
     "diplomatic": "mam ſuam: nec iurauit ī dolo",
     "latin": "mam suam nec iuravit in dolo"
    },
    {
     "n": 11,
-    "y": 837,
+    "y": 838,
     "kind": "text",
     "diplomatic": "ꝓximo ſuo [H]ic accipiet benedic",
     "latin": "proximo suo. Hic accipiet benedic-"
@@ -88,21 +88,21 @@
    },
    {
     "n": 13,
-    "y": 956,
+    "y": 957,
     "kind": "text",
     "diplomatic": "ſalutari ſuo [H]ec eſt generatio",
     "latin": "salutari suo. Haec est generatio"
    },
    {
     "n": 14,
-    "y": 1012,
+    "y": 1013,
     "kind": "text",
     "diplomatic": "querentium eum: querentium",
     "latin": "quaerentium eum quaerentium"
    },
    {
     "n": 15,
-    "y": 1071,
+    "y": 1072,
     "kind": "text",
     "diplomatic": "faciem dei iacob [A]ttollite poꝛ",
     "latin": "faciem Dei Iacob. Attollite por-"
@@ -116,35 +116,35 @@
    },
    {
     "n": 17,
-    "y": 1191,
+    "y": 1194,
     "kind": "text",
     "diplomatic": "mini poꝛte etn͛ales: et introibit",
     "latin": "mini portae aeternales et introibit"
    },
    {
     "n": 18,
-    "y": 1251,
+    "y": 1254,
     "kind": "text",
     "diplomatic": "rex gliē [Q]uis eſt iſte rex gliē:",
     "latin": "rex gloriae. Quis est iste rex gloriae"
    },
    {
     "n": 19,
-    "y": 1310,
+    "y": 1314,
     "kind": "text",
     "diplomatic": "dominus foꝛtis et potens: dn̄s",
     "latin": "Dominus fortis et potens Dominus"
    },
    {
     "n": 20,
-    "y": 1368,
+    "y": 1372,
     "kind": "text",
     "diplomatic": "potens in pꝛelio [A]ttollite poꝛ",
     "latin": "potens in praelio. Attollite por-"
    },
    {
     "n": 21,
-    "y": 1424,
+    "y": 1429,
     "kind": "text",
     "diplomatic": "tas pꝛincipes veſtras et eleuamī",
     "latin": "tas principes vestras et elevamini"
@@ -160,6 +160,351 @@
    "5": "fluīa: 3 minims between l and a (u + i under the bar). p̄parauit: 11 upright strokes from p to t; read as p̄ p a r a u i t with p|p and p|a biting (the stroke at x~837 is shared by the two p's, the one at x~854 by p and a; all three are joined at the baseline, and both 820 and 837 carry descender hairlines; a diamond mark sits above the first p). Final word after [Q]: u i s, the s squeezed at the margin with a forked top (could be read as a short ſ).",
    "11": "ꝓximo: the p has a hairline crossing its stem leftward at the baseline (taken as the pro sign); no full loop is visible.",
    "17": "The er-curl stands over the n of etn͛ales."
+  }
+ },
+ "p1/pg-039": {
+  "folio": "18v",
+  "lines": [
+   {
+    "n": 1,
+    "y": 224,
+    "kind": "text",
+    "diplomatic": "gura. et nubes domino [B]ene",
+    "latin": "fulgura et nubes Domino. Bene-"
+   },
+   {
+    "n": 2,
+    "y": 281,
+    "kind": "text",
+    "diplomatic": "dicat terra dn̄m: laudet et ſup",
+    "latin": "dicat terra Dominum, laudet et super-"
+   },
+   {
+    "n": 3,
+    "y": 338,
+    "kind": "text",
+    "diplomatic": "exaltet eum in ſecula [B]enedici",
+    "latin": "exaltet eum in saecula. Benedici-"
+   },
+   {
+    "n": 4,
+    "y": 397,
+    "kind": "text",
+    "diplomatic": "te montes et colles domino: bn̄",
+    "latin": "te montes et colles Domino; benedicite"
+   },
+   {
+    "n": 5,
+    "y": 457,
+    "kind": "text",
+    "diplomatic": "vniu͛ſa germinantia ītr͛a do:",
+    "latin": "universa germinantia in terra Domino;"
+   },
+   {
+    "n": 6,
+    "y": 515,
+    "kind": "text",
+    "diplomatic": "[B]enedicite fontes domino: be",
+    "latin": "Benedicite fontes Domino; be-"
+   },
+   {
+    "n": 7,
+    "y": 574,
+    "kind": "text",
+    "diplomatic": "nedicite maria et flumīa dn̄o",
+    "latin": "nedicite maria et flumina Domino."
+   },
+   {
+    "n": 8,
+    "y": 632,
+    "kind": "text",
+    "diplomatic": "[B]enedicite cete ꝫ omīa que mo",
+    "latin": "Benedicite cete et omnia quae mo-"
+   },
+   {
+    "n": 9,
+    "y": 684,
+    "kind": "text",
+    "diplomatic": "uentur in aquis domino: bene",
+    "latin": "ventur in aquis Domino; bene-"
+   },
+   {
+    "n": 10,
+    "y": 743,
+    "kind": "text",
+    "diplomatic": "dicite omnes volucres celi dn̄o:",
+    "latin": "dicite omnes volucres caeli Domino."
+   },
+   {
+    "n": 11,
+    "y": 801,
+    "kind": "text",
+    "diplomatic": "[B]n̄ om̄s beſtie et pecoꝛa dn̄o:",
+    "latin": "Benedicite omnes bestiae et pecora Domino;"
+   },
+   {
+    "n": 12,
+    "y": 862,
+    "kind": "text",
+    "diplomatic": "bn̄ filii hoīꝫ dn̄o [B]enedicat iſ",
+    "latin": "benedicite filii hominum Domino. Benedicat Is-"
+   },
+   {
+    "n": 13,
+    "y": 922,
+    "kind": "text",
+    "diplomatic": "rael dn̄m: laudet et ſuper exal",
+    "latin": "rael Dominum, laudet et superexal-"
+   },
+   {
+    "n": 14,
+    "y": 982,
+    "kind": "text",
+    "diplomatic": "tet eum in ſecula [B]endicite ſa",
+    "latin": "tet eum in saecula. Benedicite sa-"
+   },
+   {
+    "n": 15,
+    "y": 1038,
+    "kind": "text",
+    "diplomatic": "cerdotes domini domino: bn̄ ſ͛ui",
+    "latin": "cerdotes Domini Domino; benedicite servi"
+   },
+   {
+    "n": 16,
+    "y": 1093,
+    "kind": "text",
+    "diplomatic": "dn̄i domino [B]n̄ ſpūs et aīe iuſ",
+    "latin": "Domini Domino. Benedicite spiritus et animae ius-"
+   },
+   {
+    "n": 17,
+    "y": 1151,
+    "kind": "text",
+    "diplomatic": "toꝛum dn̄o: bn̄ ſcī et humiles coꝛ",
+    "latin": "torum Domino; benedicite sancti et humiles cor-"
+   },
+   {
+    "n": 18,
+    "y": 1213,
+    "kind": "text",
+    "diplomatic": "de domino [B]enedicite anania",
+    "latin": "de Domino. Benedicite Anania"
+   },
+   {
+    "n": 19,
+    "y": 1270,
+    "kind": "text",
+    "diplomatic": "azaria miſael domino laudate",
+    "latin": "Azaria Misael Domino, laudate"
+   },
+   {
+    "n": 20,
+    "y": 1327,
+    "kind": "text",
+    "diplomatic": "et ſuper exaltate eum ī ſecula:",
+    "latin": "et superexaltate eum in saecula."
+   },
+   {
+    "n": 21,
+    "y": 1385,
+    "kind": "text",
+    "diplomatic": "[B]n̄dicamus pr̄eꝫ ꝫ filium cū",
+    "latin": "Benedicamus Patrem et Filium cum"
+   }
+  ],
+  "doubtful": [
+   1,
+   2,
+   5,
+   14
+  ],
+  "notes": {
+   "1": "A small faint point at mid x-height (x~680) between gura and et; taken as '.', may be a stray mark.",
+   "2": "Line ends ſup: the p has the same form as every other p on the page (foot stroke to the left at the baseline plus a hairline descender), no visible per-bar or er-mark; Latin needs super-. Could be ſuꝑ if the foot stroke is meant as the per-bar.",
+   "5": "er-curl above between u and ſ (vniu͛ſa). ītr͛a: bar over i (ī = in), a raised hook above the r (terra); no word space between ī and t. Final word: the ink shows only d + o (do-ligature, no n, no macron), then a colon whose upper point is inside a brown pen loop.",
+   "8": "The et is the z-shaped sign, written ꝫ.",
+   "11": "[B]n̄ = Benedicite; om̄s: o, three minims, round s, bar over m; be is a b-e bite (the e is the head stroke on the b's bowl). The final colon is wrapped in a light-brown S-shaped pen flourish.",
+   "12": "hoīꝫ: h, o, i with a bar, then the semicolon-like ꝫ. The last i of filii has a descending tail.",
+   "14": "[B]endicite: after the painted B the ink has e n d i c i t e (the second e of Benedicite is not written).",
+   "15": "ſ͛ui: a hook after the ſ at the top of the x-height (er), then 3 minims (u i).",
+   "16": "[B]n̄ = Benedicite, the second minim of n descends. ſpūs: macron over u. aīe = animae.",
+   "21": "pr̄eꝫ = patrem (r with a bar over it, then e and the z-shaped final -m), then a separate z-shaped et sign (ꝫ). cū has a bar over u."
+  }
+ },
+ "p1/pg-049": {
+  "folio": "23v",
+  "lines": [
+   {
+    "n": 1,
+    "y": 260,
+    "kind": "text",
+    "diplomatic": "tum tuuꝫ: ex hoc nūc et uſqꝫ ī ſclm̄",
+    "latin": "-tum tuum ex hoc nunc et usque in saeculum."
+   },
+   {
+    "n": 2,
+    "y": 316,
+    "kind": "text",
+    "diplomatic": "[L]Etatus ſum in his q̄ dt̄a",
+    "latin": "Laetatus sum in his quae dicta"
+   },
+   {
+    "n": 3,
+    "y": 371,
+    "kind": "text",
+    "diplomatic": "ſunt michi: ī domuꝫ dn̄i",
+    "latin": "sunt mihi, in domum Domini"
+   },
+   {
+    "n": 4,
+    "y": 428,
+    "kind": "text",
+    "diplomatic": "ibimus [S]tantes erant pedes",
+    "latin": "ibimus. Stantes erant pedes"
+   },
+   {
+    "n": 5,
+    "y": 483,
+    "kind": "text",
+    "diplomatic": "nr̄i: inatriis tuis ierlm̄ [I]erlm̄",
+    "latin": "nostri in atriis tuis Ierusalem. Ierusalem"
+   },
+   {
+    "n": 6,
+    "y": 540,
+    "kind": "text",
+    "diplomatic": "que hedificatur ut ciuitas cuiꝰ",
+    "latin": "quae aedificatur ut civitas, cuius"
+   },
+   {
+    "n": 7,
+    "y": 597,
+    "kind": "text",
+    "diplomatic": "participatio eius in idip̄ꝫ [I]l",
+    "latin": "participatio eius in idipsum. Il-"
+   },
+   {
+    "n": 8,
+    "y": 653,
+    "kind": "text",
+    "diplomatic": "luc enꝫ aſcenderunt tribus tbꝰ",
+    "latin": "-luc enim ascenderunt tribus, tribus"
+   },
+   {
+    "n": 9,
+    "y": 710,
+    "kind": "text",
+    "diplomatic": "domini: teſtimoniū iſrael: ad cō",
+    "latin": "Domini, testimonium Israel, ad con-"
+   },
+   {
+    "n": 10,
+    "y": 769,
+    "kind": "text",
+    "diplomatic": "fitendum nomini dn̄i [Q]uia il",
+    "latin": "-fitendum nomini Domini. Quia il-"
+   },
+   {
+    "n": 11,
+    "y": 829,
+    "kind": "text",
+    "diplomatic": "lic ſederunt ſedes in iudicio: ſedes",
+    "latin": "-lic sederunt sedes in iudicio, sedes"
+   },
+   {
+    "n": 12,
+    "y": 889,
+    "kind": "text",
+    "diplomatic": "ſuper domum dauid [R]ogate q̄",
+    "latin": "super domum David. Rogate quae"
+   },
+   {
+    "n": 13,
+    "y": 950,
+    "kind": "text",
+    "diplomatic": "adpacem ſunt ierl̄m: et habūdā",
+    "latin": "ad pacem sunt Ierusalem, et abundantia"
+   },
+   {
+    "n": 14,
+    "y": 1010,
+    "kind": "text",
+    "diplomatic": "cia diligentibus te [F]iat pax",
+    "latin": "diligentibus te. Fiat pax"
+   },
+   {
+    "n": 15,
+    "y": 1068,
+    "kind": "text",
+    "diplomatic": "in virtute tua: et habundancia",
+    "latin": "in virtute tua, et abundantia"
+   },
+   {
+    "n": 16,
+    "y": 1128,
+    "kind": "text",
+    "diplomatic": "inturribus tuis [P]ropter fr̄es",
+    "latin": "in turribus tuis. Propter fratres"
+   },
+   {
+    "n": 17,
+    "y": 1187,
+    "kind": "text",
+    "diplomatic": "meos et ꝓximos meos: loquebar",
+    "latin": "meos et proximos meos loquebar"
+   },
+   {
+    "n": 18,
+    "y": 1249,
+    "kind": "text",
+    "diplomatic": "pacem de te [P]ropter domū dei",
+    "latin": "pacem de te. Propter domum Domini Dei"
+   },
+   {
+    "n": 19,
+    "y": 1308,
+    "kind": "text",
+    "diplomatic": "noſtri: queſiui bona tibi, G: ps",
+    "latin": "nostri quaesivi bona tibi. Gloria. Psalmus"
+   },
+   {
+    "n": 20,
+    "y": 1367,
+    "kind": "text",
+    "diplomatic": "[C]Onfitemini domino qm̄",
+    "latin": "Confitemini Domino quoniam"
+   },
+   {
+    "n": 21,
+    "y": 1424,
+    "kind": "text",
+    "diplomatic": "bonus: qm̄ in ſclm̄ mīa e͛",
+    "latin": "bonus, quoniam in saeculum misericordia eius."
+   }
+  ],
+  "doubtful": [
+   2,
+   8,
+   13,
+   16,
+   19,
+   21
+  ],
+  "notes": {
+   "1": "Starts with -tum of exitum. tuuꝫ: z-shaped final. uſqꝫ: two straight minims (u, not v), ſ, q, z-sign. ī with a bar, then ſclm̄ (ſ c l m, a long bar over it).",
+   "2": "The painted [L] is followed by an ink capital E with a yellow wash. Last word: the ink holds only d (left bowl stroke plus right stroke with back-leaning ascender), a t rising above the x-height, and a, with a bar over t-a; read dt̄a (= dicta). It could be meant as dc̄a/dc̄ta, but no separate c or i stroke is visible.",
+   "5": "nr̄i = nostri (bar over r-i). inatriis: no word space between in and atriis (3 minims, then a). ierlm̄ written twice, the second after the painted [I].",
+   "6": "hedificatur: an h (ascender with a top hook, leg curling below the baseline) before edificatur. cuiꝰ: a full-size 9-shaped us sign on the line, with a descender.",
+   "7": "idip̄ꝫ: bar over i-p, then the z-shaped sign. The line ends with l after the painted [I] (Il-luc).",
+   "8": "enꝫ = enim (e, n, z-sign). tbꝰ = tribus: t, b, then a full-size 9-shaped us sign; a hairline rises from the t into the frame of the painted initial above (it may be an abbreviation stroke). A small dot below the baseline after the ꝰ is left out.",
+   "9": "cō: o with a bar (con-).",
+   "13": "adpacem: no word space between ad and pacem. habūdā: bars over u and over the final a.",
+   "16": "inturribus: in and turribus are written without a word space (6 px gap, the t's crossbar runs into the u). fr̄es = fratres.",
+   "17": "ꝓximos: the p has a long looped stroke curling left below the line (pro).",
+   "18": "domū: the d and o bite (d's right side is o's left side), then m and ū.",
+   "19": "G = Gloria (ink capital with a yellow wash). The final ps (psalm cue?) is in slightly paler brown ink, not red; the p has a long top stroke and a hairline across its descender.",
+   "21": "mīa: the bar over i-a touches the descender of the q above. Final e has a hairline hook rising from it (eius abbreviation or a line-end flourish), written e͛."
   }
  },
  "p1/pg-054": {
