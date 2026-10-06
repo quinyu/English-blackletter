@@ -1,8 +1,9 @@
 """Abbreviation signs that f. 12r lacks, fitted from the whole of MS 2262.
 
 The book uses signs that do not occur on f. 12r: the con sign (ꝯ), the rum sign (ꝝ), the
-semicolon sign (after q for -que, after ſ for sed), d with a stroke (đ) and s with a
-tilde (s̃; the tilde is fitted as a mark, so it can stand over any letter). Their
+semicolon sign (one sign for several words, read from the letter before it and the
+context: q; -que, ſ; sed or scilicet, d; debet, b; -bus), d with a stroke (đ) and s with
+a tilde (s̃; the tilde is fitted as a mark, so it can stand over any letter). Their
 examples were found by reading every text page (ff. 11r–64v) by eye and recorded in
 data/hours_book_signs.jsonl: page, box, word, reading, and a note on anything unusual
 in how the sign is written.
@@ -56,7 +57,8 @@ SIGNS = {
     # hairline from its upper right down-left below the line
     RUM: dict(zone=(-0.75, 1.3), strokes=_strokes("hours_textura.json", "ꝛ") + [
         ("hairline stroke", [(0.85, 0.7), (0.6, 0.15), (0.38, -0.55)], None)]),
-    # the semicolon sign (after q for -que, after ſ for sed): a lozenge point at the
+    # the semicolon sign (after q for -que, after ſ for sed or scilicet, after d for
+    # debet, after b for -bus: SEMI_READINGS): a lozenge point at the
     # x-line, a comma below it with a thick head at mid-height and a hairline tail
     # down-left below the line
     SEMI: dict(zone=(-0.8, 1.15), ties=[((1, 3), (2, 0))], strokes=[
@@ -65,8 +67,12 @@ SIGNS = {
         ("hairline tail", [(0.2, 0.02), (0.08, -0.3), (-0.05, -0.62)], None)]),
 }
 MUFI = {CON: ("A76F", "LATIN SMALL LETTER CON"), RUM: ("A75D", "LATIN SMALL LETTER RUM ROTUNDA"),
-        SEMI: ("F1AC", "LATIN ABBREVIATION SIGN SEMICOLON (q + it for -que, ſ + it for sed)"),
+        SEMI: ("F1AC", "LATIN ABBREVIATION SIGN SEMICOLON"),
         DSTROKE: ("0111", "LATIN SMALL LETTER D WITH STROKE"), TILDE: ("0303", "COMBINING TILDE (over s: s̃)")}
+# One sign, many words: what the semicolon (or ꝫ) stands for depends on the letter before
+# it and on the context. The writer's text step needs the table the other way round
+# (word → abbreviated form).
+SEMI_READINGS = {"q": ["-que"], "ſ": ["sed", "scilicet"], "d": ["debet"], "b": ["-bus"], "": ["et", "final -m"]}
 NAMES = {CON: "con", RUM: "rum", SEMI: "semicolon (que, sed)", DSTROKE: "d with stroke", TILDE: "tilde"}
 RECORD = {"con": CON, "rum": RUM, "que": SEMI, "semicolon_other": SEMI, "d_stroke": DSTROKE, "s_tilde": TILDE}
 
