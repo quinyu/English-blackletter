@@ -66,8 +66,8 @@
   {
    "word": "magni",
    "line": 2,
-   "overlap_held_out": 0.4939965694682676,
-   "overlap_in_sample": 0.5385392974475612,
+   "overlap_held_out": 0.4984009840098401,
+   "overlap_in_sample": 0.538558786346397,
    "shift_px": [
     1,
     0
@@ -83,8 +83,8 @@
   {
    "word": "infantium",
    "line": 4,
-   "overlap_held_out": 0.5164707829829498,
-   "overlap_in_sample": 0.5627898986428449,
+   "overlap_held_out": 0.5158993044054323,
+   "overlap_in_sample": 0.5627147766323024,
    "shift_px": [
     2,
     1
@@ -100,8 +100,8 @@
   {
    "word": "ciſti",
    "line": 5,
-   "overlap_held_out": 0.34629360465116277,
-   "overlap_in_sample": 0.36752136752136755,
+   "overlap_held_out": 0.35513335769090243,
+   "overlap_in_sample": 0.3574326816672814,
    "shift_px": [
     -3,
     1
@@ -117,8 +117,8 @@
   {
    "word": "inimicum",
    "line": 6,
-   "overlap_held_out": 0.5539135194307608,
-   "overlap_in_sample": 0.5550475493782004,
+   "overlap_held_out": 0.5545803620405925,
+   "overlap_in_sample": 0.5549872122762148,
    "shift_px": [
     -1,
     0

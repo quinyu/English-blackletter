@@ -10,13 +10,15 @@ gridded close-ups of the sharpest examples; then every control point is fitted t
 the examples align.py found, at once:
 
   * each example is registered first (shifted up to ±3 px across — ±8 px for letters
-    with six examples or fewer, whose boxes are less reliable — and ±6 px up or down);
+    with eight examples or fewer, whose boxes are less reliable — and ±6 px up or down);
   * the letter is drawn in the straightened frame of align.py and compared with the
-    ink only inside the letter's own columns (its box, ±3 px) and its height zone, so
-    neighbours do not pull it; drawn ink outside those columns costs only where it
-    falls on bare parchment (ſ's head and t's hairline overhang the next letter);
-  * control points move at most 0.2 x-height from the plan, and pay a small price for
-    moving at all, so that a few examples cannot drag the shape anywhere.
+    ink only inside the letter's own columns (its box, ±3 px, and no further than 4 px
+    from the drawn letter) and its height zone, so neighbours do not pull it; drawn ink
+    outside those columns costs only where it falls on bare parchment (ſ's head and t's
+    hairline overhang the next letter);
+  * control points move at most 0.2 x-height from the plan (less where a letter says so),
+    and pay a small price for moving at all, so that a few examples cannot drag the shape
+    anywhere; points the scribe joined stay joined ("ties").
 
 Examples that fit far worse than the rest (more than 0.25 below the median overlap)
 are another form of the letter or a misplaced find; they are set aside, listed, and the
@@ -54,6 +56,7 @@ H = len(HS)
 PAD = 40                                  # padding around straightened lines, px
 SS = 2                                    # supersampling of the fast renderer
 OWN = 3                                   # px either side of a letter's box that count as its own
+NEAR = 4                                  # ... but no further than this from the drawn letter
 OTHER_FORM = 0.25                         # overlap this far below the median: another form, set aside
 MOVE = 0.2                                # x-heights a control point may move from the plan
 PRIOR = 0.5                               # cost of moving, per x-height², relative to the overlap
@@ -105,20 +108,29 @@ PLANS = {
     "o": dict(zone=(-0.25, 1.3), strokes=[
         ("left side", [(0.35, 1.03), (0.17, 0.85), (0.13, 0.2), (0.3, -0.02)], None),
         ("right side", [(0.35, 1.03), (0.52, 0.85), (0.55, 0.2), (0.3, -0.02)], None)]),
-    # e: the back (head, stem, foot), a top stroke out to the right, a hairline back to the
-    # back closing the eye.
-    "e": dict(zone=(-0.25, 1.3), strokes=[
-        ("back", [(0.3, 1.03), (0.08, 0.8), (0.07, 0.15), (0.22, -0.02), (0.35, 0.03)], None),
-        ("top stroke", [(0.28, 1.03), (0.42, 0.97), (0.45, 0.85)], None),
-        ("hairline", [(0.45, 0.85), (0.2, 0.6)], None)]),
+    # e: the back (head, stem, foot turning up to the right); a top stroke that climbs thin
+    # (along the pen's edge) to a horn well above the x-line (1.17), then comes down thick
+    # to 0.8 as the right side of the eye; a hairline from there back down-left to the
+    # back, closing a small triangular eye. Drawn from the mean of all 59 e's and the
+    # sharpest close-ups (the first plan kept the top at the x-line).
+    # The top stroke must keep reaching out to the lozenge (the fit, left free, shrinks it to
+    # a nub over the back, which overlaps the ink about as well and is wrong), so e's
+    # points move at most 0.1 and the hairline starts where the top stroke ends.
+    "e": dict(zone=(-0.25, 1.4), move=0.1, ties=[((1, 3), (2, 0))], strokes=[
+        ("back", [(0.12, 0.98), (0.03, 0.8), (0.03, 0.3), (0.12, 0.03), (0.33, 0.1)], None),
+        ("top stroke", [(0.06, 0.95), (0.18, 1.08), (0.27, 1.17), (0.38, 0.8)], None),
+        ("hairline", [(0.38, 0.8), (0.12, 0.58)], None)]),
     # r: a minim and a shoulder ending in a flag at the x-line.
     "r": dict(zone=(-0.25, 1.3), strokes=[
         ("minim", [(0.0, 0.95), (0.08, 0.88), (0.08, 0.12), (0.18, 0.0)], None),
         ("shoulder", [(0.1, 0.92), (0.3, 1.0), (0.45, 0.92)], None)]),
-    # r rotunda (after o): a head, then a spine down to the left and a foot out to the right.
+    # r rotunda (after o), shaped like a 2 leaning on the o: a thick top bar down to the
+    # right, a waist cutting back down-left, a lower stroke down to a foot on the baseline.
+    # Its left edge stands almost straight, against the o's right side. Drawn from the mean
+    # of all 7 (the first plan's top bar was too short and too flat).
     "ꝛ": dict(zone=(-0.25, 1.3), strokes=[
-        ("head", [(0.25, 1.0), (0.42, 0.95), (0.55, 0.82)], None),
-        ("spine and foot", [(0.52, 0.8), (0.25, 0.5), (0.38, 0.2), (0.5, 0.05), (0.62, 0.08)], None)]),
+        ("head", [(0.33, 1.02), (0.5, 0.93), (0.7, 0.8)], None),
+        ("spine and foot", [(0.68, 0.78), (0.45, 0.5), (0.42, 0.3), (0.52, 0.08), (0.72, 0.06)], None)]),
     # l: a tall stem with a foot; its head curls over to the right.
     "l": dict(zone=(-0.25, 1.85), strokes=[
         ("stem", [(0.15, 1.55), (0.14, 1.0), (0.14, 0.15), (0.28, 0.0)], None),
@@ -220,47 +232,66 @@ def crop(ex, dx, dy):
     return img[PAD - dy:PAD - dy + H, a:a + W]
 
 
-def own_mask(ex, zone, dx):
-    """Pixels that belong to the letter: its columns (box ± OWN) within its height zone."""
+def own_mask(ex, win, dx):
+    """Pixels that belong to the letter: its columns (box ± OWN) within its height zone.
+    win = (zone, columns of the plan as drawn before fitting): the columns are also cut to
+    within NEAR px of the plan, because the letter finder's boxes are a few px off (an e's
+    box often runs into the stem of the next letter, an r rotunda's starts inside the o
+    it leans on). The cut comes from the plan, not from the letter being fitted: cut to
+    the fitted letter, a narrower letter would hide the ink it fails to cover."""
+    zone, cols = win
     m = np.zeros((H, W), bool)
     c0 = OX + dx - OWN
     c1 = OX + dx + (ex["f"]["u1"] - ex["f"]["u0"]) + OWN
+    if cols is not None:
+        c0, c1 = max(c0, cols[0] - NEAR), min(c1, cols[1] + NEAR)
     r0 = int(max(0, ROW0 - zone[1] * XH))
     r1 = int(min(H, ROW0 - zone[0] * XH + 1))
     m[r0:r1, max(0, c0):min(W, c1)] = True
     return m
 
 
-def score_one(model, ex, zone, dx=None, dy=None):
+def plan_window(ch, fp):
+    """(zone, columns) of letter ch's plan drawn before fitting."""
+    m = fp.draw(unpack(PLANS[ch], pack(PLANS[ch])), (H, W), (OX, ROW0))
+    cols = np.nonzero(m.any(0))[0]
+    return PLANS[ch]["zone"], ((int(cols[0]), int(cols[-1]) + 1) if len(cols) else None)
+
+
+def score_one(model, ex, win, dx=None, dy=None):
     dx = ex["dx"] if dx is None else dx
     dy = ex["dy"] if dy is None else dy
     I = crop(ex, dx, dy) > 0
     Mo = model > 0
-    R = own_mask(ex, zone, dx)
+    R = own_mask(ex, win, dx)
     inter = (I & Mo & R).sum()
     union = ((I | Mo) & R).sum()
     stray = (Mo & ~I & ~R).sum() / max(1, Mo.sum())
     return inter / max(1, union) - 0.5 * stray
 
 
-def register(model, exs, zone, xs=None, ys=range(-6, 7)):
+def register(model, exs, win, xs=None, ys=range(-6, 7)):
     """Best shift of each example; letters with few examples have less reliable boxes
     (their round-1 templates are single atlas crops), so they may shift further."""
-    xs = xs or (range(-3, 4) if len(exs) > 6 else range(-8, 9))
+    xs = xs or (range(-3, 4) if len(exs) > 8 else range(-8, 9))
     for ex in exs:
-        best = max((score_one(model, ex, zone, dx, dy), dx, dy) for dy in ys for dx in xs)
+        best = max((score_one(model, ex, win, dx, dy), dx, dy) for dy in ys for dx in xs)
         ex["dx"], ex["dy"] = best[1], best[2]
 
 
 # ---- fitting ---------------------------------------------------------------------------
 
 def unpack(plan, x):
+    """Strokes from the packed control points. A plan's "ties" join points that the scribe
+    joined: ((stroke, point), (stroke, point)) puts the second on the first."""
     out, k = [], 0
     for name, pts, kind in plan["strokes"]:
         n = len(pts)
-        out.append((name, [tuple(x[k + 2 * i:k + 2 * i + 2]) for i in range(n)], kind))
+        out.append([name, [tuple(x[k + 2 * i:k + 2 * i + 2]) for i in range(n)], kind])
         k += 2 * n
-    return out
+    for (si, pi), (sj, pj) in plan.get("ties", []):
+        out[sj][1][pj] = out[si][1][pi]
+    return [tuple(o) for o in out]
 
 
 def pack(plan):
@@ -284,26 +315,27 @@ def fit_letter(ch, exs, fp, iters=2, verbose=True):
 def fit_once(ch, exs, fp, iters=2, verbose=True):
     plan = PLANS[ch]
     x0 = pack(plan)
-    zone = plan["zone"]
+    win = plan_window(ch, fp)
+    move = plan.get("move", MOVE)
     origin = (OX, ROW0)
 
     def render(x):
         return fp.draw(unpack(plan, x), (H, W), origin)
 
     def loss(x):
-        m = render(np.clip(x, x0 - MOVE, x0 + MOVE))
-        return -np.mean([score_one(m, ex, zone) for ex in exs]) + PRIOR * np.mean((x - x0) ** 2)
+        m = render(np.clip(x, x0 - move, x0 + move))
+        return -np.mean([score_one(m, ex, win) for ex in exs]) + PRIOR * np.mean((x - x0) ** 2)
 
     x = x0.copy()
-    register(render(x), exs, zone)
+    register(render(x), exs, win)
     start = -loss(x)
     for it in range(iters):
-        res = minimize(loss, x, method="Powell", bounds=list(zip(x0 - MOVE, x0 + MOVE)),
+        res = minimize(loss, x, method="Powell", bounds=list(zip(x0 - move, x0 + move)),
                        options=dict(maxiter=1, xtol=0.01, ftol=1e-4))
-        x = np.clip(res.x, x0 - MOVE, x0 + MOVE)
-        register(render(x), exs, zone)
+        x = np.clip(res.x, x0 - move, x0 + move)
+        register(render(x), exs, win)
     m = render(x)
-    per = [score_one(m, ex, zone) for ex in exs]
+    per = [score_one(m, ex, win) for ex in exs]
     if verbose:
         print(f"  {ch}: {len(exs)} examples, score {start:.3f} → {np.mean(per):.3f}")
     return x, per
@@ -313,7 +345,7 @@ def variation(ch, x, exs, fp, su=np.arange(0.86, 1.15, 0.04), sv=np.arange(0.9, 
     """Each example's own width and height (scales of the fitted letter about its
     left edge on the baseline), with its registration redone at each scale."""
     plan = PLANS[ch]
-    zone = plan["zone"]
+    win = plan_window(ch, fp)
     strokes = unpack(plan, x)
     out = []
     models = {}
@@ -322,7 +354,7 @@ def variation(ch, x, exs, fp, su=np.arange(0.86, 1.15, 0.04), sv=np.arange(0.9, 
             st = [(n, [(u * a, v * b) for u, v in pts], k) for n, pts, k in strokes]
             models[(a, b)] = fp.draw(st, (H, W), (OX, ROW0))
     for ex in exs:
-        best = max((score_one(m, ex, zone, dx, dy), a, b) for (a, b), m in models.items()
+        best = max((score_one(m, ex, win, dx, dy), a, b) for (a, b), m in models.items()
                    for dy in range(ex["dy"] - 1, ex["dy"] + 2) for dx in range(ex["dx"] - 1, ex["dx"] + 2))
         out.append((float(best[1]), float(best[2])))
     return np.array(out)
@@ -339,7 +371,7 @@ def show_examples(ax_row, ch, x, exs, fp, n=8, f8=6):
         img[c > 0] = matplotlib.colors.to_rgb(DATA)
         img[(m > 0) & (c > 0)] = (0.1, 0.1, 0.1)
         img[(m > 0) & (c == 0)] = matplotlib.colors.to_rgb(MODEL)
-        R = own_mask(ex, plan["zone"], ex["dx"])
+        R = own_mask(ex, plan_window(ch, fp), ex["dx"])
         img[~R] = 0.55 + 0.45 * img[~R]
         ax.imshow(img, interpolation="nearest")
         ax.set_title(f"l.{ex['f']['line']}", fontsize=6, color=MUTED, loc="left", pad=1)

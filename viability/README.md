@@ -663,7 +663,7 @@ close-ups of the sharpest examples.
 | ſ | stem (pulled to a point), head | 23 | 0.58 | ±10% | ±4% | 1 |
 | f | stem, head, crossbar | 5 | 0.69 | ±10% | ±3% | 0 |
 | g | left side, top, right side, tail | 4 | 0.68 | ±5% | ±2% | 0 |
-| c | back, top | 15 | 0.62 | ±7% | ±5% | 0 |
+| c | back, top | 15 | 0.63 | ±7% | ±5% | 0 |
 | a | stem, bowl | 40 | 0.72 | ±6% | ±5% | 0 |
 | t | stem, hairline, crossbar | 43 | 0.69 | ±9% | ±4% | 2 |
 
@@ -740,23 +740,23 @@ single x. `hand.py` draws the whole alphabet and measures what the letters share
 
 | Letter | Strokes | Examples | Overlap | Width varies |
 |---|---|---|---|---|
-| o | left side, right side | 30 | 0.67 | ±8% |
-| e | back, top stroke, hairline | 58 | 0.49 | ±8% |
-| r | minim, shoulder | 18 | 0.57 | ±10% |
-| ꝛ | head, spine and foot | 7 | 0.45 | ±9% |
+| o | left side, right side | 30 | 0.68 | ±8% |
+| e | back, top stroke (to a horn, then down), hairline | 54 | 0.65 | ±7% |
+| r | minim, shoulder | 18 | 0.65 | ±10% |
+| ꝛ | head, spine and foot | 7 | 0.69 | ±5% |
 | l | stem, head | 17 | 0.75 | ±8% |
-| b | stem, head, bowl | 8 | 0.70 | ±8% |
-| h | stem, head, leg, hairline tail | 3 | 0.63 | ±3% |
-| d | bowl, back | 9 | 0.59 | ±9% |
-| p | stem, bowl, base and descender | 13 | 0.70 | ±7% |
-| q | bowl, stem | 4 | 0.75 | ±7% |
-| v | left stroke, right stroke | 6 | 0.73 | ±8% |
+| b | stem, head, bowl | 8 | 0.73 | ±9% |
+| h | stem, head, leg, hairline tail | 3 | 0.64 | ±2% |
+| d | bowl, back | 9 | 0.62 | ±9% |
+| p | stem, bowl, base and descender | 13 | 0.72 | ±6% |
+| q | bowl, stem | 4 | 0.76 | ±4% |
+| v | left stroke, right stroke | 7 | 0.72 | ±7% |
 
 What the letters show:
 
 - **Three heights, and they are firm.**
-  - x-band letters rise only a little above the x-line (1.05–1.15 x-heights) and sit a
-    little below the baseline.
+  - x-band letters rise only a little above the x-line (1.05–1.15 x-heights; e's horn
+    to 1.2) and sit a little below the baseline.
   - The ascenders l, b and h reach 1.7. The round d (1.5) and t (1.43) are shorter.
   - Descenders differ by letter: q goes deepest (0.75 below the baseline), then ſ
     (0.54) and f (0.46). p's descender is a short hairline lead-in (0.42), and g's tail
@@ -780,11 +780,24 @@ What the letters show:
   - ſ never at the end of a word (0 of 23), round s only there (22 of 22);
   - v only at the start of a word (7 of 7), u never there;
   - the z-shaped ꝫ only at a line end (2 of 2), m in full everywhere else (13).
-- **Weak fits.**
-  - e fits worst (0.49 over 58 examples). Its top stroke and eye vary more than one
-    plan can follow, and the fitted e is too slight.
-  - ꝛ (0.45) is small and often fused with the o before it.
-  - Both need a second look before they are written.
+- **e and ꝛ needed two fixes.** At first they fitted worst (0.49 and 0.45).
+  - **The comparison window.** The letter finder's boxes for e often run into the stem
+    of the next letter, and each ꝛ box starts inside the o it leans on. So the fits
+    were charged for ink that isn't theirs. Each letter is now compared only within 4 px
+    of its plan's columns. The window comes from the plan as drawn before fitting: cut to
+    the fitted letter, a narrower letter could hide the ink it fails to cover, and e
+    collapsed into a c with a nub.
+  - **The plans.** Averaging all 59 e's showed the top stroke climbing thin to a horn
+    1.2 x-heights up, then coming down thick to 0.8 as the right side of the eye; the
+    hairline closes the eye from there. The first plan kept the top at the x-line.
+    Averaging the 7 ꝛ's showed a straight left edge against the o and a longer, steeper
+    top bar.
+  - **Constraints.** e's points may move only 0.1 x-height, and its hairline is tied to
+    the end of the top stroke. Left free, the fit shrank the top stroke to a nub, which
+    overlaps the ink about as well and is the wrong letter.
+  - **Result.** e fits at 0.65 over 54 examples (5 fused or crowded ones set aside),
+    and ꝛ at 0.69. Straight r (0.57 → 0.65) and d (0.59 → 0.62) gained from the new
+    window too.
 
 ### Capitals: painted initials and the scribe's own
 
