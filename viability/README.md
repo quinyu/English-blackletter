@@ -877,6 +877,48 @@ and strokes carry a pale yellow wash.
   with an inner hairline. Its colouring is a separate layer: a red point before it, an
   optional red stroke, and the yellow wash.
 
+### Abbreviation signs and punctuation
+
+![Abbreviation signs and punctuation](out/hours_signs.png)
+
+`abbrev.py` gives each sign on f. 12r a stroke plan and fits it like the letters. Marks
+(the macron and the er sign) are fitted above the letter that carries them, compared
+only in the band above the x-line. With 1–7 examples each, the fits mostly confirm and
+adjust plans drawn from close-ups; the book's other pages hold hundreds more.
+
+| Sign | On the page | MUFI 4.0 | Examples | Overlap |
+|---|---|---|---|---|
+| macron | a short thick bar about 1.45 x-heights up, over ī, ā, ē and the m of qm̄ | 0304 COMBINING MACRON | 6 (+1 set aside) | 0.68 |
+| er sign | a small lozenge with a hairline curl, above the u of *vniu[er]ſa* | 035B COMBINING ZIGZAG ABOVE, curly form (F1C8) | 2 (+1) | 0.57 |
+| ꝫ | z-shaped: top bar, diagonal, small bowl, long hairline tail below the line | A76B LATIN SMALL LETTER ET | 2 | 0.72 |
+| ꝓ | the p, its base running on under the stem into a hairline flourish | A753 P WITH FLOURISH | 1 | 0.77 |
+| quod | q followed by a raised hook at its shoulder | q + 02BC MODIFIER LETTER APOSTROPHE | 1 | 0.66 |
+| colon | two lozenges, at about 0.65 x-height and just above the baseline | 003A COLON | 5 | 0.53 |
+| comma | a lozenge at mid-height with a long hairline tail below the line | 002C COMMA | 3 | 0.54 |
+
+- **Quod is not ꝙ on this page.** My reading wrote ꝙ (A759, q with a diagonal stroke),
+  but the scribe writes q and a raised hook. The reading keeps ꝙ as the word sign, and
+  the model draws what is on the page.
+- **One hook, two uses.** The quod hook and the er sign are the same lozenge-and-curl,
+  at the shoulder and above the line respectively.
+- **The punctuation follows the chant.** The colon marks the mid-verse pause, where
+  the psalm tone has its mediant, in 5 of the page's 7 full verses. The other two have
+  no mark there: after *tuos* (line 5, at a line end) and after *noſter* (line 21). The
+  comma-like mark ends a verse (*vltoꝛē, fundaſti*) or makes a flex before the pause
+  (*pedibus*). MUFI's medieval punctuation offers closer encodings
+  than colon and comma; which fits best is left until more of the book is read.
+- **Shapes the ink mask can't confirm.** The er sign's curl and the colon's lower point
+  are faint, so the fit is held close to the plan (0.08 and 0.06 x-height): left free,
+  the curl vanished and the two points merged.
+
+![Words in full and abbreviated](out/hours_abbreviated.png)
+
+**Writing with them.** The writer now places marks over the letter before them and uses
+the signs as letters, so a word can be written in full or abbreviated, as the scribe
+chose by the space left in the line. The pairs above use the forms on f. 12r, and
+*dn̄s* and *dōꝫ* for *dominus*. Spacing next to signs is still the general average where
+the page has no example of the pair (the p's lead-in crowds the o in *propter*).
+
 ### Abbreviation follows the space left in the line
 
 The scribe could write the same word several ways, and chose by the room left in the
@@ -909,6 +951,7 @@ python3 align.py                  # find every letter on the page
 python3 textura.py                # fit the other letters' stroke plans
 python3 scribe.py                 # held-out test and 'ſignificatis'
 python3 hand.py                   # the alphabet, heights, heads, biting, positional rules
+python3 abbrev.py                 # abbreviation signs, marks, punctuation; words full and abbreviated
 python3 capitals.py PDF_PAGE_DIR  # painted initials and ink capitals, whole book
 python3 measure_letters.py hours  # the traced 'nomen'
 ```
@@ -919,7 +962,8 @@ python3 measure_letters.py hours  # the traced 'nomen'
   the PDF and can be run the same way. Page-to-page consistency hasn't been measured yet.
 - **Not every form is modelled yet.**
   - Every lowercase letter on f. 12r is fitted except x (one example).
-  - Still to do: the abbreviation signs (ꝫ, ꝓ, ꝙ, the macron) and the punctuation.
+  - The abbreviation signs rest on 1–7 examples each; the rest of the book would
+    give many more.
   - The ink capitals are described, not yet fitted, and the painted initials are not
     modelled.
 - **Corners are at the limit of the scan.** At 29 px to the x-height, the difference
@@ -929,6 +973,69 @@ python3 measure_letters.py hours  # the traced 'nomen'
   The transcription hasn't been checked against a printed edition or catalogue.
 - **The library's own description of MS 2262 wasn't found** online from here. The
   dating above rests on the calendar and the style alone.
+
+## End goal: the MUFI character set
+
+The editor should be able to write every character of the MUFI character
+recommendation, version 4.0 (Medieval Unicode Font Initiative, 2015; `MUFI v4.0.pdf`
+on the master branch), in the hand being modelled. MUFI lists the characters needed to
+transcribe medieval Latin-script texts:
+- base letters with their accents, dots, hooks and bars;
+- ligatures, superscript letters and variant forms;
+- numerals, combining marks and abbreviation signs;
+- punctuation, symbols, and geometrical and metrical signs.
+
+Each comes with a code point, either in Unicode or in the Private Use Area. Most have
+never been written in this hand, so many shapes will have to be improvised in its manner.
+
+`mufi.py` parses the PDF's text into `data/mufi4.json`: 1,522 rows and 1,514 code
+points (MUFI states 1,512), 738 of them in the Private Use Area. It then sorts every
+character by what writing it needs. This is a first pass, from the names and Unicode
+decompositions.
+
+| Class | What it needs | Characters |
+|---|---|---|
+| fitted | fitted on f. 12r: 22 letters (with dotless ı, as this scribe writes i), ꝫ, ꝓ, macron, er sign, colon, comma | 29 |
+| composed, ready | a fitted letter with fitted marks only (ā, ē, ī, ō, ū) | 5 |
+| composed | a fitted letter with a mark or modification still to design | 273 |
+| derived | built from fitted letters: capitals, small capitals, ligatures, superscript, enlarged and variant forms | 650 |
+| new | no fitted base: other letters, numerals, punctuation, symbols | 565 |
+
+**Suggested order**, by what each step opens up:
+
+1. **The common marks.** About fifteen marks open some 270 composed characters, for
+   example:
+
+   | Mark | Characters |
+   |---|---|
+   | acute | 42 |
+   | dot above | 31 |
+   | ogonek | 27 |
+   | dot below | 25 |
+   | macron, fitted | 21 |
+   | stroke | 19 |
+   | diaeresis | 14 |
+   | circumflex | 13 |
+   | breve | 13 |
+
+   Most are a single stroke or a lozenge point. This scribe's corner-pen hairline, macron
+   and points already show how they should look.
+2. **Capitals.** The scribe's ink capitals are lowercase-height broken letters with an
+   inner hairline. Twelve are attested in the book (E, D, G, S, I, Q, A, P, V, R, T, N):
+   fit those, and build the rest the same way. With small capitals, capitals carry
+   most of the 650 derived characters.
+3. **Ligatures and superscripts** from fitted letters, with the shared strokes the
+   scribe uses when facing bowls bite.
+4. **Missing letters.** By the characters each opens: y 54, j 30, k 28, w 28, z 13, x 10.
+   k and x occur in the book (*kyrie*, *xpe*) and can be fitted. Then the letters with
+   no Latin model in this hand: thorn, eth, wynn, yogh and the insular forms.
+5. **Numerals, punctuation and symbols.** The calendar's red roman numerals can be
+   fitted; the rest are designed.
+
+Recorded in `out/mufi_coverage.json`, and re-counted whenever more is fitted:
+```sh
+pdftotext -layout "MUFI v4.0.pdf" mufi.txt && python3 mufi.py mufi.txt
+```
 
 ## The four hands compared
 

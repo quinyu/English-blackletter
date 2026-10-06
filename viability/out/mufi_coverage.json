@@ -1,0 +1,80 @@
+{
+ "characters": 1522,
+ "unique_code_points": 1514,
+ "pua": 738,
+ "fitted": [
+  ",",
+  ":",
+  "a",
+  "b",
+  "c",
+  "d",
+  "e",
+  "f",
+  "g",
+  "h",
+  "i",
+  "l",
+  "m",
+  "n",
+  "o",
+  "p",
+  "q",
+  "r",
+  "s",
+  "t",
+  "u",
+  "v",
+  "ı",
+  "ſ",
+  "̄",
+  "͛",
+  "ꝓ",
+  "ꝛ",
+  "ꝫ"
+ ],
+ "classes": {
+  "fitted": 29,
+  "composed (fitted marks)": 5,
+  "composed": 273,
+  "derived": 650,
+  "new": 565
+ },
+ "by_section": {
+  "1: Alphabetical characters": {
+   "fitted": 24,
+   "derived": 591,
+   "new": 231,
+   "composed": 228,
+   "composed (fitted marks)": 5
+  },
+  "2: Numbers": {
+   "new": 43
+  },
+  "3: Combining alphabetical and abbreviation characters": {
+   "derived": 59,
+   "composed": 45,
+   "fitted": 2
+  },
+  "4: Spacing abbreviation and modifying characters": {
+   "new": 48,
+   "fitted": 1
+  },
+  "5: Punctuation": {
+   "new": 107,
+   "fitted": 2
+  },
+  "6: Space and formatting characters": {
+   "new": 17
+  },
+  "7: Symbols": {
+   "new": 79
+  },
+  "8: Geometrical characters": {
+   "new": 11
+  },
+  "9: Metrical characters": {
+   "new": 29
+  }
+ }
+}

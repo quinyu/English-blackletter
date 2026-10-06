@@ -26,6 +26,7 @@ placed at its first letter's position and compared with the ink.
 Run:  python3 scribe.py   → out/hours_scribe.png, out/hours_scribe.json
 """
 import json
+import unicodedata
 from pathlib import Path
 
 import matplotlib
@@ -104,6 +105,14 @@ def minim_offsets(found):
 
 # ---- writing ---------------------------------------------------------------------------
 
+def load_letters():
+    """Fitted letters (textura.py) and, when fitted, the abbreviation signs and marks (abbrev.py)."""
+    L = json.loads((OUT / "hours_textura.json").read_text(encoding="utf-8"))
+    if (OUT / "hours_signs.json").exists():
+        L.update(json.loads((OUT / "hours_signs.json").read_text(encoding="utf-8")))
+    return L
+
+
 class Scribe:
     def __init__(self, letters, minim, spacing, offsets, slant):
         self.L, self.Mi, self.sp, self.off = letters, minim, spacing, offsets
@@ -120,10 +129,23 @@ class Scribe:
         out = []
         x = x0
         prev_last_stem = None
-        for i, ch in enumerate(word):
+        # letters with the marks they carry (combining characters: macron, er sign)
+        clusters = []
+        for ch in unicodedata.normalize("NFD", word):
+            if unicodedata.combining(ch) and clusters:
+                clusters[-1][1].append(ch)
+            else:
+                clusters.append((ch, []))
+        bases = [c for c, _ in clusters]
+        for i, (ch, marks) in enumerate(clusters):
             if i > 0:
-                x += xh * jit(distance(self.sp, word[i - 1], ch), self.Mi["rules"]["pitch"]["between_sd"])
-            final = i == len(word) - 1
+                x += xh * jit(distance(self.sp, bases[i - 1], ch), self.Mi["rules"]["pitch"]["between_sd"])
+            final = i == len(clusters) - 1
+            for mk in marks:          # drawn over this letter's box, from the fitted mark plan
+                Lm = self.L[mk]
+                Xm = x - Lm["shift_px"][0] * xh / TX.XH
+                for s_ in Lm["strokes"]:
+                    out.append((s_["name"], [[Xm + u * xh + v * xh * self.t, yb - v * xh] for u, v in s_["points"]], None))
             if ch in MINIM_LETTERS:
                 s0 = x + self.off.get(ch, 0.2) * xh
                 stems = [s0 + j * xh * jit(P["inside"], P["inside_sd"]) if j else s0 for j in range(MINIM_LETTERS[ch])]
@@ -201,7 +223,7 @@ def main():
     mask, lines, rgb = env["mask"], env["lines"], env["rgb"]
     by = {l["n"]: l for l in lines}
     minim = json.loads((OUT / "hours_minims.json").read_text(encoding="utf-8"))
-    letters_all = json.loads((OUT / "hours_textura.json").read_text(encoding="utf-8"))
+    letters_all = load_letters()
     offsets = minim_offsets(env["found"])
     sp_all = fit_spacing(pairs(env["found"]))
     print(f"spacing: {sp_all['n']} letter pairs, mean {sp_all['mean']:.3f} x-height, residual spread {sp_all['sd']:.3f}")
