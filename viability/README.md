@@ -769,12 +769,11 @@ What the letters show:
   baseline: the same corner-pen hairline as the joins.
 - **v is a word-initial letter.** All 7 are word-initial. Its thick left stroke curls
   in from above the x-line, and its right stroke meets it in a point on the baseline.
-- **Biting is mostly pe.**
-  - Facing bowls touch with no white column between them in 27% of cases (22 pairs);
-    other neighbours touch in 5% and minims in 2%.
-  - Almost all of that is p before e, which touches in 5 of 9 cases. de, do, bo and ꝛe
-    sit close but rarely touch on this page.
-  - ſt touches in 5 of 13 cases, through ſ's head.
+- **Facing bowls bite.** On this page 25 of 26 pairs of facing bowls (*de*, *do*,
+  *bo*, *pe*, *os* …) write the two sides as one stroke. A first count here said the
+  opposite ("mostly pe; de, do, bo rarely touch"). It looked for a white column between
+  the letters, and so took the counter inside a bowl for a gap. The whole book is
+  measured in *Biting* below.
 - **The positional rules hold without exception** on this page:
   - ꝛ only after o (7 of 7), straight r never after o (0 of 18);
   - ſ never at the end of a word (0 of 23), round s only there (22 of 22);
@@ -1049,6 +1048,77 @@ scribe's other way (five clear cases and three likely, often at line ends), need
 with the fitted macron. The hand file (`out/hands/ms2262_A.json`) now carries the new
 signs and their spacing.
 
+### Biting: facing sides written as one stroke
+
+When a letter's right side is upright and the next letter's left side is too, a
+textura scribe can write the two as one stroke. The letters "bite", sometimes several
+in a row, most of all where the strokes are the sides of bowls. o + p + p + o can fuse
+all along, and o + c bites, but r + a does not: r has no upright right side to share.
+
+**How it was measured.**
+- **Readings.** Eleven pages spread through the book (ff. 13v, 26r, 29r, 33r, 39v, 47v,
+  50r, 52v, 58v, 62v and f. 12r) were read letter by letter into
+  `data/hours_readings.json`, which also keeps the readers' notes on doubtful lines.
+- **Letter positions.** `find_letters.py` lays each line's reading along its ink, as
+  `align.py` does for f. 12r, with f. 12r's templates and the book's own sign
+  examples, on lines straightened and rescaled to f. 12r's x-height. Of the minim
+  letters (i, n, m, u) it finds, 1,648 of 1,662 hold exactly their stems (at least 99%
+  on every page), the same check f. 12r passes.
+- **The junction.** `biting.py` looks at each pair of neighbouring letters inside a
+  word. The left letter's last upright stroke and the right letter's first are found
+  where the fitted letters put them, in the middle of the x-height band. The pair is:
+  - **bitten** if the two are one stroke (no wider than 1.5 strokes);
+  - **fused** if they are one run but wider (two strokes run together);
+  - **linked** if they are two strokes joined only by a hairline;
+  - **separate** if white crosses between them over the whole x-height.
+
+  A white column only counts as a gap if it is white over nearly the whole x-height:
+  the counter of a bowl always has the bowl's top or bottom stroke in it, even where
+  this scribe leaves the p's bowl open at the foot.
+- **Sides.** Each letter turns a *bowl* (o, b, d, p, g, h's leg, s), a *stem* (minims,
+  a, l, q) or an *open* side (c, e, r, t, f, ſ, ꝛ …) to its neighbour. A letter with an
+  open side can only touch.
+
+![Biting rates](out/hours_biting.png)
+
+| Facing sides | Pairs | Bite | Examples |
+|---|---|---|---|
+| bowl → bowl | 265 | 95% | *do* 29/29, *be* 13/13, *oc* 10/10, *po* 10/10, *ho* 9/9, *pa* 8/8, *de* 54/55, *pe* 40/41, *os* 29/30, *ge* 10/13 |
+| bowl → stem | 339 | 7% | *pp* 3/3, *ot* 4/9, *ol* 3/11, *pl* 2/8, *op* 1/4; before a minim almost never (*on* 1/52, *di* 1/47, *om* 0/35, *bu* 0/21) |
+| stem → bowl | 693 | 10% | *le* 14/21, *ac* 13/20; a minim before e about one time in ten (*ne* 5/48, *me* 4/33, *ue* 3/29) |
+| stem → stem | 1,255 | 5% | *ar* 20/28, *ll* 5/16, *at* 10/57, *nt* 8/47; minims never (*in* 0/93, *um* 0/83, *ui* 0/74, *mi* 0/52) |
+| an open side | 1,656 | never | 58% touch at the head or foot: *ra* 0/52 (49 touch), *te* 0/65, *ce* 0/30, *ſt* 0/54 |
+
+- **Bowls bite.** Two facing bowls are written on one line 95 times in 100, and at least
+  9 times in 10 on every page sampled. Of the 12 that do not, 5 follow a g, whose bowl
+  hangs from its stem and stands apart (*ge*, *go*, *ga*).
+- **A bowl against a stem bites only where the stem is tall or a p's.** o + t, o + l and
+  p + l bite now and then, and p + p always. o + p bites once in four, and the other
+  three times the o's side and the p's stem stand side by side, linked by a hairline.
+  So in *o p p o* this scribe fuses the p's and the p with the o, but not the first o
+  with the p.
+- **Minims never share a stroke.** Sharing one would turn *um* into *un*. But r is
+  built straight onto a's stem (*ar* 20 of 28), and e and c lean their backs on l and a
+  (*le*, *ac*).
+- **r rotunda is the other way of joining.** After o the scribe always writes ꝛ, which
+  hooks its head onto the o's side instead of sharing it: *oꝛ* 0 of 55 share a side, 13
+  touch.
+- **Chains.** Twenty runs of three or more letters each bite the next: *ꝓpt*, *ppa*,
+  *pot*, *hoc*, *doc*, *odo*, *dde*, *oll*, *loc*, *llat* …
+- **How far they overlap.** The shared run is 9 px wide at the median (one stroke is 7):
+  329 of 413 biting pairs share one stroke, 84 run two strokes together.
+
+![Pairs as the scribe wrote them](out/hours_biting_examples.png)
+
+**The writer bites as the scribe does** (`scribe.Scribe.bite_distance`). For each pair
+it takes the scribe's rate: the pair's own where the pair occurs at least five times,
+otherwise its facing sides'. When the pair bites, the second letter is placed so that
+its first upright stroke lies on the first letter's last one; the offsets come from the
+fitted letters, plus the measured overlap. Pairs that do not bite keep the spacing
+model. The rates travel in the hand file.
+
+![Words as the scribe and the writer write them](out/hours_biting_words.png)
+
 ### One scribe or several?
 
 A book of hours was often shared out among several scribes trained in the same
@@ -1166,6 +1236,8 @@ python3 measure_letters.py hours  # the traced 'nomen'
 python3 hands.py PDF_PAGE_DIR     # the hand page by page, whole book (about 15 minutes)
 python3 forms.py PDF_PAGE_DIR     # the same letters through the book (about 10 minutes, 4 cores)
 python3 book_signs.py PDF_PAGE_DIR  # ꝯ, ꝝ, ꝫ, đ, tilde from the whole book (reads data/hours_book_signs.jsonl)
+python3 find_letters.py PDF_PAGE_DIR  # letters of the pages read in data/hours_readings.json
+python3 biting.py PDF_PAGE_DIR    # biting on those pages and f. 12r; the writer's biting rates
 python3 bundle.py ms2262_A 12r    # save the fitted hand as one file
 ```
 

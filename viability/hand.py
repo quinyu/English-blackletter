@@ -4,7 +4,7 @@
     the others from textura.py), with each letter's reach above and below the x-band;
   * shared parts: whether l, b and h carry one ascender head, and how high ascenders
     and how deep descenders go;
-  * biting: how often neighbouring letters share ink, with no white column between them
+  * biting: how often neighbouring letters write their facing sides as one stroke (biting.py)
     in the middle of the x-band, by the shapes that meet;
   * positional rules, counted in the reading: r and ꝛ, ſ and s, v and u, ꝫ and m.
 
@@ -35,7 +35,6 @@ GROUPS = [
     ("descenders", "p q g ſ f"),
     ("other forms", "s ꝛ v"),
 ]
-RIGHT_ROUND, LEFT_ROUND = set("obdpꝛ"), set("eocdqa")
 
 
 def letter_strokes(ch, L, minim, t):
@@ -82,24 +81,20 @@ def heads(L):
 
 
 def biting(found, straight):
-    hs = np.arange(-A.BOTTOM * A.XH, A.TOP * A.XH)[::-1] / A.XH
-    core = (hs >= 0.25) & (hs <= 0.75)
-    byw = {}
-    for f in found:
-        byw.setdefault((f["line"], f["word"]), []).append(f)
-    stats = {}
-    for key, F in byw.items():
-        F = [f for f in sorted(F, key=lambda f: f["index"]) if not f["skipped"] and f["char"] not in ":,."]
-        img, us = straight[key[0]]
-        for a, b in zip(F[:-1], F[1:]):
-            c0, c1 = (a["u0"] + a["u1"]) // 2 - us[0], (b["u0"] + b["u1"]) // 2 - us[0]
-            gap = int((img[core, c0:c1].max(0) == 0).sum())
-            kind = ("bowl meets bowl" if (a["char"] in RIGHT_ROUND and b["char"] in LEFT_ROUND)
-                    else "minim to minim" if (a["char"] in "imnu" and b["char"] in "imnu") else "other")
-            stats.setdefault(kind, []).append(gap)
-            stats.setdefault("pair " + a["char"] + b["char"], []).append(gap)
-    return {k: dict(n=len(v), touching=float(np.mean(np.array(v) == 0)), median_white_px=float(np.median(v)))
-            for k, v in stats.items() if not k.startswith("pair") or len(v) >= 3}
+    """Biting on this page, measured as biting.py measures it for the whole book: for
+    each pair of neighbouring letters, whether the left letter's last upright stroke and
+    the right letter's first are one stroke (bitten), two run together (fused), joined by
+    a hairline (linked) or apart; by the sides the letters turn to each other, and by
+    pair (pairs seen at least three times)."""
+    import biting as BT
+    P = BT.pairs(found, straight, BT.stroke_width(straight), BT.facing_offsets(found))
+    out = {}
+    for key, Q in [("sides " + c, [q for q in P if f"{q['right']} → {q['left']}" == c]) for c in BT.SIDE_ORDER] + \
+            [("pair " + p, [q for q in P if q["a"] + q["b"] == p]) for p in sorted({q["a"] + q["b"] for q in P})]:
+        Q = [q for q in Q if q["kind"] != "unclear"]
+        if len(Q) >= 3:
+            out[key] = dict(n=len(Q), biting=float(np.mean([q["kind"] in BT.BITING for q in Q])))
+    return out
 
 
 def rules(reading):

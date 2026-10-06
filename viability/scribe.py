@@ -115,6 +115,12 @@ def load_letters():
     return L
 
 
+def load_biting():
+    """The writer's biting parameters (biting.py), or None before the study has run."""
+    p = OUT / "hours_biting.json"
+    return json.loads(p.read_text(encoding="utf-8"))["summary"].get("writer") if p.exists() else None
+
+
 def with_book_spacing(sp):
     """The spacing model with the approach and advance of the signs fitted from the whole
     book (book_signs.py), which f. 12r's pairs do not cover."""
@@ -126,12 +132,13 @@ def with_book_spacing(sp):
 
 
 class Scribe:
-    def __init__(self, letters, minim, spacing, offsets, slant, nib=None, terminal=None):
+    def __init__(self, letters, minim, spacing, offsets, slant, nib=None, terminal=None, biting=None):
         """nib: (a, b, theta, p) of the hand's pen, terminal: its twist-and-pull keyframes;
-        both default to MS 2262's as fitted (minims.load, twist.py). A hand bundle
-        (bundle.py) carries its own."""
+        both default to MS 2262's as fitted (minims.load, twist.py). biting: the rates
+        and stroke offsets with which neighbouring letters share a stroke (biting.py;
+        None: letters are only spaced). A hand bundle (bundle.py) carries its own."""
         self.L, self.Mi, self.sp, self.off = letters, minim, spacing, offsets
-        self.nib, self.terminal = nib, terminal
+        self.nib, self.terminal, self.bite = nib, terminal, biting
         self.t = np.tan(np.radians(slant))
         self.p = np.array([minim["module"][k] for k in M.PARAMS])
         self.tail = minim["tail"]
@@ -153,9 +160,14 @@ class Scribe:
             else:
                 clusters.append((ch, []))
         bases = [c for c, _ in clusters]
+        prev_x = x
         for i, (ch, marks) in enumerate(clusters):
             if i > 0:
-                x += xh * jit(distance(self.sp, bases[i - 1], ch), self.Mi["rules"]["pitch"]["between_sd"])
+                d = self.bite_distance(bases[i - 1], ch, chance, jit)
+                if d is None:
+                    d = jit(distance(self.sp, bases[i - 1], ch), self.Mi["rules"]["pitch"]["between_sd"])
+                x = prev_x + xh * d
+            prev_x = x
             final = i == len(clusters) - 1
             for mk in marks:          # drawn over this letter's box, from the fitted mark plan
                 Lm = self.L[mk]
@@ -197,6 +209,22 @@ class Scribe:
                 prev_last_stem = None
         return out
 
+    def bite_distance(self, a, b, chance, jit):
+        """When a and b bite (at the scribe's rate for the pair, or for its facing sides),
+        the distance between their left edges (x-heights) that puts b's first upright
+        stroke on a's last one, a little to the right where the two run together; None
+        when they do not bite."""
+        B = self.bite
+        if not B or a not in B["offsets"] or b not in B["offsets"] or a not in B["sides"] or b not in B["sides"]:
+            return None
+        r = B["pair_rate"].get(a + b)
+        if r is None:
+            r = B["sides_rate"].get(f"{B['sides'][a][0]} → {B['sides'][b][1]}", 0.0)
+        if not r or not chance(r):
+            return None
+        extra = max(0.0, jit(*B["extra_px"]))
+        return (B["offsets"][a]["last"] - B["offsets"][b]["first"] + extra) / TX.XH
+
     def tail_spec(self, xh, ref_xh=29.4):
         if self.terminal is None:
             return M.tail_spec(xh)
@@ -215,7 +243,7 @@ class Scribe:
         letters = dict(B["letters"], **B.get("signs", {}))
         n = B["pen"]
         return cls(letters, B["minim"], B["spacing"], B["minim_offsets"], B["slant_deg"],
-                   nib=(n["a"], n["b"], n["theta"], n["p"]), terminal=B["terminal"])
+                   nib=(n["a"], n["b"], n["theta"], n["p"]), terminal=B["terminal"], biting=B.get("biting"))
 
     def render(self, strokes):
         return pen.render([s for _, s, _ in strokes], self.pen(), step=0.5,

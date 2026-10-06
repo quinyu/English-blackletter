@@ -151,7 +151,7 @@ def plot_forms(env, path, xh=29.0, forms=None, title="Words in full and abbrevia
     minim = json.loads((OUT / "hours_minims.json").read_text(encoding="utf-8"))
     found = [f for f in env["found"] if f["char"] not in (MACRON, ER)]
     w = SC.Scribe(SC.load_letters(), minim, SC.with_book_spacing(SC.fit_spacing(SC.pairs(found))), SC.minim_offsets(found),
-                   env["slant"])
+                   env["slant"], biting=SC.load_biting())
     geoms = {(r, c): w.render(w.write(word, 0.0, 0.0, xh))
              for r, (full, abbrs) in enumerate(forms) for c, word in enumerate([full] + abbrs)}
     right = max(7.0 * xh, max(g.bounds[2] for g in geoms.values()) + 0.4 * xh)   # the longest word

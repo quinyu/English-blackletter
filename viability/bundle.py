@@ -4,7 +4,8 @@ A codex was often shared among several scribes of one tradition (hands.py looks 
 in MS 2262). A *hand* here is everything the writer needs, fitted from that scribe's
 pages: the pen (nib size, angle, corner sharpness), the twist-and-pull terminal, the minim
 module with its joins and pitch, the letters and signs with their variation, the spacing
-model, and where it all came from (pages, numbers of examples). Fitting another scribe
+model, the biting rates (which neighbours write their facing sides as one stroke), and
+where it all came from (pages, numbers of examples). Fitting another scribe
 means running the same fits on their pages and saving another bundle; nothing else in the
 writer changes.
 
@@ -51,6 +52,7 @@ def build(hand_id, folios, manuscript="Clermont-Ferrand, Bibliothèque du Patrim
         minim_offsets=SC.minim_offsets(found),
         spacing=SC.with_book_spacing(SC.fit_spacing(SC.pairs(found))),
         letters=letters, signs=signs,
+        biting=SC.load_biting(),          # how often neighbouring letters share a stroke (biting.py)
         provenance=dict(letters={ch: v["n"] for ch, v in letters.items()},
                         signs={ch: v["n"] for ch, v in signs.items()},
                         minim_letters_fitted=len(M.INSTANCES), spacing_pairs=len(SC.pairs(found))))

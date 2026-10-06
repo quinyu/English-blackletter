@@ -57,6 +57,7 @@ WIDTHS = (0.85, 1.0, 1.15)
 GAP_IN = (-0.2, 0.45)      # gap between letters of a word, x-heights
 GAP_WORD = (0.25, 4.0)     # gap between words
 GAP_SIGN = (0.0, 1.2)      # where a small sign was expanded by the editor, e.g. e[ius]
+GAP_RUBRIC = (0.25, 30.0)  # where the reading marks red ink, [R], which the black-ink mask leaves blank
 SKIP_COST = 700.0         # weighted pixels: about a minim's worth of disagreement
 STEM_PENALTY = 150.0      # per stem too many or too few (≈ the weighted pixels of a third of a stem)
 MINIM_STEMS = {"i": 1, "n": 2, "m": 3, "u": 2}
@@ -72,7 +73,8 @@ def tokens(diplomatic):
     for part in re.split(r"(\[[^\]]*\])", diplomatic):
         if part.startswith("["):
             inner = part[1:-1]
-            gap = "word" if (inner[:1].isupper() or gap in ("start", "word")) else "sign"
+            gap = ("rubric" if inner == "R" else
+                   "word" if (inner[:1].isupper() or gap in ("start", "word")) else "sign")
             continue
         for ch in unicodedata.normalize("NFD", part):
             if ch == " ":
@@ -164,7 +166,8 @@ def align_line(img, us, toks, templates, stem_counts):
             pre = -C[:L + 1]
             gaps = None
         else:
-            lo, hi = {"in": GAP_IN, "word": GAP_WORD, "sign": GAP_SIGN, "start": GAP_WORD}[tk["gap"]]
+            lo, hi = {"in": GAP_IN, "word": GAP_WORD, "sign": GAP_SIGN, "start": GAP_WORD,
+                      "rubric": GAP_RUBRIC}[tk["gap"]]
             lo, hi = int(np.floor(lo * XH)), int(np.ceil(hi * XH))
             v = BEST[-1] + C[:L + 1]
             pre = np.full(L + 1, NEG)

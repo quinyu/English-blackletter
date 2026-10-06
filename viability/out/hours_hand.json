@@ -139,315 +139,257 @@
   }
  },
  "biting": {
-  "other": {
-   "n": 326,
-   "touching": 0.05214723926380368,
-   "median_white_px": 6.0
+  "sides bowl → bowl": {
+   "n": 26,
+   "biting": 0.9615384615384616
   },
-  "pair no": {
-   "n": 4,
-   "touching": 0.0,
-   "median_white_px": 8.5
+  "sides bowl → stem": {
+   "n": 30,
+   "biting": 0.13333333333333333
   },
-  "pair om": {
-   "n": 5,
-   "touching": 0.0,
-   "median_white_px": 7.0
+  "sides stem → bowl": {
+   "n": 68,
+   "biting": 0.04411764705882353
   },
-  "pair me": {
-   "n": 3,
-   "touching": 0.0,
-   "median_white_px": 9.0
-  },
-  "pair en": {
-   "n": 4,
-   "touching": 0.0,
-   "median_white_px": 10.0
-  },
-  "pair tu": {
-   "n": 9,
-   "touching": 0.0,
-   "median_white_px": 7.0
-  },
-  "minim to minim": {
-   "n": 57,
-   "touching": 0.017543859649122806,
-   "median_white_px": 8.0
-  },
-  "pair uu": {
-   "n": 3,
-   "touching": 0.0,
-   "median_white_px": 8.0
-  },
-  "pair um": {
-   "n": 11,
-   "touching": 0.0,
-   "median_white_px": 11.0
-  },
-  "pair in": {
-   "n": 8,
-   "touching": 0.125,
-   "median_white_px": 3.0
-  },
-  "pair vn": {
-   "n": 3,
-   "touching": 0.0,
-   "median_white_px": 7.0
-  },
-  "pair ni": {
-   "n": 8,
-   "touching": 0.0,
-   "median_white_px": 7.5
-  },
-  "pair iu": {
-   "n": 7,
-   "touching": 0.0,
-   "median_white_px": 6.0
-  },
-  "pair uſ": {
-   "n": 3,
-   "touching": 0.0,
-   "median_white_px": 10.0
-  },
-  "pair ſa": {
-   "n": 3,
-   "touching": 0.3333333333333333,
-   "median_white_px": 1.0
-  },
-  "pair te": {
-   "n": 5,
-   "touching": 0.0,
-   "median_white_px": 7.0
-  },
-  "pair er": {
-   "n": 10,
-   "touching": 0.0,
-   "median_white_px": 6.0
-  },
-  "pair ra": {
-   "n": 4,
-   "touching": 0.0,
-   "median_white_px": 3.5
-  },
-  "pair uo": {
-   "n": 5,
-   "touching": 0.0,
-   "median_white_px": 7.0
-  },
-  "pair on": {
-   "n": 5,
-   "touching": 0.0,
-   "median_white_px": 8.0
-  },
-  "pair ia": {
-   "n": 5,
-   "touching": 0.0,
-   "median_white_px": 6.0
+  "sides stem → stem": {
+   "n": 121,
+   "biting": 0.03305785123966942
   },
   "pair am": {
    "n": 5,
-   "touching": 0.0,
-   "median_white_px": 9.0
-  },
-  "pair el": {
-   "n": 6,
-   "touching": 0.0,
-   "median_white_px": 4.5
-  },
-  "pair eu": {
-   "n": 5,
-   "touching": 0.0,
-   "median_white_px": 7.0
-  },
-  "pair ua": {
-   "n": 5,
-   "touching": 0.0,
-   "median_white_px": 8.0
-  },
-  "pair ta": {
-   "n": 3,
-   "touching": 0.0,
-   "median_white_px": 8.0
-  },
-  "pair eſ": {
-   "n": 4,
-   "touching": 0.0,
-   "median_white_px": 7.5
-  },
-  "pair ſt": {
-   "n": 13,
-   "touching": 0.38461538461538464,
-   "median_white_px": 3.0
-  },
-  "pair ma": {
-   "n": 4,
-   "touching": 0.0,
-   "median_white_px": 8.5
-  },
-  "pair ic": {
-   "n": 3,
-   "touching": 0.3333333333333333,
-   "median_white_px": 5.0
-  },
-  "pair ce": {
-   "n": 5,
-   "touching": 0.0,
-   "median_white_px": 4.0
-  },
-  "pair nt": {
-   "n": 4,
-   "touching": 0.0,
-   "median_white_px": 9.0
-  },
-  "pair ti": {
-   "n": 10,
-   "touching": 0.0,
-   "median_white_px": 6.5
-  },
-  "pair ſu": {
-   "n": 5,
-   "touching": 0.0,
-   "median_white_px": 7.0
-  },
-  "pair up": {
-   "n": 3,
-   "touching": 0.0,
-   "median_white_px": 8.0
-  },
-  "bowl meets bowl": {
-   "n": 22,
-   "touching": 0.2727272727272727,
-   "median_white_px": 2.0
-  },
-  "pair pe": {
-   "n": 9,
-   "touching": 0.5555555555555556,
-   "median_white_px": 0.0
-  },
-  "pair lo": {
-   "n": 3,
-   "touching": 0.0,
-   "median_white_px": 6.0
-  },
-  "pair os": {
-   "n": 5,
-   "touching": 0.0,
-   "median_white_px": 3.0
-  },
-  "pair oꝛ": {
-   "n": 7,
-   "touching": 0.14285714285714285,
-   "median_white_px": 6.0
-  },
-  "pair ꝛe": {
-   "n": 4,
-   "touching": 0.0,
-   "median_white_px": 3.5
+   "biting": 0.0
   },
   "pair an": {
    "n": 4,
-   "touching": 0.0,
-   "median_white_px": 8.0
-  },
-  "pair et": {
-   "n": 9,
-   "touching": 0.2222222222222222,
-   "median_white_px": 3.0
-  },
-  "pair la": {
-   "n": 4,
-   "touching": 0.0,
-   "median_white_px": 4.0
-  },
-  "pair iſ": {
-   "n": 6,
-   "touching": 0.0,
-   "median_white_px": 6.5
-  },
-  "pair au": {
-   "n": 3,
-   "touching": 0.0,
-   "median_white_px": 9.0
-  },
-  "pair de": {
-   "n": 3,
-   "touching": 0.0,
-   "median_white_px": 2.0
-  },
-  "pair em": {
-   "n": 3,
-   "touching": 0.0,
-   "median_white_px": 10.0
-  },
-  "pair mi": {
-   "n": 9,
-   "touching": 0.0,
-   "median_white_px": 9.0
-  },
-  "pair co": {
-   "n": 4,
-   "touching": 0.25,
-   "median_white_px": 4.5
-  },
-  "pair as": {
-   "n": 5,
-   "touching": 0.0,
-   "median_white_px": 7.0
-  },
-  "pair it": {
-   "n": 4,
-   "touching": 0.0,
-   "median_white_px": 4.0
-  },
-  "pair qu": {
-   "n": 3,
-   "touching": 0.0,
-   "median_white_px": 8.0
-  },
-  "pair ue": {
-   "n": 3,
-   "touching": 0.0,
-   "median_white_px": 8.0
-  },
-  "pair ui": {
-   "n": 4,
-   "touching": 0.0,
-   "median_white_px": 6.5
-  },
-  "pair ho": {
-   "n": 3,
-   "touching": 0.0,
-   "median_white_px": 5.0
-  },
-  "pair es": {
-   "n": 5,
-   "touching": 0.2,
-   "median_white_px": 2.0
-  },
-  "pair li": {
-   "n": 4,
-   "touching": 0.0,
-   "median_white_px": 6.5
-  },
-  "pair us": {
-   "n": 3,
-   "touching": 0.0,
-   "median_white_px": 10.0
-  },
-  "pair is": {
-   "n": 4,
-   "touching": 0.0,
-   "median_white_px": 5.5
-  },
-  "pair nu": {
-   "n": 3,
-   "touching": 0.0,
-   "median_white_px": 12.0
+   "biting": 0.0
   },
   "pair ar": {
    "n": 3,
-   "touching": 0.0,
-   "median_white_px": 3.0
+   "biting": 1.0
+  },
+  "pair as": {
+   "n": 5,
+   "biting": 0.0
+  },
+  "pair au": {
+   "n": 3,
+   "biting": 0.0
+  },
+  "pair ce": {
+   "n": 5,
+   "biting": 0.0
+  },
+  "pair co": {
+   "n": 4,
+   "biting": 0.0
+  },
+  "pair de": {
+   "n": 3,
+   "biting": 1.0
+  },
+  "pair el": {
+   "n": 6,
+   "biting": 0.0
+  },
+  "pair em": {
+   "n": 3,
+   "biting": 0.0
+  },
+  "pair en": {
+   "n": 4,
+   "biting": 0.0
+  },
+  "pair er": {
+   "n": 10,
+   "biting": 0.0
+  },
+  "pair es": {
+   "n": 5,
+   "biting": 0.0
+  },
+  "pair et": {
+   "n": 9,
+   "biting": 0.0
+  },
+  "pair eu": {
+   "n": 5,
+   "biting": 0.0
+  },
+  "pair eſ": {
+   "n": 4,
+   "biting": 0.0
+  },
+  "pair ho": {
+   "n": 3,
+   "biting": 1.0
+  },
+  "pair ia": {
+   "n": 5,
+   "biting": 0.0
+  },
+  "pair ic": {
+   "n": 3,
+   "biting": 0.0
+  },
+  "pair in": {
+   "n": 8,
+   "biting": 0.0
+  },
+  "pair is": {
+   "n": 4,
+   "biting": 0.0
+  },
+  "pair it": {
+   "n": 4,
+   "biting": 0.0
+  },
+  "pair iu": {
+   "n": 7,
+   "biting": 0.0
+  },
+  "pair iſ": {
+   "n": 6,
+   "biting": 0.0
+  },
+  "pair la": {
+   "n": 4,
+   "biting": 0.0
+  },
+  "pair li": {
+   "n": 4,
+   "biting": 0.0
+  },
+  "pair lo": {
+   "n": 3,
+   "biting": 0.0
+  },
+  "pair ma": {
+   "n": 4,
+   "biting": 0.0
+  },
+  "pair me": {
+   "n": 3,
+   "biting": 0.0
+  },
+  "pair mi": {
+   "n": 9,
+   "biting": 0.0
+  },
+  "pair ni": {
+   "n": 8,
+   "biting": 0.0
+  },
+  "pair no": {
+   "n": 4,
+   "biting": 0.0
+  },
+  "pair nt": {
+   "n": 4,
+   "biting": 0.25
+  },
+  "pair nu": {
+   "n": 3,
+   "biting": 0.0
+  },
+  "pair om": {
+   "n": 5,
+   "biting": 0.0
+  },
+  "pair on": {
+   "n": 5,
+   "biting": 0.0
+  },
+  "pair os": {
+   "n": 5,
+   "biting": 1.0
+  },
+  "pair oꝛ": {
+   "n": 7,
+   "biting": 0.0
+  },
+  "pair pe": {
+   "n": 9,
+   "biting": 1.0
+  },
+  "pair qu": {
+   "n": 3,
+   "biting": 0.0
+  },
+  "pair ra": {
+   "n": 4,
+   "biting": 0.0
+  },
+  "pair ta": {
+   "n": 3,
+   "biting": 0.0
+  },
+  "pair te": {
+   "n": 5,
+   "biting": 0.0
+  },
+  "pair ti": {
+   "n": 10,
+   "biting": 0.0
+  },
+  "pair tu": {
+   "n": 9,
+   "biting": 0.0
+  },
+  "pair ua": {
+   "n": 5,
+   "biting": 0.0
+  },
+  "pair ue": {
+   "n": 3,
+   "biting": 0.0
+  },
+  "pair ui": {
+   "n": 4,
+   "biting": 0.0
+  },
+  "pair um": {
+   "n": 11,
+   "biting": 0.0
+  },
+  "pair uo": {
+   "n": 5,
+   "biting": 0.0
+  },
+  "pair up": {
+   "n": 3,
+   "biting": 0.0
+  },
+  "pair us": {
+   "n": 3,
+   "biting": 0.0
+  },
+  "pair uu": {
+   "n": 3,
+   "biting": 0.0
+  },
+  "pair uſ": {
+   "n": 3,
+   "biting": 0.0
+  },
+  "pair vn": {
+   "n": 3,
+   "biting": 0.0
+  },
+  "pair ſa": {
+   "n": 3,
+   "biting": 0.0
+  },
+  "pair ſt": {
+   "n": 13,
+   "biting": 0.0
+  },
+  "pair ſu": {
+   "n": 5,
+   "biting": 0.0
+  },
+  "pair ꝛe": {
+   "n": 4,
+   "biting": 0.0
   }
  },
  "rules": {
