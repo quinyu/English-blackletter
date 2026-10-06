@@ -65,16 +65,20 @@ def pages(pdf_dir):
     return out
 
 
-def measure(path):
+def page_ink(path):
+    """The scribe's ink on a page (painted initials and red ink removed), the darkness
+    map, the RGB image, and the text block (x0, y0, x1, y1), or None."""
     rgb = ink.load_rgb(path)
     lab = cv2.cvtColor(rgb, cv2.COLOR_RGB2LAB).astype(np.float32)
     mask, dark = ink.ink_mask(rgb)
     mask[ink.paint_boxes(rgb, mask)] = 0
     mask = ((mask > 0) & ~ink.red_mask(rgb, mask)).astype(np.uint8)
-    pbox = C.parchment_box(lab)
-    tb = C.text_block(mask, pbox)
-    if tb is None:
-        return None
+    return rgb, mask, dark, C.text_block(mask, C.parchment_box(lab))
+
+
+def guides(mask, tb):
+    """Every text line of the block: baseline and x-line (one slope for the page), slant,
+    x-height, ends. [] when fewer than four lines can be fitted."""
     block = dict(x0=tb[0], y0=tb[1], x1=tb[2], y1=tb[3])
     peaks, _ = LL.line_bands(mask, block, MIN_GAP)
     first = []
@@ -88,7 +92,7 @@ def measure(path):
         if g is not None:
             first.append((y, x0, x1, g["baseline"][0]))
     if len(first) < 4:
-        return None
+        return []
     slope = float(np.median([f[3] for f in first]))
     lines = []
     for y, x0, x1, _ in first:
@@ -102,7 +106,17 @@ def measure(path):
                           baseline=[[x0, g["baseline"][0] * x0 + g["baseline"][1]],
                                     [x1, g["baseline"][0] * x1 + g["baseline"][1]]],
                           xline=[[x0, g["xline"][0] * x0 + g["xline"][1]], [x1, g["xline"][0] * x1 + g["xline"][1]]]))
-    if len(lines) < 4:
+    return lines if len(lines) >= 4 else []
+
+
+def measure(path):
+    rgb, mask, dark, tb = page_ink(path)
+    if tb is None:
+        return None
+    block = dict(x0=tb[0], y0=tb[1], x1=tb[2], y1=tb[3])
+    lab = cv2.cvtColor(rgb, cv2.COLOR_RGB2LAB).astype(np.float32)
+    lines = guides(mask, tb)
+    if not lines:
         return None
     for i, l in enumerate(lines):
         pb = (lambda x, gg=lines[i - 1]["g"]: gg["baseline"][0] * x + gg["baseline"][1]) if i else None

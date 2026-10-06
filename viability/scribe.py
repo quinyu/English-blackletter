@@ -106,10 +106,12 @@ def minim_offsets(found):
 # ---- writing ---------------------------------------------------------------------------
 
 def load_letters():
-    """Fitted letters (textura.py) and, when fitted, the abbreviation signs and marks (abbrev.py)."""
+    """Fitted letters (textura.py) and, when fitted, the abbreviation signs and marks of
+    f. 12r (abbrev.py) and of the rest of the book (book_signs.py)."""
     L = json.loads((OUT / "hours_textura.json").read_text(encoding="utf-8"))
-    if (OUT / "hours_signs.json").exists():
-        L.update(json.loads((OUT / "hours_signs.json").read_text(encoding="utf-8")))
+    for fn in ("hours_signs.json", "hours_book_signs.json"):
+        if (OUT / fn).exists():
+            L.update(json.loads((OUT / fn).read_text(encoding="utf-8")))
     return L
 
 

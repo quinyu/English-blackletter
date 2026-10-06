@@ -32,7 +32,10 @@ def build(hand_id, folios, manuscript="Clermont-Ferrand, Bibliothèque du Patrim
     minim = json.loads((OUT / "hours_minims.json").read_text(encoding="utf-8"))
     twist = json.loads((OUT / "hours_twist.json").read_text(encoding="utf-8"))
     letters = json.loads((OUT / "hours_textura.json").read_text(encoding="utf-8"))
-    signs = json.loads((OUT / "hours_signs.json").read_text(encoding="utf-8")) if (OUT / "hours_signs.json").exists() else {}
+    signs = {}
+    for fn in ("hours_signs.json", "hours_book_signs.json"):     # f. 12r's signs, then the book's
+        if (OUT / fn).exists():
+            signs.update(json.loads((OUT / fn).read_text(encoding="utf-8")))
     B = dict(
         id=hand_id, manuscript=manuscript, folios=folios,
         # the page's pen, as the letters were fitted with it (the minim module's own fit
