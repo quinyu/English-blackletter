@@ -960,7 +960,7 @@ them, every text page (ff. 11r–64v) was read for them by eye.
 | con | A76F ꝯ | a 9: closed oval bowl in the upper x-height, stem down past the baseline into a hairline turning left | 38 (+4 another form) | 0.61 | ±0.09 |
 | rum | A75D ꝝ | the r rotunda written as a z (top bar against the o, diagonal, foot), crossed by a long hairline down-left below the line | 19 | 0.50 | ±0.08 |
 | et sign | A76B ꝫ | a z: point or short bar at the x-line, hairline diagonal, lower curve, hairline tail below the line | 254 (+5) | 0.45 | ±0.22 |
-| d with stroke | 0111 đ | the round d with a thin stroke through its ascender, rising to the right | 3 | 0.60 | ±0.07 |
+| d with stroke | 0111 đ | the round d with a bar through its ascender, rising to the right, drawn with the quill tilted (*Thin strokes*) | 3 | 0.61 | ±0.03 |
 | tilde | 0303 ◌̃ | two lozenges side by side, each a short down-stroke of the broad nib, joined by a hairline; over s in *s̃* | 5 (+1) | 0.47 | ±0.06 |
 
 **What the readings showed.**
@@ -976,7 +976,7 @@ them, every text page (ff. 11r–64v) was read for them by eye.
   - *uſꝫ* and *neꝫ* need no q at all.
 - **Where the shapes come from.**
   - **đ:** only three are clear, and two of them are the rubricator's red *dd* (David,
-    f. 33v). There the thin stroke runs through both ascenders. The third is *đ.* for
+    f. 33v). There the bar runs through both ascenders. The third is *đ.* for
     *dei* (f. 44r).
   - **s̃:** it is in the cue lines of ff. 56r–57r (*ut s̃*, ut supra) and in a red *vs̃*
     (vesperas).
@@ -1119,6 +1119,59 @@ model. The rates travel in the hand file.
 
 ![Words as the scribe and the writer write them](out/hours_biting_words.png)
 
+### Thin strokes: the quill tilted
+
+A broad quill makes thin strokes in two ways. Moved along its edge, it draws the edge's
+own thickness. Tilted onto one end of its edge, it keeps that thickness, but its broad
+rectangular contact is squeezed into a much narrower one. It then draws like a second,
+narrower pen of the same weight, in any direction. Scribes use the tilt to any degree,
+and may tilt during a stroke: the tail of an e caudata is begun flat and then suddenly
+squeezed. Until now the writer drew thin strokes with a corner of the pen: a round point
+half as thick as the quill. Its bars were weak.
+
+**The pen can now tilt** (`pen.tilt_breadth`). Tilt t keeps the quill's thickness b and
+narrows its contact from the full edge a (t = 0) to no broader than it is thick (t = 1).
+A stroke can hold one tilt or change it along its length (`pen.tilt_profile`, in the
+vector renderer and in the fitting pen).
+
+![The scribe's crossbars](out/hours_tilt.png)
+
+**How far the scribe tilts, from his bars.** The book has 45 recorded bars: l barred
+for *-or-* or *-el* (gl̄ia, ppl̄os, Kyriel̵, the litany's ł), barred h and b (ih̄s, Ioh̄s,
+nob̄) and đ. `quill_tilt.py` measures each bar's thickness in the line straightened to
+f. 12r's x-height. It measures the renderer's bars the same way, at every tilt and
+sub-pixel position:
+
+| Bar drawn with | Thickness (px) |
+|---|---|
+| the quill flat (as a macron is) | 7.0 |
+| the quill fully tilted | 4.0 |
+| a corner of the pen (before) | 2.4 |
+| **the scribe's bars (30 measurable)** | **median 4.0, quartiles 3–5** |
+
+- **His bars are drawn with the quill tilted, usually as far as it goes.** The median
+  tilt is 1.0 (quartiles 0.65–1.0). 21 bars lie between corner and flat, 2 are flat,
+  and 7 are at or below the corner's width. Those thinnest ones are faint, and the ink
+  mask loses the edges of faint strokes.
+- **đ refitted with a tilted crossbar fits its examples better:** overlap 0.610 (0.599
+  with the corner).
+
+**The letters' own hairlines are kept as fitted, for now.** On f. 12r the e's closing
+stroke, t's hairline and h's tail were refitted with the tilted quill. The page scores
+them a little lower than with the corner:
+
+| Letter | With the corner (as fitted) | Refitted with the quill tilted |
+|---|---|---|
+| e | 0.652 | 0.642 |
+| t | 0.689 | 0.682 |
+| h | 0.643 | 0.640 |
+
+The ink mask is thresholded, so it favours thin lines: a faint hairline keeps only its
+dark core. The scan therefore cannot settle these letters. Bars are heavier, and settle
+it for bars.
+
+![Thin strokes with the corner and with the quill tilted](out/hours_marks_tilt.png)
+
 ### Accents: anchors on the letters, marks in the scribe's manner
 
 Letters with accents and other marks make up the largest group of MUFI characters still
@@ -1167,23 +1220,29 @@ the x-height letters there are 175 (167 macrons, 8 er curls):
   and overline do the same. MUFI's "high" marks and its accents sit above.
 
 **Marks from the scribe's own strokes.** MS 2262 has no accents, so they are designed
-from the four things this scribe does with his pen beside the letters:
+from what this scribe does with his pen beside the letters. Their thin strokes are drawn
+as he draws his bars, with the quill tilted (*Thin strokes: the quill tilted*), not with
+a corner of the pen:
 
 | Made from | Marks |
 |---|---|
-| fitted marks (4) | the macron, the tilde and the er curl as fitted; đ's crossing hairline for every bar through a letter |
+| fitted marks (4) | the macron, the tilde and the er curl as fitted; đ's tilted crossbar for every bar through a letter |
 | the fitted marks, reused (14) | overline and the fixed-height macrons and overlines (the macron's bar), double overline, bar with dot, macron below, low line, double low line; hook above, MUFI's curl and its high form (the er curl at ¾ size), the er curl's MUFI form F1C8; comma above right (his comma at 0.4) |
 | his point (6) | dot above and below, its high form, diaeresis above and below, diagonal diaeresis: the colon's point (the nib drawn down to the right) at 0.6 size |
-| the pen's edge (8) | acute and double acute (a short steep stroke up to the right: a slim wedge with this 33° nib), circumflex and its double form, caron, zigzag above and below; the grave (below) |
-| the pen's corner, as a hairline (16) | breve, ring above and below, vertical line(s), vertical tilde, curly bar, inverted breve below, double breve below, asterisk below, ogonek and ogonek above, cedilla, slashes and strokes |
+| the flat quill (7) | acute and double acute (a short steep stroke up to the right: a slim wedge with this 33° nib), circumflex and its double form, caron, zigzag above and below |
+| begun flat, then tilted (2) | the ogonek and the cedilla, grown from the letter's foot as an e caudata's tail is: flat where they leave the letter, then suddenly squeezed |
+| the quill tilted throughout (12) | the grave (a little less tilted at its head: a slim wedge), breve, ring above and below, vertical line(s), vertical tilde, curly bar, ogonek above, inverted breve below, double breve below, asterisk below |
+| tilted as for his bars (4) | the slashes (ø, ł, ꝟ), the long stroke, and his per-stroke: ꝑ as he writes it, a slanting stroke crossing the left-turned foot of his short-stemmed p just below the line, as the book's notes on its 66 *per* describe it |
 
-- **The nib decides several shapes.** Drawn up to the right at 60°, the nib makes the
-  slim wedge of an acute. Drawn down to the right it makes a heavy lozenge, which is
-  how the point is made, so a grave drawn that way would read as a dot. The grave is
-  therefore a small point with a hairline running down from it, the scribe's comma
-  turned over.
-- **Only the corner can draw thin uprights and small rounds.** The nib's edge fills a
-  ring or a breve solid, so these are corner hairlines, like the er tail and đ's stroke.
+- **The nib decides several shapes.** Drawn up to the right at 60°, the flat quill
+  makes the slim wedge of an acute. Drawn down to the right it makes a heavy lozenge,
+  which is how the point is made, and its whole breadth would stand across the head of
+  a grave. So the grave is drawn tilted, a little less at its head.
+- **The tilted quill keeps its weight.** It draws thin uprights, small rounds and bars
+  at the quill's own thickness, so rings stay open, breves stay light, and bars read as
+  firm strokes.
+- **A tilted stroke varies as his bars do.** Where the quill is held at one tilt, the
+  writer varies it by the spread measured on his bars.
 - **Stacking.** A second mark on the same anchor sits on the first one's top at 0.6 of
   the gap (ǭ, ǫ́, ę with ogonek, dot and acute).
 - **Decomposing characters.** Precomposed characters are taken apart in three ways:
@@ -1199,7 +1258,7 @@ from the four things this scribe does with his pen beside the letters:
 ![MUFI's letters with marks in this hand](out/hours_marks_mufi.png)
 
 **What the writer writes now.** 258 MUFI characters are written from a fitted letter
-and its marks: 222 letters (ð among them, as d with đ's stroke) and 36 combining marks.
+and its marks: 222 letters (ð among them, as d with đ's crossbar) and 36 combining marks.
 The specimen above adds the three fitted marks (261). Before, 8 letters with fitted
 marks were ready. The anchors reproduce the page's own
 abbreviations as the fitted positions did (dn̄s, qm̄, vniu͛ſa, h̄itant). Placement varies
@@ -1292,7 +1351,7 @@ with fewer than ten lines are left out (ff. 34v, 55r, 64v).
 ### One file per hand
 
 So that the editor can write any number of scribes, `bundle.py` saves all that the writer
-needs for one hand in one file (`out/hands/ms2262_A.json`, 80 kB):
+needs for one hand in one file (`out/hands/ms2262_A.json`, 83 kB):
 - the pen at the page's x-height: nib size, angle and corner sharpness;
 - the slant and the twist-and-pull terminal;
 - the minim module, with its joins, pitch and tail, and the minim letters' offsets;
@@ -1325,6 +1384,7 @@ python3 capitals.py PDF_PAGE_DIR  # painted initials and ink capitals, whole boo
 python3 measure_letters.py hours  # the traced 'nomen'
 python3 hands.py PDF_PAGE_DIR     # the hand page by page, whole book (about 15 minutes)
 python3 forms.py PDF_PAGE_DIR     # the same letters through the book (about 10 minutes, 4 cores)
+python3 quill_tilt.py PDF_PAGE_DIR  # how far the scribe tilts his quill: the book's crossbars
 python3 book_signs.py PDF_PAGE_DIR  # ꝯ, ꝝ, ꝫ, đ, tilde from the whole book (reads data/hours_book_signs.jsonl)
 python3 find_letters.py PDF_PAGE_DIR  # letters of the pages read in data/hours_readings.json
 python3 biting.py PDF_PAGE_DIR    # biting on those pages and f. 12r; the writer's biting rates
@@ -1350,7 +1410,8 @@ python3 bundle.py ms2262_A 12r    # save the fitted hand as one file
     letters.
   - The ink capitals are described, not yet fitted, and the painted initials are not
     modelled.
-  - The accents are designed, not fitted: MS 2262 has none. The placement is measured
+  - The accents are designed, not fitted: MS 2262 has none. Their tilt is the bars';
+    the tails' (ogonek, cedilla) is designed after the e caudata. The placement is measured
     on macrons and er curls only, and the gap between stacked marks is a choice (0.6 of
     the gap above a letter). Marks under descenders, and above ascenders, follow font
     practice, not this scribe.
@@ -1392,7 +1453,7 @@ decompositions.
 **Suggested order**, by what each step opens up:
 
 1. **The common marks: done** (*Accents: anchors on the letters, marks in the scribe's
-   manner*). 48 marks on anchors open 258 characters. Before, 8 were ready.
+   manner*). 49 marks on anchors open 258 characters. Before, 8 were ready.
 2. **Capitals.** The scribe's ink capitals are lowercase-height broken letters with an
    inner hairline. Twelve are attested in the book (E, D, G, S, I, Q, A, P, V, R, T, N):
    fit those, and build the rest the same way. With small capitals, capitals carry

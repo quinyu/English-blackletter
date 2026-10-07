@@ -73,59 +73,68 @@ MIN_LETTER = 10                                  # a letter's own drift is used 
 STACK_GAP = 0.6                                  # gap between stacked marks, as a fraction of the gap above a letter
 
 # ---- the marks ------------------------------------------------------------------------
-# Strokes in x-heights, drawn with the hand's pen ("hairline …" strokes with its corner).
-# The origin is free: each mark's own anchors are read off its drawn ink.
+# Strokes in x-heights, (name, points[, pen]) drawn with the hand's pen. The pen is the
+# flat quill unless a stroke says otherwise: {"tilt": t} draws it with the quill tilted
+# (pen.tilt_breadth: the contact keeps the quill's thickness and loses breadth), held at
+# t or, as keyframes [[f, t], ...] by fraction of the stroke, tilting as it goes. Thin
+# strokes are made that way, as the scribe makes his bars (quill_tilt.py), not with a
+# corner of the pen. The origin is free: each mark's own anchors are read off its ink.
 #   attach   the base anchor it goes to
-#   from     "fitted": the fitted strokes of that mark or letter stroke are used instead
+#   src      "fitted": the fitted strokes of that mark; a mark: its strokes; a letter: its
+#            strokes ("đ": its tilted crossbar)
 #   cross    over an ascender, cross it as the scribe crosses l, h, b (bar marks only)
 
 POINT = (0.07, -0.103)  # a point: the scribe's colon point (0.117, -0.171: the nib drawn down to the right), at 0.6 size
+TILTED = {"tilt": 1.0}  # the quill tilted as far as it goes: as broad as it is thick
+BAR = {"tilt": (json.loads((OUT / "hours_tilt.json").read_text(encoding="utf-8"))["summary"]["bar_tilt"]
+                if (OUT / "hours_tilt.json").exists() else 1.0)}   # the scribe's bars (quill_tilt.py)
+SQUEEZED = {"tilt": [[0.0, 0.0], [0.22, 1.0], [1.0, 1.0]]}   # a tail: begun flat, then suddenly tilted
 
 
 def point(u, v, k=1.0):
     return ("point", [(u, v), (u + POINT[0] * k, v + POINT[1] * k)])
 
 
-def hair(*pts):
-    return ("hairline", list(pts))
+def thin(*pts, pen=TILTED):
+    return ("thin", list(pts), pen)
 
 
 def acute(u=0.0):
-    """A short steep stroke up to the right: with this nib (edge at 33°) it comes out as
-    a slim wedge, the weight of the letters' thin parts."""
+    """A short steep stroke up to the right: with this nib (edge at 33°) the flat quill
+    makes a slim wedge, the weight of the letters' thin parts."""
     return [("acute", [(u - 0.03, 0.0), (u + 0.05, 0.14)])]
 
 
 def grave(u=0.0):
-    """Drawn down to the right the nib makes a heavy lozenge (a point); the grave is
-    therefore a small point with a hairline running down from it, the scribe's comma
-    turned over."""
-    return [point(u - 0.1, 0.26, 0.5), hair((u - 0.09, 0.22), (u + 0.08, 0.0))]
+    """Drawn down to the right the flat quill makes a heavy lozenge (a point), and its
+    whole breadth would stand across the start of the stroke. The grave is drawn with
+    the quill tilted, a little less at its head, so that it is a slim wedge."""
+    return [("grave", [(u - 0.11, 0.27), (u - 0.06, 0.2), (u + 0.08, 0.0)], {"tilt": [[0.0, 0.7], [0.35, 1.0], [1.0, 1.0]]})]
 
 
 def zigzag(v0, h=0.16):
     return [("zigzag", [(-0.22, v0), (-0.02, v0 + h), (0.02, v0), (0.22, v0 + h)])]
 
 
-RING = [hair((0.0, 0.28), (-0.13, 0.14), (0.0, 0.0), (0.13, 0.14), (0.0, 0.28))]
+RING = [thin((0.0, 0.34), (-0.17, 0.17), (0.0, 0.0), (0.17, 0.17), (0.0, 0.34))]
 MARKS = {
     # fitted in the book (abbrev.py, book_signs.py)
     "\u0304": dict(name="macron", attach="top", cross=True, src="fitted"),
     "\u0303": dict(name="tilde", attach="top", src="fitted"),
     "\u035B": dict(name="er curl", attach="top", src="fitted"),
     "\uF1C8": dict(name="zigzag above, curly form (the er curl)", attach="top", src="\u035B"),
-    "\u0335": dict(name="stroke (đ's hairline)", attach="middle", src="đ"),
+    "\u0335": dict(name="stroke (đ's crossbar)", attach="middle", src="đ"),
     # bars: the macron's stroke
     "\u0305": dict(name="overline", attach="top", cross=True, src="\u0304", stretch=1.4),
     "\uF00B": dict(name="medium-high macron, fixed height", attach="top", cross=True, src="\u0304"),
     "\uF00D": dict(name="medium-high overline, fixed height", attach="top", cross=True, src="\u0304", stretch=1.4),
     "\uF00A": dict(name="high macron, fixed height", attach="high", src="\u0304"),
     "\uF00C": dict(name="high overline, fixed height", attach="high", src="\u0304", stretch=1.4),
-    "\u033F": dict(name="double overline", attach="top", cross=True, parts=[("\u0305", 0.0, 0.0), ("\u0305", 0.0, 0.2)]),
+    "\u033F": dict(name="double overline", attach="top", cross=True, parts=[("\u0305", 0.0, 0.0), ("\u0305", 0.0, 0.3)]),
     "\uF1C0": dict(name="bar above with dot", attach="top", cross=True, parts=[("\u0304", 0.0, 0.0), ("\u0307", 0.0, 0.3)]),
     "\u0331": dict(name="macron below", attach="bottom", src="\u0304"),
     "\u0332": dict(name="low line", attach="bottom", src="\u0304", stretch=1.4),
-    "\u0333": dict(name="double low line", attach="bottom", parts=[("\u0332", 0.0, 0.0), ("\u0332", 0.0, -0.2)]),
+    "\u0333": dict(name="double low line", attach="bottom", parts=[("\u0332", 0.0, 0.0), ("\u0332", 0.0, -0.3)]),
     # points: the colon's point
     "\u0307": dict(name="dot above", attach="top", strokes=[point(0.0, 0.0)]),
     "\uF1CA": dict(name="dot above, high position", attach="high", strokes=[point(0.0, 0.0)]),
@@ -133,9 +142,8 @@ MARKS = {
     "diagonal diaeresis": dict(name="diagonal diaeresis", attach="top", strokes=[point(-0.2, 0.0), point(0.12, 0.24)]),
     "\u0323": dict(name="dot below", attach="bottom", strokes=[point(0.0, 0.0)]),
     "\u0324": dict(name="diaeresis below", attach="bottom", strokes=[point(-0.27, 0.0), point(0.2, 0.0)]),
-    # strokes of the edge
+    # strokes of the flat quill
     "\u0301": dict(name="acute", attach="top", strokes=acute()),
-    "\u0300": dict(name="grave", attach="top", strokes=grave()),
     "\u030B": dict(name="double acute", attach="top", strokes=acute(-0.13) + acute(0.13)),
     "\u0302": dict(name="circumflex", attach="top", strokes=[("circumflex", [(-0.2, 0.0), (0.0, 0.18), (0.2, 0.0)])]),
     "\u1DCD": dict(name="double circumflex above", attach="top", strokes=[("circumflex", [(-0.5, 0.0), (0.0, 0.2), (0.5, 0.0)])]),
@@ -146,32 +154,41 @@ MARKS = {
     "\u0309": dict(name="hook above (MUFI: curl)", attach="top", src="\u035B", scale=0.75),
     "\uF1C5": dict(name="curl, high position", attach="high", src="\u035B", scale=0.75),
     "\u0315": dict(name="comma above right", attach="top_right", src=",", scale=0.4),
-    # hairlines: the pen's corner (the only way this nib draws a thin upright or a small round)
-    "\u0306": dict(name="breve", attach="top", strokes=[hair((-0.2, 0.24), (-0.14, 0.06), (0.0, 0.0), (0.14, 0.06), (0.2, 0.24))]),
-    "\u030A": dict(name="ring above", attach="top", strokes=RING),
-    "\u030D": dict(name="vertical line above", attach="top", strokes=[hair((0.0, 0.0), (0.02, 0.3))]),
-    "\u030E": dict(name="double vertical line above", attach="top", strokes=[hair((-0.08, 0.0), (-0.06, 0.3)), hair((0.08, 0.0), (0.1, 0.3))]),
-    "\u033E": dict(name="vertical tilde", attach="top", strokes=[hair((0.02, 0.0), (-0.05, 0.1), (0.05, 0.2), (-0.02, 0.32))]),
-    "\uF1CC": dict(name="curly bar above", attach="top", strokes=[hair((-0.25, 0.04), (-0.05, 0.12), (0.12, 0.04), (0.28, 0.14))]),
-    "\u0325": dict(name="ring below", attach="bottom", strokes=RING),
-    "\u032F": dict(name="inverted breve below", attach="bottom", strokes=[hair((-0.2, 0.0), (-0.14, 0.18), (0.0, 0.24), (0.14, 0.18), (0.2, 0.0))]),
-    "\u035C": dict(name="double breve below", attach="bottom", strokes=[hair((-0.55, 0.2), (-0.35, 0.03), (0.35, 0.03), (0.55, 0.2))]),
-    "\u0359": dict(name="asterisk below", attach="bottom", strokes=[hair((0.0, 0.0), (0.0, 0.28)), hair((-0.12, 0.07), (0.12, 0.21)),
-                                                                    hair((-0.12, 0.21), (0.12, 0.07))]),
+    # begun flat, then tilted: the grave, and the tails that grow from the letter's foot
+    # (the e caudata's: the quill keeps its thickness, its contact is suddenly squeezed)
+    "\u0300": dict(name="grave", attach="top", strokes=grave()),
     "\u0328": dict(name="ogonek", attach="ogonek", own="start",
-                   strokes=[hair((0.0, 0.0), (-0.1, -0.12), (-0.1, -0.26), (0.0, -0.34), (0.1, -0.32))]),
-    "\u1DCE": dict(name="ogonek above", attach="top", strokes=[hair((0.0, 0.0), (-0.1, 0.1), (-0.06, 0.24), (0.06, 0.3))]),
+                   strokes=[("tail", [(0.0, 0.02), (-0.08, -0.12), (-0.08, -0.27), (0.02, -0.36), (0.14, -0.33)], SQUEEZED)]),
     "\u0327": dict(name="cedilla", attach="bottom", own="start",
-                   strokes=[hair((0.0, 0.0), (0.02, -0.1), (0.13, -0.17), (0.08, -0.29), (-0.08, -0.32))]),
-    "\u0337": dict(name="short slash", attach="middle", strokes=[hair((-0.2, -0.18), (0.2, 0.22))]),
-    "\u0338": dict(name="long slash", attach="middle", strokes=[hair((-0.36, -0.42), (0.38, 0.5))]),
-    "\u0336": dict(name="long stroke", attach="middle", strokes=[hair((-0.42, 0.0), (0.44, 0.03))]),
+                   strokes=[("tail", [(0.0, 0.02), (0.03, -0.1), (0.15, -0.18), (0.09, -0.31), (-0.09, -0.34)], SQUEEZED)]),
+    # the quill tilted throughout: thin strokes of the quill's own thickness
+    "\u0306": dict(name="breve", attach="top", strokes=[thin((-0.22, 0.26), (-0.15, 0.06), (0.0, 0.0), (0.15, 0.06), (0.22, 0.26))]),
+    "\u030A": dict(name="ring above", attach="top", strokes=RING),
+    "\u030D": dict(name="vertical line above", attach="top", strokes=[thin((0.0, 0.0), (0.02, 0.3))]),
+    "\u030E": dict(name="double vertical line above", attach="top", strokes=[thin((-0.1, 0.0), (-0.08, 0.3)), thin((0.1, 0.0), (0.12, 0.3))]),
+    "\u033E": dict(name="vertical tilde", attach="top", strokes=[thin((0.02, 0.0), (-0.06, 0.11), (0.06, 0.22), (-0.02, 0.34))]),
+    "\uF1CC": dict(name="curly bar above", attach="top", strokes=[thin((-0.27, 0.04), (-0.06, 0.14), (0.12, 0.04), (0.3, 0.15))]),
+    "\u1DCE": dict(name="ogonek above", attach="top", strokes=[thin((0.0, 0.0), (-0.11, 0.1), (-0.07, 0.25), (0.07, 0.32))]),
+    "\u0325": dict(name="ring below", attach="bottom", strokes=RING),
+    "\u032F": dict(name="inverted breve below", attach="bottom", strokes=[thin((-0.22, 0.0), (-0.15, 0.2), (0.0, 0.26), (0.15, 0.2), (0.22, 0.0))]),
+    "\u035C": dict(name="double breve below", attach="bottom", strokes=[thin((-0.55, 0.22), (-0.36, 0.03), (0.36, 0.03), (0.55, 0.22))]),
+    "\u0359": dict(name="asterisk below", attach="bottom", strokes=[thin((0.0, 0.0), (0.0, 0.32)), thin((-0.14, 0.08), (0.14, 0.24)),
+                                                                    thin((-0.14, 0.24), (0.14, 0.08))]),
+    # bars and slashes: tilted as the scribe tilts for his bars
+    "\u0337": dict(name="short slash", attach="middle", strokes=[thin((-0.2, -0.18), (0.2, 0.22), pen=BAR)]),
+    "\u0338": dict(name="long slash", attach="middle", strokes=[thin((-0.36, -0.42), (0.38, 0.5), pen=BAR)]),
+    "\u0336": dict(name="long stroke", attach="middle", strokes=[thin((-0.42, 0.0), (0.44, 0.03), pen=BAR)]),
+    # the scribe's per: his p has a short stem whose foot turns left, and the bar is a
+    # slanting stroke from below the line up to the right under the bowl, across the
+    # stem's foot (data/hours_book_signs.jsonl, "per"); placed from the letter's middle
+    "per stroke": dict(name="per stroke (the scribe's ꝑ)", attach="middle", own="origin",
+                       strokes=[thin((-0.68, -0.8), (-0.28, -0.67), (0.14, -0.53), pen=BAR)]),
 }
 
 
 def mark_strokes(mk, letters):
-    """The mark's strokes in x-heights, from its plan, a fitted mark, or a fitted letter's
-    stroke ("đ": its crossing hairline)."""
+    """The mark's strokes (name, points, pen) in x-heights, from its plan, a fitted mark,
+    or a fitted letter's stroke ("đ": its crossbar)."""
     m = MARKS[mk]
     src = m.get("src")
     if "parts" in m:              # marks made of other marks: each part's middle set (du, dv) from the first's
@@ -182,16 +199,19 @@ def mark_strokes(mk, letters):
             c0 = c if c0 is None else c0
             st += [(n, [(u - c[0] + c0[0] + du, v - c[1] + c0[1] + dv) for u, v in pts], k) for n, pts, k in ps]
         return st
+
+    def own(s_):
+        return s_["pen"] if isinstance(s_.get("pen"), dict) else None
     if src is None:
-        st = [(n, [tuple(p) for p in pts], None) for n, pts in m["strokes"]]
+        st = [(x[0], [tuple(p) for p in x[1]], x[2] if len(x) > 2 else None) for x in m["strokes"]]
     elif src == "fitted":
-        st = [(s["name"], [tuple(p) for p in s["points"]], None) for s in letters[mk]["strokes"]]
+        st = [(s_["name"], [tuple(p) for p in s_["points"]], own(s_)) for s_ in letters[mk]["strokes"]]
     elif src == "đ":
-        st = [(s["name"], [tuple(p) for p in s["points"]], None) for s in letters["đ"]["strokes"] if s["name"].startswith("hairline")]
+        st = [(s_["name"], [tuple(p) for p in s_["points"]], own(s_)) for s_ in letters["đ"]["strokes"][-1:]]
     elif src in MARKS:
         st = mark_strokes(src, letters)
     else:
-        st = [(s["name"], [tuple(p) for p in s["points"]], None) for s in letters[src]["strokes"]]
+        st = [(s_["name"], [tuple(p) for p in s_["points"]], own(s_)) for s_ in letters[src]["strokes"]]
     k, f = m.get("scale", 1.0), m.get("stretch", 1.0)
     if k != 1.0 or f != 1.0:
         c = np.mean([p for _, pts, _ in st for p in pts], axis=0)
@@ -213,7 +233,8 @@ def writer(slant=0.0, anchors=None):
 def draw(strokes, fp):
     """Binary canvas (V1 … V0 top to bottom, U0 … U1 left to right) of strokes in x-heights."""
     shape = (int(round((V1 - V0) * XH)), int(round((U1 - U0) * XH)))
-    return fp.draw([(n, p, "terminal" if k is not None else None) for n, p, k in strokes], shape, (-U0 * XH, V1 * XH))
+    kinds = [k if isinstance(k, dict) and "tilt" in k else ("terminal" if k is not None else None) for _, _, k in strokes]
+    return fp.draw([(n, p, k) for (n, p, _), k in zip(strokes, kinds)], shape, (-U0 * XH, V1 * XH))
 
 
 def grid(shape):
@@ -309,6 +330,8 @@ def mark_anchors(st, attach, own, fp):
     if own == "start":
         p = st[0][1][0]
         a, nxt = [p[0], p[1]], [uc, low]
+    elif own == "origin":                 # drawn from the anchor itself
+        a, nxt = [0.0, 0.0], [uc, top]
     elif attach in ABOVE:
         a, nxt = [uc, low], [uc, top]
     elif attach in BELOW:
@@ -456,7 +479,7 @@ SLASHED = {"o": "\u0338", "l": "\u0337"}        # ø and ł: their "stroke" is a
 EXTRA = {"ð": ("d", [("\u0335", "bar")]), "ø": ("o", [("\u0338", None)]), "ł": ("l", [("\u0337", None)]),
          "ƀ": ("b", [("\u0335", "bar")]), "ħ": ("h", [("\u0335", "bar")]), "ƚ": ("l", [("\u0335", None)]),
          "ɨ": ("i", [("\u0335", None)]), "ʉ": ("u", [("\u0335", None)]), "ǥ": ("g", [("\u0335", "desc")]),
-         "ꝑ": ("p", [("\u0335", "desc")]), "ꝗ": ("q", [("\u0335", "desc")]), "ꝉ": ("l", [("\u0335", "cross")]),
+         "ꝑ": ("p", [("per stroke", None)]), "ꝗ": ("q", [("\u0335", "desc")]), "ꝉ": ("l", [("\u0335", "cross")]),
          "ꝟ": ("v", [("\u0338", None)]), "ı": ("i", [])}
 
 
@@ -523,7 +546,7 @@ def build(rows=None):
     for mk, m in MARKS.items():
         st = mark_strokes(mk, w.L)
         marks[mk] = dict(name=m["name"], attach=m["attach"], cross=bool(m.get("cross")), own=m.get("own"),
-                         strokes=[dict(name=n, points=[[round(u, 4), round(v, 4)] for u, v in pts]) for n, pts, _ in st],
+                         strokes=[dict(name=n, points=[[round(u, 4), round(v, 4)] for u, v in pts], pen=k) for n, pts, k in st],
                          **mark_anchors(st, m["attach"], m.get("own"), fp))
     p = OUT / "hours_mark_placement.json"
     if rows is not None:
@@ -532,6 +555,8 @@ def build(rows=None):
     place = json.loads(p.read_text(encoding="utf-8"))["summary"]
     use = {k: place[k] for k in ("drift", "drift_sd", "gap", "gap_sd", "stack_gap")}
     use["drift_by_letter"] = {ch: v["drift"] for ch, v in place["by_letter"].items() if v["n"] >= MIN_LETTER}
+    if (OUT / "hours_tilt.json").exists():          # how much the scribe's tilt varies (quill_tilt.py)
+        use["tilt_sd"] = json.loads((OUT / "hours_tilt.json").read_text(encoding="utf-8"))["summary"]["bar_tilt_sd"]
     return dict(letters=letters, marks=marks, placement=use)
 
 
@@ -550,7 +575,7 @@ def plot_marks(an, path, bases=SHOW_BASES):
     """Every mark on a row of letters, placed by the anchors (no variation)."""
     M.load()
     w = writer(slant=_slant(), anchors=an)
-    rows = list(an["marks"])
+    rows = [mk for mk in an["marks"] if mk != "per stroke"]          # that one is p's alone
     fig, axes = plt.subplots(len(rows), 1, figsize=(len(bases) * 0.62 + 1.6, len(rows) * 0.62), dpi=140,
                              facecolor=SURFACE)
     for ax, mk in zip(axes, rows):
@@ -651,6 +676,52 @@ def plot_words(an, path, seeds=(None, 5)):
     plt.close(fig)
 
 
+TILT_SHOW = ["ð", "ƀ", "ħ", "ł", "ø", "ʉ", "ꝑ", "ę", "ǫ", "ç", "ò", "ŭ", "ů", "ǫ́", "ǭ"]
+TILT_WORDS = ["hǫrðr", "eccleſię", "fǫður", "oꝑa", "là"]
+
+
+def cornered(an, letters):
+    """The same marks, and đ, with every tilted stroke drawn by the corner of the pen
+    instead, as the writer drew its thin strokes before (for comparison)."""
+    import copy
+    an, letters = copy.deepcopy(an), copy.deepcopy(letters)
+    for m in an["marks"].values():
+        for s_ in m["strokes"]:
+            if isinstance(s_.get("pen"), dict):
+                s_["name"], s_["pen"] = "hairline", None
+    for s_ in letters["đ"]["strokes"]:
+        if isinstance(s_.get("pen"), dict):
+            s_["name"], s_["pen"] = "hairline", None
+    return an, letters
+
+
+def plot_tilt(an, path):
+    """Thin strokes drawn with the corner of the pen (before) and with the quill tilted
+    (now), on the same strokes."""
+    M.load()
+    slant = _slant()
+    w = writer(slant=slant, anchors=an)
+    an0, L0 = cornered(an, w.L)
+    w0 = writer(slant=slant, anchors=an0)
+    w0.L = L0
+    fig, axes = plt.subplots(4, 1, figsize=(len(TILT_SHOW) * 0.85, 4 * 1.25), dpi=170, facecolor=SURFACE)
+    rows = [(w0, TILT_SHOW, "with the corner of the pen (before)"), (w, TILT_SHOW, "with the quill tilted (now)"),
+            (w0, TILT_WORDS, "with the corner of the pen (before)"), (w, TILT_WORDS, "with the quill tilted (now)")]
+    for ax, (W, items, title) in zip(axes, rows):
+        x = 0.0
+        for it in items:
+            for word in it.split(" "):
+                geom = W.render(W.write(word, x, 0.0, XH))
+                SC.fill(ax, geom)
+                x = geom.bounds[2] + (0.5 if items is TILT_WORDS else 0.75) * XH
+            x += (0.6 if items is TILT_WORDS else 0.0) * XH
+        ax.set_xlim(-0.5 * XH, max(x, 18 * XH)); ax.set_ylim(1.15 * XH, -2.0 * XH); ax.set_aspect("equal"); ax.axis("off")
+        ax.set_title(title, fontsize=7.5, color=MUTED, loc="left", pad=1)
+    fig.subplots_adjust(left=0.01, right=0.99, top=0.95, bottom=0.01, hspace=0.25)
+    fig.savefig(path, facecolor=SURFACE)
+    plt.close(fig)
+
+
 def code(mk):
     return f"{ord(mk):04X}" if len(mk) == 1 else "—"
 
@@ -678,6 +749,7 @@ def main(pdf_dir=None):
     items = plot_mufi(an, OUT / "hours_marks_mufi.png")
     print(f"MUFI letters and marks written with anchored marks: {len(items)}")
     plot_words(an, OUT / "hours_marks_words.png")
+    plot_tilt(an, OUT / "hours_marks_tilt.png")
     return an
 
 

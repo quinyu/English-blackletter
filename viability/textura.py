@@ -185,6 +185,8 @@ class FastPen:
         return np.c_[c[:, 0] + c[:, 1] * self.t, c[:, 1]]
 
     def stamps(self, P, name, kind):
+        if isinstance(kind, dict) and "tilt" in kind:      # the quill tilted (pen.tilt_profile)
+            return [self.shear(self.nib.coords_at(0.0, 1.0, t)) for t in pen.tilt_profile(P, kind)]
         tip = self.corner if pen.is_corner_stroke(name) else self.nib
         if kind == "terminal":
             dth, sc = pen.twist_profile(P, self.spec)

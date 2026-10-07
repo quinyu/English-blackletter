@@ -210,7 +210,8 @@ class Scribe:
                 X = x - Lc["shift_px"][0] * xh / TX.XH
                 for s_ in Lc["strokes"]:
                     pts = [[X + u * su * xh + v * sv * xh * self.t, yb - v * sv * xh] for u, v in s_["points"]]
-                    spec = self.tail_spec(xh) if s_["pen"] == "terminal" else None
+                    spec = self.tail_spec(xh) if s_["pen"] == "terminal" else \
+                        (s_["pen"] if isinstance(s_["pen"], dict) else None)     # a tilted quill
                     out.append((s_["name"], pts, spec))
                 if marks and self.anchors:
                     out += self.mark_strokes(ch, marks, x, Lc["shift_px"][0] / TX.XH, su, sv, yb, xh, jit)
@@ -259,7 +260,7 @@ class Scribe:
                 att = "cross"           # the scribe crosses an ascender rather than sit above it
             if att not in A_:
                 att = {"bar": "middle", "cross": "top", "desc": "bottom"}.get(att, "top")
-            kind = "on" if (m.get("own") == "start" or att not in ("top", "top_right", "high", "bottom")) else \
+            kind = "on" if (m.get("own") in ("start", "origin") or att not in ("top", "top_right", "high", "bottom")) else \
                 ("below" if att == "bottom" else "above")
             key = (kind, att)
             if key in nxt:
@@ -275,11 +276,11 @@ class Scribe:
                 tv += max(0.02, jit(g, P["gap_sd"]))
             elif kind == "below":
                 tv -= max(0.02, jit(g, P["gap_sd"]))
-            au, av = m["_"] if kind != "on" or m.get("own") == "start" else m["centre"]
+            au, av = m["_"] if kind != "on" or m.get("own") in ("start", "origin") else m["centre"]
             du, dv = tu - au, tv - av
             for s_ in m["strokes"]:
                 out.append((s_["name"], [[x + (u + du) * xh + (v + dv) * xh * self.t, yb - (v + dv) * xh]
-                                         for u, v in s_["points"]], None))
+                                         for u, v in s_["points"]], self.tilt_spec(s_.get("pen"), P, jit)))
             nu, nv = m["next"]
             nxt[key] = (nu + du, nv + dv) if kind != "on" else (tu, tv + 0.2)
         return out
@@ -299,6 +300,17 @@ class Scribe:
             return None
         extra = max(0.0, jit(*B["extra_px"]))
         return (B["offsets"][a]["last"] - B["offsets"][b]["first"] + extra) / TX.XH
+
+    @staticmethod
+    def tilt_spec(spec, P, jit):
+        """A mark stroke's pen: a quill tilted to a fixed degree varies by the spread of the
+        scribe's bars (anchors.py, quill_tilt.py); a tilt that changes along the stroke,
+        and the flat quill, are kept."""
+        if not isinstance(spec, dict) or "tilt" not in spec:
+            return None
+        if np.isscalar(spec["tilt"]) and P.get("tilt_sd"):
+            return dict(spec, tilt=float(np.clip(jit(spec["tilt"], P["tilt_sd"]), 0.0, 1.0)))
+        return spec
 
     def tail_spec(self, xh, ref_xh=29.4):
         if self.terminal is None:

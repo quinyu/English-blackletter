@@ -65,28 +65,61 @@ class Nib:
     def scaled(self, k):
         return Nib(self.a * k, self.b * k, self.theta, p=self.p)
 
-    def coords_at(self, dtheta=0.0, scale=1.0):
+    def tilted(self, t):
+        """The quill tilted (see tilt_breadth): a nib of its own, as thick as this one
+        and narrower."""
+        return Nib(tilt_breadth(self.a, self.b, t), self.b, self.theta, p=self.p)
+
+    def coords_at(self, dtheta=0.0, scale=1.0, tilt=0.0):
         """Nib outline turned by dtheta degrees from its resting angle, with its contact
-        shrunk by `scale` (1 = the full edge on the page, towards 0 = only a corner)."""
-        if dtheta == 0.0 and scale == 1.0:
+        shrunk by `scale` (1 = the full edge on the page, towards 0 = only a corner) and
+        its breadth squeezed by `tilt` (tilt_breadth)."""
+        if dtheta == 0.0 and scale == 1.0 and tilt == 0.0:
             return self.coords
         t = np.radians(-(self.theta + dtheta))
         R = np.array([[np.cos(t), -np.sin(t)], [np.sin(t), np.cos(t)]])
-        return (scale * self._base) @ R.T
+        base = self._base if tilt == 0.0 else nib_outline(tilt_breadth(self.a, self.b, tilt), self.b, self.p,
+                                                          len(self.coords))
+        return (scale * base) @ R.T
 
     @property
     def _base(self):
         return nib_outline(self.a, self.b, self.p, len(self.coords))
 
 
-def sweep(points, nib, dthetas=None, scales=None):
-    """Outline swept by the nib along a dense centre-line. With per-point dthetas and
-    scales the pen twists and lifts as it moves; consecutive stamps are still joined by
-    their convex hull, so width changes are continuous."""
-    if dthetas is None:
+def tilt_breadth(a, b, t):
+    """Breadth of the quill's contact when it is tilted onto one end of its edge. Tilting
+    lifts part of the broad edge off the page: the contact keeps the quill's thickness b,
+    but its breadth falls from the full edge a (t = 0) to no more than the thickness
+    (t = 1), so the pen draws like a much narrower nib of the same weight. Scribes use
+    it to any degree, and may tilt while a stroke is under way (an e caudata's tail)."""
+    return a - float(np.clip(t, 0.0, 1.0)) * (a - b)
+
+
+def tilt_profile(points, spec):
+    """Per-point tilt along a stroke from {"tilt": t} (held throughout) or {"tilt":
+    [[f, t], ...]}, keyframes by fraction f of the stroke's length from its start."""
+    k = spec["tilt"]
+    if np.isscalar(k):
+        return np.full(len(points), float(k))
+    seg = np.r_[0, np.cumsum(np.hypot(*np.diff(points, axis=0).T))]
+    f = seg / max(seg[-1], 1e-9)
+    xs, ts = np.asarray(k, float).T
+    return np.interp(f, xs, ts)
+
+
+def sweep(points, nib, dthetas=None, scales=None, tilts=None):
+    """Outline swept by the nib along a dense centre-line. With per-point dthetas,
+    scales and tilts the pen twists, lifts and tilts as it moves; consecutive stamps are
+    still joined by their convex hull, so width changes are continuous."""
+    if dthetas is None and tilts is None:
         stamps = [nib.coords] * len(points)
     else:
-        stamps = [nib.coords_at(d, k) for d, k in zip(dthetas, scales)]
+        n = len(points)
+        dthetas = np.zeros(n) if dthetas is None else dthetas
+        scales = np.ones(n) if scales is None else scales
+        tilts = np.zeros(n) if tilts is None else tilts
+        stamps = [nib.coords_at(d, k, tl) for d, k, tl in zip(dthetas, scales, tilts)]
     hulls = []
     for i in range(len(points) - 1):
         hulls.append(MultiPoint(np.vstack([stamps[i] + points[i], stamps[i + 1] + points[i + 1]])).convex_hull)
@@ -125,8 +158,9 @@ def corner_nib(nib):
 
 def render(strokes, nib, step=0.5, names=None, pens=None):
     """Union of all swept strokes. strokes: list of control-point lists. With names,
-    hairline strokes are drawn with the pen's corner; with pens (one twist spec or None
-    per stroke) the pen, edge or corner, twists and lifts along that stroke."""
+    hairline strokes are drawn with the pen's corner; with pens (one spec or None per
+    stroke) the pen twists and lifts along that stroke (a twist spec, twist_profile) or
+    is tilted, wholly or progressively (a tilt spec, tilt_profile)."""
     corner = corner_nib(nib)
     names = names or [None] * len(strokes)
     pens = pens or [None] * len(strokes)
@@ -134,7 +168,9 @@ def render(strokes, nib, step=0.5, names=None, pens=None):
     for s_, n, spec in zip(strokes, names, pens):
         P = catmull_rom(s_, step)
         tip = corner if is_corner_stroke(n) else nib
-        if spec:
+        if spec and "tilt" in spec:
+            parts.append(sweep(P, nib, tilts=tilt_profile(P, spec)))
+        elif spec:
             dth, sc = twist_profile(P, spec)
             parts.append(sweep(P, tip, dth, sc))
         else:

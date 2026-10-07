@@ -50,6 +50,10 @@ def _strokes(path, ch):
     return [(s["name"], [tuple(p) for p in s["points"]], s["pen"]) for s in F["strokes"]]
 
 
+# the scribe's bars are drawn with the quill tilted (quill_tilt.py measures how far)
+BAR_TILT = (json.loads((OUT / "hours_tilt.json").read_text(encoding="utf-8"))["summary"]["bar_tilt"]
+            if (OUT / "hours_tilt.json").exists() else 1.0)
+
 SIGNS = {
     # ꝯ: a 9: a closed oval bowl at the upper left, a stroke down the right side to the
     # baseline, a hairline running down-left below the line
@@ -69,10 +73,11 @@ SIGNS = {
     # for sed, -bus, debet ... (SEMI_READINGS): f. 12r's plan (two examples) refitted to
     # every use in the book
     ET: dict(zone=(-0.75, 1.3), ties=[((2, 3), (3, 0))], strokes=_strokes("hours_signs.json", "ꝫ")),
-    # đ: the round d (as fitted on f. 12r) with a thin stroke through its ascender, rising
-    # a little to the right; the book's examples are the rubricator's red "dd" (David)
+    # đ: the round d (as fitted on f. 12r) with a bar through its ascender, rising a little
+    # to the right, drawn with the quill tilted as the scribe draws his bars (quill_tilt.py);
+    # the book's examples include the rubricator's red "dd" (David)
     DSTROKE: dict(zone=(-0.25, 1.75), move=0.12, strokes=_strokes("hours_textura.json", "d") + [
-        ("hairline stroke", [(-0.05, 1.16), (0.4, 1.2), (0.85, 1.25)], None)]),
+        ("crossbar", [(-0.05, 1.16), (0.4, 1.2), (0.85, 1.25)], {"tilt": BAR_TILT})]),
     # the tilde (over s in ut s̃ = ut supra, and in the rubricator's vs̃ = vesperas): two
     # lozenges side by side, each a short down-right stroke of the broad nib (like the
     # points of the colon on f. 12r), joined by a hairline; compared only above the s.

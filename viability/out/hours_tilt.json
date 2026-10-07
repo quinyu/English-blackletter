@@ -1,0 +1,783 @@
+{
+ "summary": {
+  "n": 30,
+  "n_recorded": 45,
+  "thickness_quartiles": [
+   3.0,
+   4.0,
+   5.0
+  ],
+  "tilt_quartiles": [
+   0.65,
+   1.0,
+   1.0
+  ],
+  "bar_tilt": 1.0,
+  "bar_tilt_sd": 0.26,
+  "flat_px": 7.0,
+  "tilted_px": 4.0,
+  "corner_px": 2.35,
+  "counts": {
+   "corner_or_less": 7,
+   "tilted": 21,
+   "flat": 2
+  }
+ },
+ "curve": {
+  "tilt": [
+   0.0,
+   0.05,
+   0.1,
+   0.15,
+   0.2,
+   0.25,
+   0.3,
+   0.35,
+   0.4,
+   0.45,
+   0.5,
+   0.55,
+   0.6,
+   0.65,
+   0.7,
+   0.75,
+   0.8,
+   0.85,
+   0.9,
+   0.95,
+   1.0
+  ],
+  "thickness": [
+   7.0,
+   7.0,
+   7.0,
+   6.6,
+   6.4,
+   6.05,
+   6.0,
+   6.0,
+   6.0,
+   6.0,
+   5.55,
+   5.45,
+   5.15,
+   5.0,
+   5.0,
+   5.0,
+   5.0,
+   4.6,
+   4.5,
+   4.4,
+   4.0
+  ],
+  "corner": 2.35,
+  "rise_deg": 3.0
+ },
+ "bars": [
+  {
+   "page": "p1/pg-038",
+   "folio": "18r",
+   "word": "Bn̄đ",
+   "sign": "d_stroke",
+   "red": false,
+   "box": [
+    296,
+    1064,
+    334,
+    1108
+   ],
+   "n": 4,
+   "thickness": 5.5
+  },
+  {
+   "page": "p1/pg-038",
+   "folio": "18r",
+   "word": "beneđ",
+   "sign": "d_stroke",
+   "red": false,
+   "box": [
+    290,
+    1295,
+    321,
+    1335
+   ],
+   "n": 7,
+   "thickness": 5.0,
+   "tilt": 0.65
+  },
+  {
+   "page": "p1/pg-050",
+   "folio": "24r",
+   "word": "confid'e",
+   "sign": "d_stroke",
+   "red": false,
+   "box": [
+    712,
+    873,
+    745,
+    915
+   ],
+   "n": 8,
+   "thickness": 3.0,
+   "tilt": 1.0
+  },
+  {
+   "page": "p1/pg-054",
+   "folio": "26r",
+   "word": "nob̄:",
+   "sign": "b_stroke",
+   "red": false,
+   "box": [
+    832,
+    612,
+    872,
+    660
+   ],
+   "n": 16,
+   "thickness": 5.0,
+   "tilt": 0.65
+  },
+  {
+   "page": "p2/pg-010",
+   "folio": "33v",
+   "word": "dd̄",
+   "sign": "d_stroke",
+   "red": true,
+   "box": [
+    1110,
+    822,
+    1179,
+    858
+   ],
+   "n": 2,
+   "thickness": 3.0
+  },
+  {
+   "page": "p2/pg-010",
+   "folio": "33v",
+   "word": "dd̄",
+   "sign": "d_stroke",
+   "red": true,
+   "box": [
+    1120,
+    1400,
+    1182,
+    1440
+   ],
+   "n": 11,
+   "thickness": 2.0,
+   "tilt": 1.0
+  },
+  {
+   "page": "p2/pg-022",
+   "folio": "39v",
+   "word": "gl̄iam",
+   "sign": "l_stroke",
+   "red": false,
+   "box": [
+    553,
+    1125,
+    592,
+    1165
+   ],
+   "n": 5,
+   "thickness": 7.0
+  },
+  {
+   "page": "p2/pg-022",
+   "folio": "39v",
+   "word": "gl̄ia",
+   "sign": "l_stroke",
+   "red": false,
+   "box": [
+    555,
+    1238,
+    606,
+    1275
+   ],
+   "n": 3,
+   "thickness": 1.0
+  },
+  {
+   "page": "p2/pg-023",
+   "folio": "40r",
+   "word": "ierl̄m",
+   "sign": "l_stroke",
+   "red": false,
+   "box": [
+    318,
+    598,
+    362,
+    612
+   ],
+   "n": 7,
+   "thickness": 2.0,
+   "tilt": 1.0
+  },
+  {
+   "page": "p2/pg-023",
+   "folio": "40r",
+   "word": "ppl̄os",
+   "sign": "l_stroke",
+   "red": false,
+   "box": [
+    776,
+    603,
+    802,
+    645
+   ],
+   "n": 5,
+   "thickness": 1.0
+  },
+  {
+   "page": "p2/pg-024",
+   "folio": "40v",
+   "word": "ſcl̄m",
+   "sign": "l_stroke",
+   "red": false,
+   "box": [
+    893,
+    240,
+    942,
+    285
+   ],
+   "n": 1,
+   "thickness": 2.0
+  },
+  {
+   "page": "p2/pg-026",
+   "folio": "41v",
+   "word": "ppl̄o",
+   "sign": "l_stroke",
+   "red": false,
+   "box": [
+    948,
+    1055,
+    1000,
+    1065
+   ],
+   "n": 20,
+   "thickness": 3.0,
+   "tilt": 1.0
+  },
+  {
+   "page": "p2/pg-028",
+   "folio": "42v",
+   "word": "apl̄i",
+   "sign": "l_stroke",
+   "red": false,
+   "box": [
+    764,
+    814,
+    822,
+    862
+   ],
+   "n": 10,
+   "thickness": 2.0,
+   "tilt": 1.0
+  },
+  {
+   "page": "p2/pg-031",
+   "folio": "44r",
+   "word": "đ.",
+   "sign": "d_stroke",
+   "red": false,
+   "box": [
+    795,
+    396,
+    824,
+    445
+   ],
+   "n": 5,
+   "thickness": 2.0
+  },
+  {
+   "page": "p2/pg-032",
+   "folio": "44v",
+   "word": "ł",
+   "sign": "l_stroke",
+   "red": false,
+   "box": [
+    1120,
+    1227,
+    1150,
+    1278
+   ],
+   "n": 1,
+   "thickness": 2.0
+  },
+  {
+   "page": "p2/pg-032",
+   "folio": "44v",
+   "word": "ł",
+   "sign": "l_stroke",
+   "red": false,
+   "box": [
+    1118,
+    1290,
+    1160,
+    1336
+   ],
+   "n": 3,
+   "thickness": 6.0
+  },
+  {
+   "page": "p2/pg-032",
+   "folio": "44v",
+   "word": "ł",
+   "sign": "l_stroke",
+   "red": false,
+   "box": [
+    1118,
+    1345,
+    1158,
+    1392
+   ],
+   "n": 6,
+   "thickness": 2.5,
+   "tilt": 1.0
+  },
+  {
+   "page": "p2/pg-032",
+   "folio": "44v",
+   "word": "ł",
+   "sign": "l_stroke",
+   "red": false,
+   "box": [
+    1118,
+    1398,
+    1162,
+    1448
+   ],
+   "n": 3,
+   "thickness": 7.0
+  },
+  {
+   "page": "p2/pg-033",
+   "folio": "45r",
+   "word": "ł",
+   "sign": "l_stroke",
+   "red": false,
+   "box": [
+    874,
+    273,
+    902,
+    323
+   ],
+   "n": 0,
+   "thickness": null
+  },
+  {
+   "page": "p2/pg-033",
+   "folio": "45r",
+   "word": "ł",
+   "sign": "l_stroke",
+   "red": false,
+   "box": [
+    875,
+    330,
+    900,
+    382
+   ],
+   "n": 9,
+   "thickness": 5.0,
+   "tilt": 0.65
+  },
+  {
+   "page": "p2/pg-033",
+   "folio": "45r",
+   "word": "ł",
+   "sign": "l_stroke",
+   "red": false,
+   "box": [
+    871,
+    390,
+    902,
+    442
+   ],
+   "n": 7,
+   "thickness": 6.0,
+   "tilt": 0.3
+  },
+  {
+   "page": "p2/pg-033",
+   "folio": "45r",
+   "word": "ł",
+   "sign": "l_stroke",
+   "red": false,
+   "box": [
+    872,
+    450,
+    900,
+    500
+   ],
+   "n": 11,
+   "thickness": 4.0,
+   "tilt": 1.0
+  },
+  {
+   "page": "p2/pg-033",
+   "folio": "45r",
+   "word": "ł",
+   "sign": "l_stroke",
+   "red": false,
+   "box": [
+    871,
+    513,
+    897,
+    563
+   ],
+   "n": 9,
+   "thickness": 6.0,
+   "tilt": 0.3
+  },
+  {
+   "page": "p2/pg-033",
+   "folio": "45r",
+   "word": "ł",
+   "sign": "l_stroke",
+   "red": false,
+   "box": [
+    878,
+    621,
+    906,
+    673
+   ],
+   "n": 5,
+   "thickness": 5.0
+  },
+  {
+   "page": "p2/pg-033",
+   "folio": "45r",
+   "word": "ppl̄m",
+   "sign": "l_stroke",
+   "red": false,
+   "box": [
+    547,
+    1038,
+    584,
+    1054
+   ],
+   "n": 8,
+   "thickness": 8.0,
+   "tilt": 0.0
+  },
+  {
+   "page": "p2/pg-034",
+   "folio": "45v",
+   "word": "kył",
+   "sign": "l_stroke",
+   "red": false,
+   "box": [
+    1145,
+    875,
+    1180,
+    920
+   ],
+   "n": 12,
+   "thickness": 2.0,
+   "tilt": 1.0
+  },
+  {
+   "page": "p2/pg-037",
+   "folio": "47r",
+   "word": "ſcl̄ꝫ",
+   "sign": "l_stroke",
+   "red": false,
+   "box": [
+    846,
+    708,
+    899,
+    724
+   ],
+   "n": 15,
+   "thickness": 6.0,
+   "tilt": 0.3
+  },
+  {
+   "page": "p2/pg-038",
+   "folio": "47v",
+   "word": "ī ſcl̄a",
+   "sign": "l_stroke",
+   "red": false,
+   "box": [
+    1036,
+    1118,
+    1079,
+    1132
+   ],
+   "n": 8,
+   "thickness": 6.0,
+   "tilt": 0.3
+  },
+  {
+   "page": "p2/pg-042",
+   "folio": "49v",
+   "word": "gl̄iaꝫ",
+   "sign": "l_stroke",
+   "red": false,
+   "box": [
+    1079,
+    955,
+    1109,
+    970
+   ],
+   "n": 29,
+   "thickness": 3.0,
+   "tilt": 1.0
+  },
+  {
+   "page": "p2/pg-042",
+   "folio": "49v",
+   "word": "ppl̄os",
+   "sign": "l_stroke",
+   "red": false,
+   "box": [
+    640,
+    1418,
+    700,
+    1455
+   ],
+   "n": 12,
+   "thickness": 6.5,
+   "tilt": 0.175
+  },
+  {
+   "page": "p3/pg-002",
+   "folio": "52v",
+   "word": "Kyriel̵",
+   "sign": "l_stroke",
+   "red": false,
+   "box": [
+    545,
+    578,
+    600,
+    615
+   ],
+   "n": 14,
+   "thickness": 3.5,
+   "tilt": 1.0
+  },
+  {
+   "page": "p3/pg-002",
+   "folio": "52v",
+   "word": "xp̄el̵",
+   "sign": "l_stroke",
+   "red": false,
+   "box": [
+    625,
+    578,
+    700,
+    615
+   ],
+   "n": 15,
+   "thickness": 5.0,
+   "tilt": 0.65
+  },
+  {
+   "page": "p3/pg-002",
+   "folio": "52v",
+   "word": "kyriel̵",
+   "sign": "l_stroke",
+   "red": false,
+   "box": [
+    750,
+    580,
+    795,
+    615
+   ],
+   "n": 2,
+   "thickness": 2.0
+  },
+  {
+   "page": "p3/pg-002",
+   "folio": "52v",
+   "word": "pſal̵",
+   "sign": "l_stroke",
+   "red": true,
+   "box": [
+    1088,
+    768,
+    1115,
+    812
+   ],
+   "n": 6,
+   "thickness": 5.0,
+   "tilt": 0.65
+  },
+  {
+   "page": "p3/pg-006",
+   "folio": "54v",
+   "word": "Kyriel̵",
+   "sign": "l_stroke",
+   "red": false,
+   "box": [
+    770,
+    995,
+    830,
+    1030
+   ],
+   "n": 9,
+   "thickness": 3.0,
+   "tilt": 1.0
+  },
+  {
+   "page": "p3/pg-006",
+   "folio": "54v",
+   "word": "xp̄el̵",
+   "sign": "l_stroke",
+   "red": false,
+   "box": [
+    870,
+    995,
+    925,
+    1030
+   ],
+   "n": 8,
+   "thickness": 5.0,
+   "tilt": 0.65
+  },
+  {
+   "page": "p3/pg-006",
+   "folio": "54v",
+   "word": "kyriel̵",
+   "sign": "l_stroke",
+   "red": false,
+   "box": [
+    1010,
+    1003,
+    1050,
+    1030
+   ],
+   "n": 11,
+   "thickness": 5.0,
+   "tilt": 0.65
+  },
+  {
+   "page": "p3/pg-009",
+   "folio": "56r",
+   "word": "ih̄s",
+   "sign": "h_stroke",
+   "red": false,
+   "box": [
+    858,
+    676,
+    906,
+    692
+   ],
+   "n": 0,
+   "thickness": null
+  },
+  {
+   "page": "p3/pg-011",
+   "folio": "57r",
+   "word": "gl̄ie",
+   "sign": "l_stroke",
+   "red": false,
+   "box": [
+    828,
+    338,
+    862,
+    382
+   ],
+   "n": 9,
+   "thickness": 3.0,
+   "tilt": 1.0
+  },
+  {
+   "page": "p3/pg-012",
+   "folio": "57v",
+   "word": "cel̄",
+   "sign": "l_stroke",
+   "red": false,
+   "box": [
+    505,
+    1398,
+    557,
+    1448
+   ],
+   "n": 11,
+   "thickness": 4.0,
+   "tilt": 1.0
+  },
+  {
+   "page": "p3/pg-020",
+   "folio": "61v",
+   "word": "qual̄",
+   "sign": "l_stroke",
+   "red": false,
+   "box": [
+    1105,
+    810,
+    1140,
+    850
+   ],
+   "n": 1,
+   "thickness": 2.0
+  },
+  {
+   "page": "p3/pg-020",
+   "folio": "61v",
+   "word": "angl̄s",
+   "sign": "l_stroke",
+   "red": false,
+   "box": [
+    1075,
+    870,
+    1105,
+    905
+   ],
+   "n": 6,
+   "thickness": 1.0,
+   "tilt": 1.0
+  },
+  {
+   "page": "p3/pg-022",
+   "folio": "62v",
+   "word": "hō",
+   "sign": "h_stroke",
+   "red": false,
+   "box": [
+    1105,
+    363,
+    1145,
+    380
+   ],
+   "n": 7,
+   "thickness": 6.0,
+   "tilt": 0.3
+  },
+  {
+   "page": "p3/pg-022",
+   "folio": "62v",
+   "word": "Ioh̄s",
+   "sign": "h_stroke",
+   "red": false,
+   "box": [
+    1108,
+    428,
+    1150,
+    446
+   ],
+   "n": 20,
+   "thickness": 4.0,
+   "tilt": 1.0
+  },
+  {
+   "page": "p3/pg-024",
+   "folio": "63v",
+   "word": "ppl̄m",
+   "sign": "l_stroke",
+   "red": false,
+   "box": [
+    1060,
+    250,
+    1150,
+    296
+   ],
+   "n": 21,
+   "thickness": 2.0,
+   "tilt": 1.0
+  }
+ ]
+}
