@@ -85,6 +85,59 @@ def fit_spacing(P):
     return dict(advance=adv, approach=app, mean=float(mu), sd=float(np.std(resid)), n=len(P))
 
 
+def ink_gaps(found, straight):
+    """Neighbouring letters inside words with the white between them: (left char, right
+    char, gap in x-heights). The gap is the widest white run of columns in the middle of
+    the x-height band (0.2–0.8) between the two letters' boxes (each reached into by
+    8 px), 0 where they touch; straight: {line: (padded straightened image, us)}. Unlike
+    the distance between box edges, it does not depend on where the letter finder puts
+    a letter's box (p's box starts at its descender, a minim letter's well before its
+    first stem)."""
+    hs = TX.HS / TX.XH
+    rows = np.nonzero((hs >= 0.2) & (hs <= 0.8))[0] + TX.PAD
+    by = {}
+    for f in found:
+        by.setdefault((f["line"], f["word"]), []).append(f)
+    out = []
+    for (line, _), F in by.items():
+        img, us = straight[line]
+        F = [f for f in sorted(F, key=lambda f: f["index"]) if not f["skipped"] and f["char"] not in ":,."]
+        for a, b in zip(F[:-1], F[1:]):
+            c0, c1 = a["u1"] - us[0] + TX.PAD - 8, b["u0"] - us[0] + TX.PAD + 8
+            best = run = 0
+            for ink in (img[rows][:, max(0, c0):max(c0, c1)] > 0).any(0):
+                run = 0 if ink else run + 1
+                best = max(best, run)
+            out.append((a["char"], b["char"], best / TX.XH))
+    return out
+
+
+def ink_spacing(gaps, edges, sp):
+    """The spacing model by the white between letters: gap = right[a] + left[b] (least
+    squares with the ridge of fit_spacing), turned into the writer's advance and approach
+    with each letter's own ink edges in the band as the writer draws it (edges: char →
+    (left, right) in x-heights from its box edge), so that distance = advance[a] +
+    approach[b] leaves the measured white. Letters without measured gaps keep sp's."""
+    g = fit_spacing(gaps)          # advance ↔ white to the right, approach ↔ white to the left
+    adv, app = dict(sp["advance"]), dict(sp["approach"])
+    for c, (l, r) in edges.items():
+        if c in g["advance"]:
+            adv[c] = r + g["advance"][c]
+        if c in g["approach"]:
+            app[c] = -l + g["approach"][c]
+    return dict(sp, advance=adv, approach=app, white=dict(mean=g["mean"], sd=g["sd"], n=g["n"],
+                                                           right=g["advance"], left=g["approach"]))
+
+
+def load_ink_spacing(sp):
+    """sp with the white-gap spacing (lines.py) where it has been measured."""
+    p = OUT / "hours_ink_spacing.json"
+    if not p.exists():
+        return sp
+    B = json.loads(p.read_text(encoding="utf-8"))
+    return dict(sp, advance=dict(sp["advance"], **B["advance"]), approach=dict(sp["approach"], **B["approach"]))
+
+
 def distance(sp, a, b):
     return sp["advance"].get(a, sp["mean"] / 2) + sp["approach"].get(b, sp["mean"] / 2)
 
@@ -106,10 +159,11 @@ def minim_offsets(found):
 # ---- writing ---------------------------------------------------------------------------
 
 def load_letters():
-    """Fitted letters (textura.py) and, when fitted, the abbreviation signs and marks of
-    f. 12r (abbrev.py) and of the rest of the book (book_signs.py)."""
+    """Fitted letters (textura.py; book_letters.py for those f. 12r lacks) and, when
+    fitted, the abbreviation signs and marks of f. 12r (abbrev.py) and of the rest of
+    the book (book_signs.py)."""
     L = json.loads((OUT / "hours_textura.json").read_text(encoding="utf-8"))
-    for fn in ("hours_signs.json", "hours_book_signs.json"):
+    for fn in ("hours_book_letters.json", "hours_signs.json", "hours_book_signs.json"):
         if (OUT / fn).exists():
             L.update(json.loads((OUT / fn).read_text(encoding="utf-8")))
     return L
@@ -127,26 +181,42 @@ def load_anchors():
     return json.loads(p.read_text(encoding="utf-8")) if p.exists() else None
 
 
+def load_word_space():
+    """The white between words (lines.py), or f. 12r's as first measured."""
+    p = OUT / "hours_word_space.json"
+    return json.loads(p.read_text(encoding="utf-8"))["summary"] if p.exists() else dict(median=0.41, sd=0.13)
+
+
 def with_book_spacing(sp):
-    """The spacing model with the approach and advance of the signs fitted from the whole
-    book (book_signs.py), which f. 12r's pairs do not cover."""
+    """The spacing model with the approach and advance of the signs and letters fitted
+    from the whole book (book_signs.py, book_letters.py), which f. 12r's pairs do not
+    cover."""
     p = OUT / "hours_book_spacing.json"
     if not p.exists():
         return sp
     B = json.loads(p.read_text(encoding="utf-8"))
-    return dict(sp, advance=dict(sp["advance"], **B["advance"]), approach=dict(sp["approach"], **B["approach"]))
+    adv, app = dict(sp["advance"], **B["advance"]), dict(sp["approach"], **B["approach"])
+    q = OUT / "hours_book_letters.json"           # letters fitted from the book (book_letters.py)
+    for ch, v in (json.loads(q.read_text(encoding="utf-8")) if q.exists() else {}).items():
+        for k, d in (("advance", adv), ("approach", app)):
+            if (v.get("spacing") or {}).get(k) is not None:
+                d[ch] = v["spacing"][k]
+    return dict(sp, advance=adv, approach=app)
 
 
 class Scribe:
-    def __init__(self, letters, minim, spacing, offsets, slant, nib=None, terminal=None, biting=None, anchors=None):
+    def __init__(self, letters, minim, spacing, offsets, slant, nib=None, terminal=None, biting=None, anchors=None,
+                 word_space=None):
         """nib: (a, b, theta, p) of the hand's pen, terminal: its twist-and-pull keyframes;
         both default to MS 2262's as fitted (minims.load, twist.py). biting: the rates
         and stroke offsets with which neighbouring letters share a stroke (biting.py;
         None: letters are only spaced). anchors: the letters' anchors, the marks and the
         scribe's placement of them (anchors.py; None: only the fitted marks, each drawn
-        where it was fitted over its letter's box). A hand bundle (bundle.py) carries its own."""
+        where it was fitted over its letter's box). word_space: the white between words
+        (lines.py). A hand bundle (bundle.py) carries its own."""
         self.L, self.Mi, self.sp, self.off = letters, minim, spacing, offsets
         self.nib, self.terminal, self.bite, self.anchors = nib, terminal, biting, anchors
+        self.word_space = word_space or load_word_space()
         self._names = None
         self.t = np.tan(np.radians(slant))
         self.p = np.array([minim["module"][k] for k in M.PARAMS])
@@ -217,6 +287,27 @@ class Scribe:
                     out += self.mark_strokes(ch, marks, x, Lc["shift_px"][0] / TX.XH, su, sv, yb, xh, jit)
                 prev_last_stem = None
         return out
+
+    def write_line(self, text, x0, yb, xh, rng=None):
+        """Strokes for a line of words: each word's ink starts the scribe's word space (the
+        white between two words in the middle of the x-height band, lines.py; varied by
+        its spread) after the ink of the word before."""
+        out, right = [], None
+        x = x0
+        for k, word in enumerate(text.split()):
+            if k:
+                gap = self.word_space["median"] + (self.word_space["sd"] * rng.standard_normal() if rng is not None else 0.0)
+                x = right + xh * max(0.15, gap) - self.band_edges(self.write(word, 0.0, 0.0, xh), 0.0, xh)[0]
+            st = self.write(word, x, yb, xh, rng)
+            out += st
+            right = self.band_edges(st, yb, xh)[1]
+        return out
+
+    def band_edges(self, strokes, yb, xh):
+        """Left and right edge of the ink in the middle of the x-height band (px)."""
+        from shapely.geometry import box
+        g = self.render(strokes).intersection(box(-1e6, yb - 0.8 * xh, 1e6, yb - 0.2 * xh))
+        return (g.bounds[0], g.bounds[2]) if not g.is_empty else self.render(strokes).bounds[0::2]
 
     def clusters(self, word):
         """The word's letters, each with the marks it carries: [(letter, [(mark, anchor
@@ -331,7 +422,7 @@ class Scribe:
         n = B["pen"]
         return cls(letters, B["minim"], B["spacing"], B["minim_offsets"], B["slant_deg"],
                    nib=(n["a"], n["b"], n["theta"], n["p"]), terminal=B["terminal"], biting=B.get("biting"),
-                   anchors=B.get("anchors"))
+                   anchors=B.get("anchors"), word_space=B.get("word_space"))
 
     def render(self, strokes):
         return pen.render([s for _, s, _ in strokes], self.pen(), step=0.5,

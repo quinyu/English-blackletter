@@ -1266,6 +1266,57 @@ by the measured spreads, as the letters do.
 
 ![Words with marks, plain and with the scribe's variation](out/hours_marks_words.png)
 
+### A line in the hand: an interim test
+
+![A line of the book and the test text, written from the fitted hand](out/hours_line_test.png)
+
+*vexilla regis prodeunt* (Venantius Fortunatus' Passiontide hymn) is not on the pages
+read so far, so it tests writing new text. `lines.py` writes it under a photograph of
+a book line (f. 18v, line 20) at the same scale, after writing that same line itself.
+Its text step applies the scribe's letter-form rules: v at the start of a word and u
+inside it, ſ inside a word and s at its end, ꝛ after o. So *prodeunt* keeps a straight
+r after p. The scribe writes *pro* as ꝓ (*ꝓximo*, *ꝓximos*), so *ꝓdeunt* is written
+too. Three things had to be added for a whole line:
+
+- **x, fitted from the book** (`book_letters.py`). f. 12r has one x, and the read pages
+  have 42.
+  - The form: a heavy stroke from a headed top-left corner down to a foot, and a small
+    flag at the upper right. From the flag a thin stroke crosses down to the left and
+    runs below the line. It is drawn with the quill tilted, since with this nib a stroke
+    in that direction is thin no other way.
+  - The fit: the letter finder had no x template and boxed them narrowly, so each box
+    is first moved onto its letter. The plan is held near the close-ups, because in the
+    ink mask x's faint thin stroke drops out and a free fit turns the diagonal upright
+    into an r. Overlap is 0.37 over 42 examples.
+  - The next letter tucks in close to the flag (*exu*, *benediximus*). Its spacing
+    comes from the white beside it on the page.
+- **Letters spaced by the white between them** (`scribe.ink_gaps`, `ink_spacing`). The
+  writer used to space letters by the distance between the letter finder's boxes. Box
+  conventions differ from letter to letter: p's box starts at its descender, and a minim
+  letter's well before its first stem. So in a new word the gaps came out uneven (*ſu
+  per*, *e um*). It now places each letter so that the white in the middle of the
+  x-height band is what the page leaves there:
+  - That white is modelled as each letter's white to its right plus the next one's to
+    its left.
+  - It is measured on f. 12r's 405 pairs: mean 0.10 x-height, with a residual spread of
+    0.066 (the box distances' was 0.136).
+  - The other read pages are reported but not used: their rougher boxes and bolder ink
+    mask close gaps up (34% of pairs touch, against 22% on f. 12r).
+- **The word space.** The white between two words, measured the same way, is 0.41
+  x-height on f. 12r (quartiles 0.35–0.52, 86 gaps). `Scribe.write_line` leaves it,
+  varied by its spread.
+
+**What the test shows.**
+- The letters read, and the gaps inside words are now even.
+- The line is still shorter and darker than the scribe's. On f. 18v his line is about
+  20% longer:
+  - his words there are spaced more openly than on f. 12r, whose stem pitch is 4%
+    tighter;
+  - the writer's words come out 7% narrower than f. 12r's own words (they were 5% with
+    box spacing), so part of the shortfall is in the letters' widths.
+- When the two l's of *vexilla* bite, as the scribe's do 5 times in 17, the pair can
+  read like *la* (seed 29).
+
 ### One scribe or several?
 
 A book of hours was often shared out among several scribes trained in the same
@@ -1351,11 +1402,11 @@ with fewer than ten lines are left out (ff. 34v, 55r, 64v).
 ### One file per hand
 
 So that the editor can write any number of scribes, `bundle.py` saves all that the writer
-needs for one hand in one file (`out/hands/ms2262_A.json`, 83 kB):
+needs for one hand in one file (`out/hands/ms2262_A.json`, 84 kB):
 - the pen at the page's x-height: nib size, angle and corner sharpness;
 - the slant and the twist-and-pull terminal;
 - the minim module, with its joins, pitch and tail, and the minim letters' offsets;
-- the spacing model;
+- the spacing model (by the white between letters) and the word space;
 - every fitted letter and sign, each with its examples' spread in width and height;
 - the biting rates;
 - the letters' anchors, the marks and the scribe's placement of them;
@@ -1388,7 +1439,9 @@ python3 quill_tilt.py PDF_PAGE_DIR  # how far the scribe tilts his quill: the bo
 python3 book_signs.py PDF_PAGE_DIR  # ꝯ, ꝝ, ꝫ, đ, tilde from the whole book (reads data/hours_book_signs.jsonl)
 python3 find_letters.py PDF_PAGE_DIR  # letters of the pages read in data/hours_readings.json
 python3 biting.py PDF_PAGE_DIR    # biting on those pages and f. 12r; the writer's biting rates
+python3 book_letters.py PDF_PAGE_DIR  # letters f. 12r lacks (x), from those pages
 python3 anchors.py PDF_PAGE_DIR   # letters' anchors, the marks, where the scribe puts them
+python3 lines.py PDF_PAGE_DIR     # the white between letters and words; a test line beside the page
 python3 bundle.py ms2262_A 12r    # save the fitted hand as one file
 ```
 
@@ -1398,7 +1451,8 @@ python3 bundle.py ms2262_A 12r    # save the fitted hand as one file
   measured page-wide and letter by letter (*One scribe or several?*), but the letters
   are fitted on f. 12r alone.
 - **Not every form is modelled yet.**
-  - Every lowercase letter on f. 12r is fitted except x (one example).
+  - Every lowercase letter on f. 12r is fitted. x, which has one example there, is
+    fitted from the read pages and held near its plan (overlap 0.37).
   - The abbreviation signs rest on 1–7 examples each; the rest of the book would
     give many more.
   - The signs fitted from the whole book rest on 3–259 examples (*Signs from the whole
@@ -1444,11 +1498,11 @@ decompositions.
 
 | Class | What it needs | Characters |
 |---|---|---|
-| fitted | fitted on f. 12r: 22 letters (with dotless ı, as this scribe writes i), ꝓ, macron, er sign, colon, comma; from the whole book: ꝯ, ꝝ, ꝫ, đ, tilde | 33 |
+| fitted | fitted on f. 12r: 22 letters (with dotless ı, as this scribe writes i), ꝓ, macron, er sign, colon, comma; from the whole book: x, ꝯ, ꝝ, ꝫ, đ, tilde | 34 |
 | composed, written | a fitted letter with marks placed by its anchors (*Accents*), and the combining marks themselves | 258 |
-| composed | a fitted letter with a modification still to design: tails, hooks and long legs (ɖ ɦ ƞ ɲ ꝕ ɼ), q ligated with ꝛ or ꝫ, ꝙ, superscript letters as marks (ur, us, is, ra), a triple breve | 19 |
-| derived | built from fitted letters: capitals, small capitals, ligatures, superscript, enlarged and variant forms | 650 |
-| new | no fitted base: other letters, numerals, punctuation, symbols | 562 |
+| composed | a fitted letter with a modification still to design: tails, hooks and long legs (ɖ ɦ ƞ ɲ ꝕ ɼ, x with a long leg), q ligated with ꝛ or ꝫ, ꝙ, slashes beside x, superscript letters as marks (ur, us, is, ra), a triple breve | 23 |
+| derived | built from fitted letters: capitals, small capitals, ligatures, superscript, enlarged and variant forms | 655 |
+| new | no fitted base: other letters, numerals, punctuation, symbols | 552 |
 
 **Suggested order**, by what each step opens up:
 
@@ -1461,7 +1515,8 @@ decompositions.
 3. **Ligatures and superscripts** from fitted letters, with the shared strokes the
    scribe uses when facing bowls bite.
 4. **Missing letters.** By the characters each opens: y 54, j 30, k 28, w 28, z 13, x 10.
-   k and x occur in the book (*kyrie*, *xpe*) and can be fitted. Then the letters with
+   x is now fitted from the book (*A line in the hand*); k occurs in the book (*kyrie*)
+   and can be fitted the same way. Then the letters with
    no Latin model in this hand: thorn, wynn, yogh and the insular forms (eth is written
    as d with đ's stroke). Old Icelandic needs þ, æ, y and k next: with them and the
    marks, most of its words can be written.

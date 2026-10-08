@@ -88,10 +88,10 @@ def parse(text):
 
 def fitted_set():
     """Characters and marks with fitted strokes: textura.py letters, the minim letters,
-    abbrev.py signs and marks, book_signs.py signs (ꝙ is not counted: the page writes quod
-    as q + a hook)."""
+    book_letters.py letters (x), abbrev.py signs and marks, book_signs.py signs (ꝙ is
+    not counted: the page writes quod as q + a hook)."""
     F = set("inmu") | {"ı"}     # the scribe's i carries no dot: it is the dotless i (0131)
-    for fn in ("hours_textura.json", "hours_signs.json", "hours_book_signs.json"):
+    for fn in ("hours_textura.json", "hours_book_letters.json", "hours_signs.json", "hours_book_signs.json"):
         p = OUT / fn
         if p.exists():
             F |= set(json.loads(p.read_text(encoding="utf-8")))

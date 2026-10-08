@@ -33,6 +33,8 @@ def build(hand_id, folios, manuscript="Clermont-Ferrand, Bibliothèque du Patrim
     minim = json.loads((OUT / "hours_minims.json").read_text(encoding="utf-8"))
     twist = json.loads((OUT / "hours_twist.json").read_text(encoding="utf-8"))
     letters = json.loads((OUT / "hours_textura.json").read_text(encoding="utf-8"))
+    if (OUT / "hours_book_letters.json").exists():          # letters f. 12r lacks, from the book (book_letters.py)
+        letters.update(json.loads((OUT / "hours_book_letters.json").read_text(encoding="utf-8")))
     signs = {}
     for fn in ("hours_signs.json", "hours_book_signs.json"):     # f. 12r's signs, then the book's
         if (OUT / fn).exists():
@@ -50,7 +52,8 @@ def build(hand_id, folios, manuscript="Clermont-Ferrand, Bibliothèque du Patrim
         terminal=twist["terminal"],
         minim=dict(module=minim["module"], rules=minim["rules"], tail=minim["tail"]),
         minim_offsets=SC.minim_offsets(found),
-        spacing=SC.with_book_spacing(SC.fit_spacing(SC.pairs(found))),
+        spacing=SC.load_ink_spacing(SC.with_book_spacing(SC.fit_spacing(SC.pairs(found)))),   # by the white between letters (lines.py)
+        word_space=SC.load_word_space(),
         letters=letters, signs=signs,
         biting=SC.load_biting(),          # how often neighbouring letters share a stroke (biting.py)
         anchors=SC.load_anchors(),        # where marks go on each letter, the marks, their placement (anchors.py)

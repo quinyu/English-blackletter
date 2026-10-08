@@ -11913,7 +11913,7 @@
 "letter": "X",
 "group": "Base characters",
 "pua": false,
-"class": "new"
+"class": "fitted"
 },
 {
 "cp": "0058",
@@ -11925,7 +11925,7 @@
 "letter": "X",
 "group": "Base characters",
 "pua": false,
-"class": "new"
+"class": "derived"
 },
 {
 "cp": "EEFA",
@@ -11937,7 +11937,7 @@
 "letter": "X",
 "group": "Base characters",
 "pua": true,
-"class": "new"
+"class": "derived"
 },
 {
 "cp": "EF11",
@@ -11949,7 +11949,7 @@
 "letter": "X",
 "group": "Base characters",
 "pua": true,
-"class": "new"
+"class": "derived"
 },
 {
 "cp": "02E3",
@@ -11961,7 +11961,7 @@
 "letter": "X",
 "group": "Base characters",
 "pua": false,
-"class": "new"
+"class": "derived"
 },
 {
 "cp": "AB57",
@@ -11973,7 +11973,7 @@
 "letter": "X",
 "group": "Base characters",
 "pua": false,
-"class": "new"
+"class": "composed"
 },
 {
 "cp": "E8BD",
@@ -11985,7 +11985,7 @@
 "letter": "X",
 "group": "Base characters",
 "pua": true,
-"class": "new"
+"class": "composed"
 },
 {
 "cp": "E8BE",
@@ -11997,7 +11997,7 @@
 "letter": "X",
 "group": "Base characters",
 "pua": true,
-"class": "new"
+"class": "composed"
 },
 {
 "cp": "E8CE",
@@ -12009,7 +12009,7 @@
 "letter": "X",
 "group": "Base characters",
 "pua": true,
-"class": "new"
+"class": "composed"
 },
 {
 "cp": "F7B3",
@@ -12021,7 +12021,7 @@
 "letter": "X",
 "group": "Base characters",
 "pua": true,
-"class": "new"
+"class": "derived"
 },
 {
 "cp": "0079",

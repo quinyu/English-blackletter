@@ -25,6 +25,7 @@
   "t",
   "u",
   "v",
+  "x",
   "đ",
   "ı",
   "ſ",
@@ -38,19 +39,19 @@
   "ꝯ"
  ],
  "classes": {
-  "fitted": 33,
+  "fitted": 34,
   "composed (anchored marks)": 258,
-  "composed": 19,
-  "derived": 650,
-  "new": 562
+  "composed": 23,
+  "derived": 655,
+  "new": 552
  },
  "by_section": {
   "1: Alphabetical characters": {
-   "fitted": 25,
-   "derived": 591,
-   "new": 230,
+   "fitted": 26,
+   "derived": 596,
+   "new": 220,
    "composed (anchored marks)": 222,
-   "composed": 11
+   "composed": 15
   },
   "2: Numbers": {
    "new": 43

@@ -222,11 +222,12 @@ def mark_strokes(mk, letters):
 # ---- drawing and reading anchors off the ink -------------------------------------------
 
 def writer(slant=0.0, anchors=None):
-    """The hand's writer (f. 12r's letters and spacing with the book's signs and biting)."""
+    """The hand's writer (f. 12r's letters with the book's letters, signs and biting; spaced
+    by the white between letters where lines.py has measured it)."""
     found = [f for f in json.loads((HERE / "data" / "hours_letters_found.json").read_text(encoding="utf-8"))["letters"]
              if not f.get("skipped")]
     minim = json.loads((OUT / "hours_minims.json").read_text(encoding="utf-8"))
-    return SC.Scribe(SC.load_letters(), minim, SC.with_book_spacing(SC.fit_spacing(SC.pairs(found))),
+    return SC.Scribe(SC.load_letters(), minim, SC.load_ink_spacing(SC.with_book_spacing(SC.fit_spacing(SC.pairs(found)))),
                      SC.minim_offsets(found), slant, biting=SC.load_biting(), anchors=anchors)
 
 
